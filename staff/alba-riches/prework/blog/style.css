@@ -1,0 +1,258 @@
+ * {
+     box-sizing: border-box;
+ }
+
+ .page {
+     width: 100%;
+     height: 103vh;
+     display: flex;
+     flex-direction: column;
+     gap: 2%;
+
+
+ }
+
+ .header {
+     width: 100%;
+     height: 5%;
+     border: 1px solid black;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     border-radius: 5%;
+     background-color: rgb(165, 165, 246);
+ }
+
+ .title {
+     width: 10%;
+     height: 100%;
+     border: 1px solid black;
+     background-color: bisque;
+
+ }
+
+ .navigation {
+     width: 20%;
+     height: 100%;
+     border: 1px solid black;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     background-color: bisque;
+
+
+ }
+
+ .iniciar-sesion {
+     width: 35%;
+     height: 100%;
+     border: 1px solid black;
+
+ }
+
+ .buscar {
+     width: 25%;
+     height: 100;
+     border: 1px solid black;
+ }
+
+ .main {
+     width: 100%;
+     height: 85%;
+     border: 1px solid black;
+     background-color: rgb(239, 195, 229);
+ }
+
+ .footer {
+     width: 10%;
+     height: 5%;
+     border: 1px solid black;
+     position: absolute;
+     left: 85%;
+
+     background-color: bisque;
+
+ }
+
+ .section-1 {
+     width: 70%;
+     height: 30%;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     gap: 2px;
+     border: 1px solid black;
+     border-radius: 5%;
+     display: flex;
+     flex-direction: row;
+     position: absolute;
+     left: 215px;
+     background-color: rgb(159, 205, 89);
+     gap: 4px;
+ }
+
+ .articulo-1 {
+     width: 33%;
+     height: 50%;
+     border: 1px solid black;
+     background-color: whitesmoke;
+ }
+
+ .articulo-2 {
+     width: 30%;
+     height: 70%;
+     border: 1px solid black;
+     background-color: whitesmoke;
+ }
+
+ .articulo-3 {
+     width: 33%;
+     height: 50%;
+     border: 1px solid black;
+     background-color: whitesmoke;
+ }
+
+ .section-2 {
+     width: 90%;
+     height: 40%;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     gap: 2px;
+     border: 1px solid black;
+     border-radius: 2%;
+     display: flex;
+     flex-direction: row;
+     position: absolute;
+     bottom: 60px;
+     left: 80px;
+     background-color: rgb(159, 205, 89);
+ }
+
+ .articulo-4 {
+     width: 30%;
+     height: 80%;
+     border: 1px solid black;
+     background-color: whitesmoke;
+ }
+
+ .articulo-5 {
+     width: 25%;
+     height: 65%;
+     border: 1px solid black;
+     background-color: whitesmoke;
+ }
+
+ .articulo-6 {
+     width: 20%;
+     height: 50%;
+     border: 1px solid black;
+     background-color: whitesmoke;
+ }
+
+ .articulo-7 {
+     width: 15%;
+     height: 35%;
+     border: 1px solid black;
+     background-color: whitesmoke;
+ }
+
+ .box-1 {
+     width: 100%;
+     height: 50%;
+     border: 1px solid black;
+     background-color: lightgray;
+
+
+ }
+
+ .box-2 {
+     width: 100%;
+     height: 50%;
+     border: 1px solid black;
+     background-color: lightgray;
+ }
+
+ .box-3 {
+     width: 100%;
+     height: 34%;
+     border: 1px solid black;
+     background-color: lightgray;
+ }
+
+ .box-4 {
+     width: 100%;
+     height: 33%;
+     border: 1px solid black;
+     background-color: lightgray;
+ }
+
+ .box-5 {
+     width: 100%;
+     height: 33%;
+     border: 1px solid black;
+     background-color: lightgray;
+ }
+
+ .box-6 {
+     width: 100%;
+     height: 25%;
+     border: 1px solid black;
+     background-color: rgb(127, 127, 227)
+ }
+
+ .box-7 {
+     width: 100%;
+     height: 25%;
+     border: 1px solid black;
+     background-color: lightgray;
+ }
+
+ .box-8 {
+     width: 100%;
+     height: 25%;
+     border: 1px solid black;
+     background-color: lightgray;
+ }
+
+ .box-9 {
+     width: 100%;
+     height: 25%;
+     border: 1px solid black;
+     background-color: lightgray
+ }
+
+ .box-10 {
+     width: 100%;
+     height: 20%;
+     border: 1px solid black;
+     background-color: rgb(127, 127, 227)
+ }
+
+ .box-11 {
+     width: 100%;
+     height: 20%;
+     border: 1px solid black;
+     background-color: lightgray;
+ }
+
+ .box-12 {
+     width: 100%;
+     height: 20%;
+     border: 1px solid black;
+     background-color: lightgray;
+ }
+
+ .box-13 {
+     width: 100%;
+     height: 20%;
+     border: 1px solid black;
+     background-color: lightgray
+ }
+
+ .box-14 {
+     width: 100%;
+     height: 20%;
+     border: 1px solid black;
+     background-color: lightgray
+ }
