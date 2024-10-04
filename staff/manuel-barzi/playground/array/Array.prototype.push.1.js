@@ -17,12 +17,3 @@ console.log(chars)
 // ['A', 'B', 'C', 'D', 'E', 'F'] (6)
 console.log(length)
 // 6
-
-console.log('CASE add many elements in one call')
-
-var colors = ['red', 'green', 'blue', 'magenta']
-var length = colors.push('cyan', 'yellow', 'orange', 'pink')
-console.log(colors)
-// ['red', 'green', 'blue', 'magenta', 'cyan', 'yellow', 'orange', 'pink']
-console.log(length)
-// 8
