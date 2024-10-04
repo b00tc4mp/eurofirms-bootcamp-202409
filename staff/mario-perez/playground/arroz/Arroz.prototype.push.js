@@ -1,8 +1,11 @@
 var Arroz = function () { this.length = 0 }
 
 Arroz.prototype.push = function (element) {
-    this[this.length] = element
-    this.length++ //this.length = this.length + 1
+    for (var i = 0; i < arguments.length; i++) {
+        var element = arguments[i]
+        this[this.length] = element
+        this.length++ //this.length = this.length + 1
+    }
     return this.length
 }
 
@@ -37,3 +40,18 @@ console.log(chars)
 // Arroz {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', length: 6 }
 console.log(length)
 // 6
+
+console.log('CASE add many elements in one all')
+
+var colors = new Arroz
+colors[0] = 'red'
+colors[1] = 'green'
+colors[1] = 'blue'
+colors[1] = 'magenta'
+colors.length = 4
+
+var length = colors.push('cyan', 'yellow', 'orange', 'pink')
+console.log(colors)
+// Arroz { 0: 'red', 1: 'green', 2: 'blue', 3: 'magenta', 4: 'cyan', 5: 'yellow', 6: 'orange', 7: 'pink', length: 8 }
+console.log(length)
+// 8

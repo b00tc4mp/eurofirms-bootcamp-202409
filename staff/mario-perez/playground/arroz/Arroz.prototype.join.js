@@ -1,7 +1,8 @@
 var Arroz = function () { this.length = 0 }
 
 Arroz.prototype.join = function (separator = ", ") { // objeto.join() llamará a objeto.prototype.join
-    var values = 0;
+    //separator es el parametro opcional
+    var values = '';
     //recorremos el objeto arroz con un for
     for (var i = 0; i < this.length; i++) {
         if (i == this.length - 1) {

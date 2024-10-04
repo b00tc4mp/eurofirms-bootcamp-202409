@@ -23,6 +23,20 @@ plants[2] = 'cabbage'
 plants[3] = 'kale'
 plants[4] = 'tomato'
 plants.length = 5
+
+
+/* var comida = new Arroz
+comida[0] = 'broccoli'
+comida[1] = 'cauliflower'
+comida[2] = 'cabbage'
+comida[3] = 'kale'
+comida[4] = 'tomato'
+comida.length = 5 */
+
+
+
+
+
 var plant = plants.pop()
 console.log(plants)
 // Arroz { 0: 'broccoli', 1: 'cauliflower', 2: 'cabbage', 3: 'kale', length: 4 }
