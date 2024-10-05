@@ -75,3 +75,5 @@ cars.length = 6
 var contains = cars.includes('lambo', 1)
 console.log(contains)
 // true
+
+// TODO add negative index (offset) test case

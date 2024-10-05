@@ -20,3 +20,5 @@ var cars = ['lambo', 'cinquecento', 'fiesta', 'm5']
 var contains = cars.includes('lambo', 1)
 console.log(contains)
 // false
+
+// TODO add negative index (offset) test case
