@@ -43,7 +43,7 @@ console.log(chars)
 console.log(length)
 // 6
 
-console.log('CASE add many elements in one call')
+console.log('CASE add 4 elements in one call')
 
 var colors = new Arroz
 colors[0] = 'red'
@@ -56,3 +56,17 @@ console.log(colors)
 // Arroz { 0: 'red', 1: 'green', 2: 'blue', 3: 'magenta', 4: 'cyan', 5: 'yellow', 6: 'orange', 7: 'pink', length: 8 }
 console.log(length)
 // 8
+
+console.log('CASE add 7 elements in one call')
+
+var colors = new Arroz
+colors[0] = 'red'
+colors[1] = 'green'
+colors[2] = 'blue'
+colors[3] = 'magenta'
+colors.length = 4
+var length = colors.push('cyan', 'yellow', 'orange', 'pink', 'brown', 'white', 'black')
+console.log(colors)
+// Arroz { 0: 'red', 1: 'green', 2: 'blue', 3: 'magenta', 4: 'cyan', 5: 'yellow', 6: 'orange', 7: 'pink', 8: 'brown', 9: 'white', 10: 'black', length: 11 }
+console.log(length)
+// 11
