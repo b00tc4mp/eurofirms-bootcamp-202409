@@ -1,9 +1,9 @@
 var Arroz = function () { this.length = 0 }
 
-Arroz.prototype.indexOf = function (element, fromIndex = 0) { // objeto.indexOf() llamará a objeto.prototype.indexOf
+Arroz.prototype.indexOf = function (element, fromIndex) { // objeto.indexOf() llamará a objeto.prototype.indexOf
     // recorremos el objeto arroz con un for
-    if (fromIndex === 0) {
-        console.log('FromIndex vale 0')
+    if (fromIndex === undefined) {
+        console.log('No se envía fromIndex')
         for (var i = 0; i < this.length; i++) {
             // si element corresponde con el elemento de la posicion i devolvemos i
             // si no lo encuentra en el objeto retorna -1

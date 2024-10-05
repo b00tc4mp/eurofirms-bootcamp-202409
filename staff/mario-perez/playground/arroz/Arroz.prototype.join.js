@@ -5,13 +5,13 @@ Arroz.prototype.join = function (separator = ", ") { // objeto.join() llamará a
     var values = '';
     //recorremos el objeto arroz con un for
     for (var i = 0; i < this.length; i++) {
-        if (i == this.length - 1) {
+        if (i == this.length - 1) { //i es la última posición
             values += this[i]
         } else {
-            values += this[i] + separator
+            values += this[i] + separator // como hay más elementos por delante, pongo separator para separarlos
         }
     }
-    return values
+    return values //devuelvo la cadena
 }
 
 var arroz = new Arroz
@@ -36,3 +36,6 @@ console.log(arroz.join(''));
 
 console.log(arroz.join('-'));
 // "1-2-3-4-5"
+
+console.log(arroz.join('//'))
+// 1//2//3//4//5
