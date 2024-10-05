@@ -5,9 +5,12 @@ Arroz.prototype.includes = function (element) { // objeto.includes() llamará a 
     for (var i = 0; i <= this.length; i++) {
         if (this[i] === element) {
             return true;
+        } else {
+            if (i === this.length) {
+                return false;
+            }
         }
     }
-    return false
 }
 
 var arroz = new Arroz
