@@ -16,6 +16,10 @@ arroz2[0] = 0
 arroz2.length = 1
 
 
+
+
+
+
 console.log('TEST Arroz.prototype.concat')
 
 console.log("CASE return an new  Aroz with two arrays")
