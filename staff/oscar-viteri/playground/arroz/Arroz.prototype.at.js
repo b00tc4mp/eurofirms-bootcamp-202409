@@ -1,36 +1,103 @@
 var Arroz = function () { this.length = 0 }
 
-Arroz.prototype.at = function (element) {
-    var adjustedElement = element >= 0 ? index : this.length + index;
-    if (adjustedElement < 0 || adjustedElement >= this.length) {
-        return undefined;
-    }
-    return this[adjustedElement];
+Arroz.prototype.at = function (index) {
+    if (index > -1) // index > -1
+        return this[index]
+    else
+        return this[this.length + index]
 }
 
-console.log('TEST Arroz.prototype.at');
+console.log('TEST Arroz.prototype.at')
 
-console.log('CASE resibe un valor numerico entero y devuelve el elemento en esa posicion')
+console.log('CASE get element at index 2')
 
-var animals = new Arroz();
-animals[0] = 'elephant';
-animals[1] = 'shark';
-animals[2] = 'eagle';
-animals[3] = 'snake';
-animals[4] = 'frog';
-animals.length = 5
 
-var firstAnimal = animals.at(0);
-console.log(firstAnimal)
-// 'elephant'
+var things = new Arroz
+things[0] = 100
+things[1] = true
+things[2] = 'hola mundo'
+things[3] = { a: 1, b: 2, c: 3 }
+things[4] = null
+things[5] = undefined
+things[6] = function () { return 'hello world' }
+things.length = 7
+var element = things.at(2)
+console.log('at index 2->', element)
+// hola mundo
 
-var lastAnimal = animals.at(-1)
-console.log(lastAnimal)
-// 'frog'
+console.log('CASE get element at index 3')
 
-var outOfRAnge = animals.at(5)
-console.log(outOfRAnge)
+var things = new Arroz
+things[0] = 100
+things[1] = true
+things[2] = 'hola mundo'
+things[3] = { a: 1, b: 2, c: 3 }
+things[4] = null
+things[5] = undefined
+things[6] = function () { return 'hello world' }
+things.length = 7
+var element = things.at(3)
+console.log('at index 3->', element)
+// { a: 1, b: 2, c: 3 }
+
+console.log('CASE get element at offset -1')
+
+var things = new Arroz
+things[0] = 100
+things[1] = true
+things[2] = 'hola mundo'
+things[3] = { a: 1, b: 2, c: 3 }
+things[4] = null
+things[5] = undefined
+things[6] = function () { return 'hello world' }
+things.length = 7
+var element = things.at(-1)
+console.log('at offset -1->', element)
+// function () { return 'hello world }
+console.log('open function->', element())
+// hello world
+
+console.log('CASE get element at offset -3')
+
+var things = new Arroz
+things[0] = 100
+things[1] = true
+things[2] = 'hola mundo'
+things[3] = { a: 1, b: 2, c: 3 }
+things[4] = null
+things[5] = undefined
+things[6] = function () { return 'hello world' }
+things.length = 7
+var element = things.at(-3)
+console.log('at offset -3 ->', element)
+// null
+
+console.log('CASE get element at 1000')
+
+var things = new Arroz
+things[0] = 100
+things[1] = true
+things[2] = 'hola mundo'
+things[3] = { a: 1, b: 2, c: 3 }
+things[4] = null
+things[5] = undefined
+things[6] = function () { return 'hello world' }
+things.length = 7
+var element = things.at(1000)
+console.log('at index 1000->', element)
 // undefined
 
-var negativeOutOfRange = animals.at(-6)
+console.log('CASE get element at -1000')
+
+var things = new Arroz
+things[0] = 100
+things[1] = true
+things[2] = 'hola mundo'
+things[3] = { a: 1, b: 2, c: 3 }
+things[4] = null
+things[5] = undefined
+things[6] = function () { return 'hello world' }
+things.length = 7
+var element = things.at(-1000)
+console.log('at index -1000 ->', element)
 // undefined
