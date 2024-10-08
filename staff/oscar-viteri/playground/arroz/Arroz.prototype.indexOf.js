@@ -1,41 +1,99 @@
 var Arroz = function () { this.length = 0 }
+Arroz.prototype.indexOf = function (searchElement, fromIndex) {
 
-Arroz.prototype.indexOf = function (element) {
-    // retornar el primer indice en el que encuentre  el elemento
-    // si no lo encuentro retorno -1
-    // comprobar si las posiciones son el elemento que queremos buscar
-    for (var i = 0; i < this.length; i++) {
-        if (element === this[i])
-            return i//retornamos la primera posicion donde se encontro
+    var i
+
+    if (fromIndex === undefined)
+        i = 0
+    else if (fromIndex < 0)
+        i = this.length + fromIndex
+    else
+        i = fromIndex
+    for (; i < this.length; i++) {
+        var element = this[i]
+        if (element === searchElement)
+            return i
     }
+
     return -1
 }
 
-var students = new Arroz
+console.log('TEST Array.prototype.indexOf')
 
-students[0] = 'luis f'
-students[1] = 'mario'
-students[2] = 'oscar'
-students[3] = 'rosana'
-students[4] = 'herminia'
-students[5] = 'roberto'
-students[6] = 'efren'
-students[7] = 'mario'
-students[8] = 'tea'
-students.length = 9
+console.log('CASE get index of bison')
 
-console.log('CASO 1: encontrar a oscar y devolver su posicion en students')
+var beasts = new Arroz
+beasts[0] = 'ant'
+beasts[1] = 'bison'
+beasts[2] = 'camel'
+beasts[3] = 'duck'
+beasts[4] = 'bison'
+beasts.length = 5
+var index = beasts.indexOf('bison')
+console.log(index);
+// 1
 
-console.log('primera posicion de oscar', students.indexOf('oscar'))
-//resultado esperado ->2<-
+console.log('CASE get index of bison stating at index 2')
 
-console.log('CASO 2: encontrar a joserra en students')
+var beasts = new Arroz
+beasts[0] = 'ant'
+beasts[1] = 'bison'
+beasts[2] = 'camel'
+beasts[3] = 'duck'
+beasts[4] = 'bison'
+beasts.length = 5
+var index = beasts.indexOf('bison', 2)
+console.log(index);
+// 4
 
-console.log('primera posicion de joserra', students.indexOf('joserra'))
-//resultado esperado ->-1<- como no esta deberia de ser -1
+console.log('CASE get index of giraffe')
 
-console.log('CASO 3: buscar a mario en students')
+var beasts = new Arroz
+beasts[0] = 'ant'
+beasts[1] = 'bison'
+beasts[2] = 'camel'
+beasts[3] = 'duck'
+beasts[4] = 'bison'
+beasts.length = 5
+var index = beasts.indexOf('giraffe')
+console.log(index);
+// -1
 
-console.log('primera posicion de mario', students.indexOf('mario'))
-//resultado esperado ->0<- aunque este repetido como la posicion es 0
-//el resultado esperado es ->0<-- 
+console.log('CASE get index of giraffe starting at offset -4')
+
+var beasts = new Arroz
+beasts[0] = 'ant'
+beasts[1] = 'bison'
+beasts[2] = 'camel'
+beasts[3] = 'duck'
+beasts[4] = 'bison'
+beasts.length = 5
+var index = beasts.indexOf('giraffe', -4)
+console.log(index);
+// -1
+
+console.log('CASE get index of duck starting at offset -4')
+
+var beasts = new Arroz
+beasts[0] = 'ant'
+beasts[1] = 'bison'
+beasts[2] = 'camel'
+beasts[3] = 'duck'
+beasts[4] = 'bison'
+beasts.length = 5
+var index = beasts.indexOf('duck', -4)
+console.log(index);
+// 3
+
+console.log('CASE get index of duck starting at offset -3')
+
+var beasts = new Arroz
+beasts[0] = 'ant'
+beasts[1] = 'bison'
+beasts[2] = 'camel'
+beasts[3] = 'duck'
+beasts[4] = 'bison'
+beasts.length = 5
+var index = beasts.indexOf('bison', -3)
+console.log(index);
+// 4

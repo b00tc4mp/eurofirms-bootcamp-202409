@@ -1,27 +1,53 @@
 var Arroz = function () { this.length = 0 }
 
-Arroz.prototype.includes = function (element) {
-    /*
-    verificar si existe un elemento en arroz
-*/
+Arroz.prototype.includes = function (searchElement) {
     for (var i = 0; i < this.length; i++) {
-        if (this[i] === element) {
-            return true; //retorna true si se encuentra el elemento
-        }
+        var element = this[i]
+
+        if (element === searchElement)
+            return true
     }
-    return false; //retorna false si no se encuentra el elemento
+
+    return false
+
 }
 
-var fruits = new Arroz
-fruits[0] = 'apple'
-fruits[1] = 'banana'
-fruits[2] = 'orange'
-fruits[3] = 'grape'
-fruits[4] = 'mango'
-fruits[5] = 'pineapple'
-fruits.length = 6 // longitud del Arroz
+console.log('TEST Arroz.prototype.includes')
 
-console.log('true si se encuentra el elemento->', fruits.includes('banana'))
-//true
-console.log('false si no se encuentra el elemento->', fruits.includes('kiwi'))
+console.log('CASE check cars includes ferrari')
+
+var cars = new Arroz
+cars[0] = 'lambo'
+cars[1] = 'cinquecento'
+cars[2] = 'fiesta'
+cars[3] = 'm5'
+cars.length = 4
+var contains = cars.includes('ferrari')
+console.log('includes ferrari->', contains)
 //false
+
+console.log('CASE check cars includes fiesta')
+
+var cars = new Arroz
+cars[0] = 'lambo'
+cars[1] = 'cinquecento'
+cars[2] = 'fiesta'
+cars[3] = 'm5'
+cars.length = 4
+var contains = cars.includes('fiesta')
+console.log('includes fiesta->', contains)
+//true
+
+console.log('CASE check cars includes fiesta(2)')
+
+var cars = new Arroz
+cars[0] = 'lambo'
+cars[1] = 'cinquecento'
+cars[2] = 'fiesta'
+cars[3] = 'm5'
+cars[4] = 'fiesta'
+cars[5] = 'm5'
+cars.length = 4
+var contains = cars.includes('fiesta')
+console.log('includes fiesta(2)->', contains)
+//true
