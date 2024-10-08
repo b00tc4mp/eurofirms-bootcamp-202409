@@ -42,6 +42,7 @@ var night = { marca: "berlin", talla: 41, precio: 88 };
 var sport = { marca: 'adidas', talla: 39, precio: 75 };
 var all = [party, night, sport];
 var extraerUltimo = all.pop();
+console.log(all)
 console.log(extraerUltimo);
 
 
@@ -49,7 +50,6 @@ console.log(extraerUltimo);
 // my cars
 
 var car = ['opel', 'peugeot', 'ford', 'porch', 'mercedes'];
-console.log(car);
 var carNonMercedes = car.pop();
 console.log(carNonMercedes);
 

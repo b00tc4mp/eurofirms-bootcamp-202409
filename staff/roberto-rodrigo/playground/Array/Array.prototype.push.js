@@ -20,3 +20,32 @@ console.log(chars);
 console.log(lenght);
 // 6
 
+console.log('CASE add many elements in one call')
+
+var colors = ['red', 'green', 'blue', 'magenta']
+var length = colors.push('cyan', 'yellow', 'orange', 'pink')
+console.log(colors)
+// ['red'. 'green', 'blue', 'magenta', 'cyan', 'yellow', 'orange', 'pink,]
+console.log(length)
+// 8
+
+// a partir de abajo lo he hecho yo
+
+console.log('TEST Array.prototype.push')
+
+console.log('CASO añadir leopardo al zoo')
+
+var zoo = ['elefante', 'leon', 'lobo', 'oso']
+var length = zoo.push('leopardo')
+console.log(zoo)
+console.log(length)
+
+
+console.log('CASO añadir mas coches al garaje')
+
+var garaje = ['citroen', 'audi', 'bmw', 'opel']
+var lenght = garaje.push('opel', 'porch', 'mercedes')
+console.log(garaje)
+console.log(lenght)
+
+

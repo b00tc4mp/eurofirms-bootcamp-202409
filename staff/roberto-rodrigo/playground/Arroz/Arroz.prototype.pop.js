@@ -1,6 +1,4 @@
 var Arroz = function () { this.length = 0 }
-//esta ok. Volver a hacerlo con el video
-
 
 Arroz.prototype.pop = function () {
     /*
