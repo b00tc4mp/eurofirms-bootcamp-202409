@@ -1,18 +1,29 @@
-console.log('TEST Array.prototype.join)
+console.log('TEST Array.prototype.join')
 
-console.log('CASE unir elementos de un array')
+console.log('CASE join elements of an array')
 
-var shoppingList = [
-    { item: 'Apples', quantity: 5 },
-    { item: 'Bananas', quantity: 3 },
-    { item: 'Carrots', quantity: 4 },
-    { item: 'Bread', quantity: 2 },
-    { item: 'Eggs', quantity: 12 }
-]
+var shoppingList = ['Apples', 'Bananas', 'Carrots', 'Bread', 'Eggs', 'Orange', 'Mango', 'Peach']
+var List = shoppingList.join(' ')
+console.log(List)
+// Apples Banana Carrots Bread Eggs Orange Mango Peach
 
-var completeList = [
-    { item: 'Orange', quantity: 10 },
-    { item: 'Mango', quantity: 6 },
-    { item: 'Peach', quantity: 2 }
-]
-var completeList = shoppingList.join(completeList)
+console.log('CASE join with-> y')
+
+var shoppingList = ['Apples', 'Bananas', ' Carrots', 'Bread', 'Eggs', 'Orange', 'Mango', 'Peach']
+var List = shoppingList.join(' y ')
+console.log(List)
+// Apples y Banana y Carrots y Bread y Eggs y Orange y Mango y Peach
+
+console.log('CASE join with-> -')
+
+var shoppingList = ['Apples', 'Bananas', 'Carrots', 'Bread', 'Eggs', 'Orange', 'Mango', 'Peach']
+var List = shoppingList.join(' - ')
+console.log(List)
+// Apples - Banana - Carrots - Bread - Eggs - Orange - Mango - Peach
+
+console.log('CASE join with-> >')
+
+var shoppingList = ['Apples', 'Bananas', 'Carrots', 'Bread', 'Eggs', 'Orange', 'Mango', 'Peach']
+var list = shoppingList.join(' > ')
+console.log(list)
+// Apples > Bananas > Carrots > Bread > Eggs > Orange > Mango > Peach
