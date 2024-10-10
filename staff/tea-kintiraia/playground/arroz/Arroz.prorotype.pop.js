@@ -6,6 +6,7 @@ Array.prototype.pop = function () {
     delete last element from arroz
     decrement arroz length by 1
     return extracted element
+    
     */
 
     var last = this[this.length - 1]
@@ -50,3 +51,19 @@ Arroz {
 */
 console.log(extracted)
 // { brand: 'Puma', size: 44, price: 50 }
+
+
+console.log('CASE extract fish from products')
+
+var products = new Arroz
+
+products[0] = 'meat',
+pruducts[1] = 'fish',
+products[2] = 'fruits',
+products[3] = 'vegetavles',
+products.length = 4
+var product = products.pop()
+console.log(products)
+// { 0: 'meat', 1:'fruits', 2: 'vegetables', length: 3)
+
+var unisexClothes = clothes.slice(1, 3)
