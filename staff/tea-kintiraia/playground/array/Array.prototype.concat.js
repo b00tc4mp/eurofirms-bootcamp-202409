@@ -1,3 +1,5 @@
+
+
 Array.prototype.concat()
 
 var array1 = ['any', 'some', 'none', 'lot'];
@@ -10,3 +12,4 @@ const array3 = array1.concat(array2);
 
 console.log(array3);
 //La respuesta esperada: Array ['any', 'some', 'none', 'lot', 10, 11, 12, 13]
+

@@ -73,3 +73,4 @@ var things = [100, true, 'hola mundo', {a:1, b:2, c:3}, null, underfined, functi
 var element = things.at(-1000)
 console.log(element)
 //underfined
+4
