@@ -1,29 +1,52 @@
-//revisar y preguntar el último caso: no existe en la documentación
+var Arroz = function () { this.length = 0 }
 
-console.log('TEST Array.prototype.slice')
+Arroz.prototype.slice = function (start, end) {
+    //devuelve una parte del array dentro de uno nuevo empezando por inicio hasta fin (fin no incluido).
+    var segmento = []
+    var total = end - start
+    //var contador = 0
+    for (var i = 0; i < total; i++) {
+        segmento[i] = this[start + i]
+        //contador++
+    }
+    return segmento
+}
 
-console.log("CASE start position is 0 and end position is 6")
+console.log('TEST Arroz.prototype.slice')
 
-var arr = [100, 200, 300, 400, 300, 800, 800]
+console.log('CASE  parameters is 1 and 4')
 
-console.log(arr.slice(0, 6))
-// [100, 200, 300, 400, 300, 800]
+var arroz = new Arroz
 
-console.log("CASE start position is 2 and end position is -3")
+arroz[0] = 0
+arroz[1] = 1
+arroz[2] = 2
+arroz[3] = 3
+arroz[4] = 4
+arroz[5] = 5
+arroz[6] = "Taenla"
+arroz[7] = "Jocker"
+arroz.length = 8
 
-var arr = [100, 200, 300, 400, 300, 800, 800]
-
-console.log(arr.slice(2, -3))
-// [300, 400]
-
-console.log("CASE start position is -2 and end position is 5")
-
-var arr = [100, 200, 300, 400, 300, 800, 800]
-
-console.log(arr.slice(-2, 5))
-// []
+console.log(arroz.slice(1, 4))
 
 
+console.log('CASE  parameters is 2 and 7')
+
+var arroz = new Arroz
+
+arroz[0] = 0
+arroz[1] = 1
+arroz[2] = 2
+arroz[3] = 3
+arroz[4] = 4
+arroz[5] = 5
+arroz[6] = "Taenla"
+arroz[7] = "Jocker"
+arroz[8] = "AAAAA"
+arroz.length = 9
+
+console.log(arroz.slice(2, 7))
 
 
 
