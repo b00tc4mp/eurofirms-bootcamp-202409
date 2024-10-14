@@ -35,7 +35,7 @@
             <button type="submit">Register</button>
         </form>
 
-        <p>Error ...</p>
+        <p></p>
 
         <a href="">Login</a>
     </section>
@@ -50,10 +50,10 @@
             <label for="password">Password</label>
             <input type="password" nid=password>
 
-            <button type="submit">LOgin</button>
+            <button type="submit">Login</button>
         </form>
 
-        <p>Error ...</p>
+        <p></p>
 
         <a href="">Register</a>
     </section>
@@ -61,13 +61,17 @@
     <section>
         <h2>Home</h2>
 
-        <p>Hello, User!</p>
+        <h3>Hello, User!</h3>
 
         <button>Logout</button>
     </section>
 
     <script>
         var users = []
+
+        users[0] = { name: 'Ji Rafa', email: 'ji@rafa.com', username: 'jirafa', password: '123123123' }
+        users[1] = { name: 'Ele Fante', email: 'ele@fante.com', username: 'elefante', password: '123123123' }
+        users[2] = { name: 'Coco Drilo', email: 'coco@drilo.com', username: 'cocodrilo', password: '123123123' }
 
         var sections = document.querySelectorAll('section')
 
@@ -95,10 +99,10 @@
         welcomeLoginLink.addEventListener('click', function
             (event) {
                 event.preventDefault()
+
             welcomeSection.style.display = 'none'
             loginSection.style.display = ''
         })
-
 
         var registerLinks = registerSection.querySelectorAll('a')
 
@@ -141,19 +145,77 @@
             var username = registerFormUsernameInput.value
             var password = registerFormPasswordInput.value
 
+            var user = users.find(function (user) {
+                return user.email === email || user.username === username
+            })
+
+            var feedback = registerSection.querySelector('p')
+
+            if (user !== undefined) {
+                feedback.innerText = 'user already exists'
+
+                return
+            }
+
             var user = {}
             user.name = name
             user.email = email
             user.username = username
             user.password = password
 
-            users.push(user)
+            user.push(user)
 
             registerForm.reset()
+            feedback.innerText = ''
 
             registerSection.style.display = 'none'
             loginSection.style.display = ''
         })
+
+        var loginForm = loginSection.querySelector('form')
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+
+            var loginFormInputs = loginForm.queryselectorAll('input')
+
+            var loginFormUsernameInput = loginFormInputs[0]
+            var loginFormPasswordInput = loginFormInputs[1]
+
+            var username = loginFormUsernameInput.value
+            var password = loginFormPasswordInput.value
+
+            var user = users.find(function (user) {
+                return user.username === username && user.password === password
+            })
+
+            var feedback = loginSection.querySelector('p')
+
+            if (user === undefined) {
+                feedback.innerText = 'wrong credentials'
+
+                return
+            }
+
+            loginForm.reset()
+            feedback.innerText = ''
+
+            loginSection.style.display = 'none'
+            homeSection.style.display = ''
+
+            var userTitle = homeSection.querySelector('h3')
+            userTitle.innerText = 'Hello,' + user.name + '!'
+
+        })
+        var logoutButton = homeSection.querySelector('button')
+
+        logoutButton.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            homeSection.style.display = 'none'
+            loginSection.style.display = ''
+        })
+
     </script>
 </body>
 
