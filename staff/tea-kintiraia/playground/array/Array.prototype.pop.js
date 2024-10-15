@@ -25,3 +25,12 @@ console.log(cart)
 */
 console.log(extracted)
 // { brand: 'Puma', size: 44, price: 50 }
+
+// mi ejemplo>>>>>>>
+console.log('CASE extract a coat from myCloset')
+var myCloset = ['jacket','coat', 'jersey', 'shirt', 'dress']
+var extracted = myCloset.pop()
+console.log(myCloset)
+// ['jacket', 'jersey', 'shirt', 'dress']
+
+
