@@ -13,7 +13,7 @@ console.log('CASE extract last item from cart')
 
 var socks = { brand: 'Adidas', size: 'L', price: '10' }
 var tshirt = { brand: 'Nike', size: 'L', prize: '20' }
-var shoes = { brand: 'Puma', size: '44', prize: '30' }
+var shoes = { brand: 'Puma', size: '44', prize: '50' }
 var cart = [socks, tshirt, shoes]
 var extracted = cart.pop()
 console.log(cart)
@@ -24,4 +24,5 @@ console.log(cart)
 ]
 */
 console.log(extracted)
-// { brand: 'Puma', size: '44', prize: '30' }
+// { brand: 'Puma', size: '44', prize: '50' }
+
