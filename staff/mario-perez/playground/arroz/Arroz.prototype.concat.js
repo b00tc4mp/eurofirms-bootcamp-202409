@@ -1,19 +1,30 @@
 var Arroz = function () { this.length = 0 }
 
-Arroz.prototype.concat = function (arroz) { // objeto.contact() llamará a objeto.prototype.concat
+Arroz.prototype.concat = function (element) { // objeto.concat() llamará a objeto.prototype.concat
+    var nuevoArray = new Arroz
     // recorremos el objeto arroz con un for
-    for (var i = 0; i < arroz.length; i++) {
+    for (var i = 0; i < this.length; i++) {
         //metemos al final el elemento del arroz nuevo en la posicion i
-        this[i] = arroz[i]
-        this.length++
+        nuevoArray[i] = this[i]
+        nuevoArray.length++
     }
-    return this
+    for (var i = 0; i < element.length; i++) {
+        //metemos al final el elemento del arroz nuevo en la posicion i
+        nuevoArray[nuevoArray.length] = element[i]
+        nuevoArray.length++
+    }
+    return nuevoArray;
 }
 var arroz = new Arroz
 var arroz2 = new Arroz
 
 arroz2[0] = 0
 arroz2.length = 1
+
+arroz[0] = 0
+arroz.length = 1
+
+
 
 
 
