@@ -1,3 +1,25 @@
+// data
+
+var users = []
+
+users[0] = { name: 'Ji Rafa', email: 'ji@rafa.com', username: 'jirafa', password: '123123123' }
+users[1] = { name: 'Ele Fante', email: 'ele@fante.com', username: 'elefante', password: '123123123' }
+users[2] = { name: 'Coco Drilo', email: 'coco@drilo.com', username: 'cocodrilo', password: '123123123' }
+
+// business (logic)
+
+function authenticateUser(username, password) {
+    var user = users.find(function (user) {
+        return user.username === username && user.password === password
+    })
+
+    if (user === undefined) throw new Error('wrong credentials')
+
+    return user
+}
+
+// presentation
+
 var sections = document.querySelectorAll('section')
 
 var welcomeSection = sections[0]
@@ -67,21 +89,31 @@ registerForm.addEventListener('submit', function (event) {
     var username = registerFormUsernameInput.value
     var password = registerFormPasswordInput.value
 
+    var user = users.find(function (user) {
+        return user.email === email || user.username === username
+    })
+
     var feedback = registerSection.querySelector('p')
 
-    try {
-        registerUser(name, email, username, password)
+    if (user !== undefined) {
+        feedback.innerText = 'user already exists'
 
-        registerForm.reset()
-        feedback.innerText = ''
-
-        registerSection.style.display = 'none'
-        loginSection.style.display = ''
-    } catch (error) {
-        feedback.innerText = error.message
-
-        console.error(error)
+        return
     }
+
+    var user = {}
+    user.name = name
+    user.email = email
+    user.username = username
+    user.password = password
+
+    users.push(user)
+
+    registerForm.reset()
+    feedback.innerText = ''
+
+    registerSection.style.display = 'none'
+    loginSection.style.display = ''
 })
 
 var loginForm = loginSection.querySelector('form')
