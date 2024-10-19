@@ -24,13 +24,6 @@ arroz2.length = 1
 arroz[0] = 0
 arroz.length = 1
 
-
-
-
-
-
-
-
 console.log('TEST Arroz.prototype.concat')
 
 console.log("CASE return an new  Aroz with two arrays")

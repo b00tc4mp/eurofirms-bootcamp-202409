@@ -6,7 +6,7 @@ por la función proporcionada.
 var Arroz = function () { this.length = 0 }
 
 Arroz.prototype.some = function (callbackFunction) {
-    for (i = 0; i < this.length; i++) {
+    for (var i = 0; i < this.length; i++) {
         if (callbackFunction(this[i])) {
             return true
         }
@@ -16,31 +16,84 @@ Arroz.prototype.some = function (callbackFunction) {
 
 console.log('TEST Arroz.prototype.some')
 
-console.log('CASE return the element in position of parameter function')
+console.log("CASE some element is more than 250 and less than 412")
 
-var numbers = new Arroz
-numbers[0] = 400
-numbers[1] = 6000
-numbers[2] = 20
-numbers[3] = 4444
-numbers[4] = 1
-numbers.length = 5
+var nums = new Arroz
+nums[0] = 100
+nums[1] = 200
+nums[2] = 300
+nums[3] = 400
+nums[4] = 300
+nums[5] = 800
+nums[6] = 800
+nums.length = 7
 
-function method(element) {
-    return element > 4400 && element < 5454
+//callbackFunction
+
+var checkMoreThan250AndLessThan412 = function (element) {
+    return element > 250 && element < 412
 }
 
-console.log(numbers.find(method))
-// 4444
+console.log(nums.some(checkMoreThan250AndLessThan412))
+// true
 
+console.log("CASE element is more than 801")
 
-console.log('CASE find an element that is not a number ')
+var nums = new Arroz
+nums[0] = 100
+nums[1] = 200
+nums[2] = 300
+nums[3] = 400
+nums[4] = 300
+nums[5] = 800
+nums[6] = 800
+nums.length = 7
 
-console.log(numbers.find(function (element) {
-    if (typeof element !== 'number') {
-        return true
-    }
-    return false
-}))
+//function
 
+var checkMoreThan801 = function (element) {
+    return element > 801
+}
+
+console.log(nums.some(checkMoreThan801))
 // false
+
+console.log('CASE find if exist fruits with the letter M or m ')
+
+var fruits = new Arroz
+fruits[0] = 'Banana'
+fruits[1] = 'Mango'
+fruits[2] = 'Piña'
+fruits[3] = 'Fresa'
+fruits[4] = 'Manzana'
+fruits.length = 5
+
+var exists = fruits.some(function (fruit) {
+    //if (fruit.includes('M') || fruit.includes('m'))
+    //    return true
+    return fruit.includes('M') || fruit.includes('m')
+})
+
+console.log(exists)
+// true
+
+console.log('CASE find Nokia')
+
+var phones = new Arroz
+phones[0] = { brand: 'Blackberry', color: 'black', type: 'phone' }
+phones[1] = { brand: 'Motorola', color: 'white', type: 'phone' }
+phones[2] = { brand: 'Nokia', color: 'red', type: 'phone' }
+phones[3] = { brand: 'iphone', color: 'pink', type: 'smartphone' }
+phones.length = 4
+
+
+var exists = phones.some(function (phone) {
+    /*if (phone.brand === 'Nokia') {
+       return true
+    } else {
+        return false
+    }*/
+    return phone.brand === 'Nokia'
+})
+console.log(exists)
+// true

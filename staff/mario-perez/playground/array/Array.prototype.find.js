@@ -2,7 +2,7 @@
 
 console.log('TEST Array.prototype.find')
 
-console.log("CASE element is 200")
+console.log("CASE element is more than 250 and less than 412")
 
 var arr = [100, 200, 300, 400, 300, 800, 800]
 

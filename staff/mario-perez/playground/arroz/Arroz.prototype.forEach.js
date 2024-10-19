@@ -10,8 +10,6 @@ Arroz.prototype.forEach = function (callbackFunction) {
     }
 }
 
-
-
 console.log('TEST Arroz.prototype.forEach')
 
 console.log('CASE apply the function in a object')
