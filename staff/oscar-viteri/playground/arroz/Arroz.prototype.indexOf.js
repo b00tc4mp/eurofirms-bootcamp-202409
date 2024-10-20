@@ -1,23 +1,20 @@
 var Arroz = function () { this.length = 0 }
 Arroz.prototype.indexOf = function (searchElement, fromIndex) {
+    // var i
 
-    var i
-
-    if (fromIndex === undefined)
-        i = 0
-    else if (fromIndex < 0)
-        i = this.length + fromIndex
-    else
-        i = fromIndex
-    for (; i < this.length; i++) {
+    // if (fromIndex === undefined)
+    //     i = 0
+    // else if (fromIndex < 0)
+    //     i = this.length + fromIndex
+    // else
+    //     i = fromIndex
+    for (var i = (fromIndex === undefined ? 0 : (fromIndex < 0 ? this.length + fromIndex : fromIndex)); i < this.length; i++) {
         var element = this[i]
-        if (element === searchElement)
-            return i
-    }
 
+        if (element === searchElement) return i
+    }
     return -1
 }
-
 console.log('TEST Array.prototype.indexOf')
 
 console.log('CASE get index of bison')

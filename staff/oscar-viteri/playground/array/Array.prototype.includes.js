@@ -1,41 +1,29 @@
 console.log('TEST Array.prototype.includes')
 
-console.log('CASE check colors encludes black')
+console.log('CASE check cars includes ferrari')
 
-var colors = ['red', 'green', 'blue', 'yellow'];
-var color = ['black'];
-console.log('colors->', colors)
-// ['red', 'green', 'blue', 'yellow']
-console.log('color para agregar->', color)
-// ['black']
-console.log('CASE se unen dos arrays')
-
-var colorsToCheck = colors.concat(color);
-console.log(colorsToCheck);
-// ['red', 'green', 'blue', 'yellow', 'black']
-
-console.log('if it was found true->', colorsToCheck.includes('yellow'));
-//true
-console.log('if it was not found false->', colorsToCheck.includes(1, 1))
-//false
-
-console.log('CASE check colors includes blue')
-
-var colors = ['red', 'green', 'blue', 'yellow', 'black']
-var contains = colors.includes('blue')
-console.log('if it was found true->', contains)
-//true
-
-console.log('CASE check colors includes red from index 1')
-
-var colors = ['red', 'green', 'blue', 'yellow', 'black']
-var contains = colors.includes('red', 1)
-console.log('if it was not found false->', contains)
+var cars = ['lambo', 'cinquecento', 'fiesta', 'm5']
+var contains = cars.includes('ferrari')
+console.log(contains)
 // false
 
-console.log('CASE check color includes black from index -1')
+console.log('CASE check cars includes fiesta')
 
-var colors = ['red', 'green', 'blue', 'yellow', 'black']
-var contains = colors.includes('black', -1)
-console.log('if it was not found true->', contains)
+var cars = ['lambo', 'cinquecento', 'fiesta', 'm5']
+var contains = cars.includes('fiesta')
+console.log(contains)
+// true
+
+console.log('CASE check cars includes lambo from index 1')
+
+var cars = ['lambo', 'cinquecento', 'fiesta', 'm5']
+var contains = cars.includes('lambo', 1)
+console.log(contains)
+// false
+
+console.log('CASE check cars includes fiesta from a negative index')
+
+var cars = ['lambo', 'cinquecento', 'fiesta', 'm5']
+var contains = cars.includes('fiesta', -2)
+console.log(contains)
 // true

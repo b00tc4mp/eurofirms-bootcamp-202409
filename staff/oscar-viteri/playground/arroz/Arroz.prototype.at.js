@@ -1,6 +1,9 @@
 var Arroz = function () { this.length = 0 }
 
 Arroz.prototype.at = function (index) {
+    //retorna un elemento de un array
+    //crear un nuevo arroz
+    //devolver un valor numerico
     if (index > -1) // index > -1
         return this[index]
     else
