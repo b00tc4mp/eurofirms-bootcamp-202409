@@ -1,7 +1,7 @@
 var Arroz = function () { this.length = 0 }
 
 Arroz.prototype.at = function (index) {
-    if (index > 1)
+    if (index > -1)
         return this[index]
     else
         return this[this.length + index]
@@ -39,6 +39,18 @@ var element = things.at(3)
 console.log(element)
 // { a: 1, b: 2, c: 3 }
 
+/*Cuando es un indice negativo, modificamos codigo de la siguiente
+ manera: 
+ Arroz.prototype.at = function (index) {
+    if (index > -1)
+        return this[index]
+    else
+        return this[this.length + index]
+}
+ De esta manera ademas hemos acortado el codigo para que sea mas sencillo: 
+ de if (index >= 0) a if (index > -1)
+*/
+
 console.log('CASE get alement at offset -1')
 
 var things = new Arroz
@@ -71,6 +83,11 @@ var element = things.at(-3)
 console.log(element)
 // null
 
+
+
+/* Cuando el indice (1000) no existe nos devolverá 
+undefined */
+
 console.log('CASE get alement at 1000')
 
 var things = new Arroz
@@ -84,7 +101,12 @@ things[6] = function () { return 'hello world' }
 things.length = 7
 var element = things.at(-1000)
 console.log(element)
-// undefined 
+// undefined
+
+
+/* Cuando el indice (-1000) no existe nos devolverá 
+undefined
+*/
 
 console.log('CASE get alement at -1000')
 
