@@ -1,5 +1,3 @@
-
-
 Array.prototype.concat()
 
 var array1 = ['any', 'some', 'none', 'lot'];
