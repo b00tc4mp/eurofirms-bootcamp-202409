@@ -7,12 +7,10 @@ var Arroz = function () { this.length = 0 }
 
 Arroz.prototype.filter = function (callbackFunction) {
     var newArray = []
-    var contador = 0
     for (i = 0; i < this.length; i++) {
         if (this[i] !== undefined) {
             if (callbackFunction(this[i])) {
-                newArray[contador] = this[i]
-                contador++
+                newArray[newArray.length] = this[i]
             }
         }
     }
@@ -30,11 +28,7 @@ numbers[4] = 1
 numbers.length = 5
 
 function method(element) {
-    if (element > 4400 && element < 5454) {
-        return true
-    } else {
-        return false;
-    }
+    return element > 4400 && element < 5454 ? true : false
 }
 
 console.log(numbers.filter(method))
@@ -51,13 +45,9 @@ numbers[3] = 4444
 numbers[4] = undefined
 numbers.length = 5
 
-function method(element) {
-    if (element > 20) {
-        return true
-    } else {
-        return false;
-    }
+function method2(element) {
+    return element > 20 ? true : false
 }
 
-console.log(numbers.filter(method))
+console.log(numbers.filter(method2))
 // [25, 4444]
