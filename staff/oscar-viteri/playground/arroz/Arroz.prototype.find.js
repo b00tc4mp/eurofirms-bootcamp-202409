@@ -1,6 +1,6 @@
-var Arroz = function () { this.length = 0 }
+function Arroz() { this.length = 0 }
 
-Arroz.prototype.at = function (index) {
+Arroz.prototype.find = function (condition) {
     for (var i = 0; i < this.length; i++) {
         var element = this[i]
 
@@ -65,3 +65,20 @@ var item = cart.find(function (item) {
 })
 console.log(item)
 // { brand: 'nike', type: 'socks', quantity: 4, price: 10 }
+
+console.log('CASE find first item with total price greater that 100')
+
+var cart = new Arroz
+cart[0] = { brand: 'adidas', type: 'shoes', quantity: 1, price: 75 }
+cart[1] = { brand: 'puma', type: 'shorts', quantity: 2, price: 25 }
+cart[2] = { brand: 'nike', type: 'socks', quantity: 4, price: 4 }
+cart[3] = { brand: 'decathlon', type: 'socks', quantity: 2, price: 4 }
+cart.length = 4
+var item = cart.find(function (item) {
+    return item.price = item.quantity > 100
+})
+console.log(item)
+// undefined
+
+var cart = new Arroz
+cart
