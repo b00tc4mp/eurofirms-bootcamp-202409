@@ -9,7 +9,7 @@ function authenticateUser(username, password) {
         return user.username === username && user.password === password
     })
 
-    if (user === unfefined) throw new Error('wrong crendecials')
+    if (user === undefined) throw new Error('wrong crendecials')
 
     return user
 }

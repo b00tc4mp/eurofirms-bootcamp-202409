@@ -1,11 +1,13 @@
+// presentation layer (main)
+
 var sections = document.querySelectorAll('section')
 
 var welcomeSection = sections[0]
-var resgisterSection = sections[1]
+var registerSection = sections[1]
 var loginSection = sections[2]
 var homeSection = sections[3]
 
-resgisterSection.style.display = 'none'
+registerSection.style.display = 'none'
 loginSection.style.display = 'none'
 homeSection.style.display = 'none'
 
@@ -50,7 +52,7 @@ loginRegisterLink.addEventListener('click', function (event) {
     registerSection.style.display = ''
 })
 
-var registerForm = registerSection.querySelectorAll('form')
+var registerForm = registerSection.querySelector('form')
 
 registerForm.addEventListener('submit', function (event) {
     event.preventDefault()
@@ -59,11 +61,11 @@ registerForm.addEventListener('submit', function (event) {
 
     var registerFormNameInput = registerFormInputs[0]
     var registerFormEmailInput = registerFormInputs[1]
-    var registerFormUsernameInput = regeisterFormInputs[2]
-    var registerFormPasswordInput = registerFormInpots[3]
+    var registerFormUsernameInput = registerFormInputs[2]
+    var registerFormPasswordInput = registerFormInputs[3]
 
     var name = registerFormNameInput.value
-    var email = registerFormEmailIput.value
+    var email = registerFormEmailInput.value
     var username = registerFormUsernameInput.value
     var password = registerFormPasswordInput.value
 
@@ -72,7 +74,7 @@ registerForm.addEventListener('submit', function (event) {
     try {
         registerUser(name, email, username, password)
 
-        resgisterForm.reset()
+        registerForm.reset()
         feedback.innerText = ''
 
         registerSection.style.display = 'none'
@@ -84,12 +86,12 @@ registerForm.addEventListener('submit', function (event) {
     }
 })
 
-var loginform = loginSection.querySelector('form')
+var loginForm = loginSection.querySelector('form')
 
 loginForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
-    var loginFormInputs = loginForm.queryselectorAll('input')
+    var loginFormInputs = loginForm.querySelectorAll('input')
 
     var loginFormUsernameInput = loginFormInputs[0]
     var loginFormPasswordInput = loginFormInputs[1]
@@ -97,7 +99,7 @@ loginForm.addEventListener('submit', function (event) {
     var username = loginFormUsernameInput.value
     var password = loginFormPasswordInput.value
 
-    var feedback = loginSection.querySelector ('p')
+    var feedback = loginSection.querySelector('p')
 
     try {
         var user = authenticateUser(username, password)
@@ -110,11 +112,11 @@ loginForm.addEventListener('submit', function (event) {
 
         var userTitle = homeSection.querySelector('h3')
         userTitle.innerText = 'Hello, ' + user.name + '!'
-} catch (error) {
-    feedback.innerText = error.message
+    } catch (error) {
+        feedback.innerText = error.message
 
-    console.error(error)
-}
+        console.error(error)
+    }
 })
 
 var logoutButton = homeSection.querySelector('button')
@@ -125,5 +127,3 @@ logoutButton.addEventListener('click', function (event) {
     homeSection.style.display = 'none'
     loginSection.style.display = ''
 })
-
-
