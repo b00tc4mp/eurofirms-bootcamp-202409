@@ -1,7 +1,7 @@
 var sections = document.querySelectorAll('section')
 
 var welcomeSection = sections[0]
-var resgisterSection = section[1]
+var resgisterSection = sections[1]
 var loginSection = sections[2]
 var homeSection = sections[3]
 
@@ -72,13 +72,13 @@ registerForm.addEventListener('submit', function (event) {
     try {
         registerUser(name, email, username, password)
 
-        resgisterForm.reser()
+        resgisterForm.reset()
         feedback.innerText = ''
 
         registerSection.style.display = 'none'
         loginSection.style.display = ''
     } catch (error) {
-        feedback.innerText = error.massage
+        feedback.innerText = error.message
 
         console.error(error)
     }
@@ -109,7 +109,7 @@ loginForm.addEventListener('submit', function (event) {
         homeSection.style.display = ''
 
         var userTitle = homeSection.querySelector('h3')
-        userTitle.iinerText = 'Hello, ' + user.name + '!'
+        userTitle.innerText = 'Hello, ' + user.name + '!'
 } catch (error) {
     feedback.innerText = error.message
 
