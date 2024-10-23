@@ -65,6 +65,8 @@
     </section>
 
     <script>
+
+        var users = []
         var sections = document.querySelectorAll('section')
 
         var welcomeSection = sections[0]
@@ -87,6 +89,7 @@
             registerSection.style.display = ''
 
 
+
         })
 
         welcomeLoginLink.addEventListener('click', function (event) {
@@ -94,7 +97,77 @@
 
             welcomeSection.style.display = 'none'
             loginSection.style.display = ''
+
         })
+
+        var registerLinks = registerSection.querySelectorAll('a')
+
+        var registerLoginLinks = registerLinks[0]
+
+        registerLoginLinks.addEventListener('click', function (event) {
+            event.preventDefault()
+
+
+            registerSection.style.display = 'none'
+            loginSection.style.display = ''
+
+        })
+
+
+        var loginLinks = loginSection.querySelectorAll('a')
+
+        var loginRegisterLinks = loginLinks[0]
+
+        loginRegisterLinks.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            loginSection.style.display = 'none'
+            registerSection.style.display = ''
+
+        })
+
+        var registerForm = registerSection.querySelector('form')
+
+        debugger
+        registerForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+
+            var registerFormInputs = registerForm.querySelectorAll('input')
+
+            var registerFormNameImput = registerFormInputs[0]
+            var registerFormEmailImput = registerFormInputs[1]
+            var registerFormUsernameImput = registerFormInputs[2]
+            var registerFormPasswordImput = registerFormInputs[3]
+
+            var name = registerFormNameImput.value
+            var email = registerFormEmailImput.value
+            var surname = registerFormEmailImput.value
+            var password = registerFormPasswordImput.value
+
+            console.log(name, email, surname, password)
+
+            var user = {}
+            user.name = name
+            user.email = email
+            user.username = username
+            user.password = password
+
+            users.push(user)
+
+            registerForm.reset()
+
+            registerSection.style.display = 'none'
+            loginSection.style.display = ''
+
+        })
+
+
+
+
+
+
+
+
 
 
 
