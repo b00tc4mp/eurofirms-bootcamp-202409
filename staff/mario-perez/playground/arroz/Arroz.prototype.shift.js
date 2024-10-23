@@ -3,18 +3,13 @@ var Arroz = function () { this.length = 0 }
 
 
 Arroz.prototype.shift = function () {
-    var guardar
-    if (this.length === 0) {
-        return undefined
-    } else {
-        for (var i = 1; i < this.length; i++) {
-            guardar = this[i]
-            this[i + 1] = guardar
-            console.log('Ahora el objeto es :', this)
-        }
-        //this.length--
+    var guardar = this[0]
+    for (var i = 1; i < this.length; i++) {
+        this[i] = this[i + 1]
     }
-    return this[this.length - 1]
+    delete this[this.length - 1]
+    this.length--
+    return guardar
 }
 
 
