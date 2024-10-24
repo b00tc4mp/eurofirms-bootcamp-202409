@@ -16,10 +16,12 @@ console.log('CASE find iphone')
 
 var phones = ['Blackberry', 'Motorola', 'Nokia']
 
-var exists = fruits.some(function (fruta) {
-    return (phone === 'Nokia')
-
-    console.log(exists);
-
-    console.log('CASE check if smartphone exists in phones')
-}
+var exists = phones.some(function (phone) {
+    if (phones.includes('iPhone')) {
+        return true
+    } else {
+        return false
+    }
+})
+console.log(exists)
+//false
