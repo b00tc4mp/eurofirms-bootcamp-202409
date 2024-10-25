@@ -1,4 +1,4 @@
-// Array.prototype.map()
+Array.prototype.map()
 
 /* El método 'map' crea un nuevo array con los resultados de 
 la llamada a la función iniciada aplicados a cadauno de sus elementos */
