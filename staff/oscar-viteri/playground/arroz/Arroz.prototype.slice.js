@@ -12,7 +12,7 @@ Arroz.prototype.slice = function (start, end) {
     return freezer
 }
 
-console.log('')
+console.log('TEST Arroz.prototype.slice')
 
 var fruits = new Arroz
 fruits[0] = 'Orange'
@@ -27,3 +27,8 @@ fruits.length = 7
 var slicedFruits = fruits.slice(1, 5)
 console.log(slicedFruits)
 // [ 'Pear', 'Melon', 'Mango', 'Peach', length: 4 ]
+
+console.log('CASE return a negative part of the array')
+
+var slicedFruits = fruits.slice(1, 2)
+console.log(slicedFruits)
