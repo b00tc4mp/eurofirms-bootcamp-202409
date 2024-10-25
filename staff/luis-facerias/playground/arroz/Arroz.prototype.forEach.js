@@ -1,4 +1,4 @@
-// ARROZ.PROTOTYTPE.F
+// ARROZ.PROTOTYPE.FOREACH
 
 // Implementation of the Arroz function forEach
 // returns a function result for each array element
