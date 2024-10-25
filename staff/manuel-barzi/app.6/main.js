@@ -1,57 +1,3 @@
-var body = document.querySelector('body')
-
-var title = document.createElement('h1')
-title.innerText = 'App'
-body.append(title)
-
-// welcome view
-
-/*
-html
-    head
-    body
-        main
-            h2
-                text
-            p
-                text
-                a
-                text
-                a
-                text
-*/
-
-var welcomeView = document.createElement('main')
-
-var welcomeTitle = document.createElement('h2')
-welcomeTitle.innerText = 'Welcome!'
-welcomeView.append(welcomeTitle)
-
-var welcomeIntro = document.createElement('p')
-welcomeView.append(welcomeIntro)
-
-var welcomeIntroPart1 = new Text('Please, ')
-welcomeIntro.append(welcomeIntroPart1)
-
-var welcomeRegisterLink = document.createElement('a')
-welcomeRegisterLink.href = ''
-welcomeRegisterLink.innerText = 'Register'
-welcomeIntro.append(welcomeRegisterLink)
-
-var welcomeIntroPart3 = new Text(' or ')
-welcomeIntro.append(welcomeIntroPart3)
-
-var welcomeLoginLink = document.createElement('a')
-welcomeLoginLink.href = ''
-welcomeLoginLink.innerText = 'Login'
-welcomeIntro.append(welcomeLoginLink)
-
-var welcomeIntroPart5 = new Text('.')
-welcomeIntro.append(welcomeIntroPart5)
-
-body.append(welcomeView)
-
-/*
 var sections = document.querySelectorAll('section')
 
 var welcomeSection = sections[0]
@@ -179,4 +125,3 @@ logoutButton.addEventListener('click', function (event) {
     homeSection.style.display = 'none'
     loginSection.style.display = ''
 })
-    */
