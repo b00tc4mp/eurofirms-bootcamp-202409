@@ -1,11 +1,9 @@
-function loginUser(username, password) {
+function authenticateUser(username, password) {
     if (typeof username !== 'string') throw new Error('invalid username')
     if (username.length < 4) throw new Error('invalid username length')
 
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
-
-    var users = JSON.parse(localStorage.users)
 
     var user = users.find(function (user) {
         return user.username === username && user.password === password
@@ -13,7 +11,7 @@ function loginUser(username, password) {
 
     if (user === undefined) throw new Error('wrong credentials')
 
-    sessionStorage.userId = user.id
+    return user
 }
 
 function registerUser(name, email, username, password) {
@@ -35,8 +33,6 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    var users = JSON.parse(localStorage.users)
-
     var user = users.find(function (user) {
         return user.email === email || user.username === username
     })
@@ -44,35 +40,10 @@ function registerUser(name, email, username, password) {
     if (user !== undefined) throw new Error('user already exists')
 
     user = {}
-    user.id = uuid()
     user.name = name
     user.email = email
     user.username = username
     user.password = password
 
     users.push(user)
-
-    localStorage.users = JSON.stringify(users)
-}
-
-function getUserName() {
-    var users = JSON.parse(localStorage.users)
-
-    var user = users.find(function (user) {
-        return user.id === sessionStorage.userId
-    })
-
-    if (user === undefined) throw new Error('user not found')
-
-    return user.name
-}
-
-function isUserLoggedIn() {
-    if (sessionStorage.userId !== undefined) return true
-
-    return false
-}
-
-function logoutUser() {
-    delete sessionStorage.userId
 }
