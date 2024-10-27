@@ -8,150 +8,16 @@
 </head>
 
 <body>
-    <h1>App</h1>
-    <section>
+    <div id="root"></div>
 
-        <h2>Welcome</h2>
-        <p>Please <a href="">Register</a> or <a href="">Login</a>.</p>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
-    </section>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <section>
-        <h2>Register</h2>
-        <form>
-            <label for="name">Name</label>
-            <input type="text" id="name">
-            <label for="email">E-mail</label>
-            <input type="text" id="email">
-            <label for="username">Username</label>
-            <input type="text" id="username">
-            <label for="password">Password</label>
-            <input type="password" id="password">
-
-            <button type="submit">Register</button>
-        </form>
-        <p>Error ...</p>
-        <a href="">Login</a>
-    </section>
-    <section>
-        <h2>Login</h2>
-        <form>
-            <label for="username">Username</label>
-            <input type="text" id="username">
-
-            <label for="password">Password</label>
-            <input type="password" id="password">
-
-            <button type="submit">Login</button>
-        </form>
-    </section>
-    <section>
-        <h2>Home</h2>
-        <p>Hello, User!</p>
-        <button>Logout</button>
-    </section>
-    <script>
-        // Inicializamos el array que almacenará los usuarios registrados
-        var users = [];
-
-        // Seleccionamos todas las secciones del documento
-        var sections = document.querySelectorAll('section');
-
-        // Asignamos las secciones específicas a variables para manipularlas más fácilmente
-        var welcomeSection = sections[0];  // Sección de bienvenida
-        var registerSection = sections[1]; // Sección de registro
-        var loginSection = sections[2];    // Sección de login
-        var homeSection = sections[3];     // Sección de inicio (después de iniciar sesión)
-
-        // Ocultamos las secciones de registro, login y home por defecto
-        registerSection.style.display = 'none';
-        loginSection.style.display = 'none';
-        homeSection.style.display = 'none';
-
-        // Obtenemos los enlaces de la sección de bienvenida
-        var welcomeLink = welcomeSection.querySelectorAll('a');
-
-        // Asignamos los enlaces de "Register" y "Login" a variables
-        var welcomeRegisterLink = welcomeLink[0]; // Enlace para ir a la página de registro
-        var welcomeLoginLink = welcomeLink[1];    // Enlace para ir a la página de login
-
-        // Evento para mostrar la sección de registro cuando se hace clic en el enlace de "Register"
-        welcomeRegisterLink.addEventListener('click', function (event) {
-            event.preventDefault(); // Evita que el enlace recargue la página
-            welcomeSection.style.display = 'none'; // Ocultamos la sección de bienvenida
-            registerSection.style.display = '';    // Mostramos la sección de registro
-        });
-
-        // Evento para mostrar la sección de login cuando se hace clic en el enlace de "Login"
-        welcomeLoginLink.addEventListener('click', function (event) {
-            event.preventDefault(); // Evita que el enlace recargue la página
-            welcomeSection.style.display = 'none'; // Ocultamos la sección de bienvenida
-            loginSection.style.display = '';       // Mostramos la sección de login
-        });
-
-        // Obtenemos los enlaces de la sección de registro
-        var registerLinks = registerSection.querySelectorAll('a');
-
-        // Evento para mostrar la sección de login desde el enlace de la sección de registro
-        var registerLoginLink = registerLinks[0];
-        registerLoginLink.addEventListener('click', function (event) {
-            event.preventDefault(); // Evita que el enlace recargue la página
-            registerSection.style.display = 'none'; // Ocultamos la sección de registro
-            loginSection.style.display = '';        // Mostramos la sección de login
-        });
-
-        // Obtenemos los enlaces de la sección de login
-        var loginLinks = loginSection.querySelectorAll('a');
-
-        // Evento para mostrar la sección de registro desde la sección de login
-        var loginRegisterLink = loginLinks[0];
-        loginRegisterLink.addEventListener('click', function (event) {
-            event.preventDefault(); // Evita que el enlace recargue la página
-            loginSection.style.display = 'none';    // Ocultamos la sección de login
-            registerSection.style.display = '';     // Mostramos la sección de registro
-        });
-
-        // Obtenemos el formulario de registro
-        var registerForm = registerSection.querySelector('form');
-
-        // Evento que se dispara cuando se intenta enviar el formulario de registro
-        registerForm.addEventListener('submit', function (event) {
-            event.preventDefault(); // Evitamos que el formulario se envíe y recargue la página
-
-            // Obtenemos los inputs del formulario de registro
-            var registerFormInputs = registerForm.querySelectorAll('input');
-            var registerFormNameInput = registerFormInputs[0];    // Input del nombre
-            var registerFormEmailInput = registerFormInputs[1];   // Input del email
-            var registerFormUsernameInput = registerFormInputs[2]; // Input del username
-            var registerFormPasswordInput = registerFormInputs[3]; // Input de la contraseña
-
-            // Obtenemos los valores de los campos del formulario
-            var name = registerFormNameInput.value;
-            var email = registerFormEmailInput.value;
-            var username = registerFormUsernameInput.value;
-            var password = registerFormPasswordInput.value;
-
-            // Creamos un objeto usuario con los datos del formulario
-            var user = {};
-            user.name = name;
-            user.email = email;
-            user.username = username;
-            user.password = password;
-
-            // Añadimos el nuevo usuario al array de usuarios
-            users.push(user);
-
-            // Reseteamos el formulario después de registrar al usuario
-            registerForm.reset();
-
-            // Ocultamos las secciones de registro y login
-            registerSection.style.display = 'none';
-            loginSection.style.display = ''; // Mostramos la sección de login para que el usuario inicie sesión
-        });
-
-
-    </script>
-
+    <script src="utils.js"></script>
+    <script src="logic.js"></script>
+    <script src="main.jsx" type="text/babel"></script>
 </body>
 
 </html>
