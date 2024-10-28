@@ -141,10 +141,10 @@
 
             var name = registerFormNameImput.value
             var email = registerFormEmailImput.value
-            var surname = registerFormEmailImput.value
+            var username = registerFormUsernameImput.value
             var password = registerFormPasswordImput.value
 
-            console.log(name, email, surname, password)
+            console.log(name, email, username, password)
 
             var user = {}
             user.name = name
@@ -177,8 +177,16 @@
             var user = users.find(function (user) {
                 return user.username === username && user.password === password
 
-                console.log(user)
             })
+
+            if (user == undefined) {
+                alert('wrong credentials')
+
+                return
+            }
+
+            loginSection.style.display = 'none'
+            homeSection.style.display = ''
         })
 
 
