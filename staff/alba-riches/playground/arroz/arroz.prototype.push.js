@@ -1,3 +1,4 @@
+
 console.log('TEST Arroz.prototype.push');
 
 console.log('CASE: add KPMG to companies');
@@ -28,7 +29,6 @@ console.log(companies);
 
 
 
-
 onsole.log('CASE: add 3 elements 0333JPT, 7168KSD, 5931KJB to CarLicensePlate');
 var CarLicensePlate = new Arroz();
 
@@ -52,7 +52,6 @@ console.log(CarLicensePlate);
 // Arroz { 0: '1267FJS', 1: '1200DRT', 2: '9088TYJ', 3: '2043SQW', 4: '0076MNL', 5: '0399GJH', 6: '4108BRS', 7: '0333JPT', 8: '7168KSD', 9: '5931KJB', length: 10 }
 console.log(length); // 10
 
-
 // otra constructora para poder añadir varios a la ver
 class Arroz {
     constructor() {
@@ -67,7 +66,6 @@ class Arroz {
         return this.length;
     }
 }
-
 
 console.log('CASE: add  3 elements 0333JPT, 7168KSD, 5931KJB to CarLicensePlate');
 var CarLicensePlate = new Arroz();
@@ -100,4 +98,6 @@ var length = city.push('Belgrado', 'Ciudad del Cabo', 'San Francisco', 'Duala');
 console.log(city);
 
 // Arroz { 0: 'Roma', 1: 'Madrid', 2: 'Londres', 3: 'Bruselas', 4: 'Lisboa', 5: 'Belgrado', 6: 'Ciudad del Cabo', 7: 'San Francisco', 8: 'Duala', length: 9 }
+
+
 
