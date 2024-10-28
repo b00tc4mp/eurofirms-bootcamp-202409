@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+</head>
+
+<body>
+    <h1>App</h1>
+
+    <section>
+        <h2>Welcome!</h2>
+
+        <p>Please, <a href="">Register</a> or <a href="">Login</a>.</p>
+    </section>
+
+    <section>
+        <h2>Register</h2>
+
+        <form>
+            <label for="name">Name</label>
+            <input type="text" id="name">
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email">
+            <!-- el id igual nombre que el for para que esten relaccionados -->
+
+            <label for="username">Username</label>
+            <input type="text" id="username">
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Error ...</p>
+
+        <a href="">Login</a>
+    </section>
+
+    <section>
+        <h2>Login</h2>
+
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username">
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Error ...</p>
+
+        <a href="">Register</a>
+    </section>
+
+    <section>
+        <h2>Home</h2>
+
+        <p>Hello, User!</p>
+
+        <button>Logout</button>
+    </section>
+
+    <script>
+        var users = []
+        // Se esta creando un espacio para guardar los usuarios registrados en la app,
+
+        users[0] = { name: 'Ji Rafa', email: 'ji@rafa.com', username: 'jirafa', password: '123123123' }
+        users[1] = { name: 'Ele Fante', email: 'ele@fante.com', username: 'elefante', password: '123123123' }
+        users[2] = { name: 'Coco Drilo', email: 'coco@drilo.com', username: 'cocodrilo', password: '123123123' }
+        // Ya tenemos a esos 3 usuarios creados
+
+        var sections = document.querySelectorAll('section')
+        // querySelectorAll ( llama a todas las secciones, las 4 de abajo). Te lo devuelve en un objeto iterable.
+        var welcomeSection = sections[0]
+        var registerSection = sections[1]
+        var loginSection = sections[2]
+        var homeSection = sections[3]
+
+        // crear variables para cada seccion para acceder a las secciones a traves de var.
+
+        registerSection.style.display = 'none'
+        loginSection.style.display = 'none'
+        homeSection.style.display = 'none'
+        // para que esta seccion no se muestre cuando arranca la aplicacion. Los 3 apagados, pero welcome no.
+
+        var welcomeLinks = welcomeSection.querySelectorAll('a')
+        var welcomeRegisterLink = welcomeLinks[0]
+        var welcomeLoginLink = welcomeLinks[1]
+
+        welcomeRegisterLink.addEventListener('click', function (event) {
+            // Para mecanizar el comportamiento de click, se ejecuta cuando se hace click en este link
+            event.preventDefault()
+            // para que el click no haga el comportamiento por defecto y lo manejemos con js
+
+            welcomeSection.style.display = 'none'
+            registerSection.style.display = ''
+            // Se apaga la seccion welcome y se enciende la de registro.
+        })
+
+        welcomeLoginLink.addEventListener('click', function (event) {
+            event.preventDefault()
+            welcomeSection.style.display = 'none'
+            loginSection.style.display = ''
+            // Se apaga la seccion welcome y se enciende la de login.
+        })
+
+        var registerLinks = registerSection.querySelectorAll('a')
+        var registerLoginLink = registerLinks[0]
+
+        registerLoginLink.addEventListener('click', function (event) {
+            event.preventDefault()
+            registerSection.style.display = 'none'
+            loginSection.style.display = ''
+            // Se apaga la seccion register y se enciende login
+        })
+
+        var loginLinks = loginSection.querySelectorAll('a')
+        var loginRegisterLink = loginLinks[0]
+
+        loginRegisterLink.addEventListener('click', function (event) {
+            event.preventDefault()
+            loginSection.style.display = 'none'
+            registerSection.style.display = ''
+            // Se apaga Login y se enciende registro
+        })
+
+        var registerForm = registerSection.querySelector('form')
+
+        registerForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+            //console.log('register submit')
+
+            var registerFormInputs = registerForm.querySelectorAll('input')
+
+            var registerFormNameInput = registerFormInputs[0]
+            // Estoy referenciando el primer Input
+            var registerFormEmailInput = registerFormInputs[1]
+            var registerFormUsernameInput = registerFormInputs[2]
+            var registerFormPasswordInput = registerFormInputs[3]
+
+            var name = registerFormNameInput.value
+            // Con la propiedad ,value, del Input nos muestra lo que esta escrito dentro( en este caso seria para name)
+            var email = registerFormEmailInput.value
+            var username = registerFormUsernameInput.value
+            var password = registerFormPasswordInput.value
+
+            // console.log (name,email,username,password) para ver si recoge los datos del usuario corectamente( es solo comprobante luego lo eliminamos)
+
+            var user = users.find(function (user) {
+                return user.email === email || user.username === username
+            })
+
+            if (user !== undefined) {
+                // Esta condición verifica si se encontró un usuario existente. Si user no es undefined, significa que ya hay un usuario registrado con ese correo o nombre de usuario.
+                alert('user already exists') // mensaje de alerta si el usuario ya existe
+                return // Aqui finaliza el codigo. Evitar que un usuario ya registrado intente registrarse nuevamente.
+            }
+
+            var user = {}
+            // Se esta creando un objeto`user'que esta vacio ( relaccionado con var = user (linea 66,(mi base de datos)))
+            //Guardamos las propiedades de name,email,username y password.
+            user.name = name
+            user.email = email
+            user.username = username
+            user.password = password
+
+            users.push(user)
+            // Con este metodo se pone el objeto dentro del array
+
+            registerForm.reset()
+            //Para limpiar el formulario
+
+            registerSection.style.display = 'none'
+            loginSection.style.display = ''
+            // Una vez registrado,interesa que register se inactive y aparezca login
+
+        })
+
+        var loginForm = loginSection.querySelector('form')
+        // Se estan realizando los mismos pasos que con var registerForm 
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+
+            var loginFormInputs = loginForm.querySelectorAll('input')
+
+            var loginFormUsernameInput = loginFormInputs[0]
+            var loginFormPasswordInput = loginFormInputs[1]
+
+            var username = loginFormUsernameInput.value
+            var password = loginFormPasswordInput.value
+
+            var user = users.find(function (user) {
+                return user.username === username && user.password === password
+            })
+
+            if (user === undefined) {
+                alert('wrong credentials')
+                return
+            }
+
+            loginSection.style.display = 'none'
+            homeSection.style.display = ''
+        })
+    </script>
+</body>
+
+</html>
