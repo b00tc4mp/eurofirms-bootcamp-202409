@@ -1,6 +1,6 @@
 var title = <h1>App</h1>
 
-var WelcomeView = <main>
+var welcomeView = <main>
     <h2>Welcome!</h2>
     <p>
         Please, <a href="">Register</a> or <a href="">Login</a>.
@@ -51,6 +51,6 @@ var loginView = <main>
 
 
 var rootElement = document.querySelector('#root')
-var root = ReactDOM.createRppt(rootElement)
+var root = ReactDOM.createRoot(rootElement)
 
 root.render([title, welcomeView, registerView, loginView])
