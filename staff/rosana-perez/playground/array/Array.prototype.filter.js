@@ -22,4 +22,8 @@ var numbersmore3 = numbers.filter(function (number) {
 
 })
 
+// [ 0, 2, 4, 6 ]
+
 console.log('CASE 2: Discover numbers divided in three', numbersmore3);
+
+// [3, 6]
