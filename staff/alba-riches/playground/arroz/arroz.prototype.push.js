@@ -97,7 +97,6 @@ city.length = 5;
 var length = city.push('Belgrado', 'Ciudad del Cabo', 'San Francisco', 'Duala');
 console.log(city);
 
-// Arroz { 0: 'Roma', 1: 'Madrid', 2: 'Londres', 3: 'Bruselas', 4: 'Lisboa', 5: 'Belgrado', 6: 'Ciudad del Cabo', 7: 'San Francisco', 8: 'Duala', length: 9 }
-
+// Arroz  { 0: 'Roma', 1: 'Madrid', 2: 'Londres', 3: 'Bruselas', 4: 'Lisboa', 5: 'Belgrado', 6: 'Ciudad del Cabo', 7: 'San Francisco', 8: 'Duala', length: 9 }
 
 
