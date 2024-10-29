@@ -6,11 +6,11 @@
 console.log('TEST Array.prototype.fill')
 
 // Check to fill array with a string between index to array end
-console.log('CASE fill array with a number between two index')
+console.log('CASE fill array with a number between start index to array end')
 var cars = ['Renault', 'Tata', 'Simca', 'Talbot', 'Tesla']
-var element = cars.fill('auto', 1)
+var element = cars.fill('auto', 3)
 console.log(element)
-// ['Renault', 'Tata', 'Simca', 'Renault']
+// [ 'Renault', 'auto', 'auto', 'auto', 'auto' ]
 
 
 // Check to fill array with a string between two array index
