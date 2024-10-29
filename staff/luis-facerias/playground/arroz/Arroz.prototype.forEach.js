@@ -25,6 +25,18 @@ cars[4] = 'Skoda'
 cars[5] = 'Daewo'
 cars[6] = 'Toyota'
 cars.length = 7
+
 cars.forEach(function (car) {
     car.startsWith('S') ? console.log(car) : false
 })
+// Seat
+// Skoda
+
+
+// Check if forEach returns car with 5 chars
+console.log('CASE cars with 5 chars')
+cars.forEach(function (car) {
+    car.length === 5 ? console.log(car) : false
+})
+// Skoda
+// Daewo
