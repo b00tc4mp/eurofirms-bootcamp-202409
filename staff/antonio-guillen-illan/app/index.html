@@ -144,7 +144,17 @@
             var username = registerFormUsernameImput.value
             var password = registerFormPasswordImput.value
 
-            console.log(name, email, username, password)
+            var user = users.find(function (user) {
+                return user.email === email || user.username === username
+            })
+
+            if (user !== undefined) {
+                alert('user already exists')
+
+                return
+            }
+
+
 
             var user = {}
             user.name = name
@@ -178,6 +188,7 @@
                 return user.username === username && user.password === password
 
             })
+
 
             if (user == undefined) {
                 alert('wrong credentials')
