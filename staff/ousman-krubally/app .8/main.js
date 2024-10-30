@@ -22,7 +22,9 @@ html
 */
 
 var welcomeView = document.createElement('main')
-body.appendChild(welcomeView)
+
+if (!isUserLoggedIn())
+    body.appendChild(welcomeView)
 
 var  welcomeTitle = document.createElement('h2')
 welcomeTitle.innerText = 'welcome!'
@@ -138,8 +140,8 @@ registerFormEmailLabel.innerText = 'E-mail'
 registerForm.appendChild(registerFormEmailLabel)
 
 var registerFormEmailInput = document.createElement('input')
-registerFormEmailInput.type = 'email'
 registerFormEmailInput.id = 'email'
+registerFormEmailInput.type = 'email'
 registerForm.appendChild(registerFormEmailInput)
 
 var registerFormUsernameLabel = document.createElement('label')
@@ -218,7 +220,7 @@ loginform.addEventListener('submit', function (event) {
     var password = loginFormPasswordInput.value
 
     try {
-        var user = authenticateUser(username, password)
+        loginUser(username, password)
 
         loginform.reset()
         loginFeedback.innerText = ''
@@ -226,7 +228,9 @@ loginform.addEventListener('submit', function (event) {
         body.removeChild(loginView)
         body.appendChild(homeView)
 
-        homeUser.innerText = 'hello, ' + user.name + '!'
+        var name = getUserName()
+
+        homeUser.innerText = 'hello, ' + name + '!'
     } catch (error) {
         loginFeedback.innerText = error.message
 
@@ -290,12 +294,22 @@ html
 
 var homeView = document.createElement('main')
 
+if (isUserLoggedIn())
+    body.appendChild(homeView)
+
 var homeTitle = document.createElement('h2')
 homeTitle.innerText = 'home'
 homeView.appendChild(homeTitle)
 
 var homeUser = document.createElement('h3')
-homeUser.innerText = 'Hello, User!'
+
+if (isUserLoggedIn()) {
+    var name = getUserName()
+
+    homeUser.innerText = 'hello, ' + name + '¡'
+} else
+    homeUser.innerText = 'Hello, User!'
+
 homeView.appendChild(homeUser)
 
 var homeLogoutButton = document.createElement('button')
@@ -305,7 +319,8 @@ homeView.appendChild(homeLogoutButton)
 homeLogoutButton.addEventListener('click', function (event) {
     event.preventDefault()
 
+    logoutUser()
+
     body.removeChild(homeView)
     body.appendChild(loginView)
 })
-
