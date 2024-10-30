@@ -2,7 +2,7 @@
 
 
 // Implementation of the Arroz function IndexOf
-// returns index whether element exists (-1 if not exists)
+// returns first index where element can be found
 
 var Arroz = function () { this.length = 0 }
 

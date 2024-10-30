@@ -2,43 +2,31 @@
 
 
 // The IndexOF method of the Array function,
-// returns the position of the element in the Array
-
+// returns first index where element can be found
 console.log('TEST Array.prototype.indexOf')
 
 // Test with array of numbers
-console.log('CASE add 400 to nums')
+console.log('CASE num index for 400')
 
-var nums = [100, 200, 300]
-var length = nums.push(400)
-console.log(nums)
-// [ 100, 200, 300, 400 ]
-console.log(length)
+var nums = [100, 200, 300, 400, 500, 600]
+var element = nums.indexOf(400)
+console.log(element)
+// 3
+
+
+// Test with array of chars
+console.log('CASE char index for E')
+
+var chars = ['A', 'B', 'C', 'D', 'E']
+var element = chars.indexOf('E')
+console.log(element)
 // 4
 
 
+// Test with cars index starting at index 2
+console.log('CASE cars index starting at index 2')
 
-// Test with array of objects
-console.log('CASE add char F to chars Array')
-
-var chars = ['A', 'B', 'C', 'D', 'E']
-var length = chars.push('F')
-console.log(chars)
-// [ 'A', 'B', 'C', 'D', 'E', 'F' ]
-console.log(length)
-// 6
-
-// Test inserting a group of elements into the Array
-console.log('CASE add many elements in one call')
-
-var colors = ['red', 'green', 'blue', 'magenta']
-var length = colors.push('cyan', 'yellow', 'orange', 'pink')
-console.log(colors)
-/* [
-  'red',    'green',
-  'blue',   'magenta',
-  'cyan',   'yellow',
-  'orange', 'pink'
-] */
-console.log(length)
-// 8
+var car  = ['Renault', 'Seat', 'Talbot', 'Mercedes', 'Tesla', 'Tata']
+var element = car.indexOf('Mercedes', 2)
+console.log(element)
+// 3
