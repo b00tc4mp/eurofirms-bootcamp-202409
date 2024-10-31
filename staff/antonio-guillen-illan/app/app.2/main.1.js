@@ -5,7 +5,24 @@ users[0] = { name: 'Ji Rafa', email: 'ji@rafa.com', username: 'jirafa', password
 users[1] = { name: 'Ele Fante', email: 'ele@fante.com', username: 'elefante', password: '123123123' }
 users[2] = { name: 'Coco Drilo', email: 'coco@drilo.com', username: 'cocodrilo', password: '123123123' }
 
+
+// business (logic)
+
+function authenticateUser(username, password) {
+    var user = users.find(function (user) {
+        return user.username === username && user.password === password
+    })
+
+    if (user === undefined) throw new Error('wrong credentials')
+
+    return
+}
+
+
+
 // presentation & busines (logic)
+
+
 var sections = document.querySelectorAll('section')
 
 var welcomeSection = sections[0]
@@ -117,29 +134,24 @@ loginForm.addEventListener('submit', function (event) {
     var username = loginFormusernameImputs.value
     var password = loginFormpasswordImputs.value
 
-    var user = users.find(function (user) {
-        return user.username === username && user.password === password
+    try {
+        var user = authenticateUser(username, password)
 
-    })
+        loginForm.reset()
+        feedback.innerText = ''
 
+        loginSection.style.display = 'none'
+        homeSection.style.display = ''
 
+        var userTitle = homeSection.querySelector('h3')
+        userTitle.innerText = 'Hello, ' + user.name + '!'
+    } catch (error) {
+        var feedback = loginSection.querySelector('p')
 
-    var feedback = loginSection.querySelector('p')
-
-    if (user === undefined) {
-        feedback.innerText = 'wrong credentials'
-
-        return
+        feedback.innerText = error.message
     }
 
-    loginForm.reset()
-    feedback.innerText = ''
 
-    loginSection.style.display = 'none'
-    homeSection.style.display = ''
-
-    var userTitle = homeSection.querySelector('h3')
-    userTitle.innerText = 'Hello, ' + user.name + '!'
 })
 
 var logoutButton = homeSection.querySelector('button')
