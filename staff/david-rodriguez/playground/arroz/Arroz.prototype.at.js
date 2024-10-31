@@ -9,7 +9,7 @@ Arroz.prototype.at = function (index) {
 
 console.log('TEST Arroz.prototype.at')
 
-console.log('CASE get element at index 2')
+console.log('CASE get element at index 2 ')
 
 var things = new Arroz
 things[0] = 100

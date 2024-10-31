@@ -6,6 +6,7 @@ Arroz.prototype.push = function (element) {
     return this.length
 }
 
+
 console.log('TEST Arroz.prototype.push')
 
 console.log('CASE add 400 to nums')

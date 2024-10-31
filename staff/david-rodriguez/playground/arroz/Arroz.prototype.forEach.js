@@ -20,6 +20,7 @@ numbers.forEach(function (num) {
 
 // 12 13 14 15 16 17 
 
+
 console.log('CASE position final race');
 
 var race = ['Ferrari', 'Bugatti', 'BMW', 'Dacia'];

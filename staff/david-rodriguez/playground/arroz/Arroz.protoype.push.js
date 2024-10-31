@@ -38,6 +38,7 @@ console.log(chars)
 console.log(length)
 // 6
 
+
 var colors = new Arroz
 colors[0] = 'red'
 colors[1] = 'green'

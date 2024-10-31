@@ -13,6 +13,7 @@ Arroz.prototype.pop = function () {
     return last
 }
 
+
 console.log('CASE extract tomato from plant')
 
 var plants = new Arroz

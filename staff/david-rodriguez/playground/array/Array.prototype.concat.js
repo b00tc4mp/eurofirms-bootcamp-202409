@@ -19,6 +19,7 @@ console.log(allNumbers)
 // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 
+
 console.log('CASE join array and values [110, 111]')
 
 var numbers1 = [1, 2, 3, 4, 5]

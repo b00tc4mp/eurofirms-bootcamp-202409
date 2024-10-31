@@ -18,6 +18,7 @@ console.log(chars)
 console.log(length)
 //6
 
+
 console.log('CASE add many elements is one call')
 
 var colors = ['red', 'green', 'blue', 'magenta']

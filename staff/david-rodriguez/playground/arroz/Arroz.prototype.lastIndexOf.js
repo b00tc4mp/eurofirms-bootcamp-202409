@@ -19,6 +19,7 @@ Arroz.prototype.lastIndexOf = function (searchElement, fromIndex) {
     return -1;
 }
 
+
 console.log('CASE search last 2')
 
 nums = new Arroz

@@ -17,6 +17,7 @@ Arroz.prototype.includes = function (searchElement, fromIndex) {
 
 }
 
+
 console.log('TEST Arroz.prototype.includes')
 
 console.log('CASE check cars includes ferrrari')

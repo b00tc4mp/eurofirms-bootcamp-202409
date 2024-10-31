@@ -9,6 +9,7 @@ numbers.forEach(function (num) {
 })
 // 1 2 3 4 5
 
+
 console.log('CASE sum 2 to all items')
 
 var numbers = [10, 11, 12, 13, 14, 15]

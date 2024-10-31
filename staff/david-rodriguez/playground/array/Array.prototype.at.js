@@ -5,7 +5,7 @@ console.log('CASE get element at index2')
 var things = [100, true, 'hola mundo', { a: 1, b: 2, c: 3 }, null, undefined, function () { return 'hello world' }]
 var element = things.at(2)
 console.log(element)
-// hola mundo
+//  hola mundo
 
 console.log('CASE get elment at index 3')
 

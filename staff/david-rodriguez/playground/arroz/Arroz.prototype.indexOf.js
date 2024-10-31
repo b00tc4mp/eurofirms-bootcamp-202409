@@ -11,6 +11,7 @@ Arroz.prototype.indexOf = function (searchElement, fromIndex) {
     //    if (element === searchElement) return i
     //}
 
+
     for (var i = (fromIndex === undefined ? 0 : (fromIndex < 0 ? this.length + fromIndex : fromIndex)); i < this.length; i++) {
         var element = this[i]
 

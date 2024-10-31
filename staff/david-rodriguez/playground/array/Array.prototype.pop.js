@@ -23,5 +23,6 @@ console.log(cart)
     { brand: 'Nike', size:'L', price: 20 }
 ]
 */
+
 console.log(extract)
 // {brand: 'Puma', size: 44, price: 50}

@@ -36,6 +36,7 @@ console.log(index)
 // -1
 
 
+
 console.log('CASE when fromIndex is bigger than length')
 
 var nums = [1, 2, 3, 2, 5, 6, 1, 2, 4, 1]

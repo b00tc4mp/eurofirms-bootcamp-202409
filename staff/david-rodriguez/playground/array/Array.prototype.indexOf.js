@@ -1,5 +1,6 @@
 console.log('TEST Array.prototype.indexOf')
 
+
 console.log('CASE get index of bison')
 
 var beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
