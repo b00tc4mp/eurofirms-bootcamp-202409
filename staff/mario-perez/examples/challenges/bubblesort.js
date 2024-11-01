@@ -26,3 +26,23 @@ function bubbleSort(array) {
 }
 
 console.log(bubbleSort(array))
+
+
+console.log("CASE using recursivity")
+
+var array2 = [5, 4, -1, 1, -20, 300]
+
+function bubbleSortRecursivity(array) {
+    var aux
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] > array[i + 1]) {
+            aux = array[i];
+            array[i] = array[i + 1]
+            array[i + 1] = aux;
+            bubbleSortRecursivity(array)
+        }
+    }
+    return array
+}
+
+console.log(bubbleSortRecursivity(array2))
