@@ -23,6 +23,7 @@ console.log(food.fill('onion', 0, -2))
 // ['onion', 'onion', 'onion', 'cherry', 'lemon']
 
 
+
 console.log('CASE fill with onion from index -4 to index -2')
 
 var food = ['apple', 'banana', 'orange', 'cherry', 'lemon']
