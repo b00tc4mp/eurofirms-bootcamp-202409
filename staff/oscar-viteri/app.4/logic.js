@@ -5,7 +5,7 @@ function loginUser(username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    var users = JSON.parse(localStorage.users)
+    var users = JSON.parce(localStorage.user)
 
     var user = users.find(function (user) {
         return user.username === username && user.password === password
@@ -34,7 +34,7 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    var users = JSON.parse(localStorage.users)
+    var users = JSON.parce(localStorage.users)
 
     var user = users.find(function (user) {
         return user.email === email || user.username === username
