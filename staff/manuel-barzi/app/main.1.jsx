@@ -1,5 +1,3 @@
-const useState = React.useState
-
 function WelcomeView() {
     return <main>
         <h2>Welcome!</h2>
@@ -55,38 +53,14 @@ function LoginView() {
     </main>
 }
 
-function App() {
-    var viewState = useState('welcome')
-    var view = viewState[0]
-    var setView = viewState[1]
-
-    return <>
-        <h1>App</h1>
-
-        <button onClick={function () {
-            setView('welcome')
-        }}>Go To Welcome</button>
-
-        <button onClick={function () {
-            setView('login')
-        }}>Go To Login</button>
-
-        <button onClick={function () {
-            setView('register')
-        }}>Go To Register</button>
-
-        {/* {view === 'welcome' ? <WelcomeView /> : null}
-        {view === 'register' ? <RegisterView /> : null}
-        {view === 'login' ? <LoginView /> : null} */}
-
-        {view === 'welcome' && <WelcomeView />}
-        {view === 'register' && <RegisterView />}
-        {view === 'login' && <LoginView />}
-    </>
-}
-
 
 var rootElement = document.querySelector('#root')
 var root = ReactDOM.createRoot(rootElement)
 
-root.render(<App />)
+root.render(<>
+    <h1>App</h1>
+
+    <WelcomeView />
+    {/* <RegisterView /> */}
+    {/* <LoginView /> */}
+</>)
