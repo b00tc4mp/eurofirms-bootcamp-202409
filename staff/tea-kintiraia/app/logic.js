@@ -1,4 +1,4 @@
-function authenticateUser(username, password) {
+function loginUser(username, password) {
     if (typeof username !== 'string') throw new Error('invalid username')
     if (username.length < 4) throw new Error('invalid username length')
 
@@ -56,7 +56,7 @@ function registerUser(name, email, username, password) {
 }
 
 function getUserName() {
-    var users = JSON.parse(localStorage.user)
+    var users = JSON.parse(localStorage.users)
 
     var user = users.find(function (user) {
         return user.id === sessionStorage.userId
