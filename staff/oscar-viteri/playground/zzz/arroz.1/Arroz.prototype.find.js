@@ -80,5 +80,34 @@ var item = cart.find(function (item) {
 console.log(item)
 // undefined
 
-var cart = new Arroz
-cart
+console.log('CASE find first item with total price is greater than 40 and lower than 70')
+
+var cart = [
+    { brand: 'adidas', type: 'shoes', quantity: 1, price: 75 },
+    { brand: 'puma', type: 'shorts', quantity: 2, price: 25 },
+    { brand: 'nike', type: 'socks', quantity: 4, price: 10 },
+    { brand: 'decathlon', type: 'socks', quantity: 2, price: 4 }
+]
+var item = cart.find(function (item) {
+    var totalPrice = item.price * item.quantity
+
+    return totalPrice > 40 && totalPrice < 70
+})
+console.log(item)
+// { brand: 'puma, type: 'shorts', quantity: 2, price: 25 }
+
+console.log('CASE find first item with total price is grater than 5 and unit price lower than 5')
+
+var cart = [
+    { brand: 'adidas', type: 'shoes', quantity: 1, price: 75 },
+    { brand: 'puma', type: 'shorts', quantity: 2, price: 25 },
+    { brand: 'nike', type: 'socks', quantity: 4, price: 10 },
+    { brand: 'decathlon', type: 'socks', quantity: 2, price: 4 }
+]
+var item = cart.find(function (item) {
+    var totalPrice = item.price * item.quantity
+
+    return totalPrice > 5 && item.price < 5
+})
+console.log(item)
+// { brand: 'decathlon', type: 'socks', quantity: 2, price: 4 }
