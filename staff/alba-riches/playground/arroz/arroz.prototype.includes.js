@@ -1,4 +1,3 @@
-
 var Arroz = function () {
     this.length = 0;
 };
@@ -13,8 +12,8 @@ Arroz.prototype.includes = function (searchElement, fromIndex) {
     }
 
     // Iterar a través del "arroz" para buscar el elemento
-    for (var i = fromIndex; i < this.length; i++) {
-        var element = this[i];
+    for (let i = fromIndex; i < this.length; i++) {
+        let element = this[i];
         if (element === searchElement) return true; // Retorna true si se encuentra el elemento
     }
 
@@ -25,21 +24,21 @@ Arroz.prototype.includes = function (searchElement, fromIndex) {
 console.log('TEST Arroz.prototype.includes');
 console.log('CASE check mobile brands includes Nokia');
 
-var mobileBrands = new Arroz();
+let mobileBrands = new Arroz();
 mobileBrands[0] = 'Apple';
 mobileBrands[1] = 'Samsung';
 mobileBrands[2] = 'Huawei';
 mobileBrands[3] = 'Xiaomi';
 mobileBrands.length = 4;
 
-var contains = mobileBrands.includes('Nokia');
+let contains = mobileBrands.includes('Nokia');
 console.log(contains); // false
 
 
 console.log('TEST Arroz.prototype.includes');
 console.log('CASE check mobile brands includes Nokia');
 
-var mobileBrands = new Arroz();
+mobileBrands = new Arroz();
 mobileBrands[0] = 'Apple';
 mobileBrands[1] = 'Samsung';
 mobileBrands[2] = 'Huawei';
@@ -47,13 +46,13 @@ mobileBrands[3] = 'Xiaomi';
 mobileBrands[4] = 'Nokia'; // Se ha añadido
 mobileBrands.length = 5;
 
-var contains = mobileBrands.includes('Nokia');
+contains = mobileBrands.includes('Nokia');
 console.log(contains); // true
 
 console.log('TEST Arroz.prototype.includes');
 console.log('CASE check mobile brands includes Apple ');
 
-var mobileBrands = new Arroz();
+mobileBrands = new Arroz();
 mobileBrands[0] = 'Apple';
 mobileBrands[1] = 'Samsung';
 mobileBrands[2] = 'Huawei';
@@ -61,8 +60,6 @@ mobileBrands[3] = 'Xiaomi';
 mobileBrands[4] = 'Nokia';
 mobileBrands.length = 5;
 
-var contains = mobileBrands.includes(' Apple ');
+contains = mobileBrands.includes(' Apple ');
 console.log(contains); // true
-
-
 
