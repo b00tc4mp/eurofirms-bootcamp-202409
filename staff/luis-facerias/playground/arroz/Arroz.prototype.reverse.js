@@ -27,7 +27,7 @@ cars[4] = 'Tesla'
 cars.length = 5
 var element = cars.reverse()
 console.log(element)
-
+//[ 'Tesla', 'Talbot', 'Simca', 'Tata', 'Renault' ]
 
 console.log('CASE returns an reversed array with some empty elements')
 
@@ -40,3 +40,4 @@ cars[4] = 'Tesla'
 cars.length = 5
 var element = cars.reverse()
 console.log(element)
+//[ 'Tesla', '<1 empty item>', 'Simca', 'Tata', 'Renault' ]
