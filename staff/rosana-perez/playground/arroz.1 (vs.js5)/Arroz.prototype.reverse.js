@@ -1,42 +1,40 @@
-console.log('TEST Arroz.prototype.reverse')
+console.log('TEST Arroz.prototype.reverse.js')
 // El método reverse() invierte el orden de los elementos de un array in place.
 // El primer elemento pasa a ser el último y el último pasa a ser el primero.
 // devuelve el Array invertido
 
-class Arroz {
-    constructor() { this.length = 0 }
+var Arroz = function () { this.length = 0 }
 
-    reverse(reversion) {
-        //invierte el orden de cada elemento -> this[i]
-        // el primero pasa a ser el último, y el último el primero
-        // devuelve el array -> result <-
+Arroz.prototype.reverse = function (reversion) {
+    //invierte el orden de cada elemento -> this[i]
+    // el primero pasa a ser el último, y el último el primero
+    // devuelve el array -> result <-
 
-        let result = new Arroz // nuevo Arroz para los elementos invertidos
+    var result = new Arroz // nuevo Arroz para los elementos invertidos
 
-        for (let i = this.length - 1; i >= 0; i--) {
+    for (var i = this.length - 1; i >= 0; i--) {
 
-            let element = this[i]
+        var element = this[i]
 
-            if (reversion) {
-                result[result.length] = reversion(element);
-            } else {
-                result[result.length] = element// element is -> this[i] <-
-                // function on each element
-            }
-            result.length++
-
+        if (reversion) {
+            result[result.length] = reversion(element);
+        } else {
+            result[result.length] = element// element is -> this[i] <-
+            // function on each element
         }
-        return result
+        result.length++
+
     }
+    return result
 }
 
-const numbers = new Arroz
+var numbers = new Arroz
 numbers[0] = 0
 numbers[1] = 1
 numbers[2] = 2
 numbers.length = 3
 
-const numbersReversed = numbers.reverse()
+var numbersReversed = numbers.reverse()
 
 console.log('CASE 1 -> numbers reversed', numbersReversed)
 
@@ -55,7 +53,7 @@ this[2] = 3 - 3 = 0
 
 console.log('CASE 2 -> Obtaining days of week reversed')
 
-const daysOfWeek = new Arroz
+var daysOfWeek = new Arroz
 daysOfWeek[0] = 'Monday'
 daysOfWeek[1] = 'Tuesday'
 daysOfWeek[2] = 'Wednesday'
@@ -65,7 +63,7 @@ daysOfWeek[5] = 'Saturday'
 daysOfWeek[6] = 'Sunday'
 daysOfWeek.length = 7
 
-const daysReversed = daysOfWeek.reverse()
+var daysReversed = daysOfWeek.reverse()
 
 console.log('Days of week reversed -> ', daysReversed)
 // ['Sunday', 'Saturday', 'Friday', 'Thursday', 'Wednesday', 'Tuesday', 'Monday']
@@ -73,13 +71,13 @@ console.log('Days of week reversed -> ', daysReversed)
 
 console.log('CASE 3 -> Obtaining seasons of the year reversed on two-dimensional array elements')
 
-const seasons = new Arroz
+var seasons = new Arroz
 seasons[0] = ['Spring', 'Summer']
 seasons[1] = ['Outumn', 'Winter']
 seasons.length = 2
 
 
-const seasonsReversed = seasons.reverse()
+var seasonsReversed = seasons.reverse()
 
 console.log('Seasons reversed -> ', seasonsReversed)
 // ['Outumn', 'Winter']

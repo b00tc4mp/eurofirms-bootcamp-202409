@@ -1,24 +1,26 @@
-var Arroz = function () { this.length = 0 }
+class Arroz {
+    constructor() { this.length = 0 }
 
-Arroz.prototype.filter = function (callbackFunction) {
+    filter(callbackFunction) {
 
-    // crear un nuevo arroz
-    var result = new Arroz
-    // recorrer el objeto para verificar si cada elemento cumple la condición de la funcion
-    for (var i = 0; i < this.length; i++) {
-        if (callbackFunction(this[i])) {
-            result[result.length] = this[i]
-            result.length++
+        // crear un nuevo arroz
+        const result = new Arroz();
+        // recorrer el objeto para verificar si cada elemento cumple la condición de la funcion
+        for (let i = 0; i < this.length; i++) {
+            if (callbackFunction(this[i])) {
+                result[result.length] = this[i]
+                result.length++
+            }
         }
-    }
-    // devolver el nuevo arroz
-    return result
+        // devolver el nuevo arroz
+        return result
 
+    }
 }
 
 
 
-var numbers = new Arroz
+const numbers = new Arroz();
 numbers[0] = 0
 numbers[1] = 1
 numbers[2] = 2
@@ -30,7 +32,7 @@ numbers.length = 7
 
 console.log('CASE 1: Discover pair numbers')
 
-var pairnumbers = numbers.filter(function (number) {
+const pairnumbers = numbers.filter(function (number) {
     if (number % 2 === 0) {
         return true
     } else {

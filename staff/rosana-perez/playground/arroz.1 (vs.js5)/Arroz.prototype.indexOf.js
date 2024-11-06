@@ -1,25 +1,18 @@
-console.log('TEST Arroz.prototype.indexOf.js')
+var Arroz = function () { this.length = 0 }
 
+Arroz.prototype.indexOf = function (element) {
+    //retornar el primer índice en el que encuentre el elemento
+    //si no lo encuentro retorno -1
+    //comprobar si las posiciones son el elemento que queremos buscar
+    for (var i = 0; i < this.length; i++) {
+        if (element === this[i])
+            return i // retornamos la primera posición donde se encontró
 
-class Arroz {
-    constructor() { this.length = 0 }
-
-    indexOf(element) {
-        //retornar el primer índice en el que encuentre el elemento
-        //si no lo encuentro retorno -1
-        //comprobar si las posiciones son el elemento que queremos buscar
-        for (let i = 0; i < this.length; i++) {
-            if (element === this[i])
-                return i // retornamos la primera posición donde se encontró
-
-        }
-        return -1
     }
+    return -1
 }
 
-console.log('CASO 1: encontrar a oscar y devolver su posición en students')
-
-const students = new Arroz
+var students = new Arroz
 students[0] = 'luis f'
 students[1] = 'mario'
 students[2] = 'oscar'

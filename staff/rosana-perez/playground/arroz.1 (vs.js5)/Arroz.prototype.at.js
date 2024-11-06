@@ -1,28 +1,23 @@
-class Arroz {
-    constructor() {
-        this.length = 0
-    }
+var Arroz = function () { this.length = 0 }
 
-    //dando una posición devuelvo el valor de la propiedad -> posicion <-
-    at(position) {
-        //devuelvo el valor de la propiedad ->position<-
-        let positionToSearch = 0
-        // se usa let y no const porque la variable es susceptible de cambio
+//dando una posición devuelvo el valor de la propiedad -> posicion <-
+Arroz.prototype.at = function (position) {
+    //devuelvo el valor de la propiedad ->position<-
+    var positionToSearch = 0
 
-        if (position >= 0)
-            positionToSearch = Math.floor(position)
-        else
-            positionToSearch = Math.round(position)
+    if (position >= 0)
+        positionToSearch = Math.floor(position)
+    else
+        positionToSearch = Math.round(position)
 
-        if (positionToSearch >= 0)
-            return this[positionToSearch]
-        else
-            //el último elemento está en this[this.length-1]
-            return this[positionToSearch + this.length]
-    }
+    if (positionToSearch >= 0)
+        return this[positionToSearch]
+    else
+        //el último elemento está en this[this.length-1]
+        return this[positionToSearch + this.length]
 }
 
-const movies = new Arroz
+var movies = new Arroz
 
 movies[0] = 'karate kid'
 movies[1] = 'vacaciones en roma'
