@@ -30,7 +30,7 @@ function LoginView(props) {
             <input type="text" id="username" />
 
             <label htmlFor="password">Password</label>
-            <input type="password" eid="password" />
+            <input type="password" id="password" />
 
             <button type="submit">Login</button>
         </form>
