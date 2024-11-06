@@ -27,7 +27,7 @@ var registerSection = sections[1]
 var loginSection = sections[2]
 var homeSection = sections[3]
 
-registerSection.style.display = 'none'
+registerSection.style.display = 'none'git
 loginSection.style.display = 'none'
 homeSection.style.display = 'none'
 
