@@ -149,14 +149,11 @@ loginForm.addEventListener('submit', function (event) {
         var userTitle = homeSection.querySelector('h3')
         userTitle.innerText = 'Hello, ' + user.name + '!'
     } catch (error) {
-        var feedback = loginSection.querySelector('p')
 
         feedback.innerText = error.message
 
         console.error(error)
     }
-
-
 })
 
 var logoutButton = homeSection.querySelector('button')
