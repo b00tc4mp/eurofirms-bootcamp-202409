@@ -20,15 +20,15 @@ class Arroz {
     }
 }
 
+const cars = new Arroz();
+cars[0] = 'lambo'
+cars[1] = 'cinquecento'
+cars[2] = 'fiesta'
+cars[3] = 'm5'
+cars.length = 4
+
 console.log('CASE check cars includes ferrari')
 {
-    const cars = new Arroz
-    cars[0] = 'lambo'
-    cars[1] = 'cinquecento'
-    cars[2] = 'fiesta'
-    cars[3] = 'm5'
-    cars.length = 4
-
     const contains = cars.includes('ferrari')
     console.log(contains)
     //expected result -> false
@@ -36,12 +36,6 @@ console.log('CASE check cars includes ferrari')
 
 console.log('CASE check cars includes fiesta')
 {
-    const cars = new Arroz
-    cars[0] = 'lambo'
-    cars[1] = 'cinquecento'
-    cars[2] = 'fiesta'
-    cars[3] = 'm5'
-    cars.length = 4
     const contains = cars.includes('fiesta')
     console.log(contains)
     //expected result -> true
@@ -49,7 +43,7 @@ console.log('CASE check cars includes fiesta')
 
 console.log('CASE check cars includes fiesta (2)')
 {
-    const cars = new Arroz
+    const cars = new Arroz();
     cars[0] = 'lambo'
     cars[1] = 'cinquecento'
     cars[2] = 'fiesta'

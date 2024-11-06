@@ -1,4 +1,4 @@
-console.log('TEST Arroz.prototype.indexOf.js')
+console.log('TEST Arroz.prototype.indexOf')
 
 
 class Arroz {
@@ -19,7 +19,7 @@ class Arroz {
 
 console.log('CASO 1: encontrar a oscar y devolver su posición en students')
 
-const students = new Arroz
+const students = new Arroz();
 students[0] = 'luis f'
 students[1] = 'mario'
 students[2] = 'oscar'

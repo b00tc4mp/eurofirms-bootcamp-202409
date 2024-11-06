@@ -30,7 +30,7 @@ class Arroz {
     }
 }
 
-const numbers = new Arroz
+const numbers = new Arroz();
 numbers[0] = 0
 numbers[1] = 1
 numbers[2] = 2
@@ -55,7 +55,7 @@ this[2] = 3 - 3 = 0
 
 console.log('CASE 2 -> Obtaining days of week reversed')
 
-const daysOfWeek = new Arroz
+const daysOfWeek = new Arroz();
 daysOfWeek[0] = 'Monday'
 daysOfWeek[1] = 'Tuesday'
 daysOfWeek[2] = 'Wednesday'
@@ -73,7 +73,7 @@ console.log('Days of week reversed -> ', daysReversed)
 
 console.log('CASE 3 -> Obtaining seasons of the year reversed on two-dimensional array elements')
 
-const seasons = new Arroz
+const seasons = new Arroz();
 seasons[0] = ['Spring', 'Summer']
 seasons[1] = ['Outumn', 'Winter']
 seasons.length = 2

@@ -15,7 +15,7 @@ class Arroz {
     }
 }
 
-const nums = new Arroz
+const nums = new Arroz();
 nums[0] = 100
 nums[1] = 200
 nums[2] = 300
@@ -47,7 +47,7 @@ console.log(nums.some(checkMoreThan801))
 
 console.log('CASE find if exist fruits with the letter M')
 {
-    const fruits = new Arroz
+    const fruits = new Arroz();
     fruits[0] = 'Banana'
     fruits[1] = 'Mango'
     fruits[2] = 'Piña'
@@ -68,7 +68,7 @@ console.log('CASE find if exist fruits with the letter M')
 }
 console.log('CASE check Nokia')
 {
-    const phones = new Arroz
+    const phones = new Arroz();
     phones[0] = { brand: 'Blackberry', color: 'black', type: 'phone' }
     phones[1] = { brand: 'Motorola', color: 'white', type: 'phone' }
     phones[2] = { brand: 'Nokia', color: 'red', type: 'phone' }
@@ -88,7 +88,7 @@ console.log('CASE check Nokia')
 console.log('CASE check smartphone')
 
 {
-    const phones = new Arroz
+    const phones = new Arroz();
     phones[0] = { brand: 'Blackberry', color: 'black', type: 'phone' }
     phones[1] = { brand: 'Motorola', color: 'white', type: 'phone' }
     phones[2] = { brand: 'Nokia', color: 'red', type: 'phone' }

@@ -22,36 +22,26 @@ class Arroz {
     }
 }
 
+const cities = new Arroz();
+cities[0] = 'Vigo'
+cities[1] = 'Madrid'
+cities[2] = 'Barcelona'
+cities[3] = 'A Coruña'
+cities[4] = 'Leon'
+cities[5] = 'Barcelona'
+cities[6] = 'Vigo'
+cities.length = 7
+
 console.log('CASE 1 -> last index of cities: Barcelona')
 {
-    const cities = new Arroz
-    cities[0] = 'Vigo'
-    cities[1] = 'Madrid'
-    cities[2] = 'Barcelona'
-    cities[3] = 'A Coruña'
-    cities[4] = 'Leon'
-    cities[5] = 'Barcelona'
-    cities[6] = 'Vigo'
-    cities.length = 7
-
     const lastIndexOfBarcelona = cities.lastIndexOf('Barcelona')
 
     console.log('The last index of Barcelona is -> ', lastIndexOfBarcelona)
     // 5
 }
+
 console.log('CASE 2 -> last index of cities: Vigo')
-
 {
-    const cities = new Arroz
-    cities[0] = 'Vigo'
-    cities[1] = 'Madrid'
-    cities[2] = 'Barcelona'
-    cities[3] = 'A Coruña'
-    cities[4] = 'Leon'
-    cities[5] = 'Barcelona'
-    cities[6] = 'Vigo'
-    cities.length = 7
-
     const lastIndexOfVigo = cities.lastIndexOf('Vigo')
 
     console.log('The last index of Vigo is -> ', lastIndexOfVigo)
@@ -61,16 +51,6 @@ console.log('CASE 2 -> last index of cities: Vigo')
 console.log('CASE 3 -> last index of cities not found: Oviedo')
 
 {
-    const cities = new Arroz
-    cities[0] = 'Vigo'
-    cities[1] = 'Madrid'
-    cities[2] = 'Barcelona'
-    cities[3] = 'A Coruña'
-    cities[4] = 'Leon'
-    cities[5] = 'Barcelona'
-    cities[6] = 'Vigo'
-    cities.length = 7
-
     const lastIndexOfOviedo = cities.lastIndexOf('Oviedo')
 
     console.log('The last index of Oviedo is -> ', lastIndexOfOviedo)

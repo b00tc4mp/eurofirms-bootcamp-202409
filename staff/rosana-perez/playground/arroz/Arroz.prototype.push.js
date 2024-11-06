@@ -17,7 +17,7 @@ class Arroz {
 
 console.log('CASE add 400 to nums')
 {
-    const nums = new Arroz
+    const nums = new Arroz();
     nums[0] = 100
     nums[1] = 200
     nums[2] = 300
@@ -31,7 +31,7 @@ console.log('CASE add 400 to nums')
 }
 console.log('CASE add F to chars')
 {
-    const chars = new Arroz
+    const chars = new Arroz();
     chars[0] = 'A'
     chars[1] = 'B'
     chars[2] = 'C'
@@ -47,7 +47,7 @@ console.log('CASE add F to chars')
 }
 console.log('CASE add many elements in one call')
 {
-    const colors = new Arroz
+    const colors = new Arroz();
     colors[0] = 'red'
     colors[1] = 'green'
     colors[2] = 'blue'

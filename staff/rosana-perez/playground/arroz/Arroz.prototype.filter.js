@@ -1,3 +1,5 @@
+console.log('TEST Arroz.prototype.filter')
+
 class Arroz {
     constructor() { this.length = 0 }
 

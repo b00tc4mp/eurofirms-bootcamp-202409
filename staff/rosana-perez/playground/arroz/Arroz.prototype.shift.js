@@ -28,7 +28,7 @@ class Arroz {
 
 console.log('CASE 1 -> Testing method shift with the list of week days')
 
-const daysOfWeek = new Arroz
+const daysOfWeek = new Arroz();
 daysOfWeek[0] = 'Monday'
 daysOfWeek[1] = 'Tuesday'
 daysOfWeek[2] = 'Wednesday'
@@ -54,7 +54,7 @@ console.log('Days of week after apply shift method -> ', daysOfWeek)
 
 console.log('CASE 2 -> Testing method shift with a two-dimensional Arroz')
 
-const days = new Arroz
+const days = new Arroz();
 days[0] = ['Monday', 'Tuesday']
 days[1] = ['Tuesday', 'Wednesday']
 days[2] = ['Friday', 'Saturday']

@@ -1,3 +1,5 @@
+console.log('TEST Arroz.prototype.at')
+
 class Arroz {
     constructor() {
         this.length = 0
@@ -22,7 +24,7 @@ class Arroz {
     }
 }
 
-const movies = new Arroz
+const movies = new Arroz();
 
 movies[0] = 'karate kid'
 movies[1] = 'vacaciones en roma'

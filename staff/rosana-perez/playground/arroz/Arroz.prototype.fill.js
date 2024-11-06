@@ -1,3 +1,5 @@
+console.log('TEST Arroz.prototype.fill')
+
 class Arroz {
     constructor() { this.length = 0 }
 
@@ -36,67 +38,47 @@ seaFish[4] = 'merluza';
 seaFish.length = 5;
 
 console.log('CASO 1: cambiar por peixe todos los valores a partir de la posición 2');
+{
+    let valueToInsert = new Arroz();
+    valueToInsert = 'peixe';
+    let startPosition = new Arroz();
+    startPosition = 2;
+    let endPosition = new Arroz();
+    endPosition = seaFish.length;
 
-let valueToInsert = new Arroz();
-valueToInsert = 'peixe';
-let startPosition = new Arroz();
-startPosition = 2;
-let endPosition = new Arroz();
-endPosition = seaFish.length;
+    seaFish.fill(valueToInsert, startPosition, endPosition);
 
-seaFish.fill(valueToInsert, startPosition, endPosition);
-
-console.log(seaFish);
-// expected result -> Arroz {0: 'necora', 1: 'pota', 2: 'peixe', 3: 'peixe', 4: 'peixe', length: 5}
-
+    console.log(seaFish);
+    // expected result -> Arroz {0: 'necora', 1: 'pota', 2: 'peixe', 3: 'peixe', 4: 'peixe', length: 5}
+}
 
 console.log('CASO 2: cambiar por peixeRico todos los valores a partir de la posición 3 ')
-{
-    const seaFish = new Arroz();
-    seaFish[0] = 'necora';
-    seaFish[1] = 'pota';
-    seaFish[2] = 'lenguado';
-    seaFish[3] = 'rodaballo';
-    seaFish[4] = 'merluza';
-    seaFish.length = 5;
 
+{
     let valueToInsert = 'peixeRico'
     let startPosition = 3
     let endPosition = seaFish.length
+
+    console.log('sustituir valores por peixeRico a partir de lenguado ->', seaFish.fill(valueToInsert, startPosition, endPosition))
+    // expected result -> Arroz {0: 'necora', 1: 'pota', 2: 'lenguado', 3: 'peixeRico', 4: 'peixeRico', length: 5}
 }
-console.log('sustituir valores por peixeRico a partir de lenguado ->', seaFish.fill(valueToInsert, startPosition, endPosition))
-// expected result -> Arroz {0: 'necora', 1: 'pota', 2: 'lenguado', 3: 'peixeRico', 4: 'peixeRico', length: 5}
 
 console.log('CASO 3: cambiar por peixeDeRia todos los valores entre la posición 1 y 4')
 {
-    const seaFish = new Arroz();
-    seaFish[0] = 'necora';
-    seaFish[1] = 'pota';
-    seaFish[2] = 'lenguado';
-    seaFish[3] = 'rodaballo';
-    seaFish[4] = 'merluza';
-    seaFish.length = 5;
-
     let valueToInsert = 'peixeDeRia'
     let startPosition = 1
     let endPosition = 4
+
+    console.log('sustituir valores por peixeDeRia desde pota hasta rodaballo ->', seaFish.fill(valueToInsert, startPosition, endPosition))
+    //expected result -> Arroz {0: 'necora', 'peixeDeRia', 'peixeDeRia', 'peixeDeRia', 'merluza'}
 }
-console.log('sustituir valores por peixeDeRia desde pota hasta rodaballo ->', seaFish.fill(valueToInsert, startPosition, endPosition))
-//expected result -> Arroz {0: 'necora', 'peixeDeRia', 'peixeDeRia', 'peixeDeRia', 'merluza'}
 
 console.log('CASO 4: cambiar por peixe todos los valores entre la posición -1 y -4')
 {
-    const seaFish = new Arroz();
-    seaFish[0] = 'necora';
-    seaFish[1] = 'pota';
-    seaFish[2] = 'lenguado';
-    seaFish[3] = 'rodaballo';
-    seaFish[4] = 'merluza';
-    seaFish.length = 5;
-
     let valueToInsert = 'peixe'
     let startPosition = -4
     let endPosition = -1
+
+    console.log('sustituir valores por peixe desde pota hasta rodaballo utilizando posiciones negativas ->', seaFish.fill(valueToInsert, startPosition, endPosition))
+    //expected result -> Arroz {0: 'necora', 'peixe', 'peixe', 'peixe', 'merluza'}
 }
-console.log('sustituir valores por peixe desde pota hasta rodaballo utilizando posiciones negativas ->', seaFish.fill(valueToInsert, startPosition, endPosition))
-//expected result -> Arroz {0: 'necora', 'peixe', 'peixe', 'peixe', 'merluza'}

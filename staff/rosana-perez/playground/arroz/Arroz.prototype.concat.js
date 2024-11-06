@@ -1,3 +1,5 @@
+console.log('TEST Arroz.prototype.concat')
+
 class Arroz {
     constructor() {
         this.length = 0; // de esta manera se inicializa la longitud ->length<-

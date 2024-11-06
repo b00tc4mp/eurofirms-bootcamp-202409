@@ -20,48 +20,33 @@ class Arroz {
     }
 }
 
+const cities = new Arroz();
+cities[0] = 'Vigo'
+cities[1] = 'Madrid'
+cities[2] = 'Barcelona'
+cities[3] = 'A Coruña'
+cities[4] = 'Leon'
+cities.length = 5
 
 console.log('CASE 1 -> create a list of cities with a dot between')
 {
-    const cities = new Arroz
-    cities[0] = 'Vigo'
-    cities[1] = 'Madrid'
-    cities[2] = 'Barcelona'
-    cities[3] = 'A Coruña'
-    cities[4] = 'Leon'
-    cities.length = 5
-
     const citiesList = cities.join('.')
 
     console.log(citiesList);
     // Vigo.Madrid.Barcelona.A Coruña.Leon
 }
+
 console.log('CASE 2 -> create a list of cities with a space between')
 {
-    const cities = new Arroz
-    cities[0] = 'Vigo'
-    cities[1] = 'Madrid'
-    cities[2] = 'Barcelona'
-    cities[3] = 'A Coruña'
-    cities[4] = 'Leon'
-    cities.length = 5
-
     const citiesList = cities.join(' ')
 
     console.log(citiesList);
     // Vigo Madrid Barcelona A Coruña Leon
 
 }
+
 console.log('CASE 3 -> create a list of cities with the sign "->" between')
 {
-    const cities = new Arroz
-    cities[0] = 'Vigo'
-    cities[1] = 'Madrid'
-    cities[2] = 'Barcelona'
-    cities[3] = 'A Coruña'
-    cities[4] = 'Leon'
-    cities.length = 5
-
     const citiesList = cities.join(' -> ')
 
     console.log(citiesList);
@@ -70,17 +55,8 @@ console.log('CASE 3 -> create a list of cities with the sign "->" between')
 }
 console.log('CASE 4 -> create a list of cities with an "and" between')
 {
-    const cities = new Arroz
-    cities[0] = 'Vigo'
-    cities[1] = 'Madrid'
-    cities[2] = 'Barcelona'
-    cities[3] = 'A Coruña'
-    cities[4] = 'Leon'
-    cities.length = 5
-
     const citiesList = cities.join(' and ')
 
     console.log(citiesList)
+    // Vigo and Madrid and Barcelona and A Coruña and Leon 
 }
-// Vigo and Madrid and Barcelona and A Coruña and Leon 
-
