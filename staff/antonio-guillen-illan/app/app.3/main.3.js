@@ -27,7 +27,7 @@ var registerSection = sections[1]
 var loginSection = sections[2]
 var homeSection = sections[3]
 
-registerSection.style.display = 'none'git
+registerSection.style.display = 'none'
 loginSection.style.display = 'none'
 homeSection.style.display = 'none'
 
@@ -97,19 +97,21 @@ registerForm.addEventListener('submit', function (event) {
 
     var feedback = registerSection.querySelector('p')
 
-    try (
+    try {
         registerUser(name, email, username, password)
 
         registerForm.reset()
-    feedback.innerText = ''
+        feedback.innerText = ''
 
-    registerSection.style.display = 'none'
-    loginSection.style.display = ''
-    ) catch (error) {
-    feedback.innerText = error.message
+        registerSection.style.display = 'none'
+        loginSection.style.display = ''
+    }
 
-    console.error(error)
-}
+    catch (error) {
+        feedback.innerText = error.message
+
+        console.error(error)
+    }
 })
 
 var loginForm = loginSection.querySelector('form')
