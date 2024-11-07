@@ -9,17 +9,17 @@ class Arroz {
     }
 
     concat(values) {
-        var finalArr = []
+        const finalArr = []
 
         // Insert in array first Arroz
-        for (var i = 0; i < this.length; i++) {
+        for (let i = 0; i < this.length; i++) {
             finalArr[i] = this[i]
         }
         // Append in finalArr other array
         if (arguments.length > 0) {
-            for (var i = 0; i < arguments.length; i++) {
-                var dim_finalArr = finalArr.length
-                for (var j = 0; j < arguments[i].length; j++){
+            for (let i = 0; i < arguments.length; i++) {
+                let dim_finalArr = finalArr.length
+                for (let j = 0; j < arguments[i].length; j++){
                     finalArr[dim_finalArr + j] = arguments[i][j]
                 }
             }
@@ -32,7 +32,7 @@ class Arroz {
 console.log('CASE merge two arrays')
 
 {
-    var lowerChar = new Arroz
+    const lowerChar = new Arroz
     lowerChar[0] = 'a'
     lowerChar[1] = 'b'
     lowerChar[2] = 'c'
@@ -44,7 +44,7 @@ console.log('CASE merge two arrays')
     //[ 'a', 'b', 'c', 'd', 'e' ]
 }
 {
-    var upperChar = new Arroz
+    const upperChar = new Arroz
     upperChar[0] = 'A'
     upperChar[1] = 'B'
     upperChar[2] = 'C'
@@ -56,7 +56,7 @@ console.log('CASE merge two arrays')
     // [ 'A', 'B', 'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e' ]
 }
 {
-    var num = new Arroz
+    const num = new Arroz
     num[0] = '1'
     num[1] = '2'
     num[2] = '3'

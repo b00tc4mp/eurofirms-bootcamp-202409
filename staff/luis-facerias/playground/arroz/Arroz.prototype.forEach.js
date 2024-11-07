@@ -9,8 +9,8 @@ class Arroz {
     }
 
     forEach(callback) {
-        for (var i = 0; i < this.length; i++){
-            var element = this[i]
+        for (let i = 0; i < this.length; i++){
+            let element = this[i]
 
             callback(element)
         }
@@ -21,7 +21,7 @@ class Arroz {
 console.log('CASE cars started with S')
 
 {
-    var cars = new Arroz
+    const cars = new Arroz
     cars[0] = 'Renault'
     cars[1] = 'Talbot'
     cars[2] = 'Ford'
@@ -42,7 +42,7 @@ console.log('CASE cars started with S')
 console.log('CASE cars with 5 chars')
 
 {
-    var cars = new Arroz
+    const cars = new Arroz
     cars[0] = 'Renault'
     cars[1] = 'Talbot'
     cars[2] = 'Ford'

@@ -10,8 +10,8 @@ class Arroz {
     }
 
     includes(searchElement, fromIndex) {
-        for (var i = (fromIndex === undefined ? 0 : fromIndex); i < this.length; i++){
-            var element = this[i]
+        for (let i = (fromIndex === undefined ? 0 : fromIndex); i < this.length; i++){
+            let element = this[i]
 
             if (element === searchElement) return true
         }
@@ -22,13 +22,13 @@ class Arroz {
 console.log('TEST Arroz.prototype.includes')
 console.log('CASE check cars includes Renault')
 {
-    var cars = new Arroz
+    const cars = new Arroz
     cars[0] = 'SEAT'
     cars[1] = 'RENAULT'
     cars[2] = 'KIA'
     cars[3] = 'PEUGEOT'
     cars.length = 4
-    var element = cars.includes('RENAULT')
+    const element = cars.includes('RENAULT')
     console.log(element)
     // true
 }
@@ -36,13 +36,13 @@ console.log('CASE check cars includes Renault')
 // Test with a car that is not in array
 console.log('CASE check cars not includes FERRARI')
 {
-    var cars = new Arroz
+    const cars = new Arroz
     cars[0] = 'SEAT'
     cars[1] = 'RENAULT'
     cars[2] = 'KIA'
     cars[3] = 'PEUGEOT'
     cars.length = 4
-    var element = cars.includes('FERRARI')
+    const element = cars.includes('FERRARI')
     console.log(element)
     // false
 }
@@ -51,13 +51,13 @@ console.log('CASE check cars not includes FERRARI')
 // Test with a car in array and index
 console.log('CASE check cars includes Renault at index')
 {
-    var cars = new Arroz
+    const cars = new Arroz
     cars[0] = 'SEAT'
     cars[1] = 'RENAULT'
     cars[2] = 'KIA'
     cars[3] = 'PEUGEOT'
     cars.length = 4
-    var element = cars.includes('RENAULT', 0)
+    const element = cars.includes('RENAULT', 0)
     console.log(element)
     // true
 }

@@ -14,7 +14,7 @@ class Arroz {
         start === undefined ? start = 0 : start
         end === undefined | end > this.length ? end = this.length : end
 
-        for (const i = start; i < end; i++){
+        for (let i = start; i < end; i++){
             this[i] = element
         }
         return this
