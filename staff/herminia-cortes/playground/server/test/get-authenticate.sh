@@ -1,0 +1,1 @@
+curl -X GET 'http://localhost:8080/authenticate?username=mikemouse&password=123123123' -v
