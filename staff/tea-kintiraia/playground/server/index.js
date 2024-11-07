@@ -87,7 +87,7 @@ server.get('/authenticate', (req, res) => {
     res.send(`<!DOCTYPE html>
         <html>
             <head>
-                <title>Autemticate>/title
+                <title>Authenticate</title>
             </head>
             <body>
                 <h1>Authenticate</h1>
@@ -97,11 +97,12 @@ server.get('/authenticate', (req, res) => {
                     <input type="text" id="username" name="username">
 
                     <label for="password">Password</label>
-                    <input type="password" id="password" id="password" name="password"
+                    <input type="password" id="password" id="password" name="password">
 
                     <button type="submit">Go</button>
                 </form>
-        </html`)
+
+        </html>`)
 })
 
 server.listen(8080, () => console.log('server up'))
