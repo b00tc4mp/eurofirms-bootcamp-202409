@@ -1,53 +1,83 @@
-console.log("ARROZ forEach")
-console.log("CASE with people")
+class Arroz {
+    constructor() {
+        this.length = 0
+    }
 
-Arroz = function () { this.length = 0 }
+    forEach(callback) {
+        for (let i = 0; i < this.length; i++) {
+            const element = this[i]
 
-Arroz.prototype.forchEach = function (callback) {
-    for (var i = 0; i < this.length; i++) {
-          callback(this[i])
+            callback(element)
+        }
     }
 }
-            
-var pepple = new Arroz 
-people[0] = {
-  name: "Paco",
-  age: 30,
-  origin: "Madrid"
-} 
-people[1] = {
-  name: "Laura",
-  age: 16,
-  origin: "Sevilla"
-}  
-peopel[2] = {
-  name: "Manolo",
-  age: 25,
-  origin: "Jaen"
+
+console.log('TEST Arroz.prototype.forEach')
+
+console.log('CASE multiply each number by itself and print it')
+
+{
+    const nums = new Arroz
+    nums[0] = 1
+    nums[1] = 2
+    nums[2] = 3
+    nums[3] = 4
+    nums[4] = 5
+    nums[5] = 6
+    nums.length = 6
+    nums.forEach(function (num) {
+        const res = num * num
+
+        console.log(res)
+    })
+    // 1
+    // 4
+    // 9
+    // 16
+    // 25
+    // 36
 }
-peopel[3] = {
-  name: "Lucía",
-  age: 32,
-  orgin: "Cordoba"
+
+console.log('CASE add 10 to each number and print it')
+
+{
+    const nums = new Arroz
+    nums[0] = 1
+    nums[1] = 2
+    nums[2] = 3
+    nums[3] = 4
+    nums[4] = 5
+    nums[5] = 6
+    nums.length = 6
+    nums.forEach(function (num) {
+        const res = num + 10
+
+        console.log(res)
+    })
+    // 11
+    // 12
+    // 13
+    // 14
+    // 15
+    // 16
 }
-people.length = 4
 
-console.log("CASE prnt every element of Arroz")
-var consoleLogFunction = function (element) {
-  console.log(element.origin)
+console.log('CASE add all numbers')
+
+{
+    const nums = new Arroz
+    nums[0] = 1
+    nums[1] = 2
+    nums[2] = 3
+    nums[3] = 4
+    nums[4] = 5
+    nums[5] = 6
+    nums.length = 6
+    let res = 0
+    nums.forEach(function (num) {
+        //res = res + num
+        res += num
+    })
+    console.log(res)
+    // 21
 }
-people.forEach(consoleLogFunction)
-
-console.log("CASE sum 2 to each element")
-var sum2 = function (element) {
-  element.age = element.age + 2
-}
-people.forEach(sum2)
-console.log(people)
-
-
-    
-  
-
-
-  
