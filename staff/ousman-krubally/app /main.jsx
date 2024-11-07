@@ -1,4 +1,4 @@
 const rootElement = document.querySelector('#root')
-const root = ReactDom.createRoot(rootElement)
+const root = ReactDOM.createRoot(rootElement)
 
 root.render(<App />)
