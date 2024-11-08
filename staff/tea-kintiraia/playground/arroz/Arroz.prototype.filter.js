@@ -1,13 +1,16 @@
-var Arroz = function () { this.length = 0 }
+class Arroz { 
+    constructos() {
+    this.length = 0 
+}
 
-Arroz.prototype.filter = function (callbackFinction) {
+filter(callbackFinction) {
 
     // crear Arroz;
     // recorer el objeto para verificar si cada elemento cumple la condición de la función;
     //devolver el nuevo arroz
-
-var result = new Arroz
-for ( var i = 0; i < this.length; i++) {
+}
+const result = new Arroz
+for ( let i = 0; i < this.length; i++) {
     if (callbackFinction(this[i])) {
         result[result.length] = this[i]
         result.length++
