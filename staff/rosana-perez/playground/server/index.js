@@ -17,7 +17,7 @@ server.get('/time', (req, res) => {
 
     const year = date.getFullYear()
     const month = date.getMonth() + 1
-    const day = date.getDay()
+    const day = date.getDate()
     const hour = date.getHours()
     const minute = date.getMinutes()
     const second = date.getSeconds()
@@ -68,7 +68,7 @@ server.get('/salutation', (req, res) => {
 
 
 const formBodyParser = express.urlencoded({ extended: true })
-// parseador, interpreta los datos de boy y los va a convertir en el objeto de la lin.75
+// parseador, interpreta los datos de body y los va a convertir en el objeto de la lin.75
 // req
 //body -> username=peterpan&password=123123123
 
