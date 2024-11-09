@@ -105,3 +105,4 @@ server.get('/authenticate', (req, res) => {
 })
 
 server.listen(8080, () => console.log('server up'))
+// servidor 8080/ y luego ya lo que le quieras mandar
