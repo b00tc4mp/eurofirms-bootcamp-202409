@@ -17,4 +17,4 @@ function authenticateUser(username, password) {
     return user.id
 }
 
-export default registerUser
+export default authenticateUser

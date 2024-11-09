@@ -1,4 +1,4 @@
-import express, { json } from 'express'
+import express from 'express'
 
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
