@@ -1,16 +1,21 @@
-import express, { json } from 'express'
+import express, { json } from 'express' // el paquete express como el required que aparece en server
+
+import cors from 'cors'
 
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
 
-const api = express()
+const api = express() // Llamo a esta funcion creonado un objeto y ya puedo crear rutas
 
-api.get('/', (req, res) => res.send('Hello, World!'))
+api.use(cors())
+
+api.get('/', (req, res) => res.send('Hello, World!')) // pregunta,responde ,hello
 
 const jsonBodyParser = express.json()
 
 api.post('/users', jsonBodyParser, (req, res) => {
+    // ruta para registrar usuarios en forma de formulario post,se reciben los datos en forma de JSON y hay que pasarlo a objeto
     try {
         const name = req.body.name
         const email = req.body.email
@@ -54,3 +59,4 @@ api.get('/users/:targetUserId/name', (req, res) => {
 })
 
 api.listen(8080, () => console.log('API is up'))
+// generamos el puerto y un chivato que nos indica con API is up ,que esto ya esta activo,como esta en otra rama no interactua con el otro de server
