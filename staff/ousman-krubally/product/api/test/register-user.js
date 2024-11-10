@@ -1,13 +1,14 @@
-fetch('htto://localhost:8080/users/4qghhowdc64/name', {
-    method: 'GET',
+fetch('http://localhost:8080/users', {
+    method: 'POST',
     headers: {
-        authorizacion: 'basic 4qghhowdc64'
-    }
+        'Content-Type': 'application/json'
+    },
+    body: '{"name":"git lit","email":"git@lit.com","username":"gitlit","password":"123123123"}'
 })
     .then(response => {
         console.log(response.status)
 
         return response.text()
     })
-    .then(boy => console.log(body))
+    .then(body => console.log(body))
     .catch(error => console.error(error))
