@@ -1,10 +1,13 @@
-import express, { json } from 'express'
+import express from 'express'
+import cors from 'cors'
 
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
 
 const api = express()
+
+api.use(cors())
 
 api.get('/', (req, res) => res.send('Hello, World!'))
 

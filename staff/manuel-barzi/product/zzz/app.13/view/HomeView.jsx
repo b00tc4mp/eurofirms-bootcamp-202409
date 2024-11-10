@@ -14,20 +14,10 @@ function HomeView(props) {
 
     console.log('HomeView -> state: name = ' + name)
 
-    useEffect(() => {
-        try {
-            getUserName()
-                .then(name => setName(name))
-                .catch(error => {
-                    alert(error.message)
+    useEffect(function () {
+        const name = getUserName()
 
-                    console.error(error)
-                })
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
+        setName(name)
     }, [])
 
     return <main>
