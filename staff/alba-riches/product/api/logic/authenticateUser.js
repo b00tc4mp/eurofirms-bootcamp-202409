@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs' // para poder guardar los datos en el disco duro,(fail sistem , trabajar con archivos y sistemas del ordenador)
 
 function authenticateUser(username, password) {
     if (typeof username !== 'string') throw new Error('invalid username')

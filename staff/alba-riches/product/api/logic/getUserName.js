@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-function getUserName(userId, targetUserId) {
+function getUserName(userId, targetUserId) { // los datos nos vendra de a fuera
     if (typeof userId !== 'string') throw new Error('invalid userId')
     if (typeof targetUserId !== 'string') throw new Error('invalid targetUserId')
 

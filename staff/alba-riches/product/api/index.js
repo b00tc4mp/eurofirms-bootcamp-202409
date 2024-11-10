@@ -54,7 +54,7 @@ api.get('/users/:targetUserId/name', (req, res) => {
 
         res.json(name)
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        res.status(400).json({ error: error.constructor.name, message: error.message }) // indicamos el tipo de error y su constructora
     }
 })
 
