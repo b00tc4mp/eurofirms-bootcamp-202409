@@ -1,3 +1,3 @@
-function logoutUser() {
+function logout() {
     delete sessionStorage.userId
 }
