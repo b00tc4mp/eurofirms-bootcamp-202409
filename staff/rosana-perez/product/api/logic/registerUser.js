@@ -1,3 +1,6 @@
+import fs from 'fs'
+import uuid from '../util/uuid.js'
+
 function registerUser(name, email, username, password) {
     if (typeof name !== 'string') throw new Error('invalid name')
     if (name.length < 4) throw new Error('invalid name length')
@@ -16,26 +19,29 @@ function registerUser(name, email, username, password) {
 
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
+   
+   let usersJSON = fs.readFileSync('data/users.json', 'utf8')
+   const users = JSON.parse(usersJSON)
 
-    const users = JSON.parse(localStorage.users)
-    // recupera los datos users de la localStorage y los convierte en array
+   let user = users.find(user => user.email === email || user.username === username)
 
-    let user = users.find(function (user) {
-        return user.email === email || user.username === username
-    })
 
-    if (user !== undefined) throw new Error('user already exists')
+if (user) throw new Error('user already exists')
 
-    user = {}
-    user.id = uuid()
-    user.name = name
-    user.email = email
-    user.username = username
-    user.password = password
+user = {}
+user.id = uuid()
+user.name = name
+user.email = email
+user.username = username
+user.password = password
 
-    users.push(user)
+users.push(user)
 
-    localStorage.users = JSON.stringify(users)
-    // guardar de nuevo los datos en la localStorage como objeto
+usersJSON = JSON.stringify(users)
 
-}
+fs.writeFileSync('data/users.json', usersJSON)
+
+   
+    }
+
+export default registerUser
