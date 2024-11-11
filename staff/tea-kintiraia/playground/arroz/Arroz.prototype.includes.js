@@ -1,16 +1,18 @@
 class Arroz { 
-    constructor()
-    this.length = 0
- }
+    constructor() {
+    this.length = 0 }
+ 
 
-includes(searchElement, fromIndex) {
+includes()  {
     for (let i = (fromIndex === undefined ? 0 : fromIndex); i < this.length; i++) {
         let element = this[i]
 
     if (element === searchElement) return true
-}
+    }
 
 return false
+}
+
 }
 
 console.log('TEST Arroz.prototype.includes')

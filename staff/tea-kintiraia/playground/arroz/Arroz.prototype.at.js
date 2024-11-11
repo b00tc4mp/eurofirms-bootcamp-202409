@@ -34,7 +34,7 @@ console.log('CASE get element at index 3')
 
 {
 
-var things = new Arroz
+const things = new Arroz
 things[0] = 100
 things[1] = true
 things[2] = 'hola mundo'

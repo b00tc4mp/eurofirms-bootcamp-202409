@@ -1,5 +1,5 @@
 class Arroz {
-    constructor() { this.length = 0 }
+    constructor() {  this.length = 0  }
 
     indexOf(searchElement, fromIndex) {
         for (let i = (fromIndex === undefined ? 0 : (fromIndex < 0 ? this.length + fromIndex : fromIndex)); i < this.length; i++) {
