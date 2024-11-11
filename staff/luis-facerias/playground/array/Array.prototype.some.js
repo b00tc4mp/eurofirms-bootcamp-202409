@@ -10,7 +10,7 @@ console.log('CASE returns true if found the first result of a conditional search
 
 var cars = ['Renault', 'Talbot', 'Ford', 'Seat', 'Skoda', 'Daewo', 'Toyota']
 
-console.log('CASE returns the first result of car with k its name')
+console.log('CASE returns cars with name length equal 5 chars')
 var car = cars.some(function (car) {
     if (car.length === 5) {
         return car

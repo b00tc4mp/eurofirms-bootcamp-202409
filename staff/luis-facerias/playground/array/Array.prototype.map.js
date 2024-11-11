@@ -1,7 +1,7 @@
 // ARRAY.PROTOTYTPE.MAP
 
 // The map method of the Array function
-// returns a new array with result of callin a function on every element
+// returns a new array with result of calling a function on every element
 
 console.log('TEST Array.prototype.map')
 
