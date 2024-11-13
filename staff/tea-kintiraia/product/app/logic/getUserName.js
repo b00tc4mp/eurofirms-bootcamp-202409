@@ -18,7 +18,7 @@ function getUserName() {
             return response.json()
                 .then(body => {
                     const error = body.error
-                    const message j= body.message
+                    const message = body.message
 
                     throw new Error(message)
                 })

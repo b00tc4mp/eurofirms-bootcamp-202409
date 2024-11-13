@@ -22,7 +22,7 @@ function loginUser(username, password) {
                         sessionStorage.userId = userId
                     })
 
-            return response - json()
+            return response.json()
                 .then(body => {
                     const error = body.error
                     const message = body.message
