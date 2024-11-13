@@ -31,5 +31,4 @@ api.post('/users', jsonBodyParser, (req, res) =>{
 })
 
 
-api.listen(8080, () => console.log('Express API is up => http://127.0.0.1:8080))
-
+api.listen(8080, () => console.log('Express API is up => http://127.0.0.1:8080'))
