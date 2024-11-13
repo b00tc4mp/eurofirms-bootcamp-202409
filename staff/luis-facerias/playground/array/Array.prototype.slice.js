@@ -1,4 +1,4 @@
-// ARRAY.PROTOTYPE.SLICe
+// ARRAY.PROTOTYPE.SLICE
 
 // The some method of the Array function
 // returns a portion of an array into a new array
