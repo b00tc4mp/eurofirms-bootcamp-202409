@@ -16,14 +16,11 @@ function RegisterView(props) {
             const username = form.username.value
             const password = form.password.value
 
-            try { // parte asincrona, espera a la respuesta del servidor
+            try {
                 registerUser(name, email, username, password)
-                    .then(()=> props.onRegisterSucess())
-                    .catch(error => {
-                        alert(error.message)
 
-                        console.error(error)
-                    })         
+                props.onRegisterSuccess()
+
             } catch (error) {
                 alert(error.message)
 

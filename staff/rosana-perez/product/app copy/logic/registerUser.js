@@ -1,4 +1,3 @@
-//validaciones sincronas, es decir, en el mismo momento
 function registerUser(name, email, username, password) {
     if (typeof name !== 'string') throw new Error('invalid name')
     if (name.length < 4) throw new Error('invalid name length')
@@ -18,25 +17,25 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    return fetch('http://localhost:8080/users',  {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({name, email, username, password})
-        })
+    const users = JSON.parse(localStorage.users)
+    // recupera los datos users de la localStorage y los convierte en array
 
-        .catch(error => { throw new Error(error.message) }) // fetch error -> view of communication errors
-        .then(response => {
-            const status = response.status
+    let user = users.find(function (user) {
+        return user.email === email || user.username === username
+    })
 
-            if(status === 201) return
+    if (user !== undefined) throw new Error('user already exists')
 
-            return response.json() // convierte la respuesta de la api en objeto json
-                .then (body => {
-                const error = body.error
-                const message = body.message
+    user = {}
+    user.id = uuid()
+    user.name = name
+    user.email = email
+    user.username = username
+    user.password = password
 
-                throw new Error(message)
-            })  
+    users.push(user)
 
-        })
+    localStorage.users = JSON.stringify(users)
+    // guardar de nuevo los datos en la localStorage como objeto
+
 }

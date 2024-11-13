@@ -2,15 +2,18 @@ import express from 'express'
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
+import cors from 'cors'
 
 
-const api = express()
+const api = express() // habilitar express
 
-api.get('/', (req, res) => res.send('Hello, World!'))
+api.use(cors()) // middleware cors - permite a un servidor indicar cualquier dominio, esquema o puerto con un origen distinto del suyo desde el que un navegador debería permitir la carga de recursos
+
+api.get('/', (req, res) => res.send('Hello, World!')) // default route to start api
 
 const jsonBodyParser = express.json()
 
-api.post('/users', jsonBodyParser, (req, res) => {
+api.post('/users', jsonBodyParser, (req, res) => { // register user
         console.log(req.body)
 
         try {
@@ -29,7 +32,7 @@ api.post('/users', jsonBodyParser, (req, res) => {
 
 })
 
-api.post('/users/auth', jsonBodyParser, (req, res) => {
+api.post('/users/auth', jsonBodyParser, (req, res) => { //authenticate user
     try {
         const username = req.body.username
         const password = req.body.password
@@ -43,7 +46,7 @@ api.post('/users/auth', jsonBodyParser, (req, res) => {
     }
 })
 
-api.get('/users/:targetUserId/name', (req, res) => {
+api.get('/users/:targetUserId/name', (req, res) => { //get user name
     try {
     const authorization = req.headers.authorization // respuesta: Basic <userId>
     const userId = authorization.slice(6) // corta la const authorization, que es Basic <userId>, a partir del 6º dígito 
@@ -59,11 +62,6 @@ api.get('/users/:targetUserId/name', (req, res) => {
     }
 
 })
-
-
-
-
-
 
 
 api.listen(8080, () => console.log('API is up'))
