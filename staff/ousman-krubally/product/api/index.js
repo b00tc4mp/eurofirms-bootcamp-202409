@@ -40,6 +40,7 @@ api.post('/users/auth', jsonBodyParser, (req, res) => {
 
 api.get('/users/:targetUserId/name', (req, res) => {
     try {
+        debugger
         const authorization = req.headers.authorization // Basic <user-id>
         const userId = authorization.slice(6)
 
