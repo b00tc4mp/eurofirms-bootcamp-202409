@@ -18,7 +18,7 @@ function RegisterView(props) {
 
             try { // parte asincrona, espera a la respuesta del servidor
                 registerUser(name, email, username, password)
-                    .then(()=> props.onRegisterSucess())
+                    .then(()=> props.onRegisterSuccess())
                     .catch(error => {
                         alert(error.message)
 

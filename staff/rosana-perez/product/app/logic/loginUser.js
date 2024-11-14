@@ -1,18 +1,39 @@
-function loginUser(username, password) {
+function loginUser(username, password) { //parte sincrona
     if (typeof username !== 'string') throw new Error('invalid username')
     if (username.length < 4) throw new Error('invalid username length')
 
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    const users = JSON.parse(localStorage.users)
-    // recupera los datos users de la localStorage y los convierte en array
+   return fetch('http://localhost:8080/users/auth', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username, password})
+    }) 
+        .catch(error => {throw new Error(error.message)})
+        .then(response => {
+            const status = response.status
 
-    const user = users.find(function (user) {
-        return user.username === username && user.password === password
-    })
+            if (status === 200) 
+                return response.json()
+                    .then(userId => {
+                        sessionStorage.userId = userId
+                    })
+            
+            return response.json()
+            .then(body => {
+                const error = body.error
+                const message = body.message
 
-    if (user === undefined) throw new Error('wrong credentials')
+                throw new Error(message)
+            })
+        })
+        
+       
 
-    sessionStorage.userId = user.id
+
+
+
 }

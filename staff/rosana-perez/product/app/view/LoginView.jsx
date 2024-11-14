@@ -14,10 +14,14 @@ function LoginView(props) {
             const username = form.username.value
             const password = form.password.value
 
-            try {
+            try { // parte asincrona
                 loginUser(username, password)
+                    .then(() => props.onLoginSuccess())
+                    .catch(error => {
+                        alert(error.message)
 
-                props.onLoginSuccess()
+                        console.error(error)
+                    })
             } catch (error) {
                 alert(error.message)
 
