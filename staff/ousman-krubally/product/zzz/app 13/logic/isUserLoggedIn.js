@@ -6,5 +6,5 @@ function logoutUser() {
 
     // return sessionStorage.userId !== undefined
 
-    return !!sessionStorage.userId
+    delete sessionStorage.userId
 }

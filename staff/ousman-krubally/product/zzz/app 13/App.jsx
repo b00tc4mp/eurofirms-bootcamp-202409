@@ -3,7 +3,7 @@ const useState = React.useState
 function App() {
     console.log('App -> render')
 
-    const viewState = useState(isUserLoggedIn() ? 'home' : 'welcome')
+    const viewState = useState('welcome')
     const view = viewState[0]
     const setView = viewState[1]
 

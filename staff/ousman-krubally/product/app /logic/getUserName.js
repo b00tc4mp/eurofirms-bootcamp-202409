@@ -1,11 +1,25 @@
 function getUserName() {
-    const users = JSON.parse(localStorage.users)
+    //return fetch('http://localhost:8080/users/' + sessionStorage.userId + '/name', {
+    return fetch(`http://localhost:8080/users/${sesionStorage.userId}/name`, {
+        method: 'GET',
+        headers: {
+            //Authorizacion: 'Basic ' + sesionStorage.userId
+            Authorization: `Basic ${sesionStorage.userId}`
+        }
+    })
+        .catch(error => { throw new Error(error.message) })
+        .then(response => {
+            const status = response.status
 
-    const user = users.find(function (user) {
-        return user.id === sessionStorage.userId
-    }) 
+            if (status === 200)
+                return response.json()
 
-    if (user === undefined) throw new Error('user not found')
+            return response.json()
+                .then(body => {
+                    const error = body.error
+                    const message = body.message
 
-    return user.name
+                    throw new Error(message)
+                })
+        })
 }
