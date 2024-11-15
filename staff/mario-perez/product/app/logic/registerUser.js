@@ -17,22 +17,25 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    const users = JSON.parse(localStorage.users)
-
-    let user = users.find(function (user) {
-        return user.email === email || user.username === username
+    return fetch('http://localhost:8080/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, username, password })
     })
+        .catch(error => { throw new Error(error.message) })
+        .then(response => {
+            const status = response.status
 
-    if (user !== undefined) throw new Error('user already exists')
+            if (status === 201) return
 
-    user = {}
-    user.id = uuid()
-    user.name = name
-    user.email = email
-    user.username = username
-    user.password = password
+            return response.json()
+                .then(body => {
+                    const error = body.error
+                    const message = body.message
 
-    users.push(user)
-
-    localStorage.users = JSON.stringify(users)
+                    throw new Error(message)
+                })
+        })
 }

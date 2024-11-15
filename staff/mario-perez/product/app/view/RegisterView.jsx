@@ -20,8 +20,12 @@ function RegisterView(props) {
 
             try {
                 registerUser(name, email, username, password)
+                    .then(() => props.onRegisterSuccess())
+                    .catch(error => {
+                        alert(error.message)
 
-                props.onRegisterSuccess()
+                        console.error(error)
+                    })
             } catch (error) {
                 alert(error.message)
 

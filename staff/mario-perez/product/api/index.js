@@ -1,10 +1,14 @@
 import express from 'express'
+import cors from 'cors'
 
-import registerUser from './logic/authenticateUser.js'
+import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
+import getPosts from './logic/getPosts.js'
 
 const api = express()
+
+api.use(cors())
 
 api.get('/', (req, res) => res.send('Hello, World!'))
 
@@ -49,7 +53,20 @@ api.get('/users/:targetUserId/name', (req, res) => {
 
         res.json(name)
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, error: error.message })
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.get('/posts', (req, res) => {
+    try {
+        const authorization = req.headers.authorization // Basic <user-id>
+        const userId = authorization.slice(6)
+
+        const posts = getPosts(userId)
+
+        res.json(posts)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
 
