@@ -1,9 +1,9 @@
 function getPosts() {
-    return fetch(`http://localhost:8080/posts`, { 
+    return fetch('http://localhost:8080/posts', { 
         method: 'GET',
         headers: {
             Authorization: `Basic ${sessionStorage.userId}`, // Js5 = 'Basic ' + sessionStorage.userId 
-        },// put an eye on this! not '', it's ``
+        }// put an eye on this! not '', it's ``
     })
         .catch(error => { throw new Error(error.message) })
         .then(response => {

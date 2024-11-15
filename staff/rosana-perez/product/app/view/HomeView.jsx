@@ -6,7 +6,7 @@ const useEffect = React.useEffect
 function HomeView(props) {
     console.log('HomeView -> render')
 
-    //props -> {Logout}
+    //props -> {onLogout}
 
     const nameState = useState(null)
     const name = nameState[0]
@@ -29,6 +29,7 @@ function HomeView(props) {
                     console.error(error)
 
                 })
+                
             getPosts()
                 .then (posts =>setPosts(posts))
                 .catch(error => {

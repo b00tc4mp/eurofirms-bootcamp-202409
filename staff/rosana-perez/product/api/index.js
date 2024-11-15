@@ -3,6 +3,7 @@ import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
 import cors from 'cors'
+import getPosts from './logic/getPosts.js'
 
 
 const api = express() // habilitar express
@@ -61,6 +62,19 @@ api.get('/users/:targetUserId/name', (req, res) => { //get user name
         res.status(400).json({error: error.constructor.name, message: error.message})
     }
 
+})
+
+api.get('/posts', (req, res) => {
+    try {
+        const authorization = req.headers.authorization // Basic <user-id>
+        const userId = authorization.slice(6)
+        
+        const posts = getPosts(userId)
+
+        res.json(posts)
+    } catch(error) {
+        res.status(400).json({error: error.constructor.name, message: error.message})
+    }
 })
 
 
