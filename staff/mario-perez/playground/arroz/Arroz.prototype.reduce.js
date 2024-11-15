@@ -7,12 +7,12 @@ Recoge como parámetros el acumulador y el valor actual, y devuelve el acumulado
 Si se pone un valor inicial, se cuenta el primer elemento, si no se pone, empieza por el índice 1
 */
 
-var Arroz = function () { this.length = 0 }
+let Arroz = function () { this.length = 0 }
 
 Arroz.prototype.reduce = function (callbackFunction, initialValue) {
     //Declaración de variables
-    var start = 0
-    var total
+    let start = 0
+    let total
 
     // Primero, valoramos si se ha definido el valor inicial
     if (initialValue === undefined) {
@@ -25,7 +25,7 @@ Arroz.prototype.reduce = function (callbackFunction, initialValue) {
     // Para cada elemento, llamamos a la función
     // Guardamos lo que devuelve la función en la variable acumulativa
     // Al final, la devolvemos
-    for (var i = start; i < this.length; i++) {
+    for (let i = start; i < this.length; i++) {
         total = callbackFunction(total, this[i])
     }
     return total
@@ -35,7 +35,7 @@ console.log('TEST Arroz.prototype.reduce')
 
 console.log('CASE call with initial value is 10')
 
-var numbers = new Arroz
+let numbers = new Arroz
 numbers[0] = 3
 numbers[1] = 1
 numbers[2] = 2
@@ -52,7 +52,7 @@ console.log(numbers.reduce(method, 10))
 
 console.log('CASE call with initial value is 5')
 
-var numbers = new Arroz
+let numbers = new Arroz
 numbers[0] = 3
 numbers[1] = 1
 numbers[2] = 2
@@ -69,7 +69,7 @@ console.log(numbers.reduce(method2, 5))
 
 console.log('CASE call without initial value')
 
-var numbers = new Arroz
+let numbers = new Arroz
 numbers[0] = 3
 numbers[1] = 1
 numbers[2] = 2
