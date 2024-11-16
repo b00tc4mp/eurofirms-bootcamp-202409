@@ -1,1 +1,23 @@
-[{"id":"4qhh2hqyvkm","name":"Peter Pan","email":"peter@pan.com","username":"peterpan","password":"123123123"}]
+[{"id":"4qhh2hqyvkm","name":"Peter Pan","email":"peter@pan.com","username":"peterpan","password":"123123123"}][
+    {
+        "id": "4qghhowdc64",
+        "name": "Peter Pan",
+        "email": "peter@pan.com",
+        "username": "peterpan",
+        "password": "123123123"
+    },
+    {
+        "id": "h1o857ew32",
+        "name": "Wendy Darling",
+        "email": "wendy@darling.com",
+        "username": "wendydarling",
+        "password": "123123123"
+    },
+    {
+        "id": "4qgqeh5z01k",
+        "name": "Campa Nilla",
+        "email": "campa@nilla.com",
+        "username": "campanilla",
+        "password": "123123123"
+    }
+]

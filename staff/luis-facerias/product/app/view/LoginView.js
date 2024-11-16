@@ -1,3 +1,0 @@
-function LoginView(params) {
-    
-}

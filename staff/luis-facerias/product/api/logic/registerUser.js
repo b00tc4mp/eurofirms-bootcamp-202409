@@ -1,5 +1,5 @@
 import fs from 'fs'
-import uuid from '../utils/uuid.js'
+import uuid from '../util/uuid.js'
 
 function registerUser(name, email, username, password) {
     if (typeof name !== 'string') throw new Error('invalid name')

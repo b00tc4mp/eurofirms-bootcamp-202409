@@ -3,7 +3,7 @@ import authenticateUser from './authenticateUser.js'
 try {
     const userId = authenticateUser('peterpan', '123123123')
 
-    consolelog(userId)
+    console.log(userId)
 } catch (error) {
-    console.error(error);
+    console.error(error)
 }

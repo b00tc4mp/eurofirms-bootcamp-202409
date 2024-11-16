@@ -1,15 +1,20 @@
 import express from 'express'
+import cors from 'cors'
+
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
+import getUserName from './logic/getUserName.js'
+import getPosts from './logic/getPosts.js'
 
 const api = express()
 
-api.get('/', (req, res) => res.send('Hello, World!'))
+api.use(cors())
 
+api.get('/', (req, res) => res.send('Hello, World!'))
 
 const jsonBodyParser = express.json()
 
-api.post('/users', jsonBodyParser, (req, res) =>{
+api.post('/users', jsonBodyParser, (req, res) => {
     try {
         const name = req.body.name
         const email = req.body.email
@@ -24,7 +29,7 @@ api.post('/users', jsonBodyParser, (req, res) =>{
     }
 })
 
-api.post('/users/auth', jsonBodyParser, (req, res) =>{
+api.post('/users/auth', jsonBodyParser, (req, res) => {
     try {
         const username = req.body.username
         const password = req.body.password
@@ -32,7 +37,34 @@ api.post('/users/auth', jsonBodyParser, (req, res) =>{
         const userId = authenticateUser(username, password)
 
         res.json(userId)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
 
+api.get('/users/:targetUserId/name', (req, res) => {
+    try {
+        const authorization = req.headers.authorization // Basic <user-id>
+        const userId = authorization.slice(6)
+
+        const targetUserId = req.params.targetUserId
+
+        const name = getUserName(userId, targetUserId)
+
+        res.json(name)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.get('/posts', (req, res) => {
+    try {
+        const authorization = req.headers.authorization // Basic <user-id>
+        const userId = authorization.slice(6)
+
+        const posts = getPosts(userId)
+
+        res.json(posts)
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
