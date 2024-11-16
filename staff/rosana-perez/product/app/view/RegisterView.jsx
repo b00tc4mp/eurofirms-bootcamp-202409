@@ -30,16 +30,16 @@ function RegisterView(props) {
                 console.error(error)
             }
         }}>
-            <label for="name">Name</label>
+            <label htmlFor="name">Name</label>
             <input type="text" id="name" />
 
-            <label for="email">E-mail</label>
+            <label htmlFor="email">E-mail</label>
             <input type="email" id="email" />
 
-            <label for="username">Username</label>
+            <label htmlFor="username">Username</label>
             <input type="text" id="username" />
 
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input type="password" id="password" />
 
             <button type="submit">Register</button>
