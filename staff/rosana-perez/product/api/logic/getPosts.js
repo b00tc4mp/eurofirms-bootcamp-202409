@@ -1,13 +1,13 @@
 import fs from 'fs'
 
 function getPosts(userId) {
-       
-    if(typeof userId !== 'string') throw new Error ('invalid userId')
-        
-        const usersJSON = fs.readFileSync('data/users.json', 'utf8')
-        const users = JSON.parse(usersJSON)
 
-        const user = users.find(user => user.id === userId)
+    if (typeof userId !== 'string') throw new Error('invalid userId')
+
+    const usersJSON = fs.readFileSync('data/users.json', 'utf8')
+    const users = JSON.parse(usersJSON)
+
+    const user = users.find(user => user.id === userId)
 
     if (!user) throw new Error('user not found')
 
@@ -17,7 +17,9 @@ function getPosts(userId) {
     posts.forEach(post => {
         const author = users.find(user => user.id === post.author)
 
-        if(!author) throw new Error ('author of post not found')
+        if (!author) throw new Error('author of post not found')
+
+        post.own = post.author === userId
 
         post.author = author.username
     })
