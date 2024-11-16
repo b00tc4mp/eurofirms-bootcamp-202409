@@ -18,12 +18,8 @@ function LoginView(props) {
 
             try {
                 loginUser(username, password)
-                    .then(() => props.onloginSuccess())
-                    .catch(error => {
-                        alert(error.message)
 
-                        console.error(error)
-                    })
+                props.onLoginSuccess()
             } catch (error) {
                 alert(error.message)
 

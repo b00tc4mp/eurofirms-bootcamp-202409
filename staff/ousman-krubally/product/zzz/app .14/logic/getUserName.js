@@ -13,7 +13,6 @@ function getUserName() {
 
             if (status === 200)
                 return response.json()
-                    .then(name => name)
 
             return response.json()
                 .then(body => {
@@ -23,5 +22,4 @@ function getUserName() {
                     throw new Error(message)
                 })
         })
-        
 }
