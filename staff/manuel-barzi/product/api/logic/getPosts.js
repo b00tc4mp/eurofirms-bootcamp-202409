@@ -18,6 +18,8 @@ function getPosts(userId) {
 
         if (!author) throw new Error('author of post not found')
 
+        post.own = post.author === userId
+
         post.author = author.username
     })
 

@@ -68,6 +68,31 @@ function Home(props) {
                     <img src={post.image} />
                     <p>{post.text}</p>
                     <time>{post.date}</time>
+
+                    {post.own && <button type="button" onClick={() => {
+                        if (confirm('Delete post?'))
+                            try {
+                                deletePost(post.id)
+                                    .then(() => {
+                                        getPosts()
+                                            .then(posts => setPosts(posts))
+                                            .catch(error => {
+                                                alert(error.message)
+
+                                                console.error(error)
+                                            })
+                                    })
+                                    .catch(error => {
+                                        alert(error.message)
+
+                                        console.error(error)
+                                    })
+                            } catch (error) {
+                                alert(error.message)
+
+                                console.error(error)
+                            }
+                    }}>🗑️</button>}
                 </article>
             )}
         </section>}

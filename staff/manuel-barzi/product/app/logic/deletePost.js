@@ -1,17 +1,16 @@
-function getPosts() {
-    return fetch(`http://localhost:8080/posts`, {
-        method: 'GET',
+function deletePost(postId) {
+    if (typeof postId !== 'string') throw new Error('invalid postId')
+
+    return fetch(`http://localhost:8080/posts/${postId}`, {
+        method: 'DELETE',
         headers: {
             Authorization: `Basic ${sessionStorage.userId}`
         }
     })
-        .catch(error => { throw new Error(error.message) })
         .then(response => {
             const status = response.status
 
-            if (status === 200)
-                return response.json()
-                    .then(posts => posts)
+            if (status === 204) return
 
             return response.json()
                 .then(body => {
