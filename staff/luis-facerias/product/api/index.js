@@ -1,5 +1,6 @@
 import express from 'express'
 import registerUser from './logic/registerUser.js'
+import authenticateUser from './logic/authenticateUser.js'
 
 const api = express()
 
@@ -19,7 +20,21 @@ api.post('/users', jsonBodyParser, (req, res) =>{
 
         res.status(201).send()
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message})
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+api.post('/users/auth', jsonBodyParser, (req, res) =>{
+    try {
+        const username = req.body.username
+        const password = req.body.password
+
+        const userId = authenticateUser(username, password)
+
+        res.json(userId)
+
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
 
