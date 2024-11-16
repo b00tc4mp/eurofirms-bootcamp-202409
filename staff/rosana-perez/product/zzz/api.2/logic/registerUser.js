@@ -19,35 +19,29 @@ function registerUser(name, email, username, password) {
 
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
+   
+   let usersJSON = fs.readFileSync('data/users.json', 'utf8')
+   const users = JSON.parse(usersJSON)
 
-    let usersJSON = fs.readFileSync('data/users.json', 'utf8')
-    const users = JSON.parse(usersJSON)
-
-    let user = users.find(user => user.email === email || user.username === username)
+   let user = users.find(user => user.email === email || user.username === username)
 
 
-    if (user) throw new Error('user already exists')
+if (user) throw new Error('user already exists')
 
-    user = {
-        id: uuid(),
-        //user.name = name
-        name,
-        //user.email = email
-        email,
-        //user.username = username
-        username,
-        //user.password = password
-        password
+user = {}
+user.id = uuid()
+user.name = name
+user.email = email
+user.username = username
+user.password = password
 
+users.push(user)
+
+usersJSON = JSON.stringify(users)
+
+fs.writeFileSync('data/users.json', usersJSON)
+
+   
     }
-
-    users.push(user)
-
-    usersJSON = JSON.stringify(users)
-
-    fs.writeFileSync('data/users.json', usersJSON)
-
-
-}
 
 export default registerUser

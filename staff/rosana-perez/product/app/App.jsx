@@ -1,5 +1,3 @@
-
-
 const useState = React.useState
 
 function App() {
@@ -14,40 +12,31 @@ function App() {
     return <>
         <h1>App</h1>
 
-        {view === 'welcome' && <WelcomeView
-            onRegisterClick={function () {
-                setView('register')
-            }}
+        {view === 'welcome' && <Welcome
+            onRegisterClick={() => setView('register')}
 
-            onLoginClick={function () {
-                setView('login')
-            }}
+            onLoginClick={() => setView('login')}
         />}
 
-        {view === 'register' && <RegisterView
-            onLoginClick={function () {
-                setView('login')
-            }}
-            onRegisterSuccess={function () {
-                setView('login')
-
-            }}
+        {view === 'register' && <Register
+            onLoginClick={() => setView('login')}
+            onRegisterSuccess={() => setView('login')}
 
         />}
-        {view === 'login' && <LoginView
-            onRegisterClick={function () {
-                setView('register')
-            }}
+        {view === 'login' && <Login
+            onRegisterClick={() => setView('register')}
 
-            onLoginSuccess={function () {
-                setView('home')
-            }}
+            onLoginSuccess={() => setView('home')}
         />}
 
-        {view === 'home' && <HomeView
-            onLogout={function () {
-                setView('login')
-            }}
+        {view === 'home' && <Home
+            onLogout={() => setView('login')}
+
+            onCreatePost={() => setView('create-post')}
+        />}
+
+        {view === 'create-post' && <CreatePost
+            onCreated={() => setView('home')}
         />}
     </>
 

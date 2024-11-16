@@ -1,6 +1,4 @@
-import fs from 'fs'
-import uuid from '../util/uuid.js'
-
+//validaciones sincronas, es decir, en el mismo momento
 function registerUser(name, email, username, password) {
     if (typeof name !== 'string') throw new Error('invalid name')
     if (name.length < 4) throw new Error('invalid name length')
@@ -20,34 +18,25 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    let usersJSON = fs.readFileSync('data/users.json', 'utf8')
-    const users = JSON.parse(usersJSON)
+    return fetch('http://localhost:8080/users',  {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name, email, username, password})
+        })
 
-    let user = users.find(user => user.email === email || user.username === username)
+        .catch(error => { throw new Error(error.message) }) // fetch error -> view of communication errors
+        .then(response => {
+            const status = response.status
 
+            if(status === 201) return
 
-    if (user) throw new Error('user already exists')
+            return response.json() // convierte la respuesta de la api en objeto json
+                .then (body => {
+                const error = body.error
+                const message = body.message
 
-    user = {
-        id: uuid(),
-        //user.name = name
-        name,
-        //user.email = email
-        email,
-        //user.username = username
-        username,
-        //user.password = password
-        password
+                throw new Error(message)
+            })  
 
-    }
-
-    users.push(user)
-
-    usersJSON = JSON.stringify(users)
-
-    fs.writeFileSync('data/users.json', usersJSON)
-
-
+        })
 }
-
-export default registerUser

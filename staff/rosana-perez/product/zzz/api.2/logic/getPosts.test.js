@@ -1,9 +1,9 @@
 import getPosts from './getPosts.js'
 
 try {
-    const posts = getPosts('4qhxn19j1vk')
+    const posts = getPosts('4qh4hc5vzdu')
 
     console.log(posts)
-} catch (error) {
+} catch(error) {
     console.error(error)
 }

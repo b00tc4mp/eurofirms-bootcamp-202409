@@ -1,16 +1,1 @@
-[
-    {
-        "id": "123ffgoroorldsl",
-        "author": "4qh4hc5vzdu", 
-        "image": "https://hablemosdeaves.com/wp-content/uploads/2017/05/lechuza10jpg-1024x724.jpg", 
-        "text": "my pretty owl",
-        "date":"2024-11-15T18:15:19.1692"
-    },
-    {
-        "id": "789jhhslsl098",
-        "author": "4qhxn19j1vk",
-        "image": "https://t3.ftcdn.net/jpg/00/74/48/54/360_F_74485401_fANNqoiBddEzPAInxLuetA4K9yish32D.jpg",
-        "text": "my pretty nails",
-        "date": "2024-11-15T18:18:19.1800"
-    }
-]
+[{"id":"123ffgoroorldsl","author":"4qh4hc5vzdu","image":"https://hablemosdeaves.com/wp-content/uploads/2017/05/lechuza10jpg-1024x724.jpg","text":"my pretty owl","date":"2024-11-15T18:15:19.1692"},{"id":"789jhhslsl098","author":"4qhxn19j1vk","image":"https://t3.ftcdn.net/jpg/00/74/48/54/360_F_74485401_fANNqoiBddEzPAInxLuetA4K9yish32D.jpg","text":"my pretty nails","date":"2024-11-15T18:18:19.1800"},{"id":"h1uzh37vkc","author":"4qhxn19j1vk","image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hola mundo","date":"2024-11-16T14:48:38.906Z"},{"id":"4qimum94sd8","author":"4qhxn19j1vk","image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hola mundo","date":"2024-11-16T16:58:47.268Z"},{"id":"4qimvf6xtzy","author":"4qhxn19j1vk","image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hello world","date":"2024-11-16T17:01:42.247Z"},{"id":"4qimxap2ung","author":"4qhxn19j1vk","image":"https://www.blogdelfotografo.com/wp-content/uploads/2023/08/fotos-gatos-negros-2.webp","text":"an amazing  black cat","date":"2024-11-16T17:08:30.417Z"}]

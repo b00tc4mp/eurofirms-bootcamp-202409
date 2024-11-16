@@ -1,11 +1,11 @@
-function getPosts() {
-    return fetch(`http://localhost:8080/posts`, { 
+function getUserName() {
+    //JS5: return fetch('http://localhost:8080/users/' +sessionStorage.userId + '/name')
+
+    return fetch(`http://localhost:8080/users/${sessionStorage.userId}/name`, { // ${} se usa para interpolar
         method: 'GET',
         headers: {
-            Authorization: `Basic ${sessionStorage.userId}` 
-        }
-        // Js5 = 'Basic ' + sessionStorage.userId 
-        // put an eye on this! not '', it's ``
+            Authorization: `Basic ${sessionStorage.userId}`, // Js5 = 'Basic ' + sessionStorage.userId 
+        },// put an eye on this! not '', it's ``
     })
         .catch(error => { throw new Error(error.message) })
         .then(response => {
@@ -13,7 +13,7 @@ function getPosts() {
 
             if (status === 200)
                 return response.json()
-                    .then(posts => posts)
+                    .then(name => name)
 
             return response.json()
                 .then(body => {
@@ -23,4 +23,6 @@ function getPosts() {
                     throw new Error(message)
                 })
         })
+
+
 }
