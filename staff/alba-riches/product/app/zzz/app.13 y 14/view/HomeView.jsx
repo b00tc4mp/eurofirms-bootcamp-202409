@@ -4,9 +4,7 @@ const useEffect = React.useEffect
 function HomeView(props) {
     console.log('HomeView -> render')
 
-    /*
-    props -> { onLogout }
-    */
+    //Los props son objetos que contienen datos o funciones que se pasan a un componente.
 
     const nameState = useState(null)
     const name = nameState[0]
