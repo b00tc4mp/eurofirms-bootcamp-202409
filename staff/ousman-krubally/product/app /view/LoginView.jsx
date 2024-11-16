@@ -18,7 +18,7 @@ function LoginView(props) {
 
             try {
                 loginUser(username, password)
-                    .then(() => props.onloginSuccess())
+                    .then(() => props.onLoginSuccess())
                     .catch(error => {
                         alert(error.message)
 
@@ -33,7 +33,7 @@ function LoginView(props) {
             <label htmlFor="username">Username</label>
             <input type="text" id="username" />
 
-            <label htmlFor="password">password</label>
+            <label htmlFor="password">Password</label>
             <input type="password" id="password" />
 
             <button type="submit">Login</button>

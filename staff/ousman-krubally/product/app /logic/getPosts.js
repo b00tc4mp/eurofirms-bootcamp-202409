@@ -2,7 +2,7 @@ function getPosts() {
     return fetch(`http://localhost:8080/posts`, {
         method: 'GET',
         headers: {
-            authorization: `Basic ${sesionStorage.userId}`
+            authorization: `Basic ${sessionStorage.userId}`
         }
     })
         .catch(error => { throw new Error(error.message) })

@@ -1,10 +1,10 @@
 function getUserName() {
     //return fetch('http://localhost:8080/users/' + sessionStorage.userId + '/name', {
-    return fetch(`http://localhost:8080/users/${sesionStorage.userId}/name`, {
+    return fetch(`http://localhost:8080/users/${sessionStorage.userId}/name`, {
         method: 'GET',
         headers: {
-            //Authorizacion: 'Basic ' + sesionStorage.userId
-            Authorization: `Basic ${sesionStorage.userId}`
+            //Authorizacion: 'Basic ' + sessionStorage.userId
+            Authorization: `Basic ${sessionStorage.userId}`
         }
     })
         .catch(error => { throw new Error(error.message) })
