@@ -1,8 +1,8 @@
 const useState = React.useState
 const useEffect = React.useEffect
 
-function HomeView(props) {
-    console.log('HomeView -> render')
+function Home(props) {
+    console.log('Home -> render')
 
     /*
     props -> { onLogout }
@@ -16,7 +16,7 @@ function HomeView(props) {
     const posts = postsState[0]
     const setPosts = postsState[1]
 
-    console.log('HomeView -> state: name = ' + name)
+    console.log('Home -> state: name = ' + name)
 
     useEffect(() => {
         try {
@@ -47,7 +47,7 @@ function HomeView(props) {
 
         {name && <h3>Hello, {name}!</h3>}
 
-        <button onClick={function () {
+        <button type="button" onClick={() => {
             try {
                 logoutUser()
 
@@ -59,6 +59,8 @@ function HomeView(props) {
             }
         }}>Logout</button>
 
+        <button type="button" onClick={() => props.onCreatePost()}>+</button>
+
         {posts.length && <section>
             {posts.map(post =>
                 <article>
@@ -66,6 +68,31 @@ function HomeView(props) {
                     <img src={post.image} />
                     <p>{post.text}</p>
                     <time>{post.date}</time>
+
+                    {post.own && <button type="button" onClick={() => {
+                        if (confirm('Delete post?'))
+                            try {
+                                deletePost(post.id)
+                                    .then(() => {
+                                        getPosts()
+                                            .then(posts => setPosts(posts))
+                                            .catch(error => {
+                                                alert(error.message)
+
+                                                console.error(error)
+                                            })
+                                    })
+                                    .catch(error => {
+                                        alert(error.message)
+
+                                        console.error(error)
+                                    })
+                            } catch (error) {
+                                alert(error.message)
+
+                                console.error(error)
+                            }
+                    }}>🗑️</button>}
                 </article>
             )}
         </section>}
