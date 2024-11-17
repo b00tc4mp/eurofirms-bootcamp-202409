@@ -1,5 +1,5 @@
-function Register(props) {
-    console.log('Register -> render')
+function RegisterView(props) {
+    console.log('RegisterView -> render')
 
     /*
     props -> { onLoginClick, onRegisterSuccess }
@@ -8,7 +8,7 @@ function Register(props) {
     return <main>
         <h2>Register</h2>
 
-        <form onSubmit={event => {
+        <form onSubmit={function (event) {
             event.preventDefault()
 
             const form = event.target
@@ -20,12 +20,8 @@ function Register(props) {
 
             try {
                 registerUser(name, email, username, password)
-                    .then(() => props.onRegisterSuccess())
-                    .catch(error => {
-                        alert(error.message)
 
-                        console.error(error)
-                    })
+                props.onRegisterSuccess()
             } catch (error) {
                 alert(error.message)
 
@@ -49,7 +45,7 @@ function Register(props) {
 
         <p></p>
 
-        <a href="" onClick={event => {
+        <a href="" onClick={function (event) {
             event.preventDefault()
 
             props.onLoginClick()
