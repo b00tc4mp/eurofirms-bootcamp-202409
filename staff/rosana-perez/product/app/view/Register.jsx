@@ -1,5 +1,7 @@
 import registerUser from '../logic/registerUser'
 
+import './Register.css'
+
 function Register(props) {
     console.log('Register -> render')
 
