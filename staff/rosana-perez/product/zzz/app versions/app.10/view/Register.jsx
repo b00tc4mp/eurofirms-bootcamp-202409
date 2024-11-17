@@ -1,5 +1,3 @@
-import registerUser from '../logic/registerUser'
-
 function Register(props) {
     console.log('Register -> render')
 
@@ -19,14 +17,14 @@ function Register(props) {
             const password = form.password.value
 
             // parte asincrona, espera a la respuesta del servidor
-            try {
+            try { 
                 registerUser(name, email, username, password)
-                    .then(() => props.onRegisterSuccess())
+                    .then(()=> props.onRegisterSuccess())
                     .catch(error => {
                         alert(error.message)
 
                         console.error(error)
-                    })
+                    })         
             } catch (error) {
                 alert(error.message)
 
@@ -57,5 +55,3 @@ function Register(props) {
         }}>Login</a>
     </main>
 }
-
-export default Register

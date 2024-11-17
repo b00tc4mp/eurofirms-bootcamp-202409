@@ -7,7 +7,7 @@ function Welcome(props) {
     return <main>
         <h2>Welcome!</h2>
         <p>
-            Please, <a href="" onClick={event => {
+            Please, <a href="" onClick={ event => {
                 event.preventDefault()
 
                 props.onRegisterClick()
@@ -20,5 +20,3 @@ function Welcome(props) {
     </main>
 
 }
-
-export default Welcome

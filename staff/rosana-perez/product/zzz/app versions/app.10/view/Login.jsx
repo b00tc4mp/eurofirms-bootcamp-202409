@@ -1,5 +1,3 @@
-import loginUser from '../logic/loginUser'
-
 function Login(props) {
     console.log('Login -> render')
 
@@ -51,5 +49,3 @@ function Login(props) {
         }} >Register </a>
     </main>
 }
-
-export default Login

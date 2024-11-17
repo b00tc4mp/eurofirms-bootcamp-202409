@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react'
+const useState = React.useState
+const useEffect = React.useEffect
 
-import getUserName from '../logic/getUserName'
-import getPosts from '../logic/getPosts'
-import logoutUser from '../logic/logoutUser'
-import deletePost from '../logic/deletePost'
 
 function Home(props) {
     console.log('Home -> render')
@@ -104,5 +101,3 @@ function Home(props) {
         </section>}
     </main>
 }
-
-export default Home

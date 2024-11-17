@@ -1,8 +1,8 @@
 function getPosts() {
-    return fetch(`http://localhost:8080/posts`, {
+    return fetch(`http://localhost:8080/posts`, { 
         method: 'GET',
         headers: {
-            Authorization: `Basic ${sessionStorage.userId}`
+            Authorization: `Basic ${sessionStorage.userId}` 
         }
         // Js5 = 'Basic ' + sessionStorage.userId 
         // put an eye on this! not '', it's ``
@@ -24,5 +24,3 @@ function getPosts() {
                 })
         })
 }
-
-export default getPosts

@@ -7,11 +7,9 @@ function isUserLoggedIn() {
     // return sessionStorage.userId !== undefined
 
     return !!sessionStorage.userId
-
-
-
+    
+    
+    
     //if (sessionStorage.userId !== undefined) return true
     //return false
 }
-
-export default isUserLoggedIn

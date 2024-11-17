@@ -18,27 +18,25 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    return fetch('http://localhost:8080/users', {
+    return fetch('http://localhost:8080/users',  {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, username, password })
-    })
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name, email, username, password})
+        })
 
         .catch(error => { throw new Error(error.message) }) // fetch error -> view of communication errors
         .then(response => {
             const status = response.status
 
-            if (status === 201) return
+            if(status === 201) return
 
             return response.json() // convierte la respuesta de la api en objeto json
-                .then(body => {
-                    const error = body.error
-                    const message = body.message
+                .then (body => {
+                const error = body.error
+                const message = body.message
 
-                    throw new Error(message)
-                })
+                throw new Error(message)
+            })  
 
         })
 }
-
-export default registerUser
