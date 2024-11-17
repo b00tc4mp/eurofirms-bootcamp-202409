@@ -1,20 +1,11 @@
-import { useState } from 'react'
-
-import Welcome from './view/Welcome'
-import Login from './view/Login'
-import Register from './view/Register'
-import Home from './view/Home'
-import CreatePost from './view/CreatePost'
-
-import isUserLoggedIn from './logic/isUserLoggedIn'
+const useState = React.useState
 
 function App() {
     console.log('App -> render')
 
-    // const viewState = useState(isUserLoggedIn() ? 'home' : 'welcome')
-    // const view = viewState[0]
-    // const setView = viewState[1]
-    const [view, setView] = useState(isUserLoggedIn() ? 'home' : 'welcome')
+    const viewState = useState(isUserLoggedIn() ? 'home' : 'welcome')
+    const view = viewState[0]
+    const setView = viewState[1]
 
     console.log('App -> state: view = ' + view)
 
@@ -50,5 +41,3 @@ function App() {
         />}
     </>
 }
-
-export default App

@@ -1,28 +1,28 @@
-import loginUser from '../logic/loginUser'
+import registerUser from '../logic/registerUser'
 
-import './Login.css'
-
-function Login(props) {
-    console.log('Login -> render')
+function Register(props) {
+    console.log('Register -> render')
 
     /*
-    props -> { onRegisterClick, onLoginSuccess }
+    props -> { onLoginClick, onRegisterSuccess }
     */
 
     return <main>
-        <h2>Login</h2>
+        <h2>Register</h2>
 
-        <form className="login-form" onSubmit={event => {
+        <form onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
 
+            const name = form.name.value
+            const email = form.email.value
             const username = form.username.value
             const password = form.password.value
 
             try {
-                loginUser(username, password)
-                    .then(() => props.onLoginSuccess())
+                registerUser(name, email, username, password)
+                    .then(() => props.onRegisterSuccess())
                     .catch(error => {
                         alert(error.message)
 
@@ -34,13 +34,19 @@ function Login(props) {
                 console.error(error)
             }
         }}>
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" />
+
+            <label htmlFor="email">E-mail</label>
+            <input type="email" id="email" />
+
             <label htmlFor="username">Username</label>
             <input type="text" id="username" />
 
             <label htmlFor="password">Password</label>
             <input type="password" id="password" />
 
-            <button type="submit">Login</button>
+            <button type="submit">Register</button>
         </form>
 
         <p></p>
@@ -48,9 +54,9 @@ function Login(props) {
         <a href="" onClick={event => {
             event.preventDefault()
 
-            props.onRegisterClick()
-        }}>Register</a>
+            props.onLoginClick()
+        }}>Login</a>
     </main>
 }
 
-export default Login
+export default Register

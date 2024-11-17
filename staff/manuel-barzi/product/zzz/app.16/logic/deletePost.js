@@ -21,5 +21,3 @@ function deletePost(postId) {
                 })
         })
 }
-
-export default deletePost

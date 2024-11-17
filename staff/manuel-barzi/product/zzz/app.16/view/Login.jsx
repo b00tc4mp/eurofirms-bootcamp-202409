@@ -1,7 +1,3 @@
-import loginUser from '../logic/loginUser'
-
-import './Login.css'
-
 function Login(props) {
     console.log('Login -> render')
 
@@ -12,7 +8,7 @@ function Login(props) {
     return <main>
         <h2>Login</h2>
 
-        <form className="login-form" onSubmit={event => {
+        <form onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -52,5 +48,3 @@ function Login(props) {
         }}>Register</a>
     </main>
 }
-
-export default Login
