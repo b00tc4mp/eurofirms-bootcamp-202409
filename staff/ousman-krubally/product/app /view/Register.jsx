@@ -1,5 +1,5 @@
-function RegisterView(props) {
-    console.log('RegisterView -> render')
+function Register(props) {
+    console.log('Register -> render')
 
     /*
     props -> { onLoginClick, onRegisterSuccess }
@@ -8,7 +8,7 @@ function RegisterView(props) {
     return <main>
         <h2>Register</h2>
         
-        <form onSubmit={function (event) {
+        <form onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -49,7 +49,7 @@ function RegisterView(props) {
     
         <p></p>
     
-        <a href="" onClick={function (event) {
+        <a href="" onClick={event => {
             event.preventDefault()
 
             props.onLoginClick()

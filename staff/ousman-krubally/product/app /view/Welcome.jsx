@@ -1,5 +1,5 @@
-function WelcomeView(props){
-    console.log('WelcomeView -> render')
+function Welcome(props){
+    console.log('Welcome -> render')
 
     /*
     props -> { onRegisterClick, onLoginClick } 
@@ -8,15 +8,15 @@ function WelcomeView(props){
     return <main>   
         <h2>welcome!</h2>
         <p>
-            please, <a href="" onClick={function (event) {
+            please, <a href="" onClick={event => {
                 event.preventDefault()
 
                 props.onRegisterClick()
-            }}>Register</a> or <a href="" onClick={function (event) {
+            }}>Register</a> or <a href="" onClick={event => {
                 event.preventDefault()
 
                 props.onLoginClick()
-            }}>Login</a>.
+            }}>Login</a>
         </p>
     </main>
 }
