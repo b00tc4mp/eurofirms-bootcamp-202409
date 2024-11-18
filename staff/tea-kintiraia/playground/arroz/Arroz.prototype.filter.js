@@ -1,0 +1,50 @@
+class Arroz { 
+    constructor() {
+    this.length = 0 
+}
+
+filter() {
+
+    // crear Arroz;
+    // recorer el objeto para verificar si cada elemento cumple la condición de la función;
+    //devolver el nuevo arroz
+
+let  result = new Arroz 
+for (let i = 0; i < this.length; i++) {
+    if (callbackFinction(this[i])) {
+        result[result.length] = this[i]
+        result.length++
+    }
+}
+return result
+}
+}
+
+{
+const numbers = new Arroz
+numbers[0] = 0
+numbers[1] = 10
+numbers[2] = 21
+numbers[3] = 30
+numbers[4] = 41
+numbers[5] = 50
+numbers[6] = 61
+numbers.length = 7
+
+}
+console.log('CASE 1: Discover pair numbers')
+
+{
+
+let pairnumbers = numbers.filter(function(number) {
+    if (number % 2 === 0) {
+        return true
+    }else {
+        return false
+    }
+})
+
+console.log(pairnumbers)
+
+//El resultado esperado: {0: 0, 1: 10, 2: 30, 3: 50, length: 4}
+}
