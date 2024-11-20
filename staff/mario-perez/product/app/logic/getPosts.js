@@ -22,3 +22,5 @@ function getPosts() {
                 })
         })
 }
+
+export default getPosts

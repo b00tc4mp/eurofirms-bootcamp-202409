@@ -39,3 +39,5 @@ function registerUser(name, email, username, password) {
                 })
         })
 }
+
+export default registerUser

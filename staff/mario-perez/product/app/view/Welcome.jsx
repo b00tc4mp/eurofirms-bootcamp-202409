@@ -20,3 +20,5 @@ function Welcome(props) {
         </p>
     </main>
 }
+
+export default Welcome

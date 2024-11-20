@@ -1,3 +1,6 @@
+import registerUser from '../logic/registerUser'
+import './Register.css'
+
 function Register(props) {
     console.log('Register -> render')
 
@@ -8,7 +11,7 @@ function Register(props) {
     return <main>
         <h2>Register</h2>
 
-        <form onSubmit={event => {
+        <form className="register-form" onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -56,3 +59,5 @@ function Register(props) {
         }}>Login</a>
     </main>
 }
+
+export default Register

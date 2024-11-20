@@ -1,3 +1,6 @@
+import createPost from '../logic/createPost'
+
+
 function CreatePost(props) {
     console.log('CreatePost -> render')
 
@@ -32,3 +35,4 @@ function CreatePost(props) {
         </form>
     </main>
 }
+export default CreatePost
