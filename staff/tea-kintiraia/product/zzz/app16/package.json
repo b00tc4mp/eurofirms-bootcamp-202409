@@ -1,9 +1,9 @@
 {
-  "name": "api",
+  "name": "app",
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -p 9000 .",
+    "start": "http-server -p 9000 .", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,6 +11,9 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "htpp-server": "^14.1.1"
+    "http-server": "^14.1.1"
   }
+
 }
+
+

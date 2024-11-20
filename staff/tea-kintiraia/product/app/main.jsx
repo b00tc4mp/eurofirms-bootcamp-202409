@@ -1,4 +1,8 @@
-const rootElement = document.querySelector('#root')
-const root = ReactDOM.createRoot(rootElement)
+import { createRoot } from 'react-dom'
 
-root.render (<App />)
+import App from './App'
+
+const rootElement = document.querySelector('#root')
+const root = createRoot(rootElement)
+
+root.render(<App />)
