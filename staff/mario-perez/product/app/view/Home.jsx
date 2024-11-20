@@ -80,7 +80,7 @@ function Home(props) {
 
 
         {posts.length && <section>
-            {posts.map(post => <Post key={post.id} post={post} onDeeted={() => {
+            {posts.map(post => <Post key={post.id} post={post} onDeleted={() => {
                 try {
                     getPosts()
                         .then(posts => setPosts(posts))

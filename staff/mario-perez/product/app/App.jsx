@@ -3,8 +3,8 @@ import { useState } from 'react'
 import Welcome from './view/Welcome'
 import Login from './view/Login'
 import Register from './view/Register'
-import Home from './view/Welcome'
-import CreatePost from './logic/createPost'
+import Home from './view/Home'
+import CreatePost from './view/CreatePost'
 
 import isUserLoggedIn from './logic/isUserLoggedIn'
 
@@ -48,6 +48,8 @@ function App() {
 
         {view === 'create-post' && <CreatePost
             onCreated={() => setView('home')}
+
+            onCancelCreatePost={() => setView('home')}
         />}
     </>
 }

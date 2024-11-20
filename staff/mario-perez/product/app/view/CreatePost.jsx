@@ -33,6 +33,8 @@ function CreatePost(props) {
 
             <button type="submit">Create</button>
         </form>
+
+        <button type="button" onClick={() => props.onCancelCreatePost()}>🔙</button>
     </main>
 }
 export default CreatePost
