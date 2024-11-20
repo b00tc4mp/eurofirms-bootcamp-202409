@@ -31,8 +31,11 @@ function CreatePost(props) {
             <input type="text" id="text" />
 
             <button type="submit">Create</button>
+
+            <button type="button" onClick={() => { props.onExit(); }}>Exit</button>
+
         </form>
-    </main>
+    </main >
 }
 
 export default CreatePost

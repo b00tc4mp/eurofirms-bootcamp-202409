@@ -45,7 +45,9 @@ function App() {
 
         {view === 'create-post' && <CreatePost
             onCreated={() => setView('home')}
+            onExit={() => setView('home')}
         />}
+
     </>
 
 }
