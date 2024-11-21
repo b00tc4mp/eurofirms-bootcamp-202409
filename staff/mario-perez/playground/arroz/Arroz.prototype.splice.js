@@ -16,6 +16,8 @@
 } */
 
 
+// Archivo de Rosana
+
 class Arroz {
     constructor() {
         this.length = 0
@@ -26,6 +28,8 @@ class Arroz {
         // si existe un valor en deleteCount, borrar los elementos que corresponden
         // si existe item, añadirlo en la posición que corresponda
         //  
+
+        // Añadir elementos
         if (deleteCount === 0 && item !== undefined) {
 
             for (let i = this.length - 1; i >= start; i--) {
