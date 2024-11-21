@@ -1,9 +1,7 @@
-function getUserName() {
-    //return fetch('http://localhost:8080/users/' + sessionStorage.userId + '/name', {
-    return fetch(`http://localhost:8080/users/${sessionStorage.userId}/name`, {
+function getPosts() {
+    return fetch(`http://localhost:8080/posts`, {
         method: 'GET',
         headers: {
-            //Authorization: 'Basic ' + sessionStorage.userId
             Authorization: `Basic ${sessionStorage.userId}`
         }
     })
@@ -13,7 +11,7 @@ function getUserName() {
 
             if (status === 200)
                 return response.json()
-                    .then(name => name)
+                    .then(posts => posts)
 
             return response.json()
                 .then(body => {
@@ -23,7 +21,6 @@ function getUserName() {
                     throw new Error(message)
                 })
         })
-
 }
 
-export default getUserName
+export default getPosts

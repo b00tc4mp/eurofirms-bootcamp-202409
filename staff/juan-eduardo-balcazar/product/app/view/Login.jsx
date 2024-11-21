@@ -1,26 +1,28 @@
-function RegisterView(props) {
-    console.log('RegisterView -> render')
+import loginUser from '../logic/loginUser'
+
+import './Login.css'
+
+function Login(props) {
+    console.log('Login -> render')
 
     /*
-    props -> { onLoginClick, onRegisterSuccess }
+    props -> { onRegisterClick, onLoginSuccess }
     */
 
     return <main>
-        <h2>Register</h2>
+        <h2>Login</h2>
 
-        <form onSubmit={function (event) {
+        <form className="login-form" onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
 
-            const name = form.name.value
-            const email = form.email.value
             const username = form.username.value
             const password = form.password.value
 
             try {
-                registerUser(name, email, username, password)
-                    .then(() => props.onRegisterSuccess())
+                loginUser(username, password)
+                    .then(() => props.onLoginSuccess())
                     .catch(error => {
                         alert(error.message)
 
@@ -32,27 +34,23 @@ function RegisterView(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" />
-
-            <label htmlFor="email">E-mail</label>
-            <input type="email" id="email" />
-
             <label htmlFor="username">Username</label>
             <input type="text" id="username" />
 
             <label htmlFor="password">Password</label>
             <input type="password" id="password" />
 
-            <button type="submit">Register</button>
+            <button type="submit">Login</button>
         </form>
 
         <p></p>
 
-        <a href="" onClick={function (event) {
+        <a href="" onClick={event => {
             event.preventDefault()
 
-            props.onLoginClick()
-        }}>Login</a>
+            props.onRegisterClick()
+        }}>Register</a>
     </main>
 }
+
+export default Login
