@@ -23,6 +23,6 @@ function createPost(image, text) {
                     throw new Error(message)
                 })
         })
-        .then(body => console.log(body))
-        .catch(error => console.error(error))
 }
+
+export default createPost

@@ -1,4 +1,4 @@
-import  express from 'express'
+import express from 'express'
 import cors from 'cors'
 
 import registerUser from './logic/registerUser.js'
@@ -62,8 +62,8 @@ api.get('/users/:targetUserId/name', (req, res) => {
 api.get('/posts', (req, res) => {
     try {
         const authorization = req.headers.authorization // Basic <user-id>
-        const userId = authorization.slice(6) 
-        
+        const userId = authorization.slice(6)
+
         const posts = getPosts(userId)
 
         res.json(posts)

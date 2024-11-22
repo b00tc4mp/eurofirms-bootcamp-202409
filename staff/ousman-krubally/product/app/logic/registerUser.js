@@ -1,10 +1,10 @@
 function registerUser(name, email, username, password) {
     if (typeof name !== 'string') throw new Error('invalid name')
-    if (name.length < 1) throw new Error('invalid name length')  
-        
+    if (name.length < 1) throw new Error('invalid name length')
+
     if (typeof email !== 'string') throw new Error('invalid email')
     if (email.length < 6) throw new Error('invalid email length')
-    if (!email.includes('@')) throw new Error('invalid email format') 
+    if (!email.includes('@')) throw new Error('invalid email format')
     if (!email.includes('.')) throw new Error('invalid email format')
     const indexOfAt = email.indexOf('@')
     const indexOfDot = email.indexOf('.')
@@ -17,10 +17,10 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    return fetch('hhtp://localhost:8080/users', {
+    return fetch('http://localhost:8080/users', {
         method: 'POST',
         headers: {
-            'content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({ name, email, username, password })
     })
@@ -38,4 +38,6 @@ function registerUser(name, email, username, password) {
                     throw new Error(message)
                 })
         })
-}   
+}
+
+export default registerUser

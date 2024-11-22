@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import Welcome from './view/Welcome'
 import Login from './view/Login'
-import Register from '.view/Register'
+import Register from './view/Register'
 import Home from './view/Home'
 import CreatePost from './view/CreatePost'
 
@@ -34,8 +34,8 @@ function App() {
         />}
 
         {view === 'login' && <Login
-             onRegisterClick={() => setView('register')}
-            
+            onRegisterClick={() => setView('register')}
+
             onLoginSuccess={() => setView('home')}
         />}
 

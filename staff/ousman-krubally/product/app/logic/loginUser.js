@@ -5,10 +5,10 @@ function loginUser(username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    return fetch('http://localhost:8080/users/auth',{
+    return fetch('http://localhost:8080/users/auth', {
         method: 'POST',
         headers: {
-            'content-type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({ username, password })
     })
@@ -21,8 +21,8 @@ function loginUser(username, password) {
                     .then(userId => {
                         sessionStorage.userId = userId
                     })
-            
-            return response.json()      
+
+            return response.json()
                 .then(body => {
                     const error = body.error
                     const message = body.message
@@ -31,3 +31,5 @@ function loginUser(username, password) {
                 })
         })
 }
+
+export default loginUser

@@ -1,14 +1,14 @@
-function Welcome(props){
+function Welcome(props) {
     console.log('Welcome -> render')
 
     /*
-    props -> { onRegisterClick, onLoginClick } 
+    props -> { onRegisterClick, onLoginClick }
     */
 
-    return <main>   
-        <h2>welcome!</h2>
+    return <main>
+        <h2>Welcome!</h2>
         <p>
-            please, <a href="" onClick={event => {
+            Please, <a href="" onClick={event => {
                 event.preventDefault()
 
                 props.onRegisterClick()
@@ -16,7 +16,9 @@ function Welcome(props){
                 event.preventDefault()
 
                 props.onLoginClick()
-            }}>Login</a>
+            }}>Login</a>.
         </p>
     </main>
 }
+
+export default Welcome

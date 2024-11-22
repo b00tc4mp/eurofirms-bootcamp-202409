@@ -1,3 +1,7 @@
+import registerUser from '../logic/registerUser'
+
+import './Register.css'
+
 function Register(props) {
     console.log('Register -> render')
 
@@ -7,8 +11,8 @@ function Register(props) {
 
     return <main>
         <h2>Register</h2>
-        
-        <form onSubmit={event => {
+
+        <form className="register-form" onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -20,7 +24,7 @@ function Register(props) {
 
             try {
                 registerUser(name, email, username, password)
-                    .then(() =>  props.onRegisterSuccess())
+                    .then(() => props.onRegisterSuccess())
                     .catch(error => {
                         alert(error.message)
 
@@ -31,24 +35,24 @@ function Register(props) {
 
                 console.error(error)
             }
-        }}>    
+        }}>
             <label htmlFor="name">Name</label>
             <input type="text" id="name" />
-    
+
             <label htmlFor="email">E-mail</label>
             <input type="email" id="email" />
-    
+
             <label htmlFor="username">Username</label>
             <input type="text" id="username" />
-    
-            <label htmlFor="password">password</label>
+
+            <label htmlFor="password">Password</label>
             <input type="password" id="password" />
-    
+
             <button type="submit">Register</button>
         </form>
-    
+
         <p></p>
-    
+
         <a href="" onClick={event => {
             event.preventDefault()
 
@@ -56,3 +60,5 @@ function Register(props) {
         }}>Login</a>
     </main>
 }
+
+export default Register
