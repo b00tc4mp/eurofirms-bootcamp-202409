@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
 
@@ -8,110 +9,115 @@ import getPosts from './logic/getPosts.js'
 import createPost from './logic/createPost.js'
 import deletePost from './logic/deletePost.js'
 
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        const api = express() // habilitar express
 
-const api = express() // habilitar express
+        api.use(cors()) // middleware cors - permite a un servidor indicar cualquier dominio, esquema o puerto con un origen distinto del suyo desde el que un navegador debería permitir la carga de recursos
 
-api.use(cors()) // middleware cors - permite a un servidor indicar cualquier dominio, esquema o puerto con un origen distinto del suyo desde el que un navegador debería permitir la carga de recursos
+        api.get('/', (req, res) => res.send('Hello, World!')) // default route to start api
 
-api.get('/', (req, res) => res.send('Hello, World!')) // default route to start api
+        const jsonBodyParser = express.json()
 
-const jsonBodyParser = express.json()
+        api.post('/users', jsonBodyParser, (req, res) => { // register user
+            console.log(req.body)
 
-api.post('/users', jsonBodyParser, (req, res) => { // register user
-    console.log(req.body)
+            try {
+                const name = req.body.name
+                const email = req.body.email
+                const username = req.body.username
+                const password = req.body.password
 
-    try {
-        const name = req.body.name
-        const email = req.body.email
-        const username = req.body.username
-        const password = req.body.password
+                registerUser(name, email, username, password)
+                    .then(() => res.status(201).send())
+                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
 
-        registerUser(name, email, username, password)
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
 
-        res.status(201).send()
+        })
 
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
+        api.post('/users/auth', jsonBodyParser, (req, res) => { //authenticate user
+            try {
+                const username = req.body.username
+                const password = req.body.password
 
-})
+                const userId = authenticateUser(username, password)
 
-api.post('/users/auth', jsonBodyParser, (req, res) => { //authenticate user
-    try {
-        const username = req.body.username
-        const password = req.body.password
+                res.json(userId)
 
-        const userId = authenticateUser(username, password)
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
 
-        res.json(userId)
+        api.get('/users/:targetUserId/name', (req, res) => { //get user name
+            try {
+                const authorization = req.headers.authorization // respuesta: Basic <userId>
+                const userId = authorization.slice(6) // corta la const authorization, que es Basic <userId>, a partir del 6º dígito 
 
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-})
+                const targetUserId = req.params.targetUserId //extraer targetUserId desde la req
 
-api.get('/users/:targetUserId/name', (req, res) => { //get user name
-    try {
-        const authorization = req.headers.authorization // respuesta: Basic <userId>
-        const userId = authorization.slice(6) // corta la const authorization, que es Basic <userId>, a partir del 6º dígito 
+                const name = getUserName(userId, targetUserId)
 
-        const targetUserId = req.params.targetUserId //extraer targetUserId desde la req
+                res.json(name)
 
-        const name = getUserName(userId, targetUserId)
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
 
-        res.json(name)
+        })
 
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
+        api.get('/posts', (req, res) => {
+            try {
+                const authorization = req.headers.authorization // Basic <user-id>
+                const userId = authorization.slice(6)
 
-})
+                const posts = getPosts(userId)
 
-api.get('/posts', (req, res) => {
-    try {
-        const authorization = req.headers.authorization // Basic <user-id>
-        const userId = authorization.slice(6)
+                res.json(posts)
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
 
-        const posts = getPosts(userId)
+        api.post('/posts', jsonBodyParser, (req, res) => {
+            try {
+                const authorization = req.headers.authorization // Basic <user-id>
+                const userId = authorization.slice(6)
 
-        res.json(posts)
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-})
+                const image = req.body.image
+                const text = req.body.text
 
-api.post('/posts', jsonBodyParser, (req, res) => {
-    try {
-        const authorization = req.headers.authorization // Basic <user-id>
-        const userId = authorization.slice(6)
+                createPost(userId, image, text)
 
-        const image = req.body.image
-        const text = req.body.text
+                res.status(201).send()
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
 
-        createPost(userId, image, text)
+        api.delete('/posts/:postId', (req, res) => {
+            try {
+                const authorization = req.headers.authorization // Basic <user-id>
+                const userId = authorization.slice(6)
 
-        res.status(201).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-})
+                const postId = req.params.postId
 
-api.delete('/posts/:postId', (req, res) => {
-    try {
-        const authorization = req.headers.authorization // Basic <user-id>
-        const userId = authorization.slice(6)
+                deletePost(userId, postId)
 
-        const postId = req.params.postId
+                res.status(204).send()
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
 
-        deletePost(userId, postId)
+        api.listen(8080, () => console.log('API is up'))
 
-        res.status(204).send()
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-})
+    })
+    .catch(error => console.error(error))
 
-api.listen(8080, () => console.log('API is up'))
 
 
 

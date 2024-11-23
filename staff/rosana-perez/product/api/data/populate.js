@@ -27,10 +27,20 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
     })
     .then(items => {
         const [pepito, campa, peter, wendy, postOfPeter] = items
-        //console.log(pepito, campa, peter, wendy)
+        //console.log(pepito, campa, peter, wendy, postOfPeter)
+
+        //return User.deleteOne({ _id: campa._id })
+
+        /* return Promise.all([
+            User.deleteOne({ _id: peter._id }),
+            Post.deleteOne({ _id: postOfPeter._id })
+        ]) */
+
+        //return User.updateOne({ _id: pepito._id }, { $set: { password: '234234234' } })
     })
+    .then(() => console.log('the end'))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())
 
-//pruebas: en terminal, cd data -> node populate.js
+//pruebas: en terminal->api, cd data -> node populate.js, ó -> node data/populate.js <-
 
