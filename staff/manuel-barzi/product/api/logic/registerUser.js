@@ -1,5 +1,4 @@
-import fs from 'fs'
-import uuid from '../util/uuid.js'
+import { User } from '../data/models.js'
 
 function registerUser(name, email, username, password) {
     if (typeof name !== 'string') throw new Error('invalid name')
@@ -20,25 +19,12 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    let usersJSON = fs.readFileSync('data/users.json', 'utf8')
-    const users = JSON.parse(usersJSON)
+    return User.create({ name, email, username, password })
+        .catch(error => {
+            if (error.code === 11000) throw new Error('user already exists')
 
-    let user = users.find(user => user.email === email || user.username === username)
-
-    if (user) throw new Error('user already exists')
-
-    user = {
-        id: uuid(),
-        name,
-        email,
-        username,
-        password
-    }
-
-    users.push(user)
-
-    usersJSON = JSON.stringify(users)
-    fs.writeFileSync('data/users.json', usersJSON)
+            throw new Error(error.message)
+        })
 }
 
 export default registerUser
