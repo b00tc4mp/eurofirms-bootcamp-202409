@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { User, Post } from './models.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-    .then(() => User.deleteMany())
+    //.then(() => User.deleteMany())
     .then(() => Post.deleteMany())
     //.then(() => {
     //    const user = new User({ name: 'Pepito Grillo', email: 'pepito@grillo.com', username: 'pepitogrillo', password: '123123123' })
@@ -23,11 +23,19 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         const postOfPeter = new Post({ author: peter._id, image: 'https://static.wikia.nocookie.net/p__/images/b/b4/Peter_pan_signature_by_disneyfreak19_dh15ob1.png/revision/latest?cb=20240311211636&path-prefix=protagonist', text: 'hello world!' })
 
-        return Promise.all([pepito.save(), campa.save(), peter.save(), wendy.save(), postOfPeter.save()])
+        const postOfWendy = new Post({ author: wendy._id, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnIwJF1dXfzEBfIiU3wq8c3XUlgkQoQXidasVCzbQbOxkJUMVFgY1p5kJOIKUzj3ppydw&usqp=CAU', text: 'hello wendy!' })
+        return Promise.all([
+            pepito.save(),
+            campa.save(),
+            peter.save(),
+            wendy.save(),
+            postOfPeter.save(),
+            postOfWendy.save()
+        ])
     })
     .then(items => {
-        const [pepito, campa, peter, wendy, postOfPeter] = items
-        //console.log(pepito, campa, peter, wendy, postOfPeter)
+        const [pepito, campa, peter, wendy, postOfPeter, postOfWendy] = items
+        console.log(pepito, campa, peter, wendy, postOfPeter, postOfWendy)
 
         //return User.deleteOne({ _id: campa._id })
 

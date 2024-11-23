@@ -1,4 +1,4 @@
-import fs from 'fs'
+import { User } from '../data/models.js'
 
 function authenticateUser(username, password) {
     if (typeof username !== 'string') throw new Error('invalid username')
@@ -7,16 +7,13 @@ function authenticateUser(username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    const usersJSON = fs.readFileSync('data/users.json', 'utf8')
-    const users = JSON.parse(usersJSON)
+    return User.findOne({ username, password })
+        .catch(error => { throw new Error(error.message); })
+        .then(user => {
+            if (!user) throw new Error('wrong credentials');
 
-    const user = users.find(user => user.username === username && user.password === password
-    )
-
-    if (!user) throw new Error('wrong credentials')
-
-    return user.id
-
+            return user._id.toString()
+        })
 }
 
 export default authenticateUser

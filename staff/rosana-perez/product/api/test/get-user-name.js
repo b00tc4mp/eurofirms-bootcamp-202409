@@ -1,12 +1,12 @@
-fetch('http://localhost:8080/users/4qh4hc5vzdu/name', {
+fetch('http://localhost:8080/users/674251b55de4e58afc897f4f/name', {
     method: 'GET',
     headers: {
-        Authorization: 'Basic 4qh4hc5vzdu',
+        Authorization: 'Basic 674251b55de4e58afc897f4f',
     },
 })
     .then(response => {
         console.log(response.status)
-        
+
         return response.text()
     })
     .then(body => console.log(body))

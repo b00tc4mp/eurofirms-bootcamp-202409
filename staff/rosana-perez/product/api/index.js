@@ -19,9 +19,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         const jsonBodyParser = express.json()
 
-        api.post('/users', jsonBodyParser, (req, res) => { // register user
-            console.log(req.body)
-
+        api.post('/users', jsonBodyParser, (req, res) => {
+            // register user
             try {
                 const name = req.body.name
                 const email = req.body.email
@@ -38,31 +37,34 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         })
 
-        api.post('/users/auth', jsonBodyParser, (req, res) => { //authenticate user
+        api.post('/users/auth', jsonBodyParser, (req, res) => {
+            //authenticate user
             try {
                 const username = req.body.username
                 const password = req.body.password
 
-                const userId = authenticateUser(username, password)
-
-                res.json(userId)
-
+                authenticateUser(username, password)
+                    .then(userId = res.json(userId))
+                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             }
         })
 
-        api.get('/users/:targetUserId/name', (req, res) => { //get user name
+        api.get('/users/:targetUserId/name', (req, res) => {
+            //get user name
             try {
-                const authorization = req.headers.authorization // respuesta: Basic <userId>
-                const userId = authorization.slice(6) // corta la const authorization, que es Basic <userId>, a partir del 6º dígito 
+                const authorization = req.headers.authorization
+                // respuesta: Basic <userId>
+                const userId = authorization.slice(6)
+                // corta la const authorization, que es Basic <userId>, a partir del 6º dígito 
 
-                const targetUserId = req.params.targetUserId //extraer targetUserId desde la req
+                const targetUserId = req.params.targetUserId
+                //extraer targetUserId desde la req
 
-                const name = getUserName(userId, targetUserId)
-
-                res.json(name)
-
+                getUserName(userId, targetUserId)
+                    .then(name => res.json(name))
+                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             }
@@ -71,12 +73,13 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         api.get('/posts', (req, res) => {
             try {
-                const authorization = req.headers.authorization // Basic <user-id>
+                const authorization = req.headers.authorization
+                // Basic <user-id>
                 const userId = authorization.slice(6)
 
-                const posts = getPosts(userId)
-
-                res.json(posts)
+                getPosts(userId)
+                    .then(posts => res.json(posts))
+                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             }
@@ -84,15 +87,16 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         api.post('/posts', jsonBodyParser, (req, res) => {
             try {
-                const authorization = req.headers.authorization // Basic <user-id>
+                const authorization = req.headers.authorization
+                // Basic <user-id>
                 const userId = authorization.slice(6)
 
                 const image = req.body.image
                 const text = req.body.text
 
                 createPost(userId, image, text)
-
-                res.status(201).send()
+                    .then(() => res.status(201).send())
+                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             }
@@ -100,14 +104,15 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         api.delete('/posts/:postId', (req, res) => {
             try {
-                const authorization = req.headers.authorization // Basic <user-id>
+                const authorization = req.headers.authorization
+                // Basic <user-id>
                 const userId = authorization.slice(6)
 
                 const postId = req.params.postId
 
                 deletePost(userId, postId)
-
-                res.status(204).send()
+                    .then(() => res.status(204).send())
+                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             }

@@ -1,4 +1,5 @@
-function loginUser(username, password) { //parte sincrona
+function loginUser(username, password) {
+    //parte sincrona
     if (typeof username !== 'string') throw new Error('invalid username')
     if (username.length < 4) throw new Error('invalid username length')
 
