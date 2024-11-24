@@ -42,12 +42,32 @@ class Arroz {
             return this
 
         }
-        console.log(this)
-        /* const objeto = { a: 1, b: 2 };
-        objeto.c = 3; // Agrega un nuevo elemento con clave "c" y valor 3
-        console.log(objeto); // { a: 1, b: 2, c: 3 } */
-    }
 
+        if (deleteCount !== 0) {
+            for (let i = start; i < deleteCount + start; i++) {
+                console.log('borro el ' + this[i])
+                delete this[i]
+                this[i + 1] = this[i] // copiar en la siguiente posición
+                this.length--
+                console.log(this)
+            }
+            // start = 2 , deleteCount: 4 , length = 4  -> antes length = 8 - (deleteCount = 4)
+            // { 0 : karate kid , 1: 'vacaciones en roma', 6: undefined, 7: 'WIP', length: 4}
+            // { 0 : karate kid , 1: 'vacaciones en roma', 2: undefined, 7: 'WIP', length: 4}
+            // { 0 : karate kid , 1: 'vacaciones en roma', 2: undefined, 3: 'WIP', length: 4}
+
+
+
+
+
+
+            //console.log(this)
+            /* const objeto = { a: 1, b: 2 };
+            objeto.c = 3; // Agrega un nuevo elemento con clave "c" y valor 3
+            console.log(objeto); // { a: 1, b: 2, c: 3 } */
+        }
+
+    }
 }
 
 
@@ -63,15 +83,11 @@ movies[6] = 'interstellar'
 movies[7] = 'WIP'
 movies.length = 8
 
-movies.splice(2, 0, 'IA Robot')
+//movies.splice(2, 0, 'IA Robot')
+movies.splice(2, 4)
 
 // ir a la posición 2 -> start <-
 // borrar un elemento -> delete this[start] <-
 // añadir un item -> this.start = item 
 
 console.log('CASO 1', movies)
-
-
-
-
-
