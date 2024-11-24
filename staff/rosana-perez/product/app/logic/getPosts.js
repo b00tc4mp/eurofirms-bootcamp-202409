@@ -3,7 +3,7 @@ function getPosts() {
         method: 'GET',
         headers: {
             Authorization: `Basic ${sessionStorage.userId}`
-        }
+        },
         // Js5 = 'Basic ' + sessionStorage.userId 
         // put an eye on this! not '', it's ``
     })

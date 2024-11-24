@@ -19,8 +19,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         const jsonBodyParser = express.json()
 
+        // register user
         api.post('/users', jsonBodyParser, (req, res) => {
-            // register user
+
             try {
                 const name = req.body.name
                 const email = req.body.email
@@ -36,23 +37,23 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
             }
 
         })
-
+        //authenticate user
         api.post('/users/auth', jsonBodyParser, (req, res) => {
-            //authenticate user
+
             try {
                 const username = req.body.username
                 const password = req.body.password
 
                 authenticateUser(username, password)
-                    .then(userId = res.json(userId))
+                    .then(userId => res.json({ userId }))
                     .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             }
         })
-
+        //get user name
         api.get('/users/:targetUserId/name', (req, res) => {
-            //get user name
+
             try {
                 const authorization = req.headers.authorization
                 // respuesta: Basic <userId>

@@ -5,7 +5,7 @@ function registerUser(name, email, username, password) {
 
     if (typeof email !== 'string') throw new Error('invalid email')
     if (email.length < 6) throw new Error('invalid mail length')
-    if (!email.includes('@')) throw new Error('invalidad email format')
+    if (!email.includes('@')) throw new Error('invalid email format')
     if (!email.includes('.')) throw new Error('invalid email format')
     const indexOfAt = email.indexOf('@')
     const indexOfDot = email.indexOf('.')
@@ -13,7 +13,7 @@ function registerUser(name, email, username, password) {
     //TODO add more rules form email validation (position of @ and .)
 
     if (typeof username !== 'string') throw new Error('invalid username')
-    if (username.length < 4) throw Error('invalid username length')
+    if (username.length < 4) throw new Error('invalid username length')
 
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')

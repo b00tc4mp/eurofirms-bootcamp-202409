@@ -19,8 +19,13 @@ function loginUser(username, password) {
 
             if (status === 200)
                 return response.json()
-                    .then(userId => {
-                        sessionStorage.userId = userId
+                    .then(data => {
+                        console.log(data);
+                        if (data && data.userId) {
+                            sessionStorage.userId = data.userId
+                        } else {
+                            throw new Error('userId not found in response');
+                        }
                     })
 
             return response.json()

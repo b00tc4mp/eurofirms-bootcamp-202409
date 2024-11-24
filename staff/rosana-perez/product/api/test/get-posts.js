@@ -1,7 +1,7 @@
 fetch('http://localhost:8080/posts', {
     method: 'GET',
     headers: {
-        Authorization: 'Basic 674251b55de4e58afc897f4f'
+        Authorization: 'Basic 674270007642021aef230a52'
     }
 })
     .then(response => {
