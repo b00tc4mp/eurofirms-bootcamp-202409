@@ -17,7 +17,7 @@ class Arroz {
 
         let deletedElements = []
 
-        if (deleteAmount === 0 && elementsToAdd !== undefined) {
+        if ((deleteAmount <= 0) && elementsToAdd !== undefined) {
 
             for (let i = this.length - 1; i >= start; i--) {
                 this[i + 1] = this[i]
@@ -160,3 +160,37 @@ Arroz { 0: 100, 1: 200, 2: 300, 3: 400, length: 4 } i = 4
 Arroz { 0: 100, 1: 200, 2: 300, length: 3} i = 3
 */
 
+console.log('CASO 4 -> desde start: 2, borrar elementos ->undefined<- y no añadir elementos')
+
+const cities = new Arroz;
+cities[0] = 'Vigo'
+cities[1] = 'Leon'
+cities[2] = 'Avila'
+cities[3] = 'Almeria'
+cities[4] = 'Valencia'
+cities[5] = 'Girona'
+cities[6] = 'Alava'
+cities.length = 7
+
+console.log('elementos eliminados en el caso 4 -> ', cities.splice(2))
+//['Avila', 'Almeria', 'Valencia', 'Girona', 'Alava']
+
+console.log('objeto cities después de eliminar ->undefined<- elementos -> ', cities)
+//Arroz {0: 'Vigo', 1: 'Leon', length: 2}
+
+
+console.log('CASO 5 -> eliminar -2 elementos y añadir "white" desde la posición 2')
+
+const colors = new Arroz;
+colors[0] = 'red'
+colors[1] = 'pink'
+colors[2] = 'blue'
+colors[3] = 'black'
+colors[4] = 'green'
+colors.length = 5
+
+console.log('elementos eliminados en el caso 5 -> ', colors.splice(2, -2, 'white'))
+//[]
+
+console.log('objeto colors después de eliminar -2 elementos y añadir white en la pos.2 -> ', colors)
+//Arroz {0: 'red', 1: 'pink', 2: 'white', 3: 'blue', 4: 'black', 5: 'green', length: 6}
