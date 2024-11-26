@@ -1,9 +1,9 @@
-fetch('http://localhost:8080/users/auth', {
+fetch('http://localhost:8080/users', {
     method: 'POST',
     headers: {
-        'content-Type': 'application/json'
+        'Content-Type': 'application/json'
     },
-    body: '{"username":"holamundo","password":"123123123"}'
+    body: '{"name":"git lit","email":"git@lit.com","username":"gitlit","password":"123123123"}'
 })
     .then(response => {
         console.log(response.status)

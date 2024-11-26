@@ -1,9 +1,8 @@
-fetch('http://localhost:8080/users/auth', {
-    method: 'POST',
+fetch('http://localhost:8080/posts', {
+    method: 'GET',
     headers: {
-        'content-Type': 'application/json'
-    },
-    body: '{"username":"holamundo","password":"123123123"}'
+        authorization: 'Basic 4qgujmazqgk'
+    }
 })
     .then(response => {
         console.log(response.status)

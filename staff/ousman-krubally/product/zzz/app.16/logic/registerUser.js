@@ -1,5 +1,3 @@
-import { User } from '../data/models.js'
-
 function registerUser(name, email, username, password) {
     if (typeof name !== 'string') throw new Error('invalid name')
     if (name.length < 1) throw new Error('invalid name length')
@@ -19,11 +17,26 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    return User.create({ name, email, username, password })
-        .catch(error => {
-            if (error.code === 11000) throw new Error('user already exists')
+    return fetch('http://localhost:8080/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, username, password })
+    })
+        .catch(error => { throw new Error(error.message) })
+        .then(response => {
+            const status = response.status
 
-            throw new Error(error.message)
+            if (status === 201) return
+
+            return response.json()
+                .then(body => {
+                    const error = body.error
+                    const message = body.message
+
+                    throw new Error(message)
+                })
         })
 }
 
