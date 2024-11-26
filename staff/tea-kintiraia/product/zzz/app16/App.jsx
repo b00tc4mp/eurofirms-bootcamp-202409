@@ -36,7 +36,7 @@ function App() {
             onCreatePost={() => setView('create-post')}
         />}
 
-        {view === 'create-post' && <onCreatePost
+        {view === 'create-post' && <CreatePost
             onCreated={() => setView('home')}
         />}
     </>

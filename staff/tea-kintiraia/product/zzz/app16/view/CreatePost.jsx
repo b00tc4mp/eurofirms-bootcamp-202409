@@ -13,7 +13,7 @@ function CreatePost(props) {
             const text = form.text.value
 
             try {
-                CreatePost(image, text)
+                createPost(image, text)
 
                 props.onCreated()
             } catch (error) {

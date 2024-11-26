@@ -23,5 +23,6 @@ function createPost(image, text) {
                     throw new Error(message)
                 })
         })
-
 }
+
+export default createPost
