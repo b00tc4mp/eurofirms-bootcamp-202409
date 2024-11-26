@@ -1,16 +1,1 @@
-[
-    {
-        "id": "123abc456def",
-        "author": "4qghhowdc64",
-        "image": "https://depositphotos.com/es/photos/delfines.html",
-        "text": "The new Flipper",
-        "date": "2024-11-16T10:48:55.422Z"
-    },
-    {
-        "id": "789ghi012jkl",
-        "author": "h1o857ew32",
-        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/31/5c/0d/blue-mountain-ski-area.jpg?w=900&h=500&s=1",
-        "text": "Blue Montain",
-        "date": "2024-11-16T10:48:55.422Z"
-    }
-]
+[{"id":"789ghi012jkl","author":"h1o857ew32","image":"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/31/5c/0d/blue-mountain-ski-area.jpg?w=900&h=500&s=1","text":"Blue Montain","date":"2024-11-16T10:48:55.422Z"},{"id":"4qlptipwxjy","author":"4qghhowdc64","image":"https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3Z3djA2cGtzcjY5OXVxbXM1dWF4MTJsZ2FwMjhqaWluY3VuYjExayZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/MUHNdrm3vk7MoyUsCO/giphy.gif","text":"funcionaaa","date":"2024-11-26T18:32:10.439Z"},{"id":"4qlpwpfw4zc","author":"4qghhowdc64","image":"https://media.giphy.com/media/3NtY188QaxDdC/giphy.gif?cid=790b76117vwv06pksr699uqms5uax12lgap28jiincunb11k&ep=v1_gifs_trending&rid=giphy.gif&ct=g","text":"wow","date":"2024-11-26T18:43:44.117Z"}]
