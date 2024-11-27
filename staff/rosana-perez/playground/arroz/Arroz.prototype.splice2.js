@@ -25,14 +25,14 @@ class Arroz {
                     }
                     this.length++
 
-                    for (let i = this.length - 1; i >= (this.length - start); i--) {
-
-                        for (let i = this.length - 1; i >= start; i--) {
-                            this[i] = this[i - 1]
-                        }
-                        this[start] = elementsToAdd
-
+                    for (let i = this.length - 1; i > start; i--) {
+                        this[i] = this[i - 1]
+                        //for (let i = this.length - 1; i > start; i--) {
+                        //  this[i] = this[i - 1]
+                        //}
                     }
+                    this[start] = elementsToAdd
+
                     for (let i = start + 1; i < this.length; i++) {
                         delete this[i]
                         this.length--
@@ -52,6 +52,10 @@ class Arroz {
                     deletedElements.push(this[i])
                     delete this[i]
                     this.length--
+                }
+                for (let i = start; i < this.length; i++) {
+                    this[i] = this[this.length]
+                    delete this[this.length]
                 }
             }
             if (start >= this.length) {
