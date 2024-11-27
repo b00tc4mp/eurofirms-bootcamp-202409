@@ -16,53 +16,60 @@ class Arroz {
 
         let deletedElements = []
 
-        if (start < 0 || start >= this.length) {
-            if (start < 0) {
-                if (elementsToAdd !== undefined) {
-                    start = this.length + start
-                    for (let i = start; i < (deleteAmount + start); i++) {
-                        deletedElements.push(this[i])
-                    }
-                    this.length++
-
-                    for (let i = this.length - 1; i > start; i--) {
-                        this[i] = this[i - 1]
-                        //for (let i = this.length - 1; i > start; i--) {
-                        //  this[i] = this[i - 1]
-                        //}
-                    }
-                    this[start] = elementsToAdd
-
-                    for (let i = start + 1; i < this.length; i++) {
-                        delete this[i]
-                        this.length--
-
-                    }
-                    for (let i = start + 1; i < this.length; i++) {
-                        this[i] = this[this.length + 1]
-                        delete this[this.length + 1]
-                    }
-
-                }
-            }
-
-            if (elementsToAdd === undefined) {
-                start = this.length + start
-                for (let i = start; i < this.length; i++) {
-                    deletedElements.push(this[i])
-                    delete this[i]
-                    this.length--
-                }
-                for (let i = start; i < this.length; i++) {
-                    this[i] = this[this.length]
-                    delete this[this.length]
-                }
-            }
-            if (start >= this.length) {
-                start = this.length - 1
-            }
+        if (start < 0) {
+            start = this.length + start
+        }
+        if (start >= this.length) {
+            start = this.length - 1
         }
 
+        /*        if (start < 0 || start >= this.length) {
+                   if (start < 0) {
+                       if (elementsToAdd !== undefined) {
+                           start = this.length + start
+                           for (let i = start; i < (deleteAmount + start); i++) {
+                               deletedElements.push(this[i])
+                           }
+                           this.length++
+       
+                           for (let i = this.length - 1; i > start; i--) {
+                               this[i] = this[i - 1]
+                               //for (let i = this.length - 1; i > start; i--) {
+                               //  this[i] = this[i - 1]
+                               //}
+                           }
+                           this[start] = elementsToAdd
+       
+                           for (let i = start + 1; i < this.length; i++) {
+                               delete this[i]
+                               this.length--
+       
+                           }
+                           for (let i = start + 1; i < this.length; i++) {
+                               this[i] = this[this.length + 1]
+                               delete this[this.length + 1]
+                           }
+       
+                       }
+                   }
+       
+                   if (elementsToAdd === undefined) {
+                       start = this.length + start
+                       for (let i = start; i < this.length; i++) {
+                           deletedElements.push(this[i])
+                           delete this[i]
+                           this.length--
+                       }
+                       for (let i = start; i < this.length; i++) {
+                           this[i] = this[this.length]
+                           delete this[this.length]
+                       }
+                   }
+                   if (start >= this.length) {
+                       start = this.length - 1
+                   }
+               }
+       */
 
         // si existe un valor en deleteAmount, borrar los elementos que corresponden
         // si existe elementsToAdd, añadirlo en la posición que corresponda
@@ -71,14 +78,19 @@ class Arroz {
 
             for (let i = this.length - 1; i >= start; i--) {
                 this[i + 1] = this[i]
-
             }
             this.length++
             this[start] = elementsToAdd
-
         }
 
-        if ((deleteAmount > 0 && start <= 0) && deleteAmount + start <= this.length) {
+        if ((deleteAmount <= 0) && elementsToAdd === undefined) {
+
+            for (let i = this.length - 1; i >= start; i--) {
+                this[i + 1] = this[i]
+            }
+        }
+
+        if (deleteAmount > 0 && deleteAmount + start <= this.length) {
 
             //let deletedElements = []
 
