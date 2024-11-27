@@ -1,7 +1,7 @@
 import getUserName from './getUserName.js'
 
 try {
-    const name = getUserName('4qg7lopxuhs', '4qg7lopxuhs')
+    const name = getUserName('h1o857ew32', 'h1o857ew32')
 
     console.log(name)
 } catch (error) {

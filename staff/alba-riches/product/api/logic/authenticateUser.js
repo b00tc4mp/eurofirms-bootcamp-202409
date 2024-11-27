@@ -7,7 +7,7 @@ function authenticateUser(username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    const usersJSON = fs.readFileSync('data/users.json', 'utf8')
+    const usersJSON = fs.readFileSync('../data/users.json', 'utf8')
     const users = JSON.parse(usersJSON)
 
     const user = users.find(user => user.username === username && user.password === password)
