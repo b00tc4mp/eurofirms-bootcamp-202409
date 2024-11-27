@@ -12,10 +12,57 @@ class Arroz {
 
 
     splice(start, deleteAmount, elementsToAdd) {
-        // si existe un valor en deleteAmount, borrar los elementos que corresponden
-        // si existe elementsToAdd, añadirlo en la posición que corresponda
+        //tratar el start  en caso de que sea negativo  o  no se encuentre en la longitud del arroz
 
         let deletedElements = []
+
+        if (start < 0 || start >= this.length) {
+            if (start < 0) {
+                if (elementsToAdd !== undefined) {
+                    start = this.length + start
+                    for (let i = start; i < (deleteAmount + start); i++) {
+                        deletedElements.push(this[i])
+                    }
+                    this.length++
+
+                    for (let i = this.length - 1; i >= (this.length - start); i--) {
+
+                        for (let i = this.length - 1; i >= start; i--) {
+                            this[i] = this[i - 1]
+                        }
+                        this[start] = elementsToAdd
+
+                    }
+                    for (let i = start + 1; i < this.length; i++) {
+                        delete this[i]
+                        this.length--
+
+                    }
+                    for (let i = start + 1; i < this.length; i++) {
+                        this[i] = this[this.length + 1]
+                        delete this[this.length + 1]
+                    }
+
+                }
+            }
+
+            if (elementsToAdd === undefined) {
+                start = this.length + start
+                for (let i = start; i < this.length; i++) {
+                    deletedElements.push(this[i])
+                    delete this[i]
+                    this.length--
+                }
+            }
+            if (start >= this.length) {
+                start = this.length - 1
+            }
+        } else {
+            start;
+        }
+
+        // si existe un valor en deleteAmount, borrar los elementos que corresponden
+        // si existe elementsToAdd, añadirlo en la posición que corresponda
 
         if ((deleteAmount <= 0) && elementsToAdd !== undefined) {
 
@@ -28,7 +75,7 @@ class Arroz {
 
         }
 
-        if (deleteAmount > 0 && deleteAmount + start <= this.length) {
+        if ((deleteAmount > 0 && start <= 0) && deleteAmount + start <= this.length) {
 
             //let deletedElements = []
 
@@ -53,6 +100,11 @@ class Arroz {
                 this[i] = this[i + deleteAmount]//
 
             }
+
+            for (let i = this.length + start; i >= this.length; i--) {
+
+                delete this[i]
+            }
         }
 
         if (deleteAmount > (this.length - start) || deleteAmount === undefined) {
@@ -74,6 +126,7 @@ class Arroz {
 
         }
         return deletedElements
+
     }
 }
 
@@ -178,19 +231,99 @@ console.log('elementos eliminados en el caso 4 -> ', cities.splice(2))
 console.log('objeto cities después de eliminar ->undefined<- elementos -> ', cities)
 //Arroz {0: 'Vigo', 1: 'Leon', length: 2}
 
+{
+    console.log('CASO 5 -> eliminar -2 elementos y añadir "white" desde la posición 2')
 
-console.log('CASO 5 -> eliminar -2 elementos y añadir "white" desde la posición 2')
+    const colors = new Arroz;
+    colors[0] = 'red'
+    colors[1] = 'pink'
+    colors[2] = 'blue'
+    colors[3] = 'black'
+    colors[4] = 'green'
+    colors.length = 5
 
-const colors = new Arroz;
-colors[0] = 'red'
-colors[1] = 'pink'
-colors[2] = 'blue'
-colors[3] = 'black'
-colors[4] = 'green'
-colors.length = 5
+    console.log('elementos eliminados en el caso 5 -> ', colors.splice(2, -2, 'white'))
+    //[]
 
-console.log('elementos eliminados en el caso 5 -> ', colors.splice(2, -2, 'white'))
-//[]
+    console.log('objeto colors después de eliminar -2 elementos y añadir white en la pos.2 -> ', colors)
+    //Arroz {0: 'red', 1: 'pink', 2: 'white', 3: 'blue', 4: 'black', 5: 'green', length: 6}
+}
+{
+    console.log('CASO 6 -> eliminar 1 elemento desde start -2, sin añadir nada')
 
-console.log('objeto colors después de eliminar -2 elementos y añadir white en la pos.2 -> ', colors)
-//Arroz {0: 'red', 1: 'pink', 2: 'white', 3: 'blue', 4: 'black', 5: 'green', length: 6}
+    const colors = new Arroz;
+    colors[0] = 'red'
+    colors[1] = 'pink'
+    colors[2] = 'blue'
+    colors[3] = 'black'
+    colors[4] = 'green'
+    colors.length = 5
+    console.log('elementos eliminados en el caso 6 -> ', colors.splice(-2, 1))
+    //['black']
+
+    console.log('objeto colors después de eliminar 1 elementos desde start: -2 y sin añadir nada -> ', colors)
+    //Arroz {0: 'red', 1: 'pink', 2: 'blue', 3: 'green', length: 4}
+}
+
+{
+    console.log('CASO 7 -> eliminar 2 elementos desde start -3, añadiendo white')
+
+    const colors = new Arroz;
+    colors[0] = 'red'
+    colors[1] = 'pink'
+    colors[2] = 'blue'
+    colors[3] = 'black'
+    colors[4] = 'green'
+    colors.length = 5
+    console.log('elementos eliminados en el caso 7 -> ', colors.splice(-3, 2, 'white'))
+    //['blue', 'black']
+
+    console.log('objeto colors después de eliminar 2 elementos desde start: -3 y añadir white en la pos.2 -> ', colors)
+    //Arroz {0: 'red', 1: 'pink', 2: 'white', 3: 'green',  length: 4}
+
+    //Arroz de inicio -> {0: 'red', 1: 'pink', 2: 'blue', 3: 'black', 4: 'green', length: 5}
+    /*
+    PASO 1.- situamos el inicio en start desde la longitud
+    start = this.length(5) + start(-3) -> start = 2
+    
+    PASO 2.- copiamos en [] los elementos a eliminar:
+    i=2, i<4 -> true ['blue']
+    i=3, i<4 -> true ['blue', 'black']
+    i=4, i<4 -> false -> stop
+    
+    PASO 3 .- añadimos 'white' al objeto desde el inicio modificado start: 2, modificando la
+    longitud del objeto y copiando todos los elementos a su posición inmediatamente posterior
+    
+    i= 5, i>=3 -> true ->>>>>> i= 5, i>= 2 -> true ->
+    {0: 'red', 1: 'pink', 2:'blue', 3: 'black', 4: 'green', 5: undefined, length: 6}
+    {0: 'red', 1: 'pink', 2:'blue', 3: 'black', 4: 'green', 5: 'green', length: 6}
+    
+    i= 4, i>=3 -> true ->>>>>> i= 4, i>= 2 -> true ->
+    {0: 'red', 1: 'pink', 2:'blue', 3: 'black', 4: 'black', 5: 'green', length: 6}
+    
+    i= 3, i>=3 -> true ->>>>>> i=3, i>= 2 -> true ->
+    {0: 'red', 1: 'pink', 2:'blue', 3: 'blue', 4: 'black', 5: 'green', length: 6}
+    
+    i= 2, i>=3 -> false -> stop
+    {0: 'red', 1: 'pink', 2:'white', 3: 'blue', 4: 'black', 5: 'green', length: 6}
+    
+    PASO 4.- eliminamos 2 elementos desde el inicio modificado start: 2 y adaptamos length a la longitud del objeto:
+    
+    i = 3, i<  -> true ->
+    {0: 'red', 1: 'pink', 2: 'white', 4: 'black', 5: 'green', length: 5}
+    
+    i= 4, i<  -> true ->
+    {0: 'red', 1: 'pink', 2: 'white', 5: 'green', length: 4}
+    
+    i= 5, i< -> false ->stop
+    
+    PASO 4.- modificamos la posición de todos los objetos desde start+1 con nº consecutivo
+    
+    EXPECTED OUTPUT ->>> Arroz {0: 'red', 1: 'pink', 2: 'white', 3: 'green',  length: 4}
+    
+    */
+
+
+
+
+}
