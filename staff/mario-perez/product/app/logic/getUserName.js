@@ -4,7 +4,7 @@ function getUserName() {
         method: 'GET',
         headers: {
             //Authorization: 'Basic ' + sessionStorage.userId
-            Authorization: `Basic ${sessionStorage.userId}`
+            Authorization: `Bearer ${sessionStorage.token}`
         }
     })
         .catch(error => { throw new Error(error.message) })

@@ -1,1 +1,1 @@
-curl -X POST -H 'Authorization: Basic 6741f97a50976d72be46fe89' -H 'Content-Type: application/json' -d '{"image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hello world"}' http://localhost:8080/posts -v
+curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzQ2MWU1YmEyNGIwN2JjMmEzY2E3YjgiLCJpYXQiOjE3MzI5MTM0NjZ9.CY9W4mXST6Oj31Vk3mMjtsklVpsKpVJXDs0oau9ddCg' -H 'Content-Type: application/json' -d '{"image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hello world"}' http://localhost:8080/posts -v
