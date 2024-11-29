@@ -1,10 +1,13 @@
+import extractPayloadFromJWT from './helpers/extractPayloadFromJWT'
+
 function getUserName() {
-    //return fetch('http://localhost:8080/users/' + sessionStorage.userId + '/name', {
-    return fetch(`http://localhost:8080/users/${sessionStorage.userId}/name`, {
+    const payload = extractPayloadFromJWT(sessionStorage.token)
+    const userId = payload.sub
+
+    return fetch(`http://localhost:8080/users/${userId}/name`, {
         method: 'GET',
         headers: {
-            //Authorization: 'Basic ' + sessionStorage.userId
-            Authorization: `Basic ${sessionStorage.userId}`
+            Authorization: `Bearer ${sessionStorage.token}`
         }
     })
         .catch(error => { throw new Error(error.message) })
