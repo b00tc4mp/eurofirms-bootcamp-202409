@@ -6,7 +6,7 @@ function isUserLoggedIn() {
 
     // return sessionStorage.userId !== undefined
 
-    return !!sessionStorage.userId
+    return !!sessionStorage.token
 
 
 

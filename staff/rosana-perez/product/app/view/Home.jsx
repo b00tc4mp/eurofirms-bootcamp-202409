@@ -74,7 +74,7 @@ function Home(props) {
         </div>
 
 
-        {posts.length && <section>
+        {<section>
             {posts.map(post => <Post key={post.id} post={post} onDeleted={() => {
                 try {
                     getPosts()

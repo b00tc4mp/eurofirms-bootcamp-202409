@@ -1,13 +1,15 @@
-function getUserName() {
-    //JS5: return fetch('http://localhost:8080/users/' +sessionStorage.userId + '/name')
+import extractPayloadFromJWT from './helpers/extractPayloadFromJWT'
 
-    return fetch(`http://localhost:8080/users/${sessionStorage.userId}/name`, {
+function getUserName() {
+    const payload = extractPayloadFromJWT(sessionStorage.token)
+    const userId = payload.sub
+
+    return fetch(`http://localhost:8080/users/${userId}/name`, {
         // ${} se usa para interpolar
         method: 'GET',
         headers: {
-            Authorization: `Basic ${sessionStorage.userId}`
-            // Js5 = 'Basic ' + sessionStorage.userId 
-        }, // put an eye on this! not '', it's ``
+            Authorization: `Bearer ${sessionStorage.token}`
+        },
     })
         .catch(error => { throw new Error(error.message) })
         .then(response => {

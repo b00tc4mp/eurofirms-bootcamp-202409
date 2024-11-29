@@ -1,7 +1,7 @@
 fetch('http://localhost:8080/posts', {
     method: 'GET',
     headers: {
-        Authorization: 'Basic 674270007642021aef230a52'
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzQyNTFiNTVkZTRlNThhZmM4OTdmNGYiLCJpYXQiOjE3MzI5MTM2MTd9.PJkTz3d5oDIum2v4djuDQRccoXcsXAs2iwnT7WJao2I'
     }
 })
     .then(response => {
