@@ -1,6 +1,6 @@
 import { errors } from 'com'
 
-const { DuplicityError, SystemError } = errors
+const { DuplicityError, SystemError, ValidationError } = errors
 
 import registerUser from '../logic/registerUser'
 

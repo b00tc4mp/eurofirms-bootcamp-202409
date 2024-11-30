@@ -1,5 +1,7 @@
 import { validate, errors } from 'com'
 
+const { SystemError } = errors
+
 function registerUser(name, email, username, password) {
     validate.name(name)
     validate.email(email)
@@ -13,13 +15,14 @@ function registerUser(name, email, username, password) {
         },
         body: JSON.stringify({ name, email, username, password })
     })
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
             if (status === 201) return
 
             return response.json()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(body => {
                     const error = body.error
                     const message = body.message

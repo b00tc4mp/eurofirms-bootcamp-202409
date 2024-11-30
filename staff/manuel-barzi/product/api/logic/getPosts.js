@@ -1,5 +1,7 @@
 import { User, Post } from '../data/models.js'
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError } = errors
 
 function getPosts(userId) {
     validate.userId(userId)
@@ -8,11 +10,11 @@ function getPosts(userId) {
         User.findById(userId).lean(),
         Post.find({}, '-__v').populate('author', 'username').sort({ date: -1 }).lean()
     ])
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(userAndPosts => {
             const [user, posts] = userAndPosts
 
-            if (!user) throw new Error('user not found')
+            if (!user) throw new NotFoundError('user not found')
 
             posts.forEach(post => {
                 post.id = post._id.toString()
