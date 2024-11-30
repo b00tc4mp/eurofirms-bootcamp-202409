@@ -16,8 +16,12 @@ function CreatePost(props) {
 
             try {
                 createPost(image, text)
+                    .then(() => props.onCreated())
+                    .catch(error => {
+                        alert(error.message)
 
-                props.onCreated()
+                        console.error(error)
+                    })
             } catch (error) {
                 alert(error.message)
 

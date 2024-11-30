@@ -18,8 +18,8 @@ function loginUser(username, password) {
 
             if (status === 200)
                 return response.json()
-                    .then(userId => {
-                        sessionStorage.userId = userId
+                    .then(token => {
+                        sessionStorage.token = token
                     })
 
             return response.json()
