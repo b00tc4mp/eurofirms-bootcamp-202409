@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
-import registerUser from './registerUser.js'
+import deletePost from './deletePost.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            return registerUser('peterpan', 'peter@pan.com', 'linta', '123123123')
-                .then(() => console.log('user registered'))
+            return deletePost('6749af739ede555d1cce1fec', '6749af739ede555d1cce1fec')
+                .then(() => console.log('post deleted'))
                 .catch(error => console.error(error))
         } catch (error) {
             console.error(error)

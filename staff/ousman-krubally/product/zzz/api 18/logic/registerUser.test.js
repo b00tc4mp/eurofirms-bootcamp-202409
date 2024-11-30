@@ -4,7 +4,7 @@ import registerUser from './registerUser.js'
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            return registerUser('peterpan', 'peter@pan.com', 'linta', '123123123')
+            return registerUser('ben ta', 'ben@ta.com', 'benta', '123123123')
                 .then(() => console.log('user registered'))
                 .catch(error => console.error(error))
         } catch (error) {

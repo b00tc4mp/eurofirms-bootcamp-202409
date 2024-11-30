@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
-import jwt from 'jsonwebtoken'
 
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
@@ -9,8 +8,6 @@ import getUserName from './logic/getUserName.js'
 import getPosts from './logic/getPosts.js'
 import createPost from './logic/createPost.js'
 import deletePost from './logic/deletePost.js'
-
-const JWT_SECRET = 'mi gran secreto secretísimo'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
@@ -53,10 +50,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         api.get('/users/:targetUserId/name', (req, res) => {
             try {
                 const authorization = req.headers.authorization // Basic <user-id>
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = authorization.slice(6)
 
                 const targetUserId = req.params.targetUserId
 
@@ -71,10 +65,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         api.get('/posts', (req, res) => {
             try {
                 const authorization = req.headers.authorization // Basic <user-id>
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = authorization.slice(6)
 
                 getPosts(userId)
                     .then(posts => res.json(posts))
@@ -87,10 +78,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         api.post('/posts', jsonBodyParser, (req, res) => {
             try {
                 const authorization = req.headers.authorization // Basic <user-id>
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = authorization.slice(6)
 
                 const image = req.body.image
                 const text = req.body.text
@@ -106,10 +94,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         api.delete('/posts/:postId', (req, res) => {
             try {
                 const authorization = req.headers.authorization // Basic <user-id>
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = authorization.slice(6)
 
                 const postId = req.params.postId
 
