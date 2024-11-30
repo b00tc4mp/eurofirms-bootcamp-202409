@@ -11,10 +11,9 @@ import isUserLoggedIn from './logic/isUserLoggedIn'
 function App() {
     console.log('App -> render')
 
-    //const viewState = useState(isUserLoggedIn() ? 'home' : 'welcome')
-    //const view = viewState[0]
-    //const setView = viewState[1]
-
+    // const viewState = useState(isUserLoggedIn() ? 'home' : 'welcome')
+    // const view = viewState[0]
+    // const setView = viewState[1]
     const [view, setView] = useState(isUserLoggedIn() ? 'home' : 'welcome')
 
     console.log('App -> state: view = ' + view)
@@ -48,8 +47,6 @@ function App() {
 
         {view === 'create-post' && <CreatePost
             onCreated={() => setView('home')}
-
-            onCancelCreatePost={() => setView('home')}
         />}
     </>
 }

@@ -1,16 +1,16 @@
 import { User } from '../data/models.js'
+import { validate, errors } from 'com'
+
+const { SystemError, CredentialsError } = errors
 
 function authenticateUser(username, password) {
-    if (typeof username !== 'string') throw new Error('invalid username')
-    if (username.length < 4) throw new Error('invalid username length')
-
-    if (typeof password !== 'string') throw new Error('invalid password')
-    if (password.length < 8) throw new Error('invalid password length')
+    validate.username(username)
+    validate.password(password)
 
     return User.findOne({ username, password })
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) throw new Error('wrong credentials')
+            if (!user) throw new CredentialsError('wrong credentials')
 
             return user._id.toString()
         })

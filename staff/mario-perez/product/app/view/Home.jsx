@@ -1,3 +1,7 @@
+import { errors } from 'com'
+
+const { NotFoundError, SystemError, ValidationError } = errors
+
 import { useState, useEffect } from 'react'
 
 import Post from './Post'
@@ -8,7 +12,6 @@ import logoutUser from '../logic/logoutUser'
 
 import './Home.css'
 
-
 function Home(props) {
     console.log('Home -> render')
 
@@ -16,16 +19,14 @@ function Home(props) {
     props -> { onLogout }
     */
 
-    //const nameState = useState(null)
-    //const name = nameState[0]
-    //const setName = nameState[1]
-
+    // const nameState = useState(null)
+    // const name = nameState[0]
+    // const setName = nameState[1]
     const [name, setName] = useState(null)
 
-    //const postsState = useState([])
-    //const posts = postsState[0]
-    //const setPosts = postsState[1]
-
+    // const postsState = useState([])
+    // const posts = postsState[0]
+    // const setPosts = postsState[1]
     const [posts, setPosts] = useState([])
 
     console.log('Home -> state: name = ' + name)
@@ -35,7 +36,10 @@ function Home(props) {
             getUserName()
                 .then(name => setName(name))
                 .catch(error => {
-                    alert(error.message)
+                    if (error instanceof NotFoundError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('sorry, there was a problem. try again later.')
 
                     console.error(error)
                 })
@@ -43,19 +47,25 @@ function Home(props) {
             getPosts()
                 .then(posts => setPosts(posts))
                 .catch(error => {
-                    alert(error.message)
+                    if (error instanceof NotFoundError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('sorry, there was a problem. try again later.')
 
                     console.error(error)
                 })
         } catch (error) {
-            alert(error.message)
+            if (error instanceof ValidationError)
+                alert(error.message)
+            else
+                alert('sorry, there was a problem. try again later.')
 
             console.error(error)
         }
     }, [])
 
     return <main>
-        <div className='home-top'>
+        <div className="home-top">
             {name && <h3>{name}</h3>}
 
             <div>
@@ -77,20 +87,26 @@ function Home(props) {
 
 
 
-
-
         {<section>
             {posts.map(post => <Post key={post.id} post={post} onDeleted={() => {
                 try {
                     getPosts()
                         .then(posts => setPosts(posts))
                         .catch(error => {
-                            alert(error.message)
+                            if (error instanceof NotFoundError)
+                                alert(error.message)
+                            else if (error instanceof SystemError)
+                                alert('sorry, there was a problem. try again later.')
 
                             console.error(error)
                         })
                 } catch (error) {
-                    alert(error.message)
+                    if (error instanceof ValidationError)
+                        alert(error.message)
+                    else
+                        alert('sorry, there was a problem. try again later.')
+
+                    console.error(error)
 
                     console.log(error)
                 }

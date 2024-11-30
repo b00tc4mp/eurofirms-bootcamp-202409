@@ -1,6 +1,10 @@
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
+
 function createPost(image, text) {
-    if (typeof image !== 'string') throw new Error('invalid image')
-    if (typeof text !== 'string') throw new Error('invalid text')
+    validate.image(image)
+    validate.text(text)
 
     return fetch('http://localhost:8080/posts', {
         method: 'POST',
@@ -10,17 +14,21 @@ function createPost(image, text) {
         },
         body: JSON.stringify({ image, text })
     })
+        .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
             if (status === 201) return
 
             return response.json()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(body => {
                     const error = body.error
                     const message = body.message
 
-                    throw new Error(message)
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
                 })
         })
 }

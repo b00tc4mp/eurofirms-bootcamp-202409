@@ -1,5 +1,8 @@
-import createPost from '../logic/createPost'
+import { errors } from 'com'
 
+const { ValidationError, SystemError, NotFoundError } = errors
+
+import createPost from '../logic/createPost'
 
 function CreatePost(props) {
     console.log('CreatePost -> render')
@@ -17,10 +20,20 @@ function CreatePost(props) {
 
             try {
                 createPost(image, text)
+                    .then(() => props.onCreated())
+                    .catch(error => {
+                        if (error instanceof NotFoundError)
+                            alert(error.message)
+                        else if (error instanceof SystemError)
+                            alert('sorry, there was a problem. try again later.')
 
-                props.onCreated()
+                        console.error(error)
+                    })
             } catch (error) {
-                alert(error.message)
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
 
                 console.error(error)
             }
@@ -33,8 +46,7 @@ function CreatePost(props) {
 
             <button type="submit">Create</button>
         </form>
-
-        <button type="button" onClick={() => props.onCancelCreatePost()}>🔙</button>
     </main>
 }
+
 export default CreatePost

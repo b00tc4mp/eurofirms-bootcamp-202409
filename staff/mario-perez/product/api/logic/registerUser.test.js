@@ -6,7 +6,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         try {
             return registerUser('Peter Pan', 'peter@pan.com', 'peterpan', '123123123')
                 .then(() => console.log('user registered'))
-                .catch(error => HTMLFormControlsCollection.error(error))
+                .catch(error => console.error(error))
         } catch (error) {
             console.error(error)
         }
