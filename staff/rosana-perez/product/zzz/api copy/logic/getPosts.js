@@ -1,8 +1,7 @@
 import { User, Post } from '../data/models.js'
-import { validate, errors } from 'com'
 
 function getPosts(userId) {
-    validate.userId(userId)
+    if (typeof userId !== 'string') throw new Error('invalid userId')
 
     return Promise.all([
         User.findById(userId).lean(),
@@ -11,11 +10,11 @@ function getPosts(userId) {
         //'-_v' indica que se omita la -v que facilita mongo por cada usuario
         // .sort indica cómo se ordenan los resultados(fecha descendente)
     ])
-        .catch(error => { throw new SystemError(error.message) })
+        .catch(error => { throw new Error(error.message) })
         .then(userAndPosts => {
             const [user, posts] = userAndPosts
 
-            if (!user) throw new NotFoundError('user not found')
+            if (!user) throw new Error('user not found')
 
             posts.forEach(post => {
                 post.id = post._id.toString()

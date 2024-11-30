@@ -1,3 +1,7 @@
+import { errors } from 'com'
+
+const { CredentialsError, SystemError, ValidationError } = errors
+
 import loginUser from '../logic/loginUser'
 
 function Login(props) {
@@ -8,7 +12,7 @@ function Login(props) {
     return <main>
         <h2>Login</h2>
 
-        <form onSubmit={function (event) {
+        <form className="login-form" onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -20,14 +24,18 @@ function Login(props) {
                 loginUser(username, password)
                     .then(() => props.onLoginSuccess())
                     .catch(error => {
-                        alert(error.message)
+                        if (error instanceof CredentialsError)
+                            alert(error.message)
+                        else if (error instanceof SystemError)
+                            alert('sorry, there was a problem. try again later')
 
                         console.error(error)
                     })
             } catch (error) {
-                alert(error.message)
-
-                console.error(error)
+                if (error instanceof ValidationError)
+                    alert(error.message)
+                else
+                    alert('sorry, there was a problem. try again later')
 
             }
         }}>
