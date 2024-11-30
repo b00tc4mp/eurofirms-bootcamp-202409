@@ -1,4 +1,4 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 function registerUser(name, email, username, password) {
     validate.name(name)
@@ -24,7 +24,9 @@ function registerUser(name, email, username, password) {
                     const error = body.error
                     const message = body.message
 
-                    throw new Error(message)
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
                 })
         })
 }

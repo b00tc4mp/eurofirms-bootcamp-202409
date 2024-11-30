@@ -2,6 +2,9 @@ import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'
+import { errors } from 'com'
+
+const { ValidationError, DuplicityError, SystemError } = errors
 
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
@@ -31,9 +34,19 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
                 registerUser(name, email, username, password)
                     .then(() => res.status(201).send())
-                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+                    .catch(error => {
+                        if (error instanceof DuplicityError)
+                            res.status(409).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
             } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
             }
         })
 
