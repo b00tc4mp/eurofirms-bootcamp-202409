@@ -1,9 +1,8 @@
-function loginUser(username, password) {
-    if (typeof username !== 'string') throw new Error('invalid username')
-    if (username.length < 4) throw new Error('invalid username length')
+import { validate } from 'com'
 
-    if (typeof password !== 'string') throw new Error('invalid password')
-    if (password.length < 8) throw new Error('invalid password length')
+function loginUser(username, password) {
+    validate.username(username)
+    validate.password(password)
 
     return fetch('http://localhost:8080/users/auth', {
         method: 'POST',

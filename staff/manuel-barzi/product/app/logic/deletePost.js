@@ -1,5 +1,7 @@
+import { validate } from 'com'
+
 function deletePost(postId) {
-    if (typeof postId !== 'string') throw new Error('invalid postId')
+    validate.postId(postId)
 
     return fetch(`http://localhost:8080/posts/${postId}`, {
         method: 'DELETE',
