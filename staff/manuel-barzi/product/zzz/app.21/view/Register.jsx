@@ -4,8 +4,14 @@ const { DuplicityError, SystemError, ValidationError } = errors
 
 import registerUser from '../logic/registerUser'
 
+import './Register.css'
+
 function Register(props) {
     console.log('Register -> render')
+
+    /*
+    props -> { onLoginClick, onRegisterSuccess }
+    */
 
     return <main>
         <h2>Register</h2>

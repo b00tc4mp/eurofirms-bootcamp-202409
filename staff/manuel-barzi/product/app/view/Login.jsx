@@ -4,8 +4,6 @@ const { CredentialsError, SystemError, ValidationError } = errors
 
 import loginUser from '../logic/loginUser'
 
-import './Login.css'
-
 function Login(props) {
     console.log('Login -> render')
 
@@ -13,10 +11,10 @@ function Login(props) {
     props -> { onRegisterClick, onLoginSuccess }
     */
 
-    return <main>
-        <h2>Login</h2>
+    return <main className="p-20">
+        <h2 className="text-3xl">Login</h2>
 
-        <form className="login-form" onSubmit={event => {
+        <form className="flex flex-col gap-2" onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -45,17 +43,17 @@ function Login(props) {
             }
         }}>
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
+            <input className="border-2 border-black px-2" type="text" id="username" />
 
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+            <input className="border-2 border-black px-2" type="password" id="password" />
 
-            <button type="submit">Login</button>
+            <button className="bg-black text-white" type="submit">Login</button>
         </form>
 
         <p></p>
 
-        <a href="" onClick={event => {
+        <a className="underline" href="" onClick={event => {
             event.preventDefault()
 
             props.onRegisterClick()
