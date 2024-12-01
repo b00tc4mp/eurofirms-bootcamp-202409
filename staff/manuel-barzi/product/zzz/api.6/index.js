@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
@@ -14,7 +13,9 @@ import getPosts from './logic/getPosts.js'
 import createPost from './logic/createPost.js'
 import deletePost from './logic/deletePost.js'
 
-const { MONGO_URL, JWT_SECRET, PORT } = process.env
+const MONGO_URL = 'mongodb://127.0.0.1:27017/test'
+const PORT = 8080
+const JWT_SECRET = 'mi gran secreto secretísimo'
 
 mongoose.connect(MONGO_URL)
     .then(() => {

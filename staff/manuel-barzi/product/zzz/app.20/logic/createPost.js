@@ -2,27 +2,23 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-function loginUser(username, password) {
-    validate.username(username)
-    validate.password(password)
+function createPost(image, text) {
+    validate.image(image)
+    validate.text(text)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+    return fetch('http://localhost:8080/posts', {
         method: 'POST',
         headers: {
+            Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ image, text })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
-            if (status === 200)
-                return response.json()
-                    .catch(error => { throw new SystemError(error.message) })
-                    .then(token => {
-                        sessionStorage.token = token
-                    })
+            if (status === 201) return
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -37,4 +33,4 @@ function loginUser(username, password) {
         })
 }
 
-export default loginUser
+export default createPost
