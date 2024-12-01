@@ -1,9 +1,10 @@
-function loginUser(username, password) {
-    if (typeof username !== 'string') throw new Error('invalid username')
-    if (username.length < 4) throw new Error('invalid username length')
+import { validate, errors } from 'com'
 
-    if (typeof password !== 'string') throw new Error('invalid password')
-    if (password.length < 8) throw new Error('invalid password length')
+const { SystemError } = errors
+
+function loginUser(username, password) {
+    validate.username(username)
+    validate.password(password)
 
     return fetch('http://localhost:8080/users/auth', {
         method: 'POST',
@@ -12,22 +13,26 @@ function loginUser(username, password) {
         },
         body: JSON.stringify({ username, password })
     })
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
             if (status === 200)
                 return response.json()
-                    .then(userId => {
-                        sessionStorage.userId = userId
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(token => {
+                        sessionStorage.token = token
                     })
 
             return response.json()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(body => {
                     const error = body.error
                     const message = body.message
 
-                    throw new Error(message)
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
                 })
         })
 }

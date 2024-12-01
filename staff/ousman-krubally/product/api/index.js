@@ -2,6 +2,9 @@ import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'
+import { errors } from 'com'
+
+const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFoundError, OwnershipError } = errors
 
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
@@ -31,9 +34,19 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
                 registerUser(name, email, username, password)
                     .then(() => res.status(201).send())
-                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+                    .catch(error => {
+                        if (error instanceof DuplicityError)
+                            res.status(409).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
             } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
             }
         })
 
@@ -43,16 +56,27 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 const password = req.body.password
 
                 authenticateUser(username, password)
-                    .then(userId => res.json(userId))
-                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+                    .then(userId => jwt.sign({ sub: userId }, JWT_SECRET))
+                    .then(token => res.json(token))
+                    .catch(error => {
+                        if (error instanceof CredentialsError)
+                            res.status(401).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
             } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
             }
         })
 
         api.get('/users/:targetUserId/name', (req, res) => {
             try {
-                const authorization = req.headers.authorization // Basic <user-id>
+                const authorization = req.headers.authorization // Basic userId -> Bearer token
                 const token = authorization.slice(7)
 
                 const payload = jwt.verify(token, JWT_SECRET)
@@ -62,15 +86,25 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
                 getUserName(userId, targetUserId)
                     .then(name => res.json(name))
-                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+                    .catch(error => {
+                        if (error instanceof NotFoundError)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
             } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
             }
         })
 
         api.get('/posts', (req, res) => {
             try {
-                const authorization = req.headers.authorization // Basic <user-id>
+                const authorization = req.headers.authorization
                 const token = authorization.slice(7)
 
                 const payload = jwt.verify(token, JWT_SECRET)
@@ -78,15 +112,25 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
                 getPosts(userId)
                     .then(posts => res.json(posts))
-                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+                    .catch(error => {
+                        if (error instanceof NotFoundError)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
             } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
             }
         })
 
         api.post('/posts', jsonBodyParser, (req, res) => {
             try {
-                const authorization = req.headers.authorization // Basic <user-id>
+                const authorization = req.headers.authorization
                 const token = authorization.slice(7)
 
                 const payload = jwt.verify(token, JWT_SECRET)
@@ -97,15 +141,25 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
                 createPost(userId, image, text)
                     .then(() => res.status(201).send())
-                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+                    .catch(error => {
+                        if (error instanceof NotFoundError)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
             } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
             }
         })
 
         api.delete('/posts/:postId', (req, res) => {
             try {
-                const authorization = req.headers.authorization // Basic <user-id>
+                const authorization = req.headers.authorization
                 const token = authorization.slice(7)
 
                 const payload = jwt.verify(token, JWT_SECRET)
@@ -115,9 +169,21 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
                 deletePost(userId, postId)
                     .then(() => res.status(204).send())
-                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+                    .catch(error => {
+                        if (error instanceof NotFoundError)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof OwnershipError)
+                            res.status(403).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
             } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
             }
         })
 

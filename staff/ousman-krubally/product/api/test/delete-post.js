@@ -1,5 +1,5 @@
-fetch('http://localhost:8080/users/6741f97a50976d72be46fe89/name', {
-    method: 'GET',
+fetch('http://localhost:8080/posts/674a1c86d6d145ad8b174727', {
+    method: 'DELETE',
     headers: {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzQxZjk3YTUwOTc2ZDcyYmU0NmZlODkiLCJpYXQiOjE3MzI5MDkxODd9.THR6QKaPDt0dFrkVjJKSGHqVzM1CpRm1KzKZffPDYXI'
     }

@@ -1,19 +1,22 @@
 import { User, Post } from '../data/models.js'
+import { Validate, errors } from 'com'
+
+const { SystemError, NotFoundError } = errors
 
 function createPost(userId, image, text) {
-    if (typeof userId !== 'string') throw new error('invalid userId')
-    if (typeof image !== 'string') throw new error('invalid image')
-    if (typeof text !== 'string') throw new Error('invalid text')
-    
-        return User.findById(userId).lean()
-            .catch(error => { throw new Error(error.message) })
-            .then(user => {
-                if (!user) throw new Error('user not found')
+    Validate.userId(userId)
+    Validate.image(image)
+    Validate.text(text)
 
-                return postMessage.create({ author: userId, image, text })
-                    .catch(error => { throw new Error(error.message) })
-            })
-            .then(_ ={ })
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
+        .then(user => {
+            if (!user) throw new NotFoundError('user not found')
+
+            return Post.create({ author: userId, image, text })
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(_ => { })
 }
 
 export default createPost

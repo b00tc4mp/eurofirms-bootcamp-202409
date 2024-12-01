@@ -1,15 +1,15 @@
 fetch('http://localhost:8080/posts', {
     method: 'POST',
-    Headers: {
-        Authorization: 'Basic 674a3fd9a081a9e0cded3a7a',
-        'content-Type': 'application/json'
+    headers: {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzQxZjk3YTUwOTc2ZDcyYmU0NmZlODkiLCJpYXQiOjE3MzI5MDkxODd9.THR6QKaPDt0dFrkVjJKSGHqVzM1CpRm1KzKZffPDYXI',
+        'Content-Type': 'application/json'
     },
-    body: '{"image":"https://img.freepik.com/fotos-premium/personaje-anime-involucrado-codificacion-viaje-digital-al-mundo-programacion_893737-13068.jpg?w=360","text":"escribiendo codigo"}'
+    body: '{"image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hello world"}'
 })
     .then(response => {
         console.log(response.status)
 
-        return response.text
+        return response.text()
     })
     .then(body => console.log(body))
     .catch(error => console.error(error))

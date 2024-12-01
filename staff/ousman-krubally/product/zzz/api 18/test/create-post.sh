@@ -1,1 +1,0 @@
-curl -X POST -H 'Authorization: Basic 4qgujmazqgk' -H 'Content-Type: application/json' -d '{"image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hello world"}' http://localhost:8080/posts -v
