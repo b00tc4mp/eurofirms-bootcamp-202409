@@ -10,7 +10,7 @@ function Register(props) {
     return <main>
         <h2>Register</h2>
 
-        <form className="register-form" onSubmit={event => {
+        <form onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
