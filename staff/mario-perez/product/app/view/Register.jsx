@@ -4,20 +4,15 @@ const { DuplicityError, SystemError, ValidationError } = errors
 
 import registerUser from '../logic/registerUser'
 
-import './Register.css'
-
 function Register(props) {
     console.log('Register -> render')
     console.log(import.meta.env.VITE_HOLA)
     console.log(import.meta.env.VITE_API_URL)
-    /*
-    props -> { onLoginClick, onRegisterSuccess }
-    */
 
-    return <main>
-        <h2>Register</h2>
+    return <main className="p-20">
+        <h2 className="text-3xl">Register</h2>
 
-        <form className="register-form" onSubmit={event => {
+        <form className="flex flex-col gap-2" onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -48,23 +43,23 @@ function Register(props) {
             }
         }}>
             <label htmlFor="name">Name</label>
-            <input type="text" id="name" />
+            <input className="border-2 border-black px-2" type="text" id="name" />
 
             <label htmlFor="email">E-mail</label>
-            <input type="email" id="email" />
+            <input className="border-2 border-black px-2" type="email" id="email" />
 
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
+            <input className="border-2 border-black px-2" type="text" id="username" />
 
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+            <input className="border-2 border-black px-2" type="password" id="password" />
 
-            <button type="submit">Register</button>
+            <button className="bg-black text-white" type="submit">Register</button>
         </form>
 
         <p></p>
 
-        <a href="" onClick={event => {
+        <a className="underline" href="" onClick={event => {
             event.preventDefault()
 
             props.onLoginClick()

@@ -36,7 +36,7 @@ function App() {
         />}
 
         {view === 'home' && <Home
-            onLogout={() => setView('login')}
+            onLogout={() => setView('welcome')}
 
             onCreatePost={() => setView('create-post')}
         />}
