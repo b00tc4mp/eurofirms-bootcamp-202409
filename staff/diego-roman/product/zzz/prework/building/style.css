@@ -1,0 +1,156 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Casa */
+.wall {
+    background-color: #FF6347; /* Color tomate en lugar de rojo */
+    width: 150px;
+    height: 150px;
+    border: 1px solid #000;
+    position: absolute;
+    bottom: 350px;
+    right: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    border-bottom: 50px solid #2F4F4F; /* Gris oscuro en lugar de negro */
+    position: absolute;
+    bottom: 500px;
+    right: 300px;
+}
+
+.door {
+    background-color: #FFD700; /* Dorado en lugar de aqua */
+    width: 40px;
+    height: 70px;
+    border: 2px solid #000;
+    position: relative;
+    bottom: 10px;
+}
+
+.window-container {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    width: 130px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.window {
+    width: 40px;
+    height: 40px;
+    background-color: #87CEEB; /* Azul cielo en lugar de azul claro */
+    border: 2px solid #000;
+    position: relative;
+}
+
+/* Campo de voleibol */
+.volley-pitch {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 500px;
+    height: 250px;
+    background-color: #F4A460; /* Marrón claro en lugar de marrón arena */
+    border: 5px solid #FFF;
+    position: relative;
+}
+
+/* Red central */
+.net {
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background-color: #D3D3D3; /* Gris claro en lugar de blanco */
+    left: 50%;
+    transform: translate(-50%);
+}
+
+/* Línea de ataque izquierda */
+.attack-line-left {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #FFFAFA; /* Snow (blanco suave) en lugar de blanco */
+    top: 60px;
+}
+
+/* Línea de ataque derecha */
+.attack-line-right {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #FFFAFA;
+    bottom: 60px;
+}
+
+/* Línea de fondo izquierda */
+.baseline-left {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #FFFAFA;
+    top: 0;
+}
+
+/* Línea de fondo derecha */
+.baseline-right {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #FFFAFA;
+    bottom: 0;
+}
+
+/* Líneas laterales */
+.sideline-left {
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    background-color: #FFFAFA;
+    left: 0;
+}
+
+.sideline-right {
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    background-color: #FFFAFA;
+    right: 0;
+}
+
+/* Campo adicional */
+.volley-pitch1 {
+    width: 400px;
+    height: 200px;
+    border: 1px solid #000;
+    position: absolute;
+    top: 375px;
+    left: 90px;
+    display: flex;
+    transform: rotateX(2.55rad);
+}
+
+.half {
+    width: 50%;
+    height: 100%;
+}
+
+.left {
+    background-color: #FFB6C1; /* Rosa claro en lugar de azul claro */
+}
+
+.right {
+    background-color: #ADD8E6; /* Azul claro en lugar de gris claro */
+}

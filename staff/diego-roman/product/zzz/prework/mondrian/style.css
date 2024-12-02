@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Aumentar el tamaño del contenedor por 500% */
+.main-container {
+    width: 550px;  /* 110px * 5 */
+    height: 550px; /* 110px * 5 */
+    border: 5px solid black; /* Ampliación del borde */
+    display: flex;
+    flex-direction: column;
+}
+
+.row-1 {
+    width: 100%;
+    height: 60%; /* Sigue siendo el 60% de la altura total */
+    background-color: #ff4500; /* Orange Red */
+    border-bottom: 5px solid black; /* Ampliación del borde */
+    display: flex;
+    flex-direction: row;
+}
+
+.row-2 {
+    width: 100%;
+    height: 40%; /* 40% de la altura total */
+    background-color: #6a5acd; /* Slate Blue */
+    border-top: 5px solid black; /* Ampliación del borde */
+    display: flex;
+    flex-direction: row;
+}
+
+.column-1 {
+    width: 30%;  /* Sigue siendo el 30% del ancho total */
+    height: 100%;
+    background-color: #1e90ff; /* Dodger Blue */
+}
+
+.column-2 {
+    width: 70%;  /* 70% del ancho total */
+    height: 100%;
+    background-color: #ffd700; /* Gold */
+    border-left: 5px solid black; /* Ampliación del borde */
+}
+
+.cell-a {
+    width: 100%;
+    height: 60%; /* 60% de la altura de la columna */
+    background-color: #ff6347; /* Tomato */
+    border-bottom: 5px solid black; /* Ampliación del borde */
+}
+
+.cell-b {
+    width: 100%;
+    height: 40%; /* 40% de la altura de la columna */
+    background-color: #8a2be2; /* Blue Violet */
+}
+
+.cell-c {
+    width: 30%;  /* Sigue siendo el 30% del ancho de la fila */
+    height: 100%;
+    background-color: #32cd32; /* Lime Green */
+}
+
+.cell-d {
+    width: 50%;  /* 50% del ancho de la fila */
+    height: 100%;
+    background-color: #ff69b4; /* Hot Pink */
+    border-left: 5px solid black; /* Ampliación del borde */
+    border-right: 5px solid black; /* Ampliación del borde */
+}
+
+.cell-e {
+    width: 20%;  /* 20% del ancho de la fila */
+    height: 100%;
+    background-color: #00fa9a; /* Medium Spring Green */
+}

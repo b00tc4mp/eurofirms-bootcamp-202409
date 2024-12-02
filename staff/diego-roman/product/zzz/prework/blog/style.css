@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0051ba;
+    padding: 10px;
+    color: white;
+}
+
+.logo h1 {
+    font-size: 24px;
+}
+
+.navigation {
+    display: flex;
+    gap: 20px;
+}
+
+.navigation div {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.menu, .search, .account, .cart {
+    background-color: #007cc2;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.hero {
+    background-color: lightyellow;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
+.products {
+    background-color: lightblue;
+    height: 300px;
+}
+
+.info {
+    background-color: lightgreen;
+    height: 200px;
+}
+
+.footer {
+    background-color: #003366;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}

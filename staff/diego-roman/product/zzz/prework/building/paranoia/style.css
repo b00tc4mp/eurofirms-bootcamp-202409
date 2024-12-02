@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.mosaico {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1.2fr;
+    grid-template-rows: 1.2fr 2.5fr 1fr;
+    width: 450px;
+    height: 450px;
+    gap: 0;
+}
+
+/* Figuras y colores */
+.white-left {
+    background-color: white;
+    grid-column: 1 / 2;
+    grid-row: 1 / 3; /* Se mantiene el tamaño original */
+    position: relative; /* Necesario para la línea */
+    border-right: 12px solid black;
+    border-bottom: 12px solid black;
+}
+
+.red {
+    background-color: #d30000;
+    grid-column: 2 / 4;
+    grid-row: 1 / 3;
+    border-left: 12px solid black;
+    border-bottom: 12px solid black;
+}
+
+.blue {
+    background-color: #002fa7;
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+    border-right: 12px solid black;
+    border-top: 12px solid black;
+}
+
+.white-bottom {
+    background-color: white;
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    border-right: 12px solid black;
+    border-left: 12px solid black;
+    border-top: 12px solid black;
+}
+
+/* Cuadro amarillo dividido */
+.yellow-container {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+    display: flex;
+    flex-direction: column;
+    border-left: 12px solid black;
+    border-top: 12px solid black;
+}
+
+.white-top-yellow {
+    background-color: white;
+    height: 50%;
+    border-bottom: 5px solid black; /* Línea más fina */
+}
+
+.yellow-bottom {
+    background-color: #ffe600;
+    height: 50%;
+}
+
+/* Línea horizontal en el rectángulo blanco de la izquierda */
+.horizontal-line {
+    position: absolute;
+    top: calc(50% - 5px); /* Coloca la línea en el centro */
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-color: black;
+}
+
