@@ -4,15 +4,17 @@ const { DuplicityError, SystemError, ValidationError } = errors
 
 import registerUser from '../logic/registerUser'
 
+import './Register.css'
+
 function Register(props) {
     console.log('Register -> render')
 
     //props -> {onLoginClick, onRegisterSuccess}
 
-    return <main className="p-20">
-        <h2 className="text-3xl h-12">Register</h2>
+    return <main>
+        <h2>Register</h2>
 
-        <form className="flex flex-col gap-3" onSubmit={event => {
+        <form className="register-form" onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -44,23 +46,23 @@ function Register(props) {
             }
         }}>
             <label htmlFor="name">Name</label>
-            <input className="border-2 border-black px-2" type="text" id="name" />
+            <input type="text" id="name" />
 
             <label htmlFor="email">E-mail</label>
-            <input className="border-2 border-black px-2" type="email" id="email" />
+            <input type="email" id="email" />
 
             <label htmlFor="username">Username</label>
-            <input className="border-2 border-black px-2" type="text" id="username" />
+            <input type="text" id="username" />
 
             <label htmlFor="password">Password</label>
-            <input className="border-2 border-black px-2" type="password" id="password" />
+            <input type="password" id="password" />
 
-            <button className="bg-black text-white h-6" type="submit">Register</button>
+            <button type="submit">Register</button>
         </form>
 
         <p></p>
 
-        <a className="underline" href="" onClick={function (event) {
+        <a href="" onClick={function (event) {
             event.preventDefault()
 
             props.onLoginClick()

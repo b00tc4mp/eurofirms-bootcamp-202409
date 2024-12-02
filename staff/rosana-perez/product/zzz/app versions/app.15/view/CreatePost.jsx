@@ -7,10 +7,10 @@ import createPost from '../logic/createPost'
 function CreatePost(props) {
     console.log('CreatePost -> render')
 
-    return <main className="p-20">
-        <h2 className="text-3xl h-12">Create Post</h2>
+    return <main>
+        <h2>Create Post</h2>
 
-        <form className="flex flex-col gap-3" onSubmit={event => {
+        <form onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -37,14 +37,14 @@ function CreatePost(props) {
             }
         }}>
             <label htmlFor='image'>Image</label>
-            <input className="border-2 border-black px-2" type="url" id="image" />
+            <input type="url" id="image" />
 
             <label htmlFor="text">Text</label>
-            <input className="border-2 border-black px-2" type="text" id="text" />
+            <input type="text" id="text" />
 
-            <button className="bg-black text-white" type="submit">Create</button>
+            <button type="submit">Create</button>
 
-            <button className="underline text-left" type="button" onClick={() => { props.onExit(); }}>Exit</button>
+            <button type="button" onClick={() => { props.onExit(); }}>Exit</button>
 
         </form>
     </main >
