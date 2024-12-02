@@ -1,6 +1,5 @@
 import deletePost from '../logic/deletePost'
 
-import './Post.css'
 
 function Post(props) {
     console.log('Post -> render')
