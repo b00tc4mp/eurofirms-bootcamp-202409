@@ -8,7 +8,8 @@ import './Register.css'
 
 function Register(props) {
     console.log('Register -> render')
-
+    console.log(import.meta.env.VITE_HOLA)
+    console.log(import.meta.env.VITE_API_URL)
     /*
     props -> { onLoginClick, onRegisterSuccess }
     */

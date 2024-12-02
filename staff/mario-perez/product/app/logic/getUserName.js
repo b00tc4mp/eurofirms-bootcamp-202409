@@ -8,7 +8,7 @@ function getUserName() {
     const payload = extractPayloadFromJWT(sessionStorage.token)
     const userId = payload.sub
 
-    return fetch(`http://localhost:8080/users/${userId}/name`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
