@@ -6,7 +6,7 @@ function createPost(image, text) {
     validate.image(image)
     validate.text(text)
 
-    return fetch('http://localhost:8080/posts', {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,

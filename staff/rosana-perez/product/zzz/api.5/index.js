@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
@@ -14,18 +13,19 @@ import getPosts from './logic/getPosts.js'
 import createPost from './logic/createPost.js'
 import deletePost from './logic/deletePost.js'
 
-const { MONGO_URL, JWT_SECRET, PORT } = process.env
+const JWT_SECRET = 'mi gran secreto secretísimo'
 
-mongoose.connect(MONGO_URL)
+mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
-        const api = express()
+        const api = express() // habilitar express
 
-        api.use(cors())
+        api.use(cors()) // middleware cors - permite a un servidor indicar cualquier dominio, esquema o puerto con un origen distinto del suyo desde el que un navegador debería permitir la carga de recursos
 
-        api.get('/', (req, res) => res.send('Hello, World!'))
+        api.get('/', (req, res) => res.send('Hello, World!')) // default route to start api
 
         const jsonBodyParser = express.json()
 
+        // register user
         api.post('/users', jsonBodyParser, (req, res) => {
 
             try {
@@ -52,7 +52,7 @@ mongoose.connect(MONGO_URL)
                     res.status(500).json({ error: SystemError.name, message: error.message })
             }
         })
-
+        //authenticate user
         api.post('/users/auth', jsonBodyParser, (req, res) => {
 
             try {
@@ -78,11 +78,11 @@ mongoose.connect(MONGO_URL)
                     res.status(500).json({ error: SystemError.name, message: error.message })
             }
         })
-
+        //get user name
         api.get('/users/:targetUserId/name', (req, res) => {
 
             try {
-                const authorization = req.headers.authorization
+                const authorization = req.headers.authorization // Basic userId -> Bearer token
                 const token = authorization.slice(7)
 
                 const payload = jwt.verify(token, JWT_SECRET)
@@ -195,7 +195,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.listen(PORT, () => console.log(`API is up on port ${PORT}`))
+        api.listen(8080, () => console.log('API is up'))
 
     })
     .catch(error => console.error(error))

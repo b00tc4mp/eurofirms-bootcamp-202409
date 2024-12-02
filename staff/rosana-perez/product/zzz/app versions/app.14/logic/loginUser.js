@@ -1,14 +1,18 @@
-import { errors } from 'com'
+import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-function getPosts() {
-    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
-        method: 'GET',
-        headers: {
-            Authorization: `Bearer ${sessionStorage.token}`
-        },
+function loginUser(username, password) {
+    //parte sincrona
+    validate.username(username)
+    validate.password(password)
 
+    return fetch('http://localhost:8080/users/auth', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
@@ -17,7 +21,9 @@ function getPosts() {
             if (status === 200)
                 return response.json()
                     .catch(error => { throw new SystemError(error.message) })
-                    .then(posts => posts)
+                    .then(token => {
+                        sessionStorage.token = token
+                    })
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -32,4 +38,4 @@ function getPosts() {
         })
 }
 
-export default getPosts
+export default loginUser

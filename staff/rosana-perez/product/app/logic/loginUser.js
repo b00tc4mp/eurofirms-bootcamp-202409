@@ -3,11 +3,10 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 function loginUser(username, password) {
-    //parte sincrona
     validate.username(username)
     validate.password(password)
 
-    return fetch('http://localhost:8080/users/auth', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -3,12 +3,13 @@ import { errors } from 'com'
 const { SystemError } = errors
 
 function getPosts() {
-    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
+    return fetch(`http://localhost:8080/posts`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         },
-
+        // Js5 = 'Basic ' + sessionStorage.userId 
+        // put an eye on this! not '', it's ``
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

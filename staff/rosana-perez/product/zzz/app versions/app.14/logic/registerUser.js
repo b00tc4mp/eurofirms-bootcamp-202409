@@ -1,3 +1,5 @@
+//validaciones sincronas, es decir, en el mismo momento
+
 import { validate, errors } from 'com'
 
 const { SystemError } = errors
@@ -8,19 +10,19 @@ function registerUser(name, email, username, password) {
     validate.username(username)
     validate.password(password)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users`, {
+    return fetch('http://localhost:8080/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, username, password })
     })
 
-        .catch(error => { throw new SystemError(error.message) })
+        .catch(error => { throw new SystemError(error.message) }) // fetch error -> view of communication errors
         .then(response => {
             const status = response.status
 
             if (status === 201) return
 
-            return response.json()
+            return response.json() // convierte la respuesta de la api en objeto json
                 .catch(error => { throw new SystemError(error.message) })
                 .then(body => {
                     const error = body.error
