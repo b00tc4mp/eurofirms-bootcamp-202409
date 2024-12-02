@@ -1,3 +1,7 @@
+import { errors } from 'com'
+
+const { ValidationError, SystemError, NotFoundError } = errors
+
 import createPost from '../logic/createPost'
 
 function CreatePost(props) {
@@ -18,12 +22,18 @@ function CreatePost(props) {
                 createPost(image, text)
                     .then(() => props.onCreated())
                     .catch(error => {
-                        alert(error.message)
+                        if (error instanceof NotFoundError)
+                            alert(error.message)
+                        else if (error instanceof SystemError)
+                            alert('sorry, there was a problem. try again later.')
 
                         console.error(error)
                     })
             } catch (error) {
-                alert(error.message)
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
 
                 console.error(error)
             }

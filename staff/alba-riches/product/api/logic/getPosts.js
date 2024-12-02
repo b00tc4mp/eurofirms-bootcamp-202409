@@ -1,18 +1,20 @@
 import { User, Post } from '../data/models.js'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError } = errors
 
 function getPosts(userId) {
-    if (typeof userId !== 'string') throw new Error('invalid userId')
+    validate.userId(userId)
 
     return Promise.all([
         User.findById(userId).lean(),
         Post.find({}, '-__v').populate('author', 'username').sort({ date: -1 }).lean()
-        // devuelve la fecha de manera inversa usando sort,mas reciente primero,y lean te trae directamente los objetos de la base de datos( lo organiza)
-    ])// populate ,para que aparezca el nombre del usuario y no el id
-        .catch(error => { throw new Error(error.message) })
+    ])
+        .catch(error => { throw new SystemError(error.message) })
         .then(userAndPosts => {
-            const [user, posts] = userAndPosts // buscar usuarios y posts
+            const [user, posts] = userAndPosts
 
-            if (!user) throw new Error('user not found')
+            if (!user) throw new NotFoundError('user not found')
 
             posts.forEach(post => {
                 post.id = post._id.toString()
