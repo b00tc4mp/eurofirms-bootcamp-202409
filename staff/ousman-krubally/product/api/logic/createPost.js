@@ -1,12 +1,12 @@
 import { User, Post } from '../data/models.js'
-import { Validate, errors } from 'com'
+import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
 function createPost(userId, image, text) {
-    Validate.userId(userId)
-    Validate.image(image)
-    Validate.text(text)
+    validate.userId(userId)
+    validate.image(image)
+    validate.text(text)
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })

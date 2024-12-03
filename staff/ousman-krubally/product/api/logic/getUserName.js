@@ -5,7 +5,7 @@ const { SystemError, NotFoundError } = errors
 
 function getUserName(userId, targetUserId) {
     validate.userId(userId)
-    validate.targetUser(targetUserId)
+    validate.targetUserId(targetUserId)
 
     return Promise.all([
         User.findById(userId),

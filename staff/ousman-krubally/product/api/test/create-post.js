@@ -1,10 +1,10 @@
 fetch('http://localhost:8080/posts', {
     method: 'POST',
     headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzQxZjk3YTUwOTc2ZDcyYmU0NmZlODkiLCJpYXQiOjE3MzI5MDkxODd9.THR6QKaPDt0dFrkVjJKSGHqVzM1CpRm1KzKZffPDYXI',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRhM2ZkOWEwODFhOWUwY2RlZDNhN2EiLCJpYXQiOjE3MzMxNjY3NDN9.0rCX9z95R0_pn-4J5oa5GOk3d5ZAMJJe3kz7CYxejdo',
         'Content-Type': 'application/json'
     },
-    body: '{"image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hello world"}'
+    body: '{"image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8-BOIF6MJSwo88X9aicuYOeZykc_nzbg19OTBVAGIfROWKYAEzYVET2qWdFiB1dsCThw&usqp=CAU","text":"hello world"}'
 })
     .then(response => {
         console.log(response.status)
