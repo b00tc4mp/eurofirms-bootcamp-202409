@@ -32,7 +32,7 @@ const post = new Schema({
     author: {
         type: ObjectId,
         required: true,
-        ref: 'User' // referencia el modelo de usuario
+        ref: 'User'
     },
     image: {
         type: String,
