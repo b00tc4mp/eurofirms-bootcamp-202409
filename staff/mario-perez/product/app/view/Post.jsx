@@ -8,6 +8,7 @@ function Post(props) {
     console.log('Post -> render')
 
     const post = props.post
+    console.log(post.author)
 
     return <article className="bg-white p-2 my-4">
         <h3 className="font-bold">{post.author}</h3>
