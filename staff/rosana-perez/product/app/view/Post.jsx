@@ -50,6 +50,29 @@ function Post(props) {
                 </svg>
 
             </button>}
+
+            {/* {/* {post.own && <button type="button" onClick={() => {
+                try {
+                    deletePost(post.id)
+                        .then(() => props.onDeleted())
+                        .catch(error => {
+                            if (error instanceof NotFoundError)
+                                alert(error.message)
+                            if (error instanceof OwnershipError)
+                                alert(error.message)
+                            else if (error instanceof SystemError)
+                                alert('sorry, there was a problem. try again later')
+
+                            console.error(error)
+                        })
+                } catch (error) {
+                    if (error instanceof ValidationError)
+                        alert(error.message)
+                    else
+                        alert('sorry, there was a problem. try again later')
+
+                    console.error(error)
+                }*/}
         </div>
     </article>
 }
