@@ -2,23 +2,27 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-function modifyPostText(image, text) {
-    validate.image(image)
+function modifyPostText(postId, text) {
+
+    console.log(postId, text)
+
+    validate.postId(postId)
     validate.text(text)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/posts`, {
-        method: 'POST',
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+        method: 'PATCH',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image, text })
+
+        body: JSON.stringify({ text })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
-            if (status === 201) return
+            if (status === 204) return
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -33,4 +37,4 @@ function modifyPostText(image, text) {
         })
 }
 
-export default createPost
+export default modifyPostText

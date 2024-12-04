@@ -6,6 +6,7 @@ import Register from './view/Register'
 import Home from './view/Home'
 import CreatePost from '/view/CreatePost'
 
+
 import isUserLoggedIn from './logic/isUserLoggedIn'
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
             onCreated={() => setView('home')}
             onExit={() => setView('home')}
         />}
+
 
 
     </>
