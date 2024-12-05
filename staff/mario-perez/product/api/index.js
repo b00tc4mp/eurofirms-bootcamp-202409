@@ -13,6 +13,7 @@ import getUserName from './logic/getUserName.js'
 import getPosts from './logic/getPosts.js'
 import createPost from './logic/createPost.js'
 import deletePost from './logic/deletePost.js'
+import editPost from './logic/editPost.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -145,6 +146,37 @@ mongoose.connect(MONGO_URL)
                     .catch(error => {
                         if (error instanceof NotFoundError)
                             res.status(404).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
+            } catch (error) {
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+            }
+        })
+
+        api.patch('/posts/:postId', (req, res) => {
+            try {
+                const authorization = req.headers.authorization
+                const token = authorization.slice(7)
+
+                const payload = jwt.verify(token, JWT_SECRET)
+                const userId = payload.sub
+
+                const postId = req.params.postId
+                const text = req.body.text
+
+                editPost(userId, postId, text)
+                    .then(() => res.status(200).send())
+                    .catch(error => {
+                        if (error instanceof NotFoundError)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof OwnershipError)
+                            res.status(403).json({ error: error.constructor.name, message: error.message })
                         else if (error instanceof SystemError)
                             res.status(500).json({ error: error.constructor.name, message: error.message })
                         else
