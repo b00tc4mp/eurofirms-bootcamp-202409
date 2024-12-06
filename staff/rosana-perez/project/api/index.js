@@ -1,0 +1,83 @@
+import 'dotenv/config'
+import mongoose from 'mongoose'
+import express from 'express'
+import cors from 'cors'
+import jwt from 'jsonwebtoken'
+import { errors } from 'com'
+
+const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFoundError, OwnershipError } = errors
+
+import registerUser from './logic/registerUser.js'
+import authenticateUser from './logic/authenticateUser.js'
+
+
+const { MONGO_URL, JWT_SECRET, PORT } = process.env
+
+mongoose.connect(MONGO_URL)
+    .then(() => {
+        const api = express()
+
+        api.use(cors())
+
+        api.get('/', (req, res) => res.send('Hello, World!'))
+
+        const jsonBodyParser = express.json()
+
+        api.post('/users', jsonBodyParser, (req, res) => {
+            try {
+                const name = req.body.name
+                const city = req.body.city
+                const email = req.body.email
+                const username = req.body.username
+                const password = req.body.password
+
+                registerUser(name, city, email, username, password)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        if (error instanceof DuplicityError)
+                            res.status(409).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                    })
+            } catch (error) {
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        api.post('/users/auth', jsonBodyParser, (req, res) => {
+            try {
+                const username = req.body.username
+                const password = req.body.password
+
+                authenticateUser(username, password)
+                    .then(() =>
+                        res.status(200).send())
+                    .catch(error => {
+                        if (error instanceof CredentialsError)
+                            res.status(401).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                    })
+
+            } catch (error) {
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+
+
+
+        api.listen(PORT, () => console.log(`API is up on ${PORT}`))
+
+
+    })
