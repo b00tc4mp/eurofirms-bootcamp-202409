@@ -59,3 +59,4 @@ author (User.id)
 image (string, required)
 text (string, required)
 data (date, required)
+hola
