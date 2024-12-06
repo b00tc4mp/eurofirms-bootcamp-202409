@@ -105,3 +105,7 @@ User
 ### Parking
 
 1. Price in euros / min
+
+## Others
+
+Native language: Spanish
