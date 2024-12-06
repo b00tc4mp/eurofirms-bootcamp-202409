@@ -11,6 +11,8 @@ En IA2060 somos expertos en comercializar Inteligencia Artificial y IA2060 Activ
 
 ### Use Cases
 
+This project will be use en IA2060 company to develop the work
+
 User
 - view data
 - create date
@@ -22,7 +24,7 @@ User
 
 ### UIUX Design
 
-[Prototype](https://www.figma.com/proto/R8Ha996DMMj8AN4Qab2lpG/App?node-id=0-1&t=WG5yIj46pQqETgUQ-1)
+[Prototype]https://www.figma.com/design/RXzXWxQ6edROeixngiB3PC/Project-IA2060?node-id=1-536&t=j1Ugd5PoRBVN1CFL-1
 
 ## Technical
 
