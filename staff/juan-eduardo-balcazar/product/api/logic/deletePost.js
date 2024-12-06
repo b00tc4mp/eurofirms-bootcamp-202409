@@ -1,31 +1,29 @@
-import fs from 'fs'
+import { User, Post } from '../data/models.js'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError, OwnershipError } = errors
 
 function deletePost(userId, postId) {
-    if (typeof userId !== 'string') throw new Error('invalid userId')
-    if (typeof postId !== 'string') throw new Error('invalid postId')
+    validate.userId(userId)
+    validate.postId(postId)
 
-    const usersJSON = fs.readFileSync('data/users.json', 'utf8')
-    const users = JSON.parse(usersJSON)
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.findById(postId).lean()
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(userAndPost => {
+            const [user, post] = userAndPost
 
-    const user = users.find(user => user.id === userId)
+            if (!user) throw new NotFoundError('user not found')
+            if (!post) throw new NotFoundError('post not found')
 
-    if (!user) throw new Error('user not found')
+            if (post.author.toString() !== userId) throw new OwnershipError('user is not author of post')
 
-    let postsJSON = fs.readFileSync('data/posts.json', 'utf8')
-    const posts = JSON.parse(postsJSON)
-
-    const index = posts.findIndex(post => post.id === postId)
-
-    if (index < 0) throw new Error('post not found')
-
-    const post = posts[index]
-
-    if (post.author !== userId) throw new Error('user is not author of post')
-
-    posts.splice(index, 1)
-
-    postsJSON = JSON.stringify(posts)
-    fs.writeFileSync('data/posts.json', postsJSON)
+            return Post.deleteOne({ _id: post._id })
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(_ => { })
 }
 
 export default deletePost

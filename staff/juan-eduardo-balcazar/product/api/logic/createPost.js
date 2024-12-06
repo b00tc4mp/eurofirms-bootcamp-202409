@@ -1,33 +1,22 @@
-import fs from 'fs'
-import uuid from '../util/uuid.js'
+import { User, Post } from '../data/models.js'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError } = errors
 
 function createPost(userId, image, text) {
-    if (typeof userId !== 'string') throw new Error('invalid userId')
-    if (typeof image !== 'string') throw new Error('invalid image')
-    if (typeof text !== 'string') throw new Error('invalid text')
+    validate.userId(userId)
+    validate.image(image)
+    validate.text(text)
 
-    const usersJSON = fs.readFileSync('data/users.json', 'utf8')
-    const users = JSON.parse(usersJSON)
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
+        .then(user => {
+            if (!user) throw new NotFoundError('user not found')
 
-    const user = users.find(user => user.id === userId)
-
-    if (!user) throw new Error('user not found')
-
-    let postsJSON = fs.readFileSync('data/posts.json', 'utf8')
-    const posts = JSON.parse(postsJSON)
-
-    const post = {
-        id: uuid(),
-        author: userId,
-        image,
-        text,
-        date: new Date().toISOString()
-    }
-
-    posts.push(post)
-
-    postsJSON = JSON.stringify(posts)
-    fs.writeFileSync('data/posts.json', postsJSON)
+            return Post.create({ author: userId, image, text })
+                .catch(error => { throw new SystemError(error.message) })
+        })
+        .then(_ => { })
 }
 
 export default createPost
