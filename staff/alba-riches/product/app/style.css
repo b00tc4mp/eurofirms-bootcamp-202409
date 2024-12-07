@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Qahiri&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@100;400;700&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
-    font-family: Doto;
+    font-family: 'Dosis', sans-serif;
     font-weight: bold;
-
-    /* font-family: Qahiri;
-    font-size: 32px; */
 }
