@@ -23,7 +23,8 @@ User
 - Añadir detalles como número de plaza y nivel 
 - Ver un mapa de la ubicación del parking 
 - Recibir recordatorios de la ubicación del coche 
-- Compartir la ubicación con otros usuarios 
+- Compartir la ubicación con otros usuarios
+- Crear BD entre varios usuarios para conocer las dimensiones del parking
 -->
 
 - Register the parking spot location
@@ -31,12 +32,13 @@ User
 - View a map of the parking location
 - Receive reminders of the car's location
 - Share the location with other users
+- Create a database between several users to know the dimensions of the parking lot
 
 
 ### UI Design
 
 
-[Prototype](Link de Figma)
+[Prototype](https://www.figma.com/proto/ZwUGeEDRIT5bqBeIfFA0KI/ParkSpot?node-id=0-1&t=03lSJ2V6FJVvG9Xb-1)
 
 ## Technical
 
@@ -65,18 +67,17 @@ User
 ### Data Model
 
 - User
-    - _id (uuid)
     - name (string, required)
     - email (string, required)
-    - user (string, required)
+    - username (string, required)
     - password (string, required)
 
-- Car
+<!-- Car
     - _id (uuid)
     - regis (string, required)
     - brand (string, required)
     - model (string, required)
-    - user (User.id)
+    - user (User.id) -->
 
 - Parking
     - name (string, required)
@@ -86,26 +87,24 @@ User
     - price ( number, required)
 
 - Place
-    - _id (uuid)
-    - car (Car.regis)
     - level (string, required)
-    - local (string, required)
+    - space (string, required)
     - checkin (date, required)
     - checkout (date, required)
-    - time (date, required)
+    - location (?, required) <!-- geolocalizacion -->
 
-# Adicionnal notes
+## Additional notes
 
-## Data
+### Data
 
-### Car
+1. All models includes _id (uuid)
 
-1. Regis is a registration number of car
-
-### Parking
+#### Parking
 
 1. Price in euros / min
 
-## Others
+### Others
 
 Native language: Spanish
+
+### Versions
