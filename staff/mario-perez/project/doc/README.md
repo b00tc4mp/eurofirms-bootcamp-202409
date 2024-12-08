@@ -85,13 +85,16 @@ User
     - city (string, required)
     - levels (number, required)
     - price ( number, required)
+    - capacity  (number,required)
 
 - Place
+    - parking : (Parking.id, required)
     - level (string, required)
     - space (string, required)
     - checkin (date, required)
     - checkout (date, required)
     - location (?, required) <!-- geolocalizacion -->
+    - freePlace : (boolean,required)  
 
 ## Additional notes
 

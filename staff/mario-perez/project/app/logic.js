@@ -1,4 +1,4 @@
-function authenticateUser(username, password) {
+function loginUser(username, password) {
     if (typeof username !== 'string')
         throw new Error('Usuario incorrecto')
     if (username.length < 4)
@@ -9,6 +9,8 @@ function authenticateUser(username, password) {
     if (password.length < 8)
         throw new Error('Contraseña incorrecta')
 
+    var users = JSON.parse(localStorage.users)
+
     var user = users.find(function (user) {
         return user.username === username && user.password === password
     })
@@ -16,7 +18,7 @@ function authenticateUser(username, password) {
     if (user === undefined)
         throw new Error('Credenciales erróneas')
 
-    return user
+    sessionStorage.userId = user.id
 }
 
 function registerUser(name, email, username, password) {
@@ -56,6 +58,8 @@ function registerUser(name, email, username, password) {
     if (password.length < 8)
         throw new Error('La contraseña debe tener por lo menos 8 caracteres')
 
+    var users = JSON.parse(localStorage.users)
+
     var user = users.find(function (user) {
         return user.email === email || user.username === username
     })
@@ -64,10 +68,38 @@ function registerUser(name, email, username, password) {
         throw new Error('El usuario ya existe')
 
     user = {}
+    user.id = uuid()
     user.name = name
     user.email = email
     user.username = username
     user.password = password
 
     users.push(user)
+
+    localStorage.users = JSON.stringify(users)
+}
+
+function getUserName() {
+    var users = JSON.parse(localStorage.users)
+
+    var user = users.find(function (user) {
+        return user.id === sessionStorage.userId
+    })
+
+    if (user === undefined)
+        throw new Error('user not found')
+
+    return user.name
+}
+
+
+function isUserLoggedIn() {
+    if (sessionStorage.userId !== undefined)
+        return true
+
+    return false
+}
+
+function logoutUser() {
+    delete sessionStorage.userId
 }

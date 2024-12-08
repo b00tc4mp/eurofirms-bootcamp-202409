@@ -6,6 +6,9 @@ body.append(title)
 
 var welcomeView = document.createElement('main')
 
+if (!isUserLoggedIn())
+    body.appendChild(welcomeView)
+
 //var welcomeTitle = document.createElement('h2')
 //welcomeTitle.innerText = 'ParkSpot'
 //welcomeView.append(welcomeTitle)
@@ -177,7 +180,7 @@ loginForm.addEventListener('submit', function (event) {
     var password = loginFormPasswordInput.value
 
     try {
-        var user = authenticateUser(username, password)
+        var user = loginUser(username, password)
 
         loginForm.reset()
         loginErrorPanel.innerText = ''
@@ -185,7 +188,9 @@ loginForm.addEventListener('submit', function (event) {
         body.removeChild(loginView)
         body.append(homeView)
 
-        homeUser.innerText = 'Bienvenido, ' + user.name + '!'
+        var name = getUserName()
+
+        homeUser.innerText = 'Bienvenido, ' + name
     } catch (error) {
         loginErrorPanel.innerText = error.message
 
@@ -254,9 +259,24 @@ loginView.append(loginRegisterLinkMessage)
 
 var homeView = document.createElement('main')
 
+if (isUserLoggedIn())
+    body.appendChild(homeView)
+
+
 var homeUser = document.createElement('h2')
-homeUser.innerText = 'Bienvenido, usuario'
+
+if (isUserLoggedIn()) {
+    var name = getUserName()
+
+
+    homeUser.innerText = 'Bienvenido, ' + name
+} else
+    homeUser.innerText = 'Bienvenido,  Usuario'
+
 homeView.append(homeUser)
+
+if (isUserLoggedIn())
+    body.appendChild(homeView)
 
 var homeLogoutButton = document.createElement('button')
 homeLogoutButton.type = 'submit'
@@ -265,6 +285,8 @@ homeView.append(homeLogoutButton)
 
 homeLogoutButton.addEventListener('click', function (event) {
     event.preventDefault()
+
+    logoutUser()
 
     body.removeChild(homeView)
     body.append(loginView)
