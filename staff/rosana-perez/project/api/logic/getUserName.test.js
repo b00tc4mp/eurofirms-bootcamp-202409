@@ -1,17 +1,16 @@
 import mongoose from 'mongoose'
-import autenticateUser from './authenticateUser.js'
+import getUserName from './getUserName.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => {
         try {
-            return autenticateUser('elenarios', '123123123')
-                .then(userId => console.log(userId))
+            return getUserName('6754379a0832b016ede53078', '6754379a0832b016ede53078')
+                .then(name => console.log(name))
                 .catch(error => console.error(error))
-
         } catch (error) {
             console.error(error)
         }
     })
     .then(() => console.log('end of test'))
-    .catch(error => console.error(error))
+    .catch(() => console.error(error))
     .finally(() => mongoose.disconnect())

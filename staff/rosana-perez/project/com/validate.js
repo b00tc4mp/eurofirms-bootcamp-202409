@@ -8,9 +8,9 @@ const validate = {
         if (name.length < 1) throw new ValidationError('invalid name length')
     },
 
-    city(city) {
-        if (typeof city !== 'string') throw new ValidationError('invalid city')
-        if (city.length < 3) throw new ValidationError('invalid city length')
+    location(location) {
+        if (typeof location !== 'string') throw new ValidationError('invalid location')
+        if (location.length < 3) throw new ValidationError('invalid location length')
     },
 
     email(email) {
@@ -46,8 +46,8 @@ const validate = {
         if (typeof text !== 'string') throw new ValidationError('invalid text')
     },
 
-    postId(postId) {
-        if (typeof postId !== 'string') throw new ValidationError('invalid postId')
+    itemId(itemId) {
+        if (typeof itemId !== 'string') throw new ValidationError('invalid itemId')
     },
 
     targetUserId(targetUserId) {

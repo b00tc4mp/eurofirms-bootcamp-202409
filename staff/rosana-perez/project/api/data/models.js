@@ -8,7 +8,7 @@ const user = new Schema({
         required: true,
         minLength: 1
     },
-    city: {
+    location: {
         type: String,
         required: true,
         minLength: 3
@@ -32,16 +32,26 @@ const user = new Schema({
     }
 })
 
-const post = new Schema({
+const item = new Schema({
     author: {
         type: ObjectId,
         required: true,
         ref: 'User'
     },
+    location: {
+        type: String,
+        required: true,
+        minLength: 3
+    },
     image: {
         type: String,
         required: true,
         maxLength: 1000
+    },
+    text: {
+        type: String,
+        required: true,
+        minLength: 3
     },
     date: {
         type: Date,
@@ -51,9 +61,9 @@ const post = new Schema({
 })
 
 const User = model('User', user)
-const Post = model('Post', post)
+const Item = model('Item', item)
 
 export {
     User,
-    Post
+    Item
 }

@@ -12,19 +12,19 @@ Los artículos susceptibles de donación serán: juguetes, libros, ropa, ropa de
 
 ## Functional
 
-En esta aplicación, el usuario es "User", el artículo objeto del intercambio es un "item" y el anuncio publicado es un "Post".
+En esta aplicación, el usuario es "User", y el anuncio con el artículo objeto del intercambio es un "Item".
 
 ### Use cases
 
 En la versión inicial, el usuario User está autorizado para:
 
-- Ver todos los posts de la app
+- Ver todos los items de la app
 - Marcar y desmarcar interés en un item
-- Comunicar con la app para contactar y recoger
+- Comunicar con el anunciante para contactar y recoger
 - Si desea publicar un item, podrá:
-  - Crear un post
-  - Editar el texto asociado al post
-  - Eliminar un post publicado
+  - Crear un anuncio
+  - Editar el texto asociado al anuncio
+  - Eliminar un anuncio publicado
 
 ### UI/UX Design
 
@@ -59,6 +59,7 @@ En la versión inicial, el usuario User está autorizado para:
 - User
   - _id (uuid)
   - name (string, required)
+  - location (string, required)
   - email (string, required, unique)
   - username (string, required, unique)
   - password (string, required)
@@ -66,6 +67,7 @@ En la versión inicial, el usuario User está autorizado para:
 - Post
   - _id (uuid)
   - author (User.id)
+  - location(string, required)
   - image (string, required)
   - text (string, required)
   - data (date, required)
