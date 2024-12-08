@@ -1,4 +1,4 @@
-fetch('http://localhost:8080/users/674cc195ca1239240b614c4b/name', {
+fetch('http://localhost:8080/users/674cc195ca1239240614c4b/name', {
     method: 'GET',
     headers: {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzRhM2ZkOWEwODFhOWUwY2RlZDNhN2EiLCJpYXQiOjE3MzMxNjkzNTB9.rbPBOgcMMJZBx9kfnxcenhuB_9vmXciwQ0z4x7Rqhuw'

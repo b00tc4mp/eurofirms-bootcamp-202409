@@ -10,8 +10,6 @@ import getUserName from '../logic/getUserName'
 import getPosts from '../logic/getPosts'
 import logoutUser from '../logic/logoutUser'
 
-import './Home.css'
-
 function Home(props) {
     console.log('Home -> render')
 

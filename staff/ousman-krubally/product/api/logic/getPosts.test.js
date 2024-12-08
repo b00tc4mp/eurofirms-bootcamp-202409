@@ -4,7 +4,7 @@ import getPosts from './getPosts.js'
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            return getPosts('6749af739ede555d1cce1fec')
+            return getPosts('674a3fd9a081a9e0cded3a7a')
                 .then(posts => console.log(posts))
                 .catch(error => console.error(error))
         } catch (error) {

@@ -4,8 +4,6 @@ const { CredentialsError, SystemError, ValidationError } = errors
 
 import loginUser from '../logic/loginUser'
 
-import './Login.css'
-
 function Login(props) {
     console.log('Login -> render')
 
