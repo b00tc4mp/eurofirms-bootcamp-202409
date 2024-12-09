@@ -1,4 +1,74 @@
-var body = document.querySelector('body')
+var title = <h1>ParkSpot</h1>
+
+var welcomeView = <main>
+    <h2>ParkSpot</h2>
+    <p>
+        Bienvenido a ParkSpot, la app para localizar tu coche. Por favor, <a href="">regístrate</a> para comenzar.
+        Si ya estás registrado, <a href="">inicia sesión</a>.
+    </p>
+</main>
+
+var registerView = <main><h2>Registro</h2>
+    <form>
+        <label for="name">Nombre</label>
+        <input type="text" id="name" />
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" />
+
+        <label for="username">Usuario</label>
+        <input type="text" id="username" />
+
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" />
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <p></p>
+
+    <p>¿Ya estás registrado? <a href="">Inicia sesión</a>.</p>
+
+</main>
+
+var loginView = <main>
+    <h2>Iniciar sesión</h2>
+    <p></p>
+    <form>
+        <label for="username">Usuario</label>
+        <input type="text" id="username" />
+
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" />
+
+        <button type="submit">Iniciar sesión</button>
+    </form>
+
+    <p></p>
+
+    <p>¿No estás registrado? <a href="">Regístrate ahora</a>.</p>
+
+</main>
+
+var rootElement = document.querySelector('#root')
+var root = ReactDOM.createRoot(rootElement)
+
+
+root.render([title, welcomeView, registerView, loginView])
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*var body = document.querySelector('body')
 
 var title = document.createElement('h1')
 title.innerText = 'ParkSpot'
@@ -290,4 +360,4 @@ homeLogoutButton.addEventListener('click', function (event) {
 
     body.removeChild(homeView)
     body.append(loginView)
-})
+}) */
