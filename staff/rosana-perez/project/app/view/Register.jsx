@@ -10,7 +10,7 @@ function Register(props) {
     return <main>
         <h2>Register</h2>
 
-        <form on Submit={event => {
+        <form onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -53,7 +53,7 @@ function Register(props) {
             <label htmlFor="username" name="username">Username</label>
             <input type="text" id="username" />
 
-            <label htmlFor="password" name="password"></label>
+            <label htmlFor="password" name="password">Password</label>
             <input type="password" id="password" />
 
             <button type="submit">Register</button>

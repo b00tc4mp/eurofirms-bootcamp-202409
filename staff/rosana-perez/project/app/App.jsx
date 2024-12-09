@@ -3,6 +3,8 @@ import { useState } from 'react'
 import Welcome from './view/Welcome'
 import Login from './view/Login'
 import Register from './view/Register'
+import Home from './view/Home'
+import CreateItem from './view/CreateItem'
 
 import isUserLoggedIn from './logic/isUserLoggedIn'
 
@@ -30,6 +32,18 @@ function App() {
             onRegisterClick={() => setView('register')}
 
             onLoginSuccess={() => setView('home')}
+        />}
+
+        {view === 'home' && <Home
+            onLogout={() => setView('welcome')}
+
+            onCreateItem={() => setView('create')}
+        />}
+
+        {view === 'create' && <CreateItem
+            onCreated={() => setView('home')}
+
+            onCancelClick={() => setView('home')}
         />}
 
 
