@@ -53,6 +53,11 @@ const item = new Schema({
         required: true,
         minLength: 3
     },
+    description: {
+        type: String,
+        required: true,
+        minLength: 3
+    },
     date: {
         type: Date,
         required: true,

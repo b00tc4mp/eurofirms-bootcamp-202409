@@ -1,4 +1,5 @@
 import { errors } from 'com'
+import { Button } from '../components/button'
 
 const { ValidationError, SystemError, NotFoundError } = errors
 
@@ -18,9 +19,10 @@ function CreateItem(props) {
             const location = form.location.value
             const image = form.image.value
             const text = form.text.value
+            const description = form.description.value
 
             try {
-                createItem(location, image, text)
+                createItem(location, image, text, description)
                     .then(() => props.onCreated()
                         .catch(error => {
                             if (error instanceof NotFoundError)
@@ -48,14 +50,17 @@ function CreateItem(props) {
             <label htmlFor="text" name="text">Text</label>
             <input type="text" id="text" />
 
-            <button type="submit">Create</button>
+            <label htmlFor="text" name="description">Description</label>
+            <textarea type="text" id="description" placeholder="Write a description of your item"></textarea>
+
+            <Button type="submit">Create</Button>
 
         </form>
-        <button type="button" name="cancel button" onClick={event => {
+        <Button type="button" name="cancel button" onClick={event => {
             event.preventDefault()
 
             props.onCancelClick()
-        }}>Cancel</button>
+        }}>Cancel</Button>
 
     </main>
 }

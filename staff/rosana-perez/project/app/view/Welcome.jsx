@@ -1,28 +1,30 @@
+import { Button } from '../components/button'
+
 function Welcome(props) {
     console.log('Welcome rendering')
 
     return <main>
         <h2>Dona2</h2>
 
-        <h3>Welcome!</h3>
+        <h3 className="font-anton text-4xl uppercase">Welcome!</h3>
 
         <p>Help the planet and save money! </p>
 
         <div>
-            <img src="./components/images/greenWorld.png" />
+            <img src="/images/greenWorld.png" />
         </div>
 
-        <button type="submit" onClick={event => {
+        <Button type="submit" onClick={event => {
             event.preventDefault()
 
             props.onRegisterClick()
-        }}>Register</button>
+        }}>Register</Button>
 
-        <button type="submit" onClick={event => {
+        <Button type="submit" onClick={event => {
             event.preventDefault()
 
             props.onLoginClick()
-        }}>Login</button>
+        }}>Login</Button>
 
     </main>
 }

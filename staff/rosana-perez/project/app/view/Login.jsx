@@ -1,8 +1,11 @@
 import { errors } from 'com'
+import { Button } from '../components/button.jsx'
 
 const { CredentialsError, SystemError, ValidationError } = errors
 
 import loginUser from '../logic/loginUser'
+
+
 
 function Login(props) {
     console.log('Login rendering')
@@ -44,7 +47,7 @@ function Login(props) {
             <label htmlFor="password" name="password">Password</label>
             <input type="password" id="password" />
 
-            <button type="submit">Login</button>
+            <Button type="submit">Login</Button>
         </form>
 
         <p></p>

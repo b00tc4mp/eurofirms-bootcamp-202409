@@ -1,0 +1,1 @@
+curl -X 'PATCH' -H 'Content-Type: application/json' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzU3MjMwMmIyNDRmODAyYTcwODViN2QiLCJpYXQiOjE3MzM4MjQ2NDB9.nammqypRo5QK0MtXHjM9tysi97gWQrSvPyHI2I915F0' -d '{"text":"this is a edited text"}' http://localhost:8081/items/675750eabda4ee1b37928d31 -v

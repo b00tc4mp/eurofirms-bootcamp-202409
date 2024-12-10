@@ -2,25 +2,25 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-function createItem(location, image, text, description) {
-    validate.location(location)
-    validate.image(image)
-    validate.text(text)
-    validate.description(description)
+function editItem(itemId, text) {
+    console.log(itemId, text)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/items`, {
-        method: 'POST',
+    validate.itemId(itemId)
+    validate.text(text)
+
+    return fetch(`${import.meta.env.VITE_API_URL}/items/${itemId}`, {
+        method: 'PATCH',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ location, image, text, description })
+        body: JSON.stringify({ text })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
-            if (status === 201) return
+            if (status === 204) return
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -35,4 +35,4 @@ function createItem(location, image, text, description) {
         })
 }
 
-export default createItem
+export default editItem

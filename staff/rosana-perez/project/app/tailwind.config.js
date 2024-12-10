@@ -3,10 +3,16 @@ export default {
   content: [
     './index.html',
     './App.jsx',
-    './view/*.jsx'
+    './view/*.jsx',
+    './components/*.jsx'
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Switzer", "sans"],
+        anton: ["Anton", "sans"],
+      },
+    },
   },
   plugins: [],
 }
