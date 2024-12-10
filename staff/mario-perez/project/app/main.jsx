@@ -1,60 +1,218 @@
-var title = <h1>ParkSpot</h1>
+var useState = React.useState
+var useEffect = React.useEffect
 
-var welcomeView = <main>
-    <h2>ParkSpot</h2>
-    <p>
-        Bienvenido a ParkSpot, la app para localizar tu coche. Por favor, <a href="">regístrate</a> para comenzar.
-        Si ya estás registrado, <a href="">inicia sesión</a>.
-    </p>
-</main>
+function WelcomeView(props) {
+    console.log('WelcomeView -> render')
+    return <main>
+        <h2>ParkSpot</h2>
+        <p>
+            Bienvenido a ParkSpot, la app para localizar tu coche.
+            Por favor, <a href="" onClick={
+                function (event) {
+                    event.preventDefault()
 
-var registerView = <main><h2>Registro</h2>
-    <form>
-        <label for="name">Nombre</label>
-        <input type="text" id="name" />
+                    props.onRegisterClick()
+                }
+            }>regístrate</a> para comenzar.
+            Si ya estás registrado, <a href="" onClick={
+                function (event) {
+                    event.preventDefault()
 
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" />
+                    props.onLoginClick()
+                }} >inicia sesión</a>.
+        </p>
+    </main>
+}
 
-        <label for="username">Usuario</label>
-        <input type="text" id="username" />
+function RegisterView(props) {
+    console.log('RegisterView -> render')
 
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" />
+    return <main><h2>Registro</h2>
+        <form onSubmit={function (event) {
+            event.preventDefault()
 
-        <button type="submit">Registrar</button>
-    </form>
+            var form = event.target
 
-    <p></p>
+            var name = form.name.value
+            var email = form.email.value
+            var username = form.username.value
+            var password = form.password.value
 
-    <p>¿Ya estás registrado? <a href="">Inicia sesión</a>.</p>
+            try {
+                registerUser(name, email, username, password)
 
-</main>
+                props.onRegisterSuccess()
+            } catch (error) {
+                alert(error.message)
 
-var loginView = <main>
-    <h2>Iniciar sesión</h2>
-    <p></p>
-    <form>
-        <label for="username">Usuario</label>
-        <input type="text" id="username" />
+                console.error(error)
+            }
+        }}>
+            <label htmlFor="name">Nombre</label>
+            <input type="text" id="name" />
 
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" />
+            <label htmlFor="email">Correo electrónico</label>
+            <input type="email" id="email" />
 
-        <button type="submit">Iniciar sesión</button>
-    </form>
+            <label htmlFor="username">Usuario</label>
+            <input type="text" id="username" />
 
-    <p></p>
+            <label htmlFor="password">Contraseña</label>
+            <input type="password" id="password" />
 
-    <p>¿No estás registrado? <a href="">Regístrate ahora</a>.</p>
+            <button type="submit">Registrar</button>
+        </form>
 
-</main>
+        <p></p>
+
+        <p>¿Ya estás registrado? <a href=""
+            onClick={
+                function (event) {
+                    event.preventDefault()
+
+                    props.onLoginClick()
+                }
+            }>Inicia sesión</a>.</p>
+
+    </main>
+}
+
+function LoginView(props) {
+    console.log('LoginView -> render')
+
+    return <main>
+        <h2>Iniciar sesión</h2>
+        <p></p>
+        <form onSubmit={function (event) {
+            event.preventDefault()
+
+            var form = event.target
+
+            var username = form.username.value
+            var password = form.password.value
+
+            try {
+                loginUser(username, password)
+
+                props.onLoginSuccess()
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+        }}>
+            <label htmlFor="username">Usuario</label>
+            <input type="text" id="username" />
+
+            <label htmlFor="password">Contraseña</label>
+            <input type="password" id="password" />
+
+            <button type="submit">Iniciar sesión</button>
+        </form>
+
+        <p></p>
+
+        <p>¿No estás registrado? <a href="" onClick={
+            function (event) {
+                event.preventDefault()
+
+                props.onRegisterClick()
+            }
+        }>Regístrate ahora</a>.</p>
+
+    </main>
+}
+
+function HomeView() {
+    console.log('HomeView -> render')
+    const [saludo, setSaludo] = useState("hola")
+
+    var [name, setName] = useState("")
+    var viewState = useState(null)
+    var view = viewState[0]
+    var setView = viewState[1]
+
+    console.log('HomeView -> state: name = ' + name)
+
+    useEffect(function () {
+        var name = getUserName()
+
+        setName(name)
+        console.log("useEffect")
+    }, [])
+
+    return <main>
+        <h2>Bienvenido, {name}</h2>
+        <p>{saludo}</p>
+        <button onClick={function () {
+            try {
+                logoutUser()
+            } catch (error) {
+                alert(error.message)
+
+                console.error(error)
+            }
+        }}>Salir</button>
+        <button onClick={() => setSaludo("Adios")}>Prueba</button>
+    </main>
+}
+
+function App() {
+    var viewState = useState('welcome')
+    var view = viewState[0]
+    var setView = viewState[1]
+
+    console.log('AppView -> state: view = ' + view)
+
+    return <>
+        <h1>ParkSpot</h1>
+
+        {/* {view === 'welcome' ? <WelcomeView /> : null}
+        {view === 'register' ? <RegisterView /> : null}
+        {view === 'login' ? <LoginView /> : null} */}
+
+        {view === 'welcome' && <WelcomeView
+            onRegisterClick={function () {
+                setView('register')
+            }}
+
+            onLoginClick={function () {
+                setView('login')
+            }}
+        />}
+        {view === 'register' && <RegisterView
+            onLoginClick={function () {
+                setView('login')
+            }}
+
+            onRegisterSuccess={function () {
+                setView('login')
+            }}
+        />}
+        {view === 'login' && <LoginView
+            onRegisterClick={function () {
+                setView('register')
+            }}
+
+            onLoginSuccess={function () {
+                setView('home')
+            }}
+        />}
+
+        {view === 'home' && <HomeView
+            onLogout={function () {
+                setView('login')
+            }}
+        />}
+    </>
+}
+
 
 var rootElement = document.querySelector('#root')
 var root = ReactDOM.createRoot(rootElement)
 
 
-root.render([title, welcomeView, registerView, loginView])
+root.render(<App />)
 
 
 
