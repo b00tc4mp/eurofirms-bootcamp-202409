@@ -1,31 +1,40 @@
-Hello, App!
-Intro
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+PixelVerse for all
 
-Hello, App!
+Intro
+
+PixelVerse es un foro dedicado a creativos visuales donde fotógrafos, diseñadores y artistas comparten sus trabajos y aprenden juntos. Descubre inspiración en galerías temáticas, participa en concursos trimestrales, y recibe retroalimentación constructiva para perfeccionar tu técnica. Un espacio donde cada pixel cuenta y cada mirada transforma el arte en conexión.
+
+Cada usuario puede subir cualquier fotografia de cualquier temetica, pudiendo comentar otras fotos o darle a me gusta.
+
+Tambien se realizaran concursos trimestrales y la fotografia mas comentada y con mas likes ,tendra acceso a un curso gratuito en academias como  EFTI Centro Internacional de Fotografía y Cine (Madrid) o  Grisart Escola Internacional de Fotografia (Barcelona) para continuar su formacion en este sector
+
+![PixelVerse for all](https://media1.tenor.com/m/n6VxrOwpF64AAAAd/picture-taking-pictures.gif)
 
 Functional
-### Use Cases 
-// que utilidad tiene para el usuario
-User
 
-view posts
-create post
-delete post
-edit post text
-like post
-unlike post
-add comment to post
-remove comment from post
-...
+Los usuarios son los denominados 'User' y las fotografias son los 'Objects'
+
+### Use Cases 
+
+En nuestro caso el usuario esta autorizado a :
+
+Ver publicaciones
+Crear publicación
+Eliminar publicación
+Editar texto de la publicación
+Dar like a una publicación
+Quitar like de una publicación
+Añadir comentario a una publicación
+Eliminar comentario de una publicación
+
 ### UIUX Design 
 //poner el link de figma
 Prototype
 
-### Technical
+Technical
  
  ### Blocks
- // apartados/ bloques de la aplicacion
+ 
 App (UI)
 API (core)
 DB (data)
@@ -59,4 +68,4 @@ author (User.id)
 image (string, required)
 text (string, required)
 data (date, required)
-hola
+
