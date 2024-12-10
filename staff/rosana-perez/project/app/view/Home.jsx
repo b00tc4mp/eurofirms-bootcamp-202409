@@ -65,7 +65,8 @@ function Home(props) {
     }, [])
 
     return <>
-        <header>{name && <h3>{name}</h3>}
+
+        <header className="fixed w-full top-28 bg-emerald-700 flex justify-between items-center px-2 h-12 z-10">{name && <h3 className="text-white flex justify-center font-bold gap-2 ">{name}</h3>}
 
             <Button type="button" onClick={() => {
                 try {
@@ -82,16 +83,17 @@ function Home(props) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                 </svg>
             </Button>
+
         </header>
 
-        {<main>
+        {<main className="pt-[120px] pb-8 my-6 bg-gray-100">
             {items.map(item => <Item key={item.id} item={item} onDeleted={() => loadItems()} onEdit={() => loadItems()} />
             )}
 
         </main>}
 
-        <footer>
-            <Button type="button" onClick={() => props.onCreateItem()}>
+        <footer className="bg-emerald-700 fixed bottom-0 z-10 w-full flex justify-center items-center h-12">
+            <Button type="button" className="fixed justify-center" onClick={() => props.onCreateItem()}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>

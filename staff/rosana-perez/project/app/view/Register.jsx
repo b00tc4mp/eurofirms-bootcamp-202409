@@ -1,4 +1,6 @@
 import { errors } from 'com'
+import { Button } from '../components/button'
+import { Input } from '../components/input'
 
 const { DuplicityError, SystemError, ValidationError } = errors
 
@@ -7,10 +9,11 @@ import registerUser from '../logic/registerUser'
 function Register(props) {
     console.log('Register rendering')
 
-    return <main>
-        <h2>Register</h2>
+    return <main className="p-4 text-center w-full pt-[100px]">
 
-        <form onSubmit={event => {
+        <h2 className="font-bold text-emerald-700 ">Register</h2>
+
+        <form className="p-4 text-left" onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -42,30 +45,38 @@ function Register(props) {
             }
         }}>
             <label htmlFor="name" name="name">Name</label>
-            <input type="text" id="name" />
+            <Input type="text" id="name" />
 
             <label htmlFor="location" name="location">Location</label>
-            <input type="text" id="location" />
+            <Input type="text" id="location" />
 
             <label htmlFor="email" name="email">Email</label>
-            <input type="email" id="email" />
+            <Input type="email" id="email" />
 
             <label htmlFor="username" name="username">Username</label>
-            <input type="text" id="username" />
+            <Input type="text" id="username" />
 
             <label htmlFor="password" name="password">Password</label>
-            <input type="password" id="password" />
+            <Input type="password" id="password" />
 
-            <button type="submit">Register</button>
+            <Button className="my-6 text-xs" type="submit">Confirm register!</Button>
+
+            <a className="pb=10" href="" onClick={event => {
+                event.preventDefault()
+
+                props.onLoginClick()
+            }}>
+                <Button className="my-6 text-xs">Login</Button></a>
+
+
         </form>
 
         <p></p>
-
-        <a href="" onClick={event => {
-            event.preventDefault()
-
-            props.onLoginClick()
-        }}>Login</a>
+        <Button type="button" onClick={() => props.onCancelClick()}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+            </svg>
+        </Button>
     </main>
 }
 

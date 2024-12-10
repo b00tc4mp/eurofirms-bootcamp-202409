@@ -26,12 +26,16 @@ function App() {
             onLoginClick={() => setView('login')}
 
             onRegisterSuccess={() => setView('login')}
+
+            onCancelClick={() => setView('welcome')}
         />}
 
         {view === 'login' && <Login
             onRegisterClick={() => setView('register')}
 
             onLoginSuccess={() => setView('home')}
+
+            onCancelClick={() => setView('welcome')}
         />}
 
         {view === 'home' && <Home

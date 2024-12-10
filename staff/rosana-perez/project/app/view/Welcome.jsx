@@ -3,12 +3,11 @@ import { Button } from '../components/button'
 function Welcome(props) {
     console.log('Welcome rendering')
 
-    return <main>
-        <h2>Dona2</h2>
+    return <main className="text-center w-full pt-[100px]">
 
-        <h3 className="font-anton text-4xl uppercase">Welcome!</h3>
+        <h2 className="font-anton text-4xl uppercase">Welcome!</h2>
 
-        <p>Help the planet and save money! </p>
+        <p> Help the planet and save money! </p>
 
         <div>
             <img src="/images/greenWorld.png" />

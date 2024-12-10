@@ -1,5 +1,7 @@
 import { errors } from 'com'
 import { Button } from '../components/button'
+import { Input } from '../components/input'
+import { Textarea } from '../components/textarea'
 
 const { ValidationError, SystemError, NotFoundError } = errors
 
@@ -8,10 +10,11 @@ import createItem from '../logic/createItem'
 function CreateItem(props) {
     console.log('CreateItem rendering')
 
-    return <main>
-        <h2>Create Item</h2>
+    return <main className="text-center w-full pt-[100px]">
 
-        <form onSubmit={event => {
+        <h2 className="font-bold text-emerald-700" >Create Item</h2>
+
+        <form className="p-4 text-left" onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
@@ -42,27 +45,28 @@ function CreateItem(props) {
             }
         }}>
             <label htmlFor="location" name="location">Location</label>
-            <input type="text" id="location" />
+            <Input type="text" id="location" />
 
             <label htmlFor="image" name="image">Image</label>
-            <input type="url" id="image" />
+            <Input type="url" id="image" />
 
             <label htmlFor="text" name="text">Text</label>
-            <input type="text" id="text" />
+            <Input type="text" id="text" />
 
-            <label htmlFor="text" name="description">Description</label>
-            <textarea type="text" id="description" placeholder="Write a description of your item"></textarea>
+            <label htmlFor="description" name="description">Description</label>
+            <Textarea maxLength="140" type="text" id="description" placeholder="Write a description of your item"></Textarea>
 
-            <Button type="submit">Create</Button>
+            <Button className="my-6 text-xs" type="submit">Confirm create!</Button>
 
         </form>
-        <Button type="button" name="cancel button" onClick={event => {
-            event.preventDefault()
 
-            props.onCancelClick()
-        }}>Cancel</Button>
+        <Button type="button" onClick={() => props.onCancelClick()}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+            </svg>
+        </Button>
 
-    </main>
+    </main >
 }
 
 export default CreateItem

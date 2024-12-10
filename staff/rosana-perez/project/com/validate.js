@@ -54,8 +54,8 @@ const validate = {
         if (typeof targetUserId !== 'string') throw new ValidationError('invalid targetUserId')
     },
 
-    description(descriptionItem) {
-        if (typeof descriptionItem !== 'string') throw new ValidationError('invalid description')
+    description(description) {
+        if (typeof description !== 'string') throw new ValidationError('invalid description')
     }
 }
 
