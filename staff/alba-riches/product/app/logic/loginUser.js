@@ -5,7 +5,6 @@ const { SystemError } = errors
 function loginUser(username, password) {
     validate.username(username)
     validate.password(password)
-
     return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
         method: 'POST',
         headers: {
@@ -23,7 +22,6 @@ function loginUser(username, password) {
                     .then(token => {
                         sessionStorage.token = token
                     })
-
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(body => {
@@ -36,5 +34,4 @@ function loginUser(username, password) {
                 })
         })
 }
-
 export default loginUser
