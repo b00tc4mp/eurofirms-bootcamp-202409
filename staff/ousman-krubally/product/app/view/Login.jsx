@@ -11,8 +11,8 @@ function Login(props) {
     props -> { onRegisterClick, onLoginSuccess }
     */
 
-    return <main>
-        <h2>Login</h2>
+    return <main className='bg-gray-900 h-screen'>
+        <h2 className="text-red-900">Login</h2>
 
         <form className="login-form" onSubmit={event => {
             event.preventDefault()
@@ -42,13 +42,13 @@ function Login(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
+            <label htmlFor="username" className='text-red-900'>Username</label>
+            <input className='border-red-900 border-4' type="text" id="username" />
 
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+            <label htmlFor="password" className='text-red-900'>Password</label>
+            <input className='border-red-900 border-4' type="password" id="password" />
 
-            <button type="submit">Login</button>
+            <button type="submit" className='text-red-900'>Login</button>
         </form>
 
         <p></p>
@@ -57,7 +57,7 @@ function Login(props) {
             event.preventDefault()
 
             props.onRegisterClick()
-        }}>Register</a>
+        }} className='text-red-900'>Register</a>
     </main>
 }
 
