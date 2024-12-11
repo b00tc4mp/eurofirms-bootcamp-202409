@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 
 import Post from './Post'
 
-import getUserName from '../logic/getUserName'
+import getUserName from '../getUserName'
 import getPosts from '../logic/getPosts'
 import logoutUser from '../logic/logoutUser'
 

@@ -5,8 +5,7 @@ import Login from './view/Login'
 import Register from './view/Register'
 import Home from './view/Home'
 import CreatePost from './view/CreatePost'
-
-import isUserLoggedIn from './logic/isUserLoggedIn'
+import isUserLoggedIn from './logic/isUserLoggedln'
 
 function App() {
     console.log('App -> render')
