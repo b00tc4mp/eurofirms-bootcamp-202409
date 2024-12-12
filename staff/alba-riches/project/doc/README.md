@@ -1,14 +1,13 @@
-PixelVerse for all
+FixLoop
 
 Intro
 
-PixelVerse es un foro dedicado a creativos visuales donde fotógrafos, diseñadores y artistas comparten sus trabajos y aprenden juntos. Descubre inspiración en galerías temáticas, participa en concursos trimestrales, y recibe retroalimentación constructiva para perfeccionar tu técnica. Un espacio donde cada pixel cuenta y cada mirada transforma el arte en conexión.
+FixLoop es la app que te ayuda a reparar, intercambiar y reciclar piezas de tecnología. Conectamos a usuarios que necesitan repuestos con quienes tienen piezas disponibles. Ahorra dinero, alarga la vida de tus dispositivos y contribuye al reciclaje tecnológico. Encuentra lo que necesitas, intercambia piezas fácilmente y sé parte de una comunidad que apuesta por un futuro más sostenible y responsable.
 
-Cada usuario puede subir cualquier fotografia de cualquier temetica, pudiendo comentar otras fotos o darle a me gusta.
+Cada usuario puede subir cualquier fotografia de piezas que tenga o este buscando, pudiendo comentar otras fotos de las mismas o darle a me gusta.
 
-Tambien se realizaran concursos trimestrales y la fotografia mas comentada y con mas likes ,tendra acceso a un curso gratuito en academias como  EFTI Centro Internacional de Fotografía y Cine (Madrid) o  Grisart Escola Internacional de Fotografia (Barcelona) para continuar su formacion en este sector
 
-![PixelVerse for all](https://media1.tenor.com/m/n6VxrOwpF64AAAAd/picture-taking-pictures.gif)
+ ![FixLoop](https://i.pinimg.com/originals/89/50/5d/89505d16d932d8cca00011c78a54a69d.gif)
 
 Functional
 
