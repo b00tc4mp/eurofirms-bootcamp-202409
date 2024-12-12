@@ -14,8 +14,8 @@ function Welcome(props) {
     }
 
     return <main>
-        <h2>Welcome!</h2>
-        <p>Please, <a href="" onClick={handleRegisterClick}>Register</a> or <a href="" onClick={handleLoginClick}>Login</a>.</p>
+        <h2>Bienvenidos a APP</h2>
+        <p>Por favor, <a href="" onClick={handleRegisterClick}>Register</a> or <a href="" onClick={handleLoginClick}>Login</a>.</p>
     </main>
 }
 
