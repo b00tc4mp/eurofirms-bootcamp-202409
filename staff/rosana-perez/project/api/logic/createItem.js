@@ -16,7 +16,7 @@ function createItem(userId, location, image, text, description) {
             if (!user) throw new NotFoundError('user not found')
 
 
-            return Item.create({ author: userId, location, image, text })
+            return Item.create({ author: userId, location, image, text, description })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })

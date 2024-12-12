@@ -66,9 +66,9 @@ function Home(props) {
 
     return <>
 
-        <header className="fixed w-full top-28 bg-emerald-700 flex justify-between items-center px-2 h-12 z-10">{name && <h3 className="text-white flex justify-center font-bold gap-2 ">{name}</h3>}
+        <header className="w-full top-28 bg-emerald-300 flex justify-between items-center px-2 h-12 z-10">{name && <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">{name}</h3>}
 
-            <Button type="button" onClick={() => {
+            <Button color="white" type="button" onClick={() => {
                 try {
                     logoutUser()
 
@@ -87,13 +87,13 @@ function Home(props) {
         </header>
 
         {<main className="pt-[120px] pb-8 my-6 bg-gray-100">
-            {items.map(item => <Item key={item.id} item={item} onDeleted={() => loadItems()} onEdit={() => loadItems()} />
+            {items.map(item => <Item key={item.id} item={item} onDeleted={() => loadItems()} onEdited={() => loadItems()} />
             )}
 
         </main>}
 
-        <footer className="bg-emerald-700 fixed bottom-0 z-10 w-full flex justify-center items-center h-12">
-            <Button type="button" className="fixed justify-center" onClick={() => props.onCreateItem()}>
+        <footer className="bg-emerald-300 fixed bottom-0 z-10 w-full flex justify-center items-center h-12">
+            <Button color="emerald" type="button" className="fixed justify-center" onClick={() => props.onCreateItem()}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>

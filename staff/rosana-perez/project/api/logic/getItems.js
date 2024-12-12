@@ -20,15 +20,15 @@ function getItems(userId) {
                 item.id = item._id.toString()
                 delete item._id
 
-                if (item.author._id) {
+                // check if author exists (otherwise _id would be null and throws http 500)
+                if (item.author && item.author._id) {
                     item.author.id = item.author._id.toString()
-
                     delete item.author._id
                 }
 
-                item.own = item.author.id === userId
+                item.own = item.author?.id === userId.toString()
 
-                item.author = item.author.username
+                item.author = item.author?.username
             })
             return items
         })

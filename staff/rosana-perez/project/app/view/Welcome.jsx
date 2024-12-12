@@ -9,23 +9,27 @@ function Welcome(props) {
 
         <p> Help the planet and save money! </p>
 
-        <div>
-            <img src="/images/greenWorld.png" />
+        <img className="w-full text-center p-10" src="/images/greenWorld.png" />
+
+        <div className="flex justify-center mb-6">
+            <Button color="emerald" type="submit" onClick={event => {
+                event.preventDefault()
+
+                props.onRegisterClick()
+            }}>Register</Button>
+
+
+            <p className="p-2">or</p>
+
+            <Button color="emerald" type="submit" onClick={event => {
+                event.preventDefault()
+
+                props.onLoginClick()
+            }}>Login</Button>
+
         </div>
-
-        <Button type="submit" onClick={event => {
-            event.preventDefault()
-
-            props.onRegisterClick()
-        }}>Register</Button>
-
-        <Button type="submit" onClick={event => {
-            event.preventDefault()
-
-            props.onLoginClick()
-        }}>Login</Button>
-
     </main>
 }
 
 export default Welcome
+

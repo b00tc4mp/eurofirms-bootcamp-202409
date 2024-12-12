@@ -2,6 +2,9 @@ import { errors } from 'com'
 import { Button } from '../components/button'
 import { Input } from '../components/input'
 import { Textarea } from '../components/textarea'
+import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
+
 
 const { ValidationError, SystemError, NotFoundError } = errors
 
@@ -10,8 +13,7 @@ import createItem from '../logic/createItem'
 function CreateItem(props) {
     console.log('CreateItem rendering')
 
-    return <main className="text-center w-full pt-[100px]">
-
+    return <main className="text-center h-full w-full justify-items-center p-6 py-8">
         <h2 className="font-bold text-emerald-700" >Create Item</h2>
 
         <form className="p-4 text-left" onSubmit={event => {
@@ -44,28 +46,39 @@ function CreateItem(props) {
                 console.error(error)
             }
         }}>
-            <label htmlFor="location" name="location">Location</label>
-            <Input type="text" id="location" />
+            <Fieldset>
+                <FieldGroup>
 
-            <label htmlFor="image" name="image">Image</label>
-            <Input type="url" id="image" />
+                    <Field>
+                        <Label htmlFor="location" name="location">Location</Label>
+                        <Input type="text" id="location" />
+                    </Field>
 
-            <label htmlFor="text" name="text">Text</label>
-            <Input type="text" id="text" />
+                    <Field>
+                        <Label htmlFor="image" name="image">Image</Label>
+                        <Input type="url" id="image" />
+                    </Field>
 
-            <label htmlFor="description" name="description">Description</label>
-            <Textarea maxLength="140" type="text" id="description" placeholder="Write a description of your item"></Textarea>
+                    <Field>
+                        <Label htmlFor="text" name="text">Text</Label>
+                        <Input type="text" id="text" />
+                    </Field>
 
-            <Button className="my-6 text-xs" type="submit">Confirm create!</Button>
+                    <Field>
+                        <Label htmlFor="description" name="description">Description</Label>
+                        <Textarea maxLength="140" type="text" id="description" placeholder="Write a description of your item"></Textarea>
+                    </Field>
+
+                </FieldGroup>
+            </Fieldset>
+
+            <Button color="emerald" className="my-6 text-xs" type="submit">Create</Button>
+
+            <Button plain onClick={() => props.onCancelClick()}>
+                <ArrowUturnLeftIcon />
+            </Button>
 
         </form>
-
-        <Button type="button" onClick={() => props.onCancelClick()}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
-            </svg>
-        </Button>
-
     </main >
 }
 

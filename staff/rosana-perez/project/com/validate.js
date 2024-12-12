@@ -56,6 +56,9 @@ const validate = {
 
     description(description) {
         if (typeof description !== 'string') throw new ValidationError('invalid description')
+    },
+    content(content) {
+        if (typeof content !== 'string') throw new ValidationError('invalid message')
     }
 }
 

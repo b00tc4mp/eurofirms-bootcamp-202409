@@ -16,6 +16,11 @@ function App() {
     console.log('App -> state: view = ' + view)
 
     return <>
+
+        <header>
+            <p class="p-6 font-medium text-2xl">Dona2</p>
+        </header>
+
         {view === 'welcome' && <Welcome
             onRegisterClick={() => setView('register')}
 

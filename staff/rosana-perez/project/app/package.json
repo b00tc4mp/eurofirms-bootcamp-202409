@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "start": "vite --host",
     "inspect": "node --inspect-brk index.html",
     "dev": "vite",
     "build": "vite build",
@@ -13,11 +13,10 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.1",
     "com": "file:../com",
     "framer-motion": "^11.13.3",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.8.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

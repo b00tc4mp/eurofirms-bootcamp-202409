@@ -227,6 +227,39 @@ mongoose.connect(MONGO_URL)
             }
         })
 
+        /* api.post('/messages', (req, res) => {
+ 
+             try {
+                 const itemId = req.params.itemId
+ 
+                 const authorization = req.headers.authorization
+                 const token = authorization.slice(7)
+ 
+                 const payload = jwt.verify(token, JWT_SECRET)
+                 const userId = payload.sub
+ 
+                 const content = req.params.content
+ 
+                 chat(itemId, userId, content)
+                     .then(() => res.status(201).send())
+                     .catch(error => {
+                         if (error instanceof NotFoundError)
+                             res.status(404).json({ error: error.constructor.name, message: error.message })
+                         else if (error instanceof OwnershipError)
+                             res.status(403).json({ error: error.constructor.name, message: error.message })
+                         else if (error instanceof SystemError)
+                             res.status(500).json({ error: SystemError.name, message: error.message })
+                         else
+                             res.status(500).json({ error: SystemError.name, message: error.message })
+                     })
+             } catch (error) {
+                 if (error instanceof ValidationError)
+                     res.status(400).json({ error: error.constructor.name, message: error.message })
+                 else
+                     res.status(500).json({ error: SystemError.name, message: error.message })
+             }
+         })*/
+
 
         api.listen(PORT, () => console.log(`API is up on ${PORT}`))
     })

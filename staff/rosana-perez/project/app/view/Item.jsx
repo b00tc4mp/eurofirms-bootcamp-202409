@@ -1,5 +1,6 @@
 import { errors } from 'com'
 import { Button } from '../components/button'
+import { Input } from '../components/input'
 
 const { ValidationError, SystemError, NotFoundError, OwnershipError } = errors
 
@@ -14,6 +15,7 @@ function Item(props) {
 
     const item = props.item
     const text = item.text
+    const description = item.description
 
     function toggleEdit(state) {
         setEdit(state)
@@ -24,12 +26,21 @@ function Item(props) {
 
         <img className="w-full flex justify-center" src={item.image} />
 
+
+        <div>
+            <p>{text}</p>
+            <p className="text-xs">{description}</p>
+        </div>
+
+
         {edit ? <> <form className=" flex flex-col items-center" onSubmit={event => {
             event.preventDefault()
 
             const form = event.target
             const textInput = form.text
             const text = textInput.value
+
+
 
             console.log('item id _> ', item.id, 'text -> ', text)
 
@@ -38,7 +49,9 @@ function Item(props) {
                     editItem(item.id, text)
                         .then(() => {
                             toggleEdit(false)
+                            props.onEdited()
                         })
+
                         .catch(error => {
                             console.error(error)
 
@@ -50,24 +63,28 @@ function Item(props) {
                 alert(error.message)
             }
         }}>
-            <input className="p-4 text-sm" type="text" id="text" placeholder={text} />
-            <div className="flex justify-between h-4 items-center my-6 m-2" >
-                <input className="m-2" type="submit" value={'edit item'} />
+            <Input className="p-4 text-emerald-300 text-sm" type="text" id="text" placeholder={text} />
 
-                <Button onClick={() => toggleEdit(false)}>
+            <div className="flex justify-between h-4 items-center my-6 m-2" >
+                <Input className="m-2" type="submit" value={'edit text'} />
+                <Button color="emerald" onClick={() => {
+                    toggleEdit(false)
+                }}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                     </svg>
                 </Button>
             </div>
-        </form> </> : <p>{text}</p>
-        }
 
+
+
+        </form> </> : <p></p>
+        }
 
         <div className="flex justify-between mt-2">
             <time className="text-xs">{new Date(item.date).toDateString()}</time>
 
-            {item.own && <Button type="button" onClick={() => {
+            {item.own && <Button color="emerald" type="button" onClick={() => {
                 if (confirm('Delete item?'))
                     try {
                         deleteItem(item.id)
@@ -98,7 +115,7 @@ function Item(props) {
 
             </Button>}
 
-            {item.own && (<Button type="button" onClick={() => {
+            {item.own && (<Button color="emerald" type="button" onClick={() => {
                 toggleEdit(true)
             }}
             >

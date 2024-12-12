@@ -65,10 +65,41 @@ const item = new Schema({
     }
 })
 
+const message = new Schema({
+    messageRef: {
+        type: ObjectId,
+        required: true,
+        ref: 'Item'
+    },
+    senderId: {
+        type: ObjectId,
+        ref: 'User',
+        required: true,
+        unique: true
+    },
+    receiverId: {
+        type: ObjectId,
+        ref: 'User',
+        required: true,
+        unique: true
+    },
+    content: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    timestamp: {
+        type: Date,
+        default: Date.now
+    }
+})
+
 const User = model('User', user)
 const Item = model('Item', item)
+const Message = model('Message', message)
 
 export {
     User,
-    Item
+    Item,
+    Message
 }
