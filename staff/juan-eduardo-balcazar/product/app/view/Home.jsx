@@ -104,7 +104,7 @@ function Home(props) {
             {posts.map(post => <Post key={post.id} post={post} onDeleted={handlePostDeleted} />)}
         </main>}
 
-        <footer className="bg-black text-white fixed bottom-0 w-full flex justify-center items-center h-8">
+        <footer className="bg-blue text-white fixed bottom-0 w-full flex justify-center items-center h-8">
             <button className="leading-3 rounded h-4 p-1 flex items-center" type="button" onClick={handleCreatePostClick}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />

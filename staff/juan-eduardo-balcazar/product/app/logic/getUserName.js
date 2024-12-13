@@ -2,7 +2,7 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-import extractPayloadFromJWT from './logic/helpers/extractPayloadFromJWT'
+import extractPayloadFromJWT from './helpers/extractPayloadFromJWT'
 
 function getUserName() {
     const payload = extractPayloadFromJWT(sessionStorage.token)

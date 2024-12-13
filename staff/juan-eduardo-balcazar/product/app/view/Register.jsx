@@ -45,28 +45,42 @@ function Register(props) {
     }
 
     return <main>
-        <h2>Register</h2>
 
-        <form onSubmit={handleRegisterSubmit}>
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" />
+        <div className="relative w-96 m-3 cursor-pointer border-2 shadow-lg rounded-xl items-center">
 
-            <label htmlFor="email">E-mail</label>
-            <input type="email" id="email" />
+            <div className="flex h-28 bg-blue-700 rounded-xl items-center justify-center">
+                <h1 className="absolute mx-auto text-center right text-2xl text-white">
+                    Register
+                </h1>
+            </div>
 
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
+            <div className="flex flex-wrap items-center justify-center m-2">
+                <span className=" border border-blue-300 rounded-2xl px-2 my-1 mx-1">
+                    <form onSubmit={handleRegisterSubmit}>
+                        <div className="text-alignt-left"><label htmlFor="name">Name</label>
+                            <input type="text" id="name" /></div>
 
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+                        <div className="text-alignt-left"><label htmlFor="email">E-mail</label>
+                            <input type="email" id="email" /></div>
+                        <div className="text alignt-left"><label htmlFor="username">Username</label>
+                            <input type="text" id="username" /></div>
 
-            <button type="submit">Register</button>
-        </form>
+                        <div className="text alignt-left"><label htmlFor="password">Password</label>
+                            <input type="password" id="password" /></div>
 
-        <p></p>
+                        <div className="text alignt-right text-blue"><button type="submit">Register</button></div>
+                    </form>
 
-        <a href="" onClick={handleLoginClick}>Login</a>
+                    <p></p>
+
+                    <a href="" onClick={handleLoginClick}>Login</a> </span>
+
+            </div>
+        </div>
+
     </main>
+
 }
+
 
 export default Register
