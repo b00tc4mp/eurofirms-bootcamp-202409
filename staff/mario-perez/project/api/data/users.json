@@ -1,1 +1,16 @@
-[{"id":"4qqdh7obaiu","name":"Peter Pan","email":"peter@pan.com","username":"peterpan","password":"123123123"}]
+[
+    {
+        "id": "4qqn03zzlx6",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo.com",
+        "username": "pepitogrillo",
+        "password": "123123123"
+    },
+    {
+        "id": "h2nxbv3iht",
+        "name": "Peter Pan",
+        "email": "peter@pan.com",
+        "username": "peterpan",
+        "password": "123123123"
+    }
+]

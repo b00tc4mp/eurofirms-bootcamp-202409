@@ -35,23 +35,26 @@ function registerUser(name, email, username, password) {
     if (password.length < 8)
         throw new Error('La contraseña debe tener por lo menos 8 caracteres')
 
-    var users = JSON.parse(localStorage.users)
-
-    var user = users.find(function (user) {
-        return user.email === email || user.username === username
+    fetch('http://localhost:8080/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, username, password })
     })
+        .catch(error => { throw new Error(error.message) })
+        .then(response => {
+            const status = response.status
 
-    if (user !== undefined)
-        throw new Error('El usuario ya existe')
+            if (status === 201) return
 
-    user = {}
-    user.id = uuid()
-    user.name = name
-    user.email = email
-    user.username = username
-    user.password = password
+            return response.json()
+        })
+        .then(body => {
+            const error = body.error
+            const message = body.message
 
-    users.push(user)
-
-    localStorage.users = JSON.stringify(users)
+            throw new Error(message)
+        })
+        .catch(error => console.error(error))
 }

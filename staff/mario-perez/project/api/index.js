@@ -1,9 +1,13 @@
 import express from 'express'
+import cors from 'cors'
 
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
+import getUserName from './logic/getUserName.js'
 
 const api = express()
+
+api.use(cors())
 
 api.get('/', (req, res) => res.send('Hola'))
 
@@ -20,20 +24,8 @@ api.post('/users', jsonBodyParser, (req, res) => {
 
         res.status(201).send()
     } catch (error) {
-        api.post('/users', jsonBodyParser, (req, res) => {
-            try {
-                const name = req.body.name
-                const email = req.body.email
-                const username = req.body.username
-                const password = req.body.password
+        res.status(400).json({ error: error.constructor.name, message: error.message })
 
-                registerUser(name, email, username, password)
-
-                res.status(201).send()
-            } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
-            }
-        })
     }
 })
 
