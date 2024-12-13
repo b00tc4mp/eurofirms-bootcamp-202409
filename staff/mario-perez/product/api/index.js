@@ -13,7 +13,6 @@ import getUserName from './logic/getUserName.js'
 import getPosts from './logic/getPosts.js'
 import createPost from './logic/createPost.js'
 import deletePost from './logic/deletePost.js'
-import editPost from './logic/editPost.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
