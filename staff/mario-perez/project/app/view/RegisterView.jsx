@@ -1,7 +1,9 @@
 function RegisterView(props) {
     console.log('RegisterView -> render')
 
-    return <main><h2>Registro</h2>
+    return <main>
+        <h2>Registro</h2>
+
         <form onSubmit={function (event) {
             event.preventDefault()
 
@@ -14,6 +16,12 @@ function RegisterView(props) {
 
             try {
                 registerUser(name, email, username, password)
+                    .then(() => props.onRegisterSuccess())
+                    .catch(error => {
+                        alert(error.message)
+
+                        console.error(error)
+                    })
 
                 props.onRegisterSuccess()
             } catch (error) {

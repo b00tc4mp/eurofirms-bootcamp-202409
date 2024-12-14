@@ -35,7 +35,7 @@ function registerUser(name, email, username, password) {
     if (password.length < 8)
         throw new Error('La contraseña debe tener por lo menos 8 caracteres')
 
-    fetch('http://localhost:8080/users', {
+    return fetch('http://localhost:8080/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
