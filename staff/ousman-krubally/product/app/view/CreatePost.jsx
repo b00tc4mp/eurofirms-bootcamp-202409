@@ -7,10 +7,7 @@ import createPost from '../logic/createPost'
 function CreatePost(props) {
     console.log('CreatePost -> render')
 
-    return <main>
-        <h2>Create Post</h2>
-
-        <form onSubmit={event => {
+        const handleCreatePostSubmit = event => {
             event.preventDefault()
 
             const form = event.target
@@ -37,7 +34,12 @@ function CreatePost(props) {
 
                 console.error(error)
             }
-        }}>
+        }
+
+    return <main>
+        <h2>Create Post</h2>
+
+        <form onSubmit={handleCreatePostSubmit}>
             <label htmlFor="image">Image</label>
             <input type="url" id="image" />
 
@@ -46,7 +48,7 @@ function CreatePost(props) {
 
             <button type="submit">Create</button>
         </form>
-    </main>
+    </main >
 }
 
 export default CreatePost
