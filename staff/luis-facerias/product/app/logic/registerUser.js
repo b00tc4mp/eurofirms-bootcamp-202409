@@ -28,6 +28,7 @@ function registerUser(name, email, username, password) {
         .then(response => {
             const status = response.status
 
+            
             if (status === 201) return
 
             return response.json()
@@ -39,3 +40,5 @@ function registerUser(name, email, username, password) {
                 })
         })
 }
+
+export default registerUser

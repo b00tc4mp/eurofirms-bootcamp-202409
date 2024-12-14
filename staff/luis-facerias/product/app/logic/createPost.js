@@ -3,9 +3,9 @@ function createPost(image, text) {
     if (typeof text !== 'string') throw new Error('invalid text')
 
     return fetch('http://localhost:8080/posts', {
-        metho: 'POST',
+        method: 'POST',
         headers: {
-            Authorization: `Basic $(sessionStorage.userId)`,
+            Authorization: `Basic ${sessionStorage.userId}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ image, text })
@@ -23,6 +23,6 @@ function createPost(image, text) {
                     throw new Error(message)
                 })
         })
-        .then(body => console.log(body))
-        .catch(error => console.error(error))
 }
+
+export default createPost

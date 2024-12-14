@@ -31,3 +31,5 @@ function loginUser(username, password) {
                 })
         })
 }
+
+export default loginUser

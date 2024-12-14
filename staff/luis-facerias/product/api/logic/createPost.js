@@ -31,4 +31,3 @@ function createPost(userId, image, text) {
 }
 
 export default createPost
-

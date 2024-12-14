@@ -73,7 +73,7 @@ api.get('/posts', (req, res) => {
 })
 
 api.post('/posts', jsonBodyParser, (req, res) => {
-    try{
+    try {
         const authorization = req.headers.authorization // Basic <user-id>
         const userId = authorization.slice(6)
 
@@ -83,11 +83,10 @@ api.post('/posts', jsonBodyParser, (req, res) => {
         createPost(userId, image, text)
 
         res.status(201).send()
-    }catch (error){
+    } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message})
     }
 })
-
 
 api.delete('/posts/:postId', (req, res) => {
     try {
