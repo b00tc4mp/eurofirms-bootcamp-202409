@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
-import deletePost from './deleteProduct.js'
+import deleteProduct from './deleteProduct.js'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect('mongodb://127.0.0.1:27017/fixloop_test')
     .then(() => {
         try {
-            return deletePost('6741f97a50976d72be46fe89', '6742012bc981b1956d309476')
-                .then(() => console.log('post deleted'))
+            return deleteProduct('675f28a0db7fe9ef99b0ce68', '675f363f910a2bbab10d8190')// id del usuario y el del producto??
+                .then(() => console.log('product deleted'))
                 .catch(error => console.error(error))
         } catch (error) {
             console.error(error)

@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
-import createPost from './createProduct.js'
+import createProduct from './createProduct.js'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect('mongodb://127.0.0.1:27017/fixloop_test')
     .then(() => {
         try {
-            return createPost('6741f97a50976d72be46fe89', 'https://cdn-icons-png.flaticon.com/512/5986/5986331.png', 'hola mundo')
-                .then(() => console.log('post created'))
+            return createProduct('675f28a0db7fe9ef99b0ce68', 'https://m.media-amazon.com/images/I/71WFual8KQS.jpg', 'tarjeta grafica super nueva')
+                .then(() => console.log('product created'))
                 .catch(error => console.error(error))
         } catch (error) {
             console.error(error)

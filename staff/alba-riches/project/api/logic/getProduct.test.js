@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
-import getPosts from './getPosts.js'
+import getProduct from './getProduct.js'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect('mongodb://127.0.0.1:27017/fixloop_test')
     .then(() => {
         try {
-            return getPosts('6741f97a50976d72be46fe89')
+            return getProduct('')// id de un producto??
                 .then(posts => console.log(posts))
                 .catch(error => console.error(error))
         } catch (error) {

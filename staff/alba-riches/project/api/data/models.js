@@ -8,11 +8,7 @@ const user = new Schema({
         required: true,
         minLength: 1
     },
-    location: {
-        type: String,
-        required: true,
-        minLength: 3
-    },
+
     email: {
         type: String,
         required: true,
@@ -29,10 +25,15 @@ const user = new Schema({
         type: String,
         required: true,
         minLength: 8
+    },
+    phone: {
+        type: Number,
+        required: true,
+        minLength: 9
     }
 })
 
-const Product = new Schema({
+const product = new Schema({
     author: {
         type: ObjectId,
         required: true,
@@ -55,11 +56,7 @@ const Product = new Schema({
         required: true,
         default: Date.now
     },
-    phone: {
-        type: String,
-        required: true,
-        minLength: 9
-    },
+
     description: {
         type: String,
         required: true,
@@ -68,9 +65,9 @@ const Product = new Schema({
 })
 
 const User = model('User', user)
-const Item = model('Item', item)
+const Product = model('Product', product)
 
 export {
     User,
-    Item
+    Product
 }

@@ -7,6 +7,10 @@ const validate = {
         if (typeof name !== 'string') throw new ValidationError('invalid name')
         if (name.length < 1) throw new ValidationError('invalid name length')
     },
+    phone(phone) {
+        if (typeof phone !== 'number') throw new ValidationError('invalid phone')
+        if (phone.length < 9) throw new ValidationError('invalid phone length')
+    },
 
     email(email) {
         if (typeof email !== 'string') throw new ValidationError('invalid email')
@@ -41,18 +45,14 @@ const validate = {
         if (typeof text !== 'string') throw new ValidationError('invalid text')
     },
 
-    postId(postId) {
-        if (typeof postId !== 'string') throw new ValidationError('invalid postId')
+    productId(productId) {
+        if (typeof productId !== 'string') throw new ValidationError('invalid productId')
     },
 
     targetUserId(targetUserId) {
         if (typeof targetUserId !== 'string') throw new ValidationError('invalid targetUserId')
     },
 
-    location(location) {
-        if (typeof location !== 'string') throw new ValidationError('invalid location')
-        if (location.length < 4) throw new ValidationError('invalid location length')
-    },
     description(description) {
         if (typeof description !== 'string') throw new ValidationError('invalid description')
     }

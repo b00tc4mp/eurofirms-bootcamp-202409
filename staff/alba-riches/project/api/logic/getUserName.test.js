@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
 import getUserName from './getUserName.js'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect('mongodb://127.0.0.1:27017/fixloop_test')
     .then(() => {
         try {
-            return getUserName('6741e9db7a4eafb54ae6ee8a', '6741e9db7a4eafb54ae6ee8a')
+            return getUserName('675f28a0db7fe9ef99b0ce68', '')//producto??
                 .then(name => console.log(name))
                 .catch(error => console.error(error))
         } catch (error) {
