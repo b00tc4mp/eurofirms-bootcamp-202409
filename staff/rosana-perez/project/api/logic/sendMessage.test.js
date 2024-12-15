@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
-import chat from './chat.js'
+import sendMessage from './sendMessage.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => {
         try {
-            return chat('675abdd0bf6a9ce03a5c4830', '675800f353d3d48630f4d250', 'this is the sixth text message from chat.test.js')
+            return sendMessage('675b423a21462281f2edbda1', '675b423a21462281f2edbda0', '675b423a21462281f2edbda3', 'message from logic/sendMessage.test')
                 .then(() => console.log('message sent succesfully'))
                 .catch(error => console.error(error))
         } catch (error) {

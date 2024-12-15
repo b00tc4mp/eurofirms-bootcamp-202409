@@ -1,0 +1,1 @@
+curl -X 'POST' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzViNDIzYTIxNDYyMjgxZjJlZGJkOWYiLCJpYXQiOjE3MzQwOTIxNDJ9.b_PkJYvAQsTwzRddtdWvGXbDPcYr2aPc2A1Nb52BgUE' -H 'Content-Type: application/json' -d '{ "recipientId": "675b423a21462281f2edbda0", "content": "message testing curl"}' http://localhost:8081/items/675b423a21462281f2edbda3/messages/ -v

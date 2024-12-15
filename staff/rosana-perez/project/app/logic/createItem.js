@@ -2,10 +2,10 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-function createItem(location, image, text, description) {
+function createItem(location, image, title, description) {
     validate.location(location)
     validate.image(image)
-    validate.text(text)
+    validate.title(title)
     validate.description(description)
 
     return fetch(`${import.meta.env.VITE_API_URL}/items`, {
@@ -14,7 +14,7 @@ function createItem(location, image, text, description) {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ location, image, text, description })
+        body: JSON.stringify({ location, image, title, description })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

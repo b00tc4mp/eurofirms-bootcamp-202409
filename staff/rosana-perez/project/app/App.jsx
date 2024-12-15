@@ -17,10 +17,6 @@ function App() {
 
     return <>
 
-        <header>
-            <p class="p-6 font-medium text-2xl">Dona2</p>
-        </header>
-
         {view === 'welcome' && <Welcome
             onRegisterClick={() => setView('register')}
 
@@ -47,6 +43,8 @@ function App() {
             onLogout={() => setView('welcome')}
 
             onCreateItem={() => setView('create')}
+
+            onCancelClick={() => setView('welcome')}
         />}
 
         {view === 'create' && <CreateItem

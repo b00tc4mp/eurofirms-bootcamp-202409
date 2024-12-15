@@ -57,9 +57,20 @@ const validate = {
     description(description) {
         if (typeof description !== 'string') throw new ValidationError('invalid description')
     },
+
+    recipientId(recipientId) {
+        if (typeof recipientId !== 'string') throw new ValidationError('invalid recipientId')
+    },
+
+    senderId(senderId) {
+        if (typeof senderId !== 'string') throw new ValidationError('invalid senderId')
+    },
+
     content(content) {
-        if (typeof content !== 'string') throw new ValidationError('invalid message')
+        if (typeof content !== 'string') throw new ValidationError('invalid content')
+        if (content.length === 0) throw new ValidationError('invalid content length')
     }
+
 }
 
 export default validate

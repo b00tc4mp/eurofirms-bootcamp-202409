@@ -21,7 +21,7 @@ function editItem(userId, itemId, text) {
 
             if (item.author.toString() !== userId) throw new OwnershipError('user is not author of item')
 
-            return Item.updateOne({ _id: item._id }, { text: text })
+            return Item.updateOne({ _id: item._id }, { 'title': text })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })

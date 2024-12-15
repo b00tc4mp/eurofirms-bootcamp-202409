@@ -1,8 +1,11 @@
 import { errors } from 'com'
+
 import { Button } from '../components/button'
 import { Input } from '../components/input'
 import { Text, TextLink } from '../components/text'
 import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
+
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
 const { DuplicityError, SystemError, ValidationError } = errors
 
@@ -79,14 +82,10 @@ function Register(props) {
                 props.onLoginClick()
             }}>Login now</TextLink></Text>
 
-
         </form>
 
-        <p></p>
-        <Button type="button" color="emerald" onClick={() => props.onCancelClick()}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
-            </svg>
+        <Button plain onClick={() => props.onCancelClick()} className="justify-items-start">
+            <ArrowUturnLeftIcon />
         </Button>
     </main>
 }

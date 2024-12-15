@@ -14,6 +14,7 @@ import createItem from './logic/createItem.js'
 import getItems from './logic/getItems.js'
 import deleteItem from './logic/deleteItem.js'
 import editItem from './logic/editItem.js'
+import sendMessage from './logic/sendMessage.js'
 
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
@@ -117,10 +118,10 @@ mongoose.connect(MONGO_URL)
 
                 const location = req.body.location
                 const image = req.body.image
-                const text = req.body.text
+                const title = req.body.title
                 const description = req.body.description
 
-                createItem(userId, location, image, text, description)
+                createItem(userId, location, image, title, description)
                     .then(() => res.status(201).send())
                     .catch(error => {
                         if (error instanceof NotFoundError)
@@ -174,9 +175,9 @@ mongoose.connect(MONGO_URL)
 
                 const itemId = req.params.itemId
 
-                const text = req.body.text
+                const title = req.body.title
 
-                editItem(userId, itemId, text)
+                editItem(userId, itemId, title)
                     .then(() => res.status(204).send())
                     .catch(error => {
                         if (error instanceof NotFoundError)
@@ -227,38 +228,75 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        /* api.post('/messages', (req, res) => {
- 
-             try {
-                 const itemId = req.params.itemId
- 
-                 const authorization = req.headers.authorization
-                 const token = authorization.slice(7)
- 
-                 const payload = jwt.verify(token, JWT_SECRET)
-                 const userId = payload.sub
- 
-                 const content = req.params.content
- 
-                 chat(itemId, userId, content)
-                     .then(() => res.status(201).send())
-                     .catch(error => {
-                         if (error instanceof NotFoundError)
-                             res.status(404).json({ error: error.constructor.name, message: error.message })
-                         else if (error instanceof OwnershipError)
-                             res.status(403).json({ error: error.constructor.name, message: error.message })
-                         else if (error instanceof SystemError)
-                             res.status(500).json({ error: SystemError.name, message: error.message })
-                         else
-                             res.status(500).json({ error: SystemError.name, message: error.message })
-                     })
-             } catch (error) {
-                 if (error instanceof ValidationError)
-                     res.status(400).json({ error: error.constructor.name, message: error.message })
-                 else
-                     res.status(500).json({ error: SystemError.name, message: error.message })
-             }
-         })*/
+        /*api.post('items/:itemId/messages/', jsonBodyParser, (req, res) => {
+
+            try {
+
+                const authorization = req.headers.authorization
+                const token = authorization.slice(7)
+
+                const payload = jwt.verify(token, JWT_SECRET)
+                const userId = payload.sub
+
+                const itemId = req.params.itemId
+                const content = req.body.content;
+
+                if (!itemId || !content || !userId) {
+                    //   if (!itemId || !content) {
+                    return res.status(400).json({ error: 'ValidationError', message: 'Item ID and content are required' });
+                }
+
+                sendMessage(itemId, userId, content)
+
+                    .then(() => res.status(201).json({ message: 'Message created successfully' }))
+                    .catch(error => {
+                        if (error instanceof NotFoundError) {
+                            res.status(404).json({ error: error.constructor.name, message: error.message });
+                        } else if (error instanceof OwnershipError) {
+                            res.status(403).json({ error: error.constructor.name, message: error.message });
+                        } else if (error instanceof SystemError) {
+                            res.status(500).json({ error: 'SystemError', message: error.message });
+                        } else {
+                            res.status(500).json({ error: 'SystemError', message: error.message });
+                        }
+                    })
+            } catch (error) {
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+            }
+        })
+*/
+
+        api.post('/items/:itemId/messages', jsonBodyParser, (req, res) => {
+
+            const authorization = req.headers.authorization
+            const token = authorization.slice(7)
+
+            const payload = jwt.verify(token, JWT_SECRET)
+            const userId = payload.sub
+
+            const itemId = req.params.itemId
+            const recipientId = req.body.recipientId
+            const content = req.body.content
+
+            sendMessage(userId, itemId, recipientId, content)
+                .then(() => {
+                    return res.status(201).send();
+                })
+                .catch(error => {
+                    if (error instanceof NotFoundError)
+                        res.status(404).json({ error: error.constructor.name, message: error.message })
+                    else if (error instanceof OwnershipError)
+                        res.status(403).json({ error: error.constructor.name, message: error.message })
+                    else if (error instanceof SystemError)
+                        res.status(500).json({ error: SystemError.name, message: error.message })
+                    else
+                        res.status(500).json({ error: SystemError.name, message: error.message })
+                })
+
+        })
 
 
         api.listen(PORT, () => console.log(`API is up on ${PORT}`))

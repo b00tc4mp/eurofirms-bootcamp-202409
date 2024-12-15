@@ -48,7 +48,7 @@ const item = new Schema({
         required: true,
         maxLength: 1000
     },
-    text: {
+    title: {
         type: String,
         required: true,
         minLength: 3
@@ -57,42 +57,34 @@ const item = new Schema({
         type: String,
         required: true,
         minLength: 3
-    },
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
     }
-})
+
+}, { timestamps: true })
+
 
 const message = new Schema({
-    messageRef: {
+    item: {
         type: ObjectId,
-        required: true,
-        ref: 'Item'
+        ref: 'Item',
+        required: true
     },
-    senderId: {
+    sender: {
         type: ObjectId,
         ref: 'User',
-        required: true,
-        unique: true
+        required: true
     },
-    receiverId: {
+    recipient: {
         type: ObjectId,
         ref: 'User',
-        required: true,
-        unique: true
+        required: true
     },
     content: {
         type: String,
-        required: true,
-        unique: true
-    },
-    timestamp: {
-        type: Date,
-        default: Date.now
+        required: true
     }
-})
+
+
+}, { timestamps: true })
 
 const User = model('User', user)
 const Item = model('Item', item)

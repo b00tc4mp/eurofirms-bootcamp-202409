@@ -4,6 +4,7 @@ function Welcome(props) {
     console.log('Welcome rendering')
 
     return <main className="text-center w-full pt-[100px]">
+        <p className="font-anton  text-xl text-emerald-700 text-left">Dona2-logo (wip)</p>
 
         <h2 className="font-anton text-4xl uppercase">Welcome!</h2>
 
