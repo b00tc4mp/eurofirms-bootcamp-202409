@@ -19,5 +19,12 @@
         "email": "campa@nilla.com",
         "username": "campanilla",
         "password": "123123123"
+    },
+    {
+        "id": "4qivgabpw5g",
+        "name": "Mor Cilla",
+        "email": "mor@cilla.com",
+        "username": "morcilla",
+        "password": "123123123"
     }
 ]
