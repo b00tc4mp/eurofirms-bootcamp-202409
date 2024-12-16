@@ -1,7 +1,7 @@
-import mongoose, from 'mongoose'
+import mongoose from 'mongoose'
 import { User, Post } from './models.js'
 
-mongoose.connet('mongodb: //127.0.0.1:27017/test')
+mongoose.connect('mongodb: //127.0.0.1:27017/test')
     .then(() => User.deleteMany())
     .then(() => Post.deleteMany())
     // .then(() =< {
