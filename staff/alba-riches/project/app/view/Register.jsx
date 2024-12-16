@@ -53,6 +53,10 @@ function Register(props) {
             <label htmlFor="password">Password</label>
             <input type="password" id="password" />
 
+            <label htmlFor="phone">Phone</label>
+            <input type="phone" id="phone" />
+
+
             <button type="submit">Register</button>
         </form>
 

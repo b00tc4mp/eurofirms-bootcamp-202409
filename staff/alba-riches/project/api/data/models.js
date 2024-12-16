@@ -45,7 +45,7 @@ const product = new Schema({
         required: true,
         maxLength: 1000
     },
-    text: {
+    title: {
         type: String,
         required: true,
         minLength: 3

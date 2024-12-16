@@ -8,7 +8,7 @@ function getProducts(userId) {
 
     return Promise.all([
         User.findById(userId).lean(),
-        Product.find({}, '-__v').populate('author', 'username').sort({ date: -1 }).lean()
+        Product.find({}, '-__v').populate('author', 'username _id').sort({ date: -1 }).lean()
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(userAndProducts => {
@@ -28,7 +28,6 @@ function getProducts(userId) {
 
                 product.own = product.author.id === userId
 
-                product.author = product.author.username
             })
 
             return products

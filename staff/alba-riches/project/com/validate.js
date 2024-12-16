@@ -8,8 +8,8 @@ const validate = {
         if (name.length < 1) throw new ValidationError('invalid name length')
     },
     phone(phone) {
-        if (typeof phone !== 'number') throw new ValidationError('invalid phone')
-        if (phone.length < 9) throw new ValidationError('invalid phone length')
+        if (typeof phone !== 'string') throw new ValidationError('invalid phone');
+        if (phone.length !== 9) throw new ValidationError('invalid phone length');
     },
 
     email(email) {

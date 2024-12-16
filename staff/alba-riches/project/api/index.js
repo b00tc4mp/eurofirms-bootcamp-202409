@@ -22,7 +22,7 @@ const {
 import registerUser from './logic/registerUser.js';
 import authenticateUser from './logic/authenticateUser.js';
 import getUserName from './logic/getUserName.js';
-import getProduct from './logic/getProduct.js';
+import getProducts from './logic/getProducts.js';
 import createProduct from './logic/createProduct.js';
 import deleteProduct from './logic/deleteProduct.js';
 
@@ -54,7 +54,7 @@ mongoose.connect(MONGO_URL)
                         else if (error instanceof SystemError)
                             res.status(500).json({ error: error.constructor.name, message: error.message })
                         else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                     })
             } catch (error) {
                 if (error instanceof ValidationError)
@@ -115,8 +115,8 @@ mongoose.connect(MONGO_URL)
                     res.status(500).json({ error: SystemError.name, message: error.message })
             }
         })
-
-        api.get('/posts', (req, res) => {
+        //TODO  corregir ruta   //products
+        api.get('/product', (req, res) => {
             try {
                 const authorization = req.headers.authorization
                 const token = authorization.slice(7)
@@ -125,7 +125,7 @@ mongoose.connect(MONGO_URL)
                 const userId = payload.sub
 
                 getProduct(userId)
-                    .then(posts => res.json(posts))
+                    .then(product => res.json(product))
                     .catch(error => {
                         if (error instanceof NotFoundError)
                             res.status(404).json({ error: error.constructor.name, message: error.message })
@@ -142,7 +142,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.post('/posts', jsonBodyParser, (req, res) => {
+        api.post('/product', jsonBodyParser, (req, res) => {
             try {
                 const authorization = req.headers.authorization
                 const token = authorization.slice(7)
@@ -171,7 +171,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.delete('/posts/:postId', (req, res) => {
+        api.delete('/product/:productId', (req, res) => {
             try {
                 const authorization = req.headers.authorization
                 const token = authorization.slice(7)
@@ -179,9 +179,9 @@ mongoose.connect(MONGO_URL)
                 const payload = jwt.verify(token, JWT_SECRET)
                 const userId = payload.sub
 
-                const postId = req.params.postId
+                const productId = req.params.productId
 
-                deleteProduct(userId, postId)
+                deleteProduct(userId, productId)
                     .then(() => res.status(204).send())
                     .catch(error => {
                         if (error instanceof NotFoundError)
