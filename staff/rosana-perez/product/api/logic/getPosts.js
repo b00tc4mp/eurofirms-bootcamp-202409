@@ -1,13 +1,15 @@
 import { User, Post } from '../data/models.js'
 import { validate, errors } from 'com'
 
+const { SystemError, NotFoundError } = errors
+
 function getPosts(userId) {
     validate.userId(userId)
 
     return Promise.all([
         User.findById(userId).lean(),
         // .lean() adelgaza los datos, extrae sólo el documento
-        Post.find({}, '-__v').populate('author', 'username').sort({ date: -1 }).lean()
+        Post.find({}, '-__v').populate('author', 'username _id').sort({ date: -1 }).lean()
         //'-_v' indica que se omita la -v que facilita mongo por cada usuario
         // .sort indica cómo se ordenan los resultados(fecha descendente)
     ])
