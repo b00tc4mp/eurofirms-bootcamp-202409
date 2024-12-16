@@ -59,12 +59,10 @@ function Register(props) {
                     <form onSubmit={handleRegisterSubmit}>
                         <div className="text-alignt-left"><label htmlFor="name">Name</label>
                             <input type="text" id="name" /></div>
-
                         <div className="text-alignt-left"><label htmlFor="email">E-mail</label>
                             <input type="email" id="email" /></div>
                         <div className="text alignt-left"><label htmlFor="username">Username</label>
                             <input type="text" id="username" /></div>
-
                         <div className="text alignt-left"><label htmlFor="password">Password</label>
                             <input type="password" id="password" /></div>
 

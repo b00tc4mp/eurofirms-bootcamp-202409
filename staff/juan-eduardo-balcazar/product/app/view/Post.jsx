@@ -34,7 +34,7 @@ function Post(props) {
             }
     }
 
-    return <article className="bg-white p-2 my-4">
+    return <article className="bg-blue p-2 my-4">
         <h3 className="font-bold">{post.author}</h3>
 
         <div className="flex justify-center">
