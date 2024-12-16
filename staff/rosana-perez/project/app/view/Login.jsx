@@ -34,10 +34,11 @@ function Login(props) {
                     console.error(error)
                 })
         } catch (error) {
-            if (error instanceof ValidationError)
+            if (error instanceof ValidationError) {
                 alert(error.message)
-            else
+            } else {
                 alert('Sorry, there was a problem. Try again later.')
+            }
 
             console.error(error)
         }

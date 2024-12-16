@@ -43,15 +43,15 @@ mongoose.connect(MONGO_URL)
                         if (error instanceof DuplicityError)
                             res.status(409).json({ error: error.constructor.name, message: error.message })
                         else if (error instanceof SystemError)
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                         else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                     })
             } catch (error) {
                 if (error instanceof ValidationError)
                     res.status(400).json({ error: error.constructor.name, message: error.message })
                 else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -67,16 +67,16 @@ mongoose.connect(MONGO_URL)
                         if (error instanceof CredentialsError)
                             res.status(401).json({ error: error.constructor.name, message: error.message })
                         else if (error instanceof SystemError)
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                         else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                     })
 
             } catch (error) {
                 if (error instanceof ValidationError)
                     res.status(400).json({ error: error.constructor.name, message: error.message })
                 else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -96,15 +96,15 @@ mongoose.connect(MONGO_URL)
                         if (error instanceof NotFoundError)
                             res.status(404).json({ error: error.constructor.name, message: error.message })
                         else if (error instanceof SystemError)
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                         else
-                            res.status(500).json({ error: SystemError.name, message: message.error })
+                            res.status(500).json({ error: error.constructor.name, message: message.error })
                     })
             } catch (error) {
                 if (error instanceof ValidationError)
                     res.status(400).json({ error: error.constructor.name, message: error.message })
                 else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -127,15 +127,15 @@ mongoose.connect(MONGO_URL)
                         if (error instanceof NotFoundError)
                             res.status(404).json({ error: error.constructor.name, message: error.message })
                         else if (error instanceof SystemError)
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                         else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                     })
             } catch (error) {
                 if (error instanceof ValidationError)
                     res.status(400).json({ error: error.constructor.name, message: error.message })
                 else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -153,15 +153,15 @@ mongoose.connect(MONGO_URL)
                         if (error instanceof NotFoundError)
                             res.status(404).json({ error: error.constructor.name, message: error.message })
                         else if (error instanceof SystemError)
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                         else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                     })
             } catch (error) {
                 if (error instanceof ValidationError)
                     res.status(400).json({ error: error.constructor.name, message: error.message })
                 else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -185,16 +185,16 @@ mongoose.connect(MONGO_URL)
                         else if (error instanceof OwnershipError)
                             res.status(403).json({ error: error.constructor.name, message: error.message })
                         else if (error instanceof SystemError)
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                         else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
 
                     })
             } catch (error) {
                 if (error instanceof ValidationError)
                     res.status(400).json({ error: error.constructor.name, message: error.message })
                 else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -216,15 +216,15 @@ mongoose.connect(MONGO_URL)
                         else if (error instanceof OwnershipError)
                             res.status(403).json({ error: error.constructor.name, message: error.message })
                         else if (error instanceof SystemError)
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                         else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                     })
             } catch (error) {
                 if (error instanceof ValidationError)
                     res.status(400).json({ error: error.constructor.name, message: error.message })
                 else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -264,7 +264,7 @@ mongoose.connect(MONGO_URL)
                 if (error instanceof ValidationError)
                     res.status(400).json({ error: error.constructor.name, message: error.message })
                 else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
             }
         })
 */
@@ -291,9 +291,9 @@ mongoose.connect(MONGO_URL)
                     else if (error instanceof OwnershipError)
                         res.status(403).json({ error: error.constructor.name, message: error.message })
                     else if (error instanceof SystemError)
-                        res.status(500).json({ error: SystemError.name, message: error.message })
+                        res.status(500).json({ error: error.constructor.name, message: error.message })
                     else
-                        res.status(500).json({ error: SystemError.name, message: error.message })
+                        res.status(500).json({ error: error.constructor.name, message: error.message })
                 })
 
         })

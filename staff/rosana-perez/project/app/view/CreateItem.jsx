@@ -40,10 +40,11 @@ function CreateItem(props) {
                         console.error(error)
                     }))
         } catch (error) {
-            if (error instanceof ValidationError)
-                res.status(400).json({ error: error.constructor.name, message: error.message })
-            else
-                res.status(500).json({ error: SystemError.name, message: error.message })
+            if (error instanceof ValidationError) {
+                alert(error.message)
+            } else {
+                alert('Sorry, there was a problem. Try again later.')
+            }
 
             console.error(error)
         }
