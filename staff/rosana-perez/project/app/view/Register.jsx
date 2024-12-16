@@ -14,41 +14,52 @@ import registerUser from '../logic/registerUser'
 function Register(props) {
     console.log('Register rendering')
 
+    const handleOnRegisterSubmit = event => {
+        event.preventDefault()
+
+        const form = event.target
+
+        const name = form.name.value
+        const location = form.location.value
+        const email = form.email.value
+        const username = form.username.value
+        const password = form.password.value
+
+        try {
+            registerUser(name, location, email, username, password)
+                .then(() => props.onRegisterSuccess())
+                .catch(error => {
+                    if (error instanceof DuplicityError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('Sorry, there was a problem. Try again later.')
+
+                    console.error(error)
+                })
+        } catch (error) {
+            if (error instanceof ValidationError)
+                alert(error.message)
+            else
+                alert('Sorry, there was a problem. Try again later.')
+
+            console.error(error)
+        }
+    }
+
+    const handleOnLoginClick = event => {
+        event.preventDefault()
+
+        props.onLoginClick()
+    }
+
+    const handleOnCancelClick = () => props.onCancelClick()
+
+
     return <main className="text-center h-full w-full justify-items-center p-6 py-8">
 
         <h2 className="font-bold text-emerald-700 ">Register</h2>
 
-        <form className="p-4 text-left" onSubmit={event => {
-            event.preventDefault()
-
-            const form = event.target
-
-            const name = form.name.value
-            const location = form.location.value
-            const email = form.email.value
-            const username = form.username.value
-            const password = form.password.value
-
-            try {
-                registerUser(name, location, email, username, password)
-                    .then(() => props.onRegisterSuccess())
-                    .catch(error => {
-                        if (error instanceof DuplicityError)
-                            alert(error.message)
-                        else if (error instanceof SystemError)
-                            alert('Sorry, there was a problem. Try again later.')
-
-                        console.error(error)
-                    })
-            } catch (error) {
-                if (error instanceof ValidationError)
-                    alert(error.message)
-                else
-                    alert('Sorry, there was a problem. Try again later.')
-
-                console.error(error)
-            }
-        }}>
+        <form className="p-4 text-left" onSubmit={handleOnRegisterSubmit}>
             <Fieldset>
                 <FieldGroup>
                     <Field>
@@ -76,15 +87,11 @@ function Register(props) {
 
             <Button className="my-6 text-xs" color="emerald" type="submit">Register</Button>
 
-            <Text className="my-6 text-xs" >Do you already have an account? <TextLink href="#" onClick={event => {
-                event.preventDefault()
-
-                props.onLoginClick()
-            }}>Login now</TextLink></Text>
+            <Text className="my-6 text-xs" >Do you already have an account? <TextLink href="#" onClick={handleOnLoginClick}>Login now</TextLink></Text>
 
         </form>
 
-        <Button plain onClick={() => props.onCancelClick()} className="justify-items-start">
+        <Button plain onClick={handleOnCancelClick} className="justify-items-start">
             <ArrowUturnLeftIcon />
         </Button>
     </main>

@@ -16,43 +16,47 @@ import createItem from '../logic/createItem'
 function CreateItem(props) {
     console.log('CreateItem rendering')
 
+    const handleOnCancelClick = () => props.onCancelClick()
+
+    const handleCreateItemSubmit = event => {
+        event.preventDefault()
+
+        const form = event.target
+
+        const location = form.location.value
+        const image = form.image.value
+        const title = form.title.value
+        const description = form.description.value
+
+        try {
+            createItem(location, image, title, description)
+                .then(() => props.onCreated()
+                    .catch(error => {
+                        if (error instanceof NotFoundError)
+                            alert(error.message)
+                        else if (error instanceof SystemError)
+                            alert('Sorry, there was a problem. Try again later.')
+
+                        console.error(error)
+                    }))
+        } catch (error) {
+            if (error instanceof ValidationError)
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            else
+                res.status(500).json({ error: SystemError.name, message: error.message })
+
+            console.error(error)
+        }
+    }
+
     return <main className="min-h-screen flex flex-col items-center justify-center">
-        <Button plain onClick={() => props.onCancelClick()} className="justify-items-start">
+        <Button plain onClick={handleOnCancelClick} className="justify-items-start">
             <ArrowUturnLeftIcon />
         </Button>
         <div className="text-center w-full max-w-lg p-6 py-8">
             <h2 className="font-bold text-emerald-700">Create Item</h2>
 
-            <form className="text-left" onSubmit={event => {
-                event.preventDefault()
-
-                const form = event.target
-
-                const location = form.location.value
-                const image = form.image.value
-                const title = form.title.value
-                const description = form.description.value
-
-                try {
-                    createItem(location, image, title, description)
-                        .then(() => props.onCreated()
-                            .catch(error => {
-                                if (error instanceof NotFoundError)
-                                    alert(error.message)
-                                else if (error instanceof SystemError)
-                                    alert('Sorry, there was a problem. Try again later.')
-
-                                console.error(error)
-                            }))
-                } catch (error) {
-                    if (error instanceof ValidationError)
-                        res.status(400).json({ error: error.constructor.name, message: error.message })
-                    else
-                        res.status(500).json({ error: SystemError.name, message: error.message })
-
-                    console.error(error)
-                }
-            }}>
+            <form className="text-left" onSubmit={handleCreateItemSubmit}>
                 <Fieldset>
                     <FieldGroup>
 

@@ -14,38 +14,49 @@ import loginUser from '../logic/loginUser'
 function Login(props) {
     console.log('Login rendering')
 
+    const handleOnLoginSubmit = event => {
+        event.preventDefault()
+
+        const form = event.target
+
+        const username = form.username.value
+        const password = form.password.value
+
+        try {
+            loginUser(username, password)
+                .then(() => props.onLoginSuccess())
+                .catch(error => {
+                    if (error instanceof CredentialsError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('Sorry, there was a problem. Try again later.')
+
+                    console.error(error)
+                })
+        } catch (error) {
+            if (error instanceof ValidationError)
+                alert(error.message)
+            else
+                alert('Sorry, there was a problem. Try again later.')
+
+            console.error(error)
+        }
+    }
+
+    const handleOnRegisterClick = event => {
+        event.preventDefault()
+
+        props.onRegisterClick()
+    }
+
+    const handleOnCancelClick = () => props.onCancelClick()
+
+
     return <main className="text-center h-full w-full justify-items-center p-6 py-8">
 
         <h2 className="font-bold text-emerald-700">Sign in</h2>
 
-        <form className="p-4 text-left" onSubmit={event => {
-            event.preventDefault()
-
-            const form = event.target
-
-            const username = form.username.value
-            const password = form.password.value
-
-            try {
-                loginUser(username, password)
-                    .then(() => props.onLoginSuccess())
-                    .catch(error => {
-                        if (error instanceof CredentialsError)
-                            alert(error.message)
-                        else if (error instanceof SystemError)
-                            alert('Sorry, there was a problem. Try again later.')
-
-                        console.error(error)
-                    })
-            } catch (error) {
-                if (error instanceof ValidationError)
-                    alert(error.message)
-                else
-                    alert('Sorry, there was a problem. Try again later.')
-
-                console.error(error)
-            }
-        }}>
+        <form className="p-4 text-left" onSubmit={handleOnLoginSubmit}>
             <Fieldset>
                 <FieldGroup>
 
@@ -64,11 +75,7 @@ function Login(props) {
 
             <Button className="my-6 text-xs" color="emerald" type="submit">Login</Button>
 
-            <Text className="my-6 text-xs" >Don't have an account? <TextLink href="#" onClick={event => {
-                event.preventDefault()
-
-                props.onRegisterClick()
-            }}>Register now</TextLink></Text>
+            <Text className="my-6 text-xs" >Don't have an account? <TextLink href="#" onClick={handleOnRegisterClick}>Register now</TextLink></Text>
 
         </form>
 
@@ -76,7 +83,7 @@ function Login(props) {
 
 
 
-        <Button plain onClick={() => props.onCancelClick()} className="justify-items-start">
+        <Button plain onClick={handleOnCancelClick} className="justify-items-start">
             <ArrowUturnLeftIcon />
         </Button>
 

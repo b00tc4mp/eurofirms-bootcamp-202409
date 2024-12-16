@@ -66,20 +66,28 @@ function Home(props) {
         }
     }, [])
 
+    const handleLogoutClick = () => {
+        try {
+            logoutUser()
+            props.onLogout()
+        } catch (error) {
+            alert(error.message)
+            console.error(error)
+        }
+    }
+
+    const handleOnDeleted = () => loadItems()
+    const handleOnEdited = () => loadItems()
+    const handleOnMessage = () => loadItems()
+
+    const handleOnCreateClick = () => props.onCreateItem()
+
     return (
         <>
             <header className="w-full bg-emerald-400 flex justify-between items-center px-2 h-12 z-10">
                 {name && <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">{name}</h3>}
 
-                <Button color="white" type="button" onClick={() => {
-                    try {
-                        logoutUser()
-                        props.onLogout()
-                    } catch (error) {
-                        alert(error.message)
-                        console.error(error)
-                    }
-                }}>
+                <Button color="white" type="button" onClick={handleLogoutClick}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                     </svg>
@@ -95,9 +103,9 @@ function Home(props) {
                         <Item
                             key={item.id}
                             item={item}
-                            onDeleted={() => loadItems()}
-                            onEdited={() => loadItems()}
-                            onMessage={() => loadItems()} />
+                            onDeleted={handleOnDeleted}
+                            onEdited={handleOnEdited}
+                            onMessage={handleOnMessage} />
                     ))}
                 </div>
             </main>
@@ -105,6 +113,7 @@ function Home(props) {
             <div
                 className="fixed z-50 w-full h-12 max-w-lg -translate-x-1/2 bg-white border border-gray-200  bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
                 <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
+
                     <button data-tooltip-target="tooltip-home" type="button"
                         className="inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <svg className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-500"
@@ -114,11 +123,12 @@ function Home(props) {
                         </svg>
                         <span className="sr-only">Home</span>
                     </button>
+
                     <div id="tooltip-home" role="tooltip"
                         className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Home
-
                     </div>
+
                     <button data-tooltip-target="tooltip-wallet" type="button"
                         className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <svg className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-500"
@@ -130,17 +140,18 @@ function Home(props) {
                         </svg>
                         <span className="sr-only">Wallet</span>
                     </button>
+
                     <div id="tooltip-wallet" role="tooltip"
                         className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Wallet
-
                     </div>
+
                     <div className="flex items-center justify-center">
                         <Button
                             data-tooltip-target="tooltip-new"
                             type="button"
                             color="emerald"
-                            onClick={() => props.onCreateItem()}
+                            onClick={handleOnCreateClick}
                             className="inline-flex items-center justify-center w-10 h-10 font-medium bg-emerald-600 rounded-full hover:bg-emerald-700 group focus:ring-4 focus:ring-emerald-300 focus:outline-none dark:focus:ring-emerald-800">
                             <PlusIcon className="text-gray-50 w-24 h-24" /> {/* Use text-gray-50 for a brighter white */}
                             <span className="sr-only">New item</span>
@@ -152,6 +163,7 @@ function Home(props) {
                         Create new item
                         <div className="tooltip-arrow"></div>
                     </div>
+
                     <button type="button"
                         className="inline-flex flex-col items-center justify-center px-4 hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <svg className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-500"
@@ -161,11 +173,13 @@ function Home(props) {
                         </svg>
                         <span className="sr-only">Settings</span>
                     </button>
+
                     <div
                         className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Settings
 
                     </div>
+
                     <button type="button"
                         className="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <svg className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-500"
@@ -175,6 +189,7 @@ function Home(props) {
                         </svg>
                         <span className="sr-only">Profile</span>
                     </button>
+
                     <div
                         className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Profile
