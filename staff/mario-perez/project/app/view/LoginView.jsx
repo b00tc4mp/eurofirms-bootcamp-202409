@@ -3,7 +3,7 @@ function LoginView(props) {
 
     return <main>
         <h2>Iniciar sesión</h2>
-        <p></p>
+
         <form onSubmit={function (event) {
             event.preventDefault()
 
@@ -14,8 +14,12 @@ function LoginView(props) {
 
             try {
                 loginUser(username, password)
+                    .then(() => props.onLoginSuccess())
+                    .catch(error => {
+                        alert(error.message)
 
-                props.onLoginSuccess()
+                        console.error(error)
+                    })
             } catch (error) {
                 alert(error.message)
 
@@ -41,5 +45,5 @@ function LoginView(props) {
             }
         }>Regístrate ahora</a>.</p>
 
-    </main>
+    </main >
 }

@@ -1,25 +1,25 @@
-import fs from 'fs'
+import { User } from '../data/models.js'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError } = errors
 
 function getUserName(userId, targetUserId) {
-    if (typeof userId !== 'string')
-        throw new Error('Id de usuario inválido')
-    if (typeof targetUserId !== 'string')
-        throw new Error('identificador de usuario no válido')
+    validate.userId(userId)
+    validate.userId(targetUserId)
 
-    const usersJSON = fs.readFileSync('data/users.json', 'utf8')
-    const users = JSON.parse(usersJSON)
+    return Promise.all([
+        User.findById(userId),
+        User.findById(targetUserId)
+    ])
+        .catch(error => { throw new SystemError(error.message) })
+        .then(users => {
+            const [user, targetUser] = users
 
-    const user = users.find(user => user.id === userId)
+            if (!user) throw new NotFoundError('usuario no encontrado')
+            if (!targetUser) throw new NotFoundError('El usuario que pides no existe')
 
-    if (user === undefined)
-        throw new Error('usuario no encontrado')
-
-    const targetUser = users.find(user => user.id === targetUserId)
-
-    if (targetUser === undefined)
-        throw new Error('Identificador de usuario no encontrado')
-
-    return targetUser.name
+            return targetUser.name
+        })
 }
 
 export default getUserName

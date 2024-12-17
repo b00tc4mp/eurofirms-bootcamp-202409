@@ -1,1 +1,1 @@
-curl -X GET -H 'Authorization: Basic 4qqdh7obaiu' http://localhost:8080/users/4qqdh7obaiu/name -v
+curl -X GET -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzYwOTgwZjY4NWI5MjNjYWZjNjA2ZTkiLCJpYXQiOjE3MzQ0NjQ0OTh9.Vw1DbghIu5gLg0daoFosPiVSi4sK0qnaW6eAfPGYOGY' http://localhost:8080/users/16760980f685b923cafc606e9/name -v

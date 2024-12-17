@@ -72,19 +72,12 @@ User
     - username (string, required)
     - password (string, required)
 
-<!-- Car
-    - _id (uuid)
-    - regis (string, required)
-    - brand (string, required)
-    - model (string, required)
-    - user (User.id) -->
-
 - Parking
     - name (string, required)
     - address (string, required)
     - city (string, required)
     - levels (number, required)
-    - price ( number, required)
+    - price ( string, required)
     - capacity  (number,required)
 
 - Place
@@ -104,7 +97,7 @@ User
 
 #### Parking
 
-1. Price in euros / min
+1. Price in cents / min
 
 ### Others
 

@@ -49,12 +49,11 @@ function registerUser(name, email, username, password) {
             if (status === 201) return
 
             return response.json()
-        })
-        .then(body => {
-            const error = body.error
-            const message = body.message
+                .then(body => {
+                    const error = body.error
+                    const message = body.message
 
-            throw new Error(message)
+                    throw new Error(message)
+                })
         })
-        .catch(error => console.error(error))
 }
