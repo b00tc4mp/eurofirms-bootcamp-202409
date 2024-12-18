@@ -6,6 +6,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => Item.deleteMany())
     .then(() => Message.deleteMany())
 
+
     .then(() => {
         const user1 = new User({ name: 'User One', location: 'City', email: 'user@one.com', username: 'userone', password: '123123123' })
         const user2 = new User({ name: 'User Two', location: 'City', email: 'user@two.com', username: 'usertwo', password: '123123123' })
@@ -16,6 +17,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
         const itemOfUser3 = new Item({ author: user3._id, location: 'Santiago', image: 'https://globaltextiletrading.com/wp-content/uploads/2020/02/hard-soft-toys-2.jpg', title: 'teddys, and other toys', description: 'testing 3' })
 
         const messageUser1 = new Message({ item: itemOfUser2._id, sender: user1._id, recipient: user2._id, content: 'this is a test message' })
+        const messageUser2 = new Message({ item: itemOfUser3._id, sender: user2._id, recipient: user3._id, content: 'this is a test message' })
+
 
         return Promise.all([
             user1.save(),
@@ -24,7 +27,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
             itemOfUser1.save(),
             itemOfUser2.save(),
             itemOfUser3.save(),
-            messageUser1.save()
+            messageUser1.save(),
+            messageUser2.save(),
+
         ])
     })
 

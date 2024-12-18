@@ -1,10 +1,10 @@
-fetch('http://localhost:8081/items/675b423a21462281f2edbda3/messages/', {
+fetch('http://localhost:8081/items/676177935a732e2fa38984ba/messages/', {
     method: 'POST',
     headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzViNDIzYTIxNDYyMjgxZjJlZGJkOWYiLCJpYXQiOjE3MzQwOTIxNDJ9.b_PkJYvAQsTwzRddtdWvGXbDPcYr2aPc2A1Nb52BgUE',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzYxNzc5MzVhNzMyZTJmYTM4OTg0YjYiLCJpYXQiOjE3MzQ0NDk4NDl9.6kRcuuz_P7aJ_0Q8s5gJeMhKQck1RIU_S5wdbB-6ICc',
         'Content-Type': 'application/json'
     },
-    body: '{ "recipientId": "775b423a21462281f2edbda0", "content": "message testing js"}'
+    body: '{ "recipientId": "676177935a732e2fa38984b7", "content": "message testing js"}'
 
 })
     .then(response => {

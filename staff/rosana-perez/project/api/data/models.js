@@ -29,7 +29,14 @@ const user = new Schema({
         type: String,
         required: true,
         minLength: 8
-    }
+    },
+    favourites: [
+        {
+            type: ObjectId,
+            ref: "Item",
+            required: true
+        }
+    ]
 })
 
 const item = new Schema({
@@ -83,15 +90,15 @@ const message = new Schema({
         required: true
     }
 
-
 }, { timestamps: true })
 
 const User = model('User', user)
 const Item = model('Item', item)
 const Message = model('Message', message)
 
+
 export {
     User,
     Item,
-    Message
+    Message,
 }

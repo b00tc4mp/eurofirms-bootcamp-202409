@@ -10,8 +10,4 @@ function formatIsoDate(date, monthIndex, year) {
     return `${dayFormated}/${monthFormated}/${yearFormated}`
 }
 
-const itemDate = formatIsoDate('2024-12-15T20:21:57.417Z')
-console.log(itemDate)
-
-
 export default formatIsoDate

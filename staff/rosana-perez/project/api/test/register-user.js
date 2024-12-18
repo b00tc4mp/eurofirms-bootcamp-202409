@@ -3,7 +3,7 @@ fetch('http://localhost:8081/users', {
     headers: {
         'Content-Type': 'application/json'
     },
-    body: '{"name": "Gia Som", "location": "Santander", "email": "gia@som.com", "username": "giasom", "password": "123123123"}'
+    body: '{"name": "UserOne", "location": "Santander", "email": "user@one.com", "username": "userone", "password": "123123123"}'
 })
     .then(response => {
         console.log(response.status)

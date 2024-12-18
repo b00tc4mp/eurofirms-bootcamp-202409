@@ -3,13 +3,13 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-function getUserName(userId, targetUserId) {
+function getUser(userId, targetUserId) {
     validate.userId(userId)
     validate.targetUserId(targetUserId)
 
     return Promise.all([
-        User.findById(userId),
-        User.findById(targetUserId)
+        User.findById(userId).lean(),
+        User.findById(targetUserId, '-__v').lean()
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(users => {
@@ -18,8 +18,12 @@ function getUserName(userId, targetUserId) {
             if (!user) throw new NotFoundError('user not found')
             if (!targetUser) throw new NotFoundError('target user not found')
 
-            return targetUser.name
+            users.forEach(user => {
+                user.id = user._id.toString()
+                delete user._id
+                delete user.password
+            })
+            return targetUser
         })
 }
-
-export default getUserName
+export default getUser

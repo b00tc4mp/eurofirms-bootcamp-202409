@@ -4,11 +4,11 @@ const { SystemError } = errors
 
 import extractPayloadFromJwt from './helpers/extractPayloadFromJWT'
 
-function getUserName() {
+function getUser() {
     const payload = extractPayloadFromJwt(sessionStorage.token)
     const userId = payload.sub
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
@@ -21,7 +21,7 @@ function getUserName() {
             if (status === 200)
                 return response.json()
                     .catch(error => { throw new SystemError(error.message) })
-                    .then(name => name)
+                    .then(user => user)
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -36,4 +36,4 @@ function getUserName() {
         })
 }
 
-export default getUserName
+export default getUser

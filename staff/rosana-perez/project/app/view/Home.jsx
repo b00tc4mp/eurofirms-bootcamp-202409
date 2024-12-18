@@ -9,18 +9,20 @@ import { useState, useEffect } from 'react'
 
 import Item from './Item'
 
-import getUserName from '../logic/getUserName'
+import getUser from '../logic/getUser'
 import getItems from '../logic/getItems'
 import logoutUser from '../logic/logoutUser'
+
 
 
 function Home(props) {
     console.log('Home rendering')
 
-    const [name, setName] = useState(null)
+
+    const [user, setUser] = useState(null)
     const [items, setItems] = useState([])
 
-    console.log('Home -> state: name = ' + name)
+    console.log('Home -> state: user = ' + user)
 
     function loadItems() {
         try {
@@ -42,13 +44,13 @@ function Home(props) {
             }
             console.error(error)
         }
-
     }
+
 
     useEffect(() => {
         try {
-            getUserName()
-                .then(name => setName(name))
+            getUser()
+                .then(user => setUser(user))
                 .catch(error => {
                     if (error instanceof NotFoundError)
                         alert(error.message)
@@ -67,7 +69,8 @@ function Home(props) {
 
             console.error(error)
         }
-    }, [])
+    }, [])  // Si el name o usercambian, se vuelve a ejecutar el useEffect
+
 
     const handleLogoutClick = () => {
         try {
@@ -82,13 +85,14 @@ function Home(props) {
     const handleOnDeleted = () => loadItems()
     const handleOnEdited = () => loadItems()
     const handleOnMessage = () => loadItems()
+    const handleOnFavMarked = () => loadFavs()
 
     const handleOnCreateClick = () => props.onCreateItem()
 
     return (
         <>
             <header className="w-full bg-emerald-400 flex justify-between items-center px-2 h-12 z-10">
-                {name && <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">{name}</h3>}
+                {user?.name && <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">{user.name}</h3>}
 
                 <Button color="white" type="button" onClick={handleLogoutClick}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">

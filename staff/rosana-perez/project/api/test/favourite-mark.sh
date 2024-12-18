@@ -1,0 +1,1 @@
+curl -X 'POST' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzYxYjVhNzY4ODhjMTUyNmQ3OGZmZTIiLCJpYXQiOjE3MzQ0NTY5NDh9.Hlvmki4AYuzIZqMe4CsBU__rWC41tlGWsQ409rMmar0' http://localhost:8081/items/6761b5a76888c1526d78ffe5/favourites -v

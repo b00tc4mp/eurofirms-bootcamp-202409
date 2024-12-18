@@ -9,13 +9,14 @@ const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFound
 
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
-import getUserName from './logic/getUserName.js'
+import getUser from './logic/getUser.js'
 import createItem from './logic/createItem.js'
 import getItems from './logic/getItems.js'
 import deleteItem from './logic/deleteItem.js'
 import editItem from './logic/editItem.js'
 import sendMessage from './logic/sendMessage.js'
-
+import favouriteMark from './logic/favouriteMark.js'
+import getMessages from './logic/getMessages.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -80,7 +81,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.get('/users/:targetUserId/name', (req, res) => {
+        api.get('/users/:targetUserId/', (req, res) => {
             try {
                 const authorization = req.headers.authorization
                 const token = authorization.slice(7)
@@ -90,8 +91,8 @@ mongoose.connect(MONGO_URL)
 
                 const targetUserId = req.params.targetUserId
 
-                getUserName(userId, targetUserId)
-                    .then(name => res.json(name))
+                getUser(userId, targetUserId)
+                    .then(user => res.json(user))
                     .catch(error => {
                         if (error instanceof NotFoundError)
                             res.status(404).json({ error: error.constructor.name, message: error.message })
@@ -228,47 +229,6 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        /*api.post('items/:itemId/messages/', jsonBodyParser, (req, res) => {
-
-            try {
-
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
-
-                const itemId = req.params.itemId
-                const content = req.body.content;
-
-                if (!itemId || !content || !userId) {
-                    //   if (!itemId || !content) {
-                    return res.status(400).json({ error: 'ValidationError', message: 'Item ID and content are required' });
-                }
-
-                sendMessage(itemId, userId, content)
-
-                    .then(() => res.status(201).json({ message: 'Message created successfully' }))
-                    .catch(error => {
-                        if (error instanceof NotFoundError) {
-                            res.status(404).json({ error: error.constructor.name, message: error.message });
-                        } else if (error instanceof OwnershipError) {
-                            res.status(403).json({ error: error.constructor.name, message: error.message });
-                        } else if (error instanceof SystemError) {
-                            res.status(500).json({ error: 'SystemError', message: error.message });
-                        } else {
-                            res.status(500).json({ error: 'SystemError', message: error.message });
-                        }
-                    })
-            } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-*/
-
         api.post('/items/:itemId/messages', jsonBodyParser, (req, res) => {
 
             const authorization = req.headers.authorization
@@ -296,6 +256,28 @@ mongoose.connect(MONGO_URL)
                         res.status(500).json({ error: error.constructor.name, message: error.message })
                 })
 
+        })
+
+
+
+        api.get('/messages', (req, res) => {
+
+            const authorization = req.headers.authorization
+            const token = authorization.slice(7)
+
+            const payload = jwt.verify(token, JWT_SECRET)
+            const userId = payload.sub
+
+            getMessages(userId)
+                .then(messages => res.json(messages))
+                .catch(error => {
+                    if (error instanceof NotFoundError)
+                        res.status(404).json({ error: error.constructor.name, message: error.message })
+                    else if (error instanceof SystemError)
+                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                    else
+                        res.status(500).json({ error: error.constructor.name, message: error.message })
+                })
         })
 
 

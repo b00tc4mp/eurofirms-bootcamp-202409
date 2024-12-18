@@ -46,6 +46,10 @@ const validate = {
         if (typeof text !== 'string') throw new ValidationError('invalid text')
     },
 
+    title(title) {
+        if (typeof title !== 'string') throw new ValidationError('invalid title')
+    },
+
     itemId(itemId) {
         if (typeof itemId !== 'string') throw new ValidationError('invalid itemId')
     },
@@ -69,7 +73,11 @@ const validate = {
     content(content) {
         if (typeof content !== 'string') throw new ValidationError('invalid content')
         if (content.length === 0) throw new ValidationError('invalid content length')
-    }
+    },
+
+    owner(owner) {
+        if (typeof owner !== 'string') throw new ValidationError('invalid owner')
+    },
 
 }
 

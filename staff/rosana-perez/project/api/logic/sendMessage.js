@@ -13,9 +13,9 @@ function sendMessage(userId, itemId, recipientId, content) {
 
     return Promise.all([
 
-        User.findById(userId).lean(),
-        Item.findById(itemId).populate('author').lean(),
-        User.findById(recipientId).lean(),
+        User.findById(userId),
+        Item.findById(itemId).populate('author', '_id'),
+        User.findById(recipientId)
 
     ])
 
@@ -33,7 +33,11 @@ function sendMessage(userId, itemId, recipientId, content) {
                 content
             })
 
-            return message.save();
+            return message.save()
+                .then(() => {
+                    user.messages.push(message._id)
+                    return user.save()
+                })
         })
 
 }
