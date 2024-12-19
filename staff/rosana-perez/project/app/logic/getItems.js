@@ -1,8 +1,9 @@
-import { errors } from 'com'
+import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
 function getItems() {
+
     return fetch(`${import.meta.env.VITE_API_URL}/items`, {
         method: 'GET',
         headers: {

@@ -8,7 +8,7 @@ function getUser(userId, targetUserId) {
     validate.targetUserId(targetUserId)
 
     return Promise.all([
-        User.findById(userId).lean(),
+        User.findById(userId),
         User.findById(targetUserId, '-__v').lean()
     ])
         .catch(error => { throw new SystemError(error.message) })
@@ -17,6 +17,15 @@ function getUser(userId, targetUserId) {
 
             if (!user) throw new NotFoundError('user not found')
             if (!targetUser) throw new NotFoundError('target user not found')
+
+            if (!targetUser.favourites) { targetUser.favourites = [] }
+
+            targetUser.favourites = targetUser.favourites.map(item => {
+                return {
+                    id: item._id.toString(),
+                    ...item.toObject()
+                }
+            })
 
             users.forEach(user => {
                 user.id = user._id.toString()

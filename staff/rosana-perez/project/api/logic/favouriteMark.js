@@ -18,9 +18,9 @@ function favouriteMark(userId, itemId) {
             if (!user) throw new NotFoundError('user not found')
             if (!item) throw new NotFoundError('item not found')
 
-            const favouriteItemExists = user.favourites.some(favourites => favourites.equals(item._id)) //equals compara equivalencias entre objetos de Mongoose
+            const favItemExists = user.favourites.some(favourites => favourites.equals(item._id)) //equals compara equivalencias entre objetos de Mongoose
 
-            if (!favouriteItemExists) {
+            if (!favItemExists) {
 
                 user.favourites.push(item._id)
 

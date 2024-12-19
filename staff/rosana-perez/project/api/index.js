@@ -16,7 +16,7 @@ import deleteItem from './logic/deleteItem.js'
 import editItem from './logic/editItem.js'
 import sendMessage from './logic/sendMessage.js'
 import favouriteMark from './logic/favouriteMark.js'
-import getMessages from './logic/getMessages.js'
+
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -258,9 +258,7 @@ mongoose.connect(MONGO_URL)
 
         })
 
-
-
-        api.get('/messages', (req, res) => {
+        api.post('/users/favourites/:itemId/', (req, res) => {
 
             const authorization = req.headers.authorization
             const token = authorization.slice(7)
@@ -268,17 +266,25 @@ mongoose.connect(MONGO_URL)
             const payload = jwt.verify(token, JWT_SECRET)
             const userId = payload.sub
 
-            getMessages(userId)
-                .then(messages => res.json(messages))
+            const itemId = req.params.itemId
+
+            favouriteMark(userId, itemId)
+                .then(() => {
+                    return res.status(200).send();
+                })
                 .catch(error => {
                     if (error instanceof NotFoundError)
                         res.status(404).json({ error: error.constructor.name, message: error.message })
+                    else if (error instanceof OwnershipError)
+                        res.status(403).json({ error: error.constructor.name, message: error.message })
                     else if (error instanceof SystemError)
                         res.status(500).json({ error: error.constructor.name, message: error.message })
                     else
                         res.status(500).json({ error: error.constructor.name, message: error.message })
                 })
+
         })
+
 
 
         api.listen(PORT, () => console.log(`API is up on ${PORT}`))

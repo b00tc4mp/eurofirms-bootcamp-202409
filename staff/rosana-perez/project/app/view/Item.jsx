@@ -21,15 +21,28 @@ function Item(props) {
 
     const [edit, setEdit] = useState(false)
     const [message, setMessage] = useState(false)
+    const [isFav, setIsFav] = useState(false)
 
     function toggleEdit(state) {
         setEdit(state)
     }
+    function toggleMessage(state) {
+        setMessage(state)
+    }
+
+    function toggleIsFav(state) {
+        setIsFav(state)
+    }
+
 
     let [isOpen, setIsOpen] = useState(false)
 
     const { item } = props
-    const itemDate = formatIsoDate(item.updatedAt)
+    const itemId = props.item.id
+    const itemDate = formatIsoDate(item)
+
+
+
 
     const handleOnEditItemSubmit = event => {
         event.preventDefault()
@@ -74,7 +87,6 @@ function Item(props) {
         const contentText = form.text
         const content = contentText.value
 
-        const itemId = item.id
         const recipientId = item.author.id
 
         if (content) {
@@ -99,7 +111,6 @@ function Item(props) {
             }
         }
     }
-
     const handleOnToggleMessageClick = () => { toggleMessage(false) }
 
     const handleOnToggleMessageClickTrue = () => { toggleMessage(true) }
@@ -133,21 +144,36 @@ function Item(props) {
     }
 
 
-    const [isFavMarkd, setIsFavMarkd] = useState(false) // Estado para controlar si el favorito está marcado o no
+    const handleOnFavMarkClick = () => {
+        try {
+            favouriteMark(item.id)
+                .then(() => {
+                    props.onFavMarked()
+                    toggleIsFav(true)
 
-    const handleOnFavMarkClick = event => {
-        event.preventDefault()
+                })
+                .catch(error => {
+                    if (error instanceof NotFoundError) {
+                        alert(error.message)
+                    } else if (error instanceof OwnershipError) {
+                        alert(error.message)
+                    } else if (error instanceof SystemError) {
+                        alert('Sorry, there was a problem. Try again later.')
+                    }
 
-        const itemId = props.item.id
+                    console.error(error)
+                })
 
-        if (isFavMarkd) {
-            deleteFav(itemId)
-        } else {
-            favouriteMark(itemId)
+        } catch (error) {
+            if (error instanceof ValidationError) {
+                alert(error.message)
+            } else {
+                alert('Sorry, there was a problem. Try again later.')
+            }
+
+            console.error(error)
         }
-        setIsFavMarkd(!isFavMarkd)
     }
-
 
 
     return (
@@ -161,9 +187,10 @@ function Item(props) {
                     />
                 </div>
 
-                <h3 className="mt-4 text-sm text-gray-700 font-medium">{item.author.username}</h3>
-                <p className="mt-1 text-lg font-medium text-gray-900">{item.title}</p>
-                <p className="text-xs">{item.description}</p>
+                <h3 className="mt-4 text-sm text-gray-700 font-medium">username</h3>
+                <p className="mt-1 text-lg font-medium text-gray-900">{props.item.title}</p>
+                <p className="text-xs">{props.item.location}</p>
+
 
                 {edit ? (
                     <>
@@ -246,18 +273,18 @@ function Item(props) {
                         </Button>
                     )}
 
-                    {!item.own && (<Button color={isFavMarkd ? 'red' : 'white'} type="submit" onClick={handleOnFavMarkClick}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
-                    </Button>)}
-
+                    {item.own && (
+                        <Button color={isFav ? 'red' : 'white'} type="submit" onClick={handleOnFavMarkClick}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                            </svg>
+                        </Button>
+                    )}
                 </div>
             </a>
-        </main>
+        </main >
+
     )
 }
-
-
 
 export default Item

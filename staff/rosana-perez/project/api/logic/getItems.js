@@ -16,6 +16,11 @@ function getItems(userId) {
 
             if (!user) throw new NotFoundError('user not found')
 
+            // const favItems = []
+            // user.favourites.forEach((objectId) => {
+            //     favItems.push(objectId.toString())
+            // })
+
             items.forEach(item => {
                 item.id = item._id.toString()
                 delete item._id
@@ -28,8 +33,17 @@ function getItems(userId) {
 
                 item.own = item.author?.id === userId.toString()
 
-
+                // item.fav = favItems.includes(item.id)
             })
+
+            /* for (let i = 0; i < user.favourites.length; i++) {
+                for (let j = 0; j < items.lenght; j++) {
+                    if (user.favourites[i].toString() == items[j].id) {
+                        items[j].favourite = true
+                    }
+                }
+            } */
+
             return items
         })
 }

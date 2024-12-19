@@ -1,1 +1,1 @@
-curl -X 'POST' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzYxYjVhNzY4ODhjMTUyNmQ3OGZmZTIiLCJpYXQiOjE3MzQ0NTY5NDh9.Hlvmki4AYuzIZqMe4CsBU__rWC41tlGWsQ409rMmar0' http://localhost:8081/items/6761b5a76888c1526d78ffe5/favourites -v
+curl -X 'POST' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzYxY2Y5YTA0Mjk0ZTY2MzEzMjMxNjUiLCJpYXQiOjE3MzQ2MzM4MDd9.EXYpn3oy5BLubTvjaq8X3t9xv1LfcdN0BjYGdZlUSrQ' http://localhost:8081/users/favourites/6761cf9a04294e6631323166 -v

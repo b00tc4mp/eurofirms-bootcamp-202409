@@ -64,6 +64,9 @@ const item = new Schema({
         type: String,
         required: true,
         minLength: 3
+    },
+    favorite: {
+        type: Boolean
     }
 
 }, { timestamps: true })

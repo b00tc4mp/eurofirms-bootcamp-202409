@@ -14,13 +14,13 @@ import getItems from '../logic/getItems'
 import logoutUser from '../logic/logoutUser'
 
 
-
 function Home(props) {
     console.log('Home rendering')
 
 
     const [user, setUser] = useState(null)
     const [items, setItems] = useState([])
+
 
     console.log('Home -> state: user = ' + user)
 
@@ -69,8 +69,16 @@ function Home(props) {
 
             console.error(error)
         }
-    }, [])  // Si el name o usercambian, se vuelve a ejecutar el useEffect
+    }, [])  // Si el user cambia, se vuelve a ejecutar el useEffect
 
+
+    useEffect(() => {
+        if (user && Array.isArray(user.favourites)) { //metodo nativo de JS que devuelve true si user.favourites es un array
+            const isFav = user.favourites.some(item => item.id === item.id)
+            console.log(isFav)
+            return isFav
+        }
+    }, [])
 
     const handleLogoutClick = () => {
         try {
@@ -85,10 +93,8 @@ function Home(props) {
     const handleOnDeleted = () => loadItems()
     const handleOnEdited = () => loadItems()
     const handleOnMessage = () => loadItems()
-    const handleOnFavMarked = () => loadFavs()
-
     const handleOnCreateClick = () => props.onCreateItem()
-
+    const handleOnFavMarkd = () => loadItems()
     return (
         <>
             <header className="w-full bg-emerald-400 flex justify-between items-center px-2 h-12 z-10">
@@ -110,10 +116,14 @@ function Home(props) {
                         <Item
                             key={item.id}
                             item={item}
+                            isFav={user.favourites.includes(item.id)}
                             onDeleted={handleOnDeleted}
                             onEdited={handleOnEdited}
-                            onMessage={handleOnMessage} />
-                    ))}
+                            onMessage={handleOnMessage}
+                            onFavMarked={handleOnFavMarkd}
+                        />))}
+
+
                 </div>
             </main>
 

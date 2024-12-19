@@ -6,7 +6,7 @@ function favouriteMark(itemId) {
     validate.itemId(itemId)
 
 
-    return fetch(`${import.meta.env.VITE_API_URL}/items/${itemId}/favourites`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/favourites/${itemId}`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,
@@ -16,7 +16,7 @@ function favouriteMark(itemId) {
         .then(response => {
             const status = response.status
 
-            if (status === 201) return
+            if (status === 200) return
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })

@@ -30,15 +30,15 @@ function CreateItem(props) {
 
         try {
             createItem(location, image, title, description)
-                .then(() => props.onCreated()
-                    .catch(error => {
-                        if (error instanceof NotFoundError)
-                            alert(error.message)
-                        else if (error instanceof SystemError)
-                            alert('Sorry, there was a problem. Try again later.')
+                .then(() => { props.onCreated() })
+                .catch(error => {
+                    if (error instanceof NotFoundError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('Sorry, there was a problem. Try again later.')
 
-                        console.error(error)
-                    }))
+                    console.error(error)
+                })
         } catch (error) {
             if (error instanceof ValidationError) {
                 alert(error.message)
@@ -62,8 +62,8 @@ function CreateItem(props) {
                     <FieldGroup>
 
                         <Field>
-                            <Label htmlFor="location" name="location">Location</Label>
-                            <Input type="text" id="location" />
+                            <Label htmlFor="location" name="location" >Location</Label>
+                            <Input type="text" id="location" placeholder="Select location" />
                             <LocationPicker />
                         </Field>
 
@@ -73,8 +73,8 @@ function CreateItem(props) {
                         </Field>
 
                         <Field>
-                            <Label htmlFor="title" name="title">Text</Label>
-                            <Input type="text" id="text" />
+                            <Label htmlFor="title" name="title" >Title</Label>
+                            <Input type="text" id="title" placeholder="Write a title here" />
                         </Field>
 
                         <Field>
