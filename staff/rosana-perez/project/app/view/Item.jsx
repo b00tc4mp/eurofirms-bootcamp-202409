@@ -12,7 +12,7 @@ const { ValidationError, SystemError, NotFoundError, OwnershipError } = errors
 import deleteItem from '../logic/deleteItem'
 import editItem from '../logic/editItem'
 import sendMessage from '../logic/sendMessage.js'
-import favouriteMark from '../logic/favouriteMark.js'
+import toggleFav from '../logic/toggleFav.js'
 
 import { useState } from 'react'
 
@@ -21,7 +21,6 @@ function Item(props) {
 
     const [edit, setEdit] = useState(false)
     const [message, setMessage] = useState(false)
-    const [isFav, setIsFav] = useState(false)
 
     function toggleEdit(state) {
         setEdit(state)
@@ -30,18 +29,11 @@ function Item(props) {
         setMessage(state)
     }
 
-    function toggleIsFav(state) {
-        setIsFav(state)
-    }
-
-
     let [isOpen, setIsOpen] = useState(false)
 
     const { item } = props
     const itemId = props.item.id
     const itemDate = formatIsoDate(item)
-
-
 
 
     const handleOnEditItemSubmit = event => {
@@ -79,7 +71,7 @@ function Item(props) {
     const handleOnToggleEditClickTrue = () => { toggleEdit(true) }
 
 
-    const handleOnMessageSubmit = event => {
+    const handleOnSentMessage = event => {
         event.preventDefault()
 
         const form = event.target
@@ -143,19 +135,13 @@ function Item(props) {
         }
     }
 
-
-    const handleOnFavMarkClick = () => {
+    const handleToggleFavClick = () => {
         try {
-            favouriteMark(item.id)
-                .then(() => {
-                    props.onFavMarked()
-                    toggleIsFav(true)
+            toggleFav(item.id)
+                .then(() => { props.onToggleFavClick() })
 
-                })
                 .catch(error => {
                     if (error instanceof NotFoundError) {
-                        alert(error.message)
-                    } else if (error instanceof OwnershipError) {
                         alert(error.message)
                     } else if (error instanceof SystemError) {
                         alert('Sorry, there was a problem. Try again later.')
@@ -163,7 +149,6 @@ function Item(props) {
 
                     console.error(error)
                 })
-
         } catch (error) {
             if (error instanceof ValidationError) {
                 alert(error.message)
@@ -187,7 +172,7 @@ function Item(props) {
                     />
                 </div>
 
-                <h3 className="mt-4 text-sm text-gray-700 font-medium">username</h3>
+                <h3 className="mt-4 text-sm text-gray-700 font-medium">{props.item.username}</h3>
                 <p className="mt-1 text-lg font-medium text-gray-900">{props.item.title}</p>
                 <p className="text-xs">{props.item.location}</p>
 
@@ -231,7 +216,7 @@ function Item(props) {
 
                 {message ? (
                     <>
-                        <form className="flex flex-col items-center" onSubmit={handleOnMessageSubmit}>
+                        <form className="flex flex-col items-center" onSubmit={handleOnSentMessage}>
                             <label htmlFor="text">Write a message:</label>
                             <Textarea type="text" id="text" name="text" ></Textarea>
 
@@ -273,13 +258,16 @@ function Item(props) {
                         </Button>
                     )}
 
-                    {item.own && (
-                        <Button color={isFav ? 'red' : 'white'} type="submit" onClick={handleOnFavMarkClick}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                            </svg>
-                        </Button>
-                    )}
+
+
+                    <Button color={item.fav ? 'red' : 'white'} type="button" onClick={handleToggleFavClick}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                        </svg>
+                    </Button>
+
+
+
                 </div>
             </a>
         </main >

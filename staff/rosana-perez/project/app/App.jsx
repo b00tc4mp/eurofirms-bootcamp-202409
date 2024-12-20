@@ -52,6 +52,8 @@ function App() {
 
             onCancelClick={() => setView('home')}
         />}
+
+
     </>
 }
 

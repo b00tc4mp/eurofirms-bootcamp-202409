@@ -1,22 +1,24 @@
-import { validate, errors } from 'com'
+import { errors } from 'com'
 
 const { SystemError } = errors
 
-function favouriteMark(itemId) {
-    validate.itemId(itemId)
+function getMessages() {
 
-
-    return fetch(`${import.meta.env.VITE_API_URL}/users/favourites/${itemId}`, {
-        method: 'POST',
+    return fetch(`${import.meta.env.VITE_API_URL}/messages`, {
+        method: 'GET'
+        ,
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`,
+            Authorization: `Bearer ${sessionStorage.token}`
         }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
-            if (status === 200) return
+            if (status === 200)
+                return response.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(items => items)
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -31,4 +33,4 @@ function favouriteMark(itemId) {
         })
 }
 
-export default favouriteMark
+export default getMessages

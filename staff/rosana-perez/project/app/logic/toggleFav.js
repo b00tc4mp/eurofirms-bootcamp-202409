@@ -1,27 +1,22 @@
-import { errors } from 'com'
+import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-import extractPayloadFromJwt from './helpers/extractPayloadFromJWT'
+function toggleFav(itemId) {
+    validate.itemId(itemId)
 
-function getUser() {
-    const payload = extractPayloadFromJwt(sessionStorage.token)
-    const userId = payload.sub
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
-        method: 'GET',
+    return fetch(`${import.meta.env.VITE_API_URL}/users/favs/${itemId}`, {
+        method: 'POST',
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`
+            Authorization: `Bearer ${sessionStorage.token}`,
         }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
-            if (status === 200)
-                return response.json()
-                    .catch(error => { throw new SystemError(error.message) })
-                    .then(name => name)
+            if (status === 200) return
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -36,4 +31,4 @@ function getUser() {
         })
 }
 
-export default getUser
+export default toggleFav

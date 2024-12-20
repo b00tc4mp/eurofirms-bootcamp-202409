@@ -23,7 +23,7 @@ En la versión inicial, el usuario User está autorizado para:
 - Comunicar con el anunciante para contactar y recoger
 - Si desea publicar un item, podrá:
   - Crear un anuncio
-  - Editar el texto asociado al anuncio
+  - Editar el título asociado al anuncio
   - Eliminar un anuncio publicado
 
 ### UI/UX Design
@@ -42,7 +42,7 @@ En la versión inicial, el usuario User está autorizado para:
 
 - app (front-end)
 - api (back-end)
-- com (validation, errors)
+- com (validation, errors, formatIsoDate)
 - doc (documentation)
 
 ### Techs
@@ -63,11 +63,21 @@ En la versión inicial, el usuario User está autorizado para:
   - email (string, required, unique)
   - username (string, required, unique)
   - password (string, required)
+  - favs (Item.id, required)
 
-- Post
+- Item
   - _id (uuid)
-  - author (User.id)
-  - location(string, required)
+  - author (User.id, required)
+  - location (string, required)
   - image (string, required)
-  - text (string, required)
-  - data (date, required)
+  - title (string, required)
+  - description (string, required)
+  - date (date, required)
+
+- Message
+  - _id (uuid)
+  - item (Item.id, required)
+  - sender (User.id, required)
+  - recipient (User.id, required)
+  - content(string, required)
+  - date (date, required)

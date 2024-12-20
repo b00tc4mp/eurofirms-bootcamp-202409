@@ -30,7 +30,7 @@ const user = new Schema({
         required: true,
         minLength: 8
     },
-    favourites: [
+    favs: [
         {
             type: ObjectId,
             ref: "Item",
@@ -65,9 +65,6 @@ const item = new Schema({
         required: true,
         minLength: 3
     },
-    favorite: {
-        type: Boolean
-    }
 
 }, { timestamps: true })
 

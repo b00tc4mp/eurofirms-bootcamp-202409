@@ -63,12 +63,12 @@ function Login(props) {
 
                     <Field>
                         <Label htmlFor="username" name="username">Username</Label>
-                        <Input type="text" id="username" />
+                        <Input type="text" id="username" placeholder="Write your username" />
                     </Field>
 
                     <Field>
                         <Label htmlFor="password" name="password">Password</Label>
-                        <Input type="password" id="password" />
+                        <Input type="password" id="password" placeholder="Write your password" />
                     </Field>
 
                 </FieldGroup>

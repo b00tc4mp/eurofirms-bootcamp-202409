@@ -17,8 +17,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
         const itemOfUser3 = new Item({ author: user3._id, location: 'Santiago', image: 'https://globaltextiletrading.com/wp-content/uploads/2020/02/hard-soft-toys-2.jpg', title: 'teddys, and other toys', description: 'testing 3' })
 
         const messageUser1 = new Message({ item: itemOfUser2._id, sender: user1._id, recipient: user2._id, content: 'this is a test message' })
-        const messageUser2 = new Message({ item: itemOfUser3._id, sender: user2._id, recipient: user3._id, content: 'this is a test message' })
+        const messageUser2 = new Message({ item: itemOfUser3._id, sender: user2._id, recipient: user3._id, content: 'this is a 2 test message' })
 
+        user2.favs.push(itemOfUser1._id)
 
         return Promise.all([
             user1.save(),

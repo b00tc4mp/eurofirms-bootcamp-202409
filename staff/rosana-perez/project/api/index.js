@@ -15,7 +15,9 @@ import getItems from './logic/getItems.js'
 import deleteItem from './logic/deleteItem.js'
 import editItem from './logic/editItem.js'
 import sendMessage from './logic/sendMessage.js'
-import favouriteMark from './logic/favouriteMark.js'
+import getMessages from './logic/getMessages.js'
+import toggleFav from './logic/toggleFav.js'
+
 
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
@@ -81,7 +83,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.get('/users/:targetUserId/', (req, res) => {
+        api.get('/users/:targetUserId/name', (req, res) => {
             try {
                 const authorization = req.headers.authorization
                 const token = authorization.slice(7)
@@ -92,14 +94,14 @@ mongoose.connect(MONGO_URL)
                 const targetUserId = req.params.targetUserId
 
                 getUser(userId, targetUserId)
-                    .then(user => res.json(user))
+                    .then(name => res.json(name))
                     .catch(error => {
                         if (error instanceof NotFoundError)
                             res.status(404).json({ error: error.constructor.name, message: error.message })
                         else if (error instanceof SystemError)
                             res.status(500).json({ error: error.constructor.name, message: error.message })
                         else
-                            res.status(500).json({ error: error.constructor.name, message: message.error })
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
                     })
             } catch (error) {
                 if (error instanceof ValidationError)
@@ -258,7 +260,33 @@ mongoose.connect(MONGO_URL)
 
         })
 
-        api.post('/users/favourites/:itemId/', (req, res) => {
+        api.get('/messages', (req, res) => {
+            try {
+                const authorization = req.headers.authorization
+                const token = authorization.slice(7)
+
+                const payload = jwt.verify(token, JWT_SECRET)
+                const userId = payload.sub
+
+                getMessages(userId)
+                    .then(messages => res.json(messages))
+                    .catch(error => {
+                        if (error instanceof NotFoundError)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                    })
+            } catch (error) {
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        api.post('/users/favs/:itemId/', (req, res) => {
 
             const authorization = req.headers.authorization
             const token = authorization.slice(7)
@@ -268,7 +296,7 @@ mongoose.connect(MONGO_URL)
 
             const itemId = req.params.itemId
 
-            favouriteMark(userId, itemId)
+            toggleFav(userId, itemId)
                 .then(() => {
                     return res.status(200).send();
                 })
