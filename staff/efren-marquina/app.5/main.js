@@ -1,3 +1,38 @@
+// data
+ 
+var users = []
+
+users[0] = { name: 'Ji Rafa', email: 'ji@rafa.com', username: 'jirafa', password: '123123123' }
+users[1] = { name: 'Ele Fante', email: 'ele@fante.com', username: 'elefante', password: '123123123' }
+users[2] = { name: 'Coco Drilo', email: 'coco@drilo.com', username: 'cocodrilo', password: '123123123' }
+
+// business (logic)
+
+function authenticateUser(username, password) {
+    var user = users.find(function(user)  {
+        return user.username === username && user.password === password
+    })
+
+    if (user === undefined) throw new Error('wrong credentials')
+    
+    return user
+}
+
+function registerUser(name, email, username, password) {
+    var user = users.find(function(user) {
+        return user.email === email || user.name === username
+    })
+
+    if (user !== undefined) throw new Error('user already exists')
+
+    var user = {}
+    user.name = name
+    user.email = email
+    user.username = username
+    user.password = password
+        
+    users.push(user)            
+}
 
 //presentation
 

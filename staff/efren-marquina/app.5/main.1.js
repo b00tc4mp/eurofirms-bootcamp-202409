@@ -65,43 +65,43 @@ var registerForm = registerSection.querySelector('form')
 registerForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
-var registerFormInputs = registerForm.querySelectorAll('input')
+    var registerFormInputs = registerForm.querySelectorAll('input')
 
-var registerFormNameInput = registerFormInputs[0]
-var registerFormEmailInput = registerFormInputs[1]
-var registerFormUsernameInput = registerFormInputs[2]
-var registerFormPasswordInput = registerFormInputs[3]
+    var registerFormNameInput = registerFormInputs[0]
+    var registerFormEmailInput = registerFormInputs[1]
+    var registerFormUsernameInput = registerFormInputs[2]
+    var registerFormPasswordInput = registerFormInputs[3]
 
-var name = registerFormNameInput.value
-var email = registerFormEmailInput.value
-var username = registerFormUsernameInput.value
-var password = registerFormPasswordInput.value
+    var name = registerFormNameInput.value
+    var email = registerFormEmailInput.value
+    var username = registerFormUsernameInput.value
+    var password = registerFormPasswordInput.value
 
-var user = users.find(function(user) {
-    return user.email === email || user.name === username
-})
+    var user = users.find(function(user) {
+        return user.email === email || user.name === username
+    })
 
-var feedback = registerSection.querySelector('p')
+    var feedback = registerSection.querySelector('p')
 
-if (user !== undefined) {
-    feedback.innerText = 'user already exists'
+    if (user !== undefined) {
+        feedback.innerText = 'user already exists'
 
-    return
-}
+        return
+    }
 
-var user = {}
-user.name = name
-user.email = email
-user.username = username
-user.password = password
+    var user = {}
+    user.name = name
+    user.email = email
+    user.username = username
+    user.password = password
 
-users.push(user)
+    users.push(user)
 
-registerForm.reset()
-feedback.innerText = ''
+    registerForm.reset()
+    feedback.innerText = ''
 
-registerSection.style.display = 'none'
-loginSection.style.display = ''
+    registerSection.style.display = 'none'
+    loginSection.style.display = ''
 })
 
 var loginForm = loginSection.querySelector('form')
@@ -131,7 +131,6 @@ loginForm.addEventListener('submit', function(event) {
 
     loginForm.reset()
     feedback.innerText = ''
-
 
     loginSection.style.display = 'none'
     homeSection.style.display = ''
