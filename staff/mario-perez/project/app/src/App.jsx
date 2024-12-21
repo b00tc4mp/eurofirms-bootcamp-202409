@@ -1,18 +1,21 @@
-var useState = React.useState
+import { useState } from "react"
+
+import Welcome from "./view/Welcome"
+import Login from "./view/Login"
+import Register from "./view/Register"
+import Home from "./view/Home"
 
 function App() {
     console.log('App -> render')
 
-    var viewState = useState('welcome')
-    var view = viewState[0]
-    var setView = viewState[1]
+    const [view, setView] = useState('welcome')
 
     console.log('App -> state: view = ' + view)
 
     return <>
-        <h1>App</h1>
+        <h1 className="text-2xl">ParkSpot</h1>
 
-        {view === 'welcome' && <WelcomeView
+        {view === 'welcome' && <Welcome
             onRegisterClick={function () {
                 setView('register')
             }}
@@ -22,7 +25,7 @@ function App() {
             }}
         />}
 
-        {view === 'register' && <RegisterView
+        {view === 'register' && <Register
             onLoginClick={function () {
                 setView('login')
             }}
@@ -32,7 +35,7 @@ function App() {
             }}
         />}
 
-        {view === 'login' && <LoginView
+        {view === 'login' && <Login
             onRegisterClick={function () {
                 setView('register')
             }}
@@ -42,10 +45,12 @@ function App() {
             }}
         />}
 
-        {view === 'home' && <HomeView
+        {view === 'home' && <Home
             onLogout={function () {
                 setView('login')
             }}
         />}
     </>
 }
+
+export default App

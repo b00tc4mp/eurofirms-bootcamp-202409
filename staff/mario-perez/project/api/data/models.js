@@ -65,6 +65,7 @@ const parking = new Schema({
 const place = new Schema({
     parking: {
         type: ObjectId,
+        ref: 'Parking',
         required: true
     },
 
@@ -97,9 +98,9 @@ const place = new Schema({
     //    required: true
     //},
 
-    freePlace: {
-        type: Boolean,
-        required: true
+    user: {
+        type: ObjectId,
+        ref: 'User'
     }
 })
 const User = model('User', user)

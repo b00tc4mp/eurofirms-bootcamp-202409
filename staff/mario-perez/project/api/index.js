@@ -10,6 +10,7 @@ const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFound
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
+import getUserPlaces from './logic/getUserPlaces.js'
 import mongoose from 'mongoose'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
@@ -89,6 +90,32 @@ mongoose.connect(MONGO_URL)
 
                 getUserName(userId, targetUserId)
                     .then(name => res.json(name))
+                    .catch(error => {
+                        if (error instanceof NotFoundError)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
+            } catch (error) {
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+            }
+        })
+
+        api.get('/places', (req, res) => {
+            try {
+                const authorization = req.headers.authorization
+                const token = authorization.slice(7)
+
+                const payload = jwt.verify(token, JWT_SECRET)
+                const userId = payload.sub
+
+                getUserPlaces(userId)
+                    .then(place => res.json(place))
                     .catch(error => {
                         if (error instanceof NotFoundError)
                             res.status(404).json({ error: error.constructor.name, message: error.message })

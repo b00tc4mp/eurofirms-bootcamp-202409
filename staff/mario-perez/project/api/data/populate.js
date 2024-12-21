@@ -80,7 +80,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/project')
             space: '2A',
             checkin: new Date('2024-12-16T09:00:00Z'),
             checkout: new Date('2024-12-16T17:00:00Z'),
-            freePlace: true,
+            free: false,
+            user: pepito._id
             //location:
         })
 
@@ -90,7 +91,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/project')
             space: '2G',
             checkin: new Date('2024-12-15T08:00:00Z'),
             checkout: new Date('2024-12-15T18:00:00Z'),
-            freePlace: true,
+            free: true,
+            user: peter._id
             //location:
         })
         return Promise.all([

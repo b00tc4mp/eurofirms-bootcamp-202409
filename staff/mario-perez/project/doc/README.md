@@ -87,7 +87,7 @@ User
     - checkin (date, required)
     - checkout (date, required)
     - location (?, required) <!-- geolocalizacion -->
-    - freePlace : (boolean,required)  
+    - user: (User.id, required)  
 
 ## Additional notes
 

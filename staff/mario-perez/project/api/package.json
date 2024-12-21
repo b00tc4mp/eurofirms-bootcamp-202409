@@ -5,6 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "inspect": "node --inspect-brk index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },

@@ -1,27 +1,22 @@
-import { validate, errors } from 'com'
+import { errors, utils } from "../../com"
 
 const { SystemError } = errors
+function getUserPlaces() {
 
-function registerUser(name, email, username, password) {
-    validate.name(name)
-    validate.email(email)
-    validate.username(username)
-    validate.password(password)
-
-
-    return fetch(`${import.meta.dev.VITE_API_URL}/users`, {
-        method: 'POST',
+    return fetch(`${import.meta.env.VITE_API_URL}/places`, {
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            Authorization: `Bearer ${sessionStorage.token}`
         },
-        body: JSON.stringify({ name, email, username, password })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
-            if (status === 201) return
-
+            if (status === 200)
+                return response.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(places => places)
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(body => {
@@ -35,4 +30,4 @@ function registerUser(name, email, username, password) {
         })
 }
 
-export default registerUser
+export default getUserPlaces

@@ -1,41 +1,40 @@
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
+
 function loginUser(username, password) {
-    if (typeof username !== 'string')
-        throw new Error('Usuario incorrecto')
-    if (username.length < 4)
-        throw new Error('Usuario incorrecto')
+    validate.username(username)
+    validate.password(password)
 
-    if (typeof password !== 'string')
-        throw new Error('Contraseña incorrecta')
-    if (password.length < 8)
-        throw new Error('Contraseña incorrecta')
-
-    return fetch('http://localhost:8080/users/auth', {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ username, password })
     })
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
             if (status === 200)
                 return response.json()
-                    .then(userId => {
-                        sessionStorage.userId = userId
+                    .then(token => {
+                        sessionStorage.token = token
                     })
 
             return response.json()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(body => {
                     const error = body.error
                     const message = body.message
 
-                    throw new Error(message)
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
                 })
         })
-
-
-
-
 }
+
+
+export default loginUser
