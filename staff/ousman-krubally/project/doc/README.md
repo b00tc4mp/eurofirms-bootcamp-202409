@@ -12,19 +12,17 @@ Esta aplicacion Mattas kitchen esta diseñada para ofrecer una plataforma de ped
 ### Use cases
 
 
-- Gestion de pedidos: los usuarios pueden 
-    - seleccionar platillos dispobles  
-    - Eleguir plato
-    - personalizar pedidos 
-    - Realizar el pago
+Regular (user)
+- visualizar platillos disponibles  
+- elegir plato
+- personalizar pedidos 
+- realizar el pago
+- ver pedidos
 
-- Panel de administracion: los propietarios pueden gestionar menus y precios facil mente
-
-    - añadir plato 
-    - añadir precio 
-    - descripcion 
-    - modificar
-    - eliminar 
+Admin (user)
+- añadir plato 
+- modificar plato
+- eliminar plato
 
 ### UIUX Design
 
@@ -58,16 +56,28 @@ Esta aplicacion Mattas kitchen esta diseñada para ofrecer una plataforma de ped
 ### Data Model
 
 User
-    - _id (uuid)
-    - name (string, required)
-    - email (string, required)
-    - username (srting, required)
-    - password (string, required)
+- id (uuid)
+- name (string, required)
+- email (string, required)
+- username (string, required)
+- password (string, required)
 
-- Post
-    - _id (uuid)
-    - author (User.id)
-    - location(string, required)
-    - image (string, required)
-    - text (string, required)
-    - data (data, required)
+Product
+- id (uuid)
+- author (User.id, required)
+- image (string, required)
+- title (string, required)
+- description (string, required)
+- category (string, required, cake|dish|juice|shake|dessert)
+
+Order
+- id (uuid)
+- user (User.id, required)
+- items ([Item])
+- date (date, required)
+- status (string, required, open|closed)
+
+Item 
+- id (uuid)
+- product (Product.id, required)
+- quantity (number, required)
