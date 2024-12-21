@@ -1,0 +1,1 @@
+curl -X DELETE -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzVkYTNhOWQ1ZWMxZWQwMGRkNzRmODQiLCJpYXQiOjE3MzQxOTAzNzV9.50KYvOqeaoZCigUFYkAQpWiWIcpooyI4iD-kyOYrAmI' -H 'Content-Type: application/json' -d '{"image":"https://img-sandiegored.buscafs.com/330941/330941.jpg"' http://localhost:8080/posts/675da718d5ec1ed00dd74f8a -v
