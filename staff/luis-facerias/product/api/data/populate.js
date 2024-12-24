@@ -20,23 +20,27 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         const peter = new User({ name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' })
         const wendy = new User({ name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' })
 
-        const postOfPeter = new Post({ author: peter._id, image: 'https://static.wikia.nocookie.net/p__/images/b/b4/Peter_pan_signature_by_disneyfreak19_dh15ob1.png/revision/latest?cb=20240311211636&path-prefix=protagonist', text: 'hello peter!' })
-
-        const postOfWendy = new Post({ author: wendy._id, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnIwJF1dXfzEBfIiU3wq8c3XUlgkQoQXidasVCzbQbOxkJUMVFgY1p5kJOIKUzj3ppydw&usqp=CAU', text: 'hello wendy!' })
+        const postOfPepito = new Post({ author: pepito._id, image: 'https://i.pinimg.com/564x/39/bd/25/39bd25f51b870930a6e37dcc3ec62115.jpg', text: 'hello pepito!' })
+        const postOfCampa= new Post({ author: campa._id, image: 'https://i.pinimg.com/474x/9e/d9/7b/9ed97ba8c3e40f84c4bd601887047c11.jpg', text: 'hello campa!' })
+        const postOfPeter = new Post({ author: peter._id, image: 'https://static.wikia.nocookie.net/disney-fan-fiction/images/8/85/1085519-peter_pan_782_super.jpg', text: 'hello peter!' })
+        const postOfWendy = new Post({ author: wendy._id, image: 'https://i.pinimg.com/474x/c1/67/15/c167155158a00b0bc163df01b179cd6b.jpg', text: 'hello wendy!' })
+        
 
         return Promise.all([
             pepito.save(),
             campa.save(),
             peter.save(),
             wendy.save(),
+            postOfPepito.save(),
+            postOfCampa.save(),
             postOfPeter.save(),
             postOfWendy.save()
         ])
     })
     .then(items => {
-        const [pepito, campa, peter, wendy, postOfPeter, postOfWendy] = items
+        const [pepito, campa, peter, wendy, postOfPepito, postOfCampa, postOfPeter, postOfWendy] = items
 
-        console.log(pepito, campa, peter, wendy, postOfPeter, postOfWendy)
+        console.log(pepito, campa, peter, wendy, postOfPepito, postOfCampa, postOfPeter, postOfWendy)
 
         //return User.deleteOne({ _id: campa._id })
 

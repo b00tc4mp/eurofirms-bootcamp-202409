@@ -1,7 +1,7 @@
 fetch('http://localhost:8080/posts', {
     method: 'POST',
     headers: {
-        Authorization: 'Basic 4qgqeh5z01k',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzZhZTEyZTA3ZWQxZjA4YWNlNDlkZjgiLCJpYXQiOjE3MzUyMTg5NDV9.SozHJJZBiHNsuPXJCdIa-FpvkJPUySoL8JPXt90zPH4',
         'Content-Type': 'application/json'
     },
     body: '{"image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hello world"}'
