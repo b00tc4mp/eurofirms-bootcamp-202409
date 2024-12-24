@@ -1,4 +1,9 @@
 function extractPayloadFromJWT(token) {
+    if (!token) {
+        console.log('No hay token en sessionStorage. Usuario no logueado.')
+        return null
+    }
+
     const startIndex = token.indexOf('.')
     const endIndex = token.lastIndexOf('.')
 
@@ -9,4 +14,4 @@ function extractPayloadFromJWT(token) {
     return payload
 }
 
-export default extractPayloadFromJWT
+export default extractPayloadFromJWT 

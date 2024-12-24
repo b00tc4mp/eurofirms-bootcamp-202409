@@ -4,8 +4,9 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 function createItem(userId, location, image, title, description) {
+
     validate.userId(userId)
-    validate.location(location)
+
     validate.image(image)
     validate.title(title)
     validate.description(description)
@@ -17,9 +18,13 @@ function createItem(userId, location, image, title, description) {
 
 
             return Item.create({ author: userId, location, image, title, description })
+
                 .catch(error => { throw new SystemError(error.message) })
         })
+
         .then(_ => { })
+
 }
+
 
 export default createItem

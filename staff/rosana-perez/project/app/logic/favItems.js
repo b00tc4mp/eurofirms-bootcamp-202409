@@ -4,12 +4,16 @@ const { SystemError } = errors
 
 import extractPayloadFromJwt from './helpers/extractPayloadFromJWT'
 
-function getUser() {
+
+
+function favItems() {
+
     const payload = extractPayloadFromJwt(sessionStorage.token)
     const userId = payload.sub
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/name`, {
-        method: 'GET',
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/favs`, {
+        method: 'GET'
+        ,
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
@@ -21,7 +25,7 @@ function getUser() {
             if (status === 200)
                 return response.json()
                     .catch(error => { throw new SystemError(error.message) })
-                    .then(name => name)
+                    .then(items => items)
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -36,4 +40,4 @@ function getUser() {
         })
 }
 
-export default getUser
+export default favItems

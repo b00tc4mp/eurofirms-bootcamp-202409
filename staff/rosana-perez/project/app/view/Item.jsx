@@ -5,7 +5,7 @@ import { Input } from '../components/input'
 import { Textarea } from '../components/textarea'
 import { Field, Label } from '/components/fieldset'
 import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from '../components/dialog'
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
+import { ArrowUturnLeftIcon, EnvelopeIcon, HeartIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
 
 const { ValidationError, SystemError, NotFoundError, OwnershipError } = errors
 
@@ -22,14 +22,11 @@ function Item(props) {
     const [edit, setEdit] = useState(false)
     const [message, setMessage] = useState(false)
 
-    function toggleEdit(state) {
-        setEdit(state)
-    }
     function toggleMessage(state) {
         setMessage(state)
     }
 
-    let [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const { item } = props
     const itemId = props.item.id
@@ -47,7 +44,7 @@ function Item(props) {
             if (confirm('Edit Item?'))
                 editItem(item.id, newText)
                     .then(() => {
-                        toggleEdit(false)
+                        setIsOpen(false)
                         props.onEdited()
                     })
                     .catch(error => {
@@ -60,15 +57,13 @@ function Item(props) {
         }
     }
 
-    const handleOnEditClick = () => setIsOpen(true)
+    const handleOnEditClick = () => {
+        console.log('Edit button clicked')
+        setEdit(true)
+        setIsOpen(true)
+    }
 
     const handleOnEditCancelClick = () => setIsOpen(false)
-
-    const handleOnEditItemClick = () => setIsOpen(false)
-
-    const handleOnToggleEditClick = () => toggleEdit(false)
-
-    const handleOnToggleEditClickTrue = () => { toggleEdit(true) }
 
 
     const handleOnSentMessage = event => {
@@ -162,54 +157,48 @@ function Item(props) {
 
 
     return (
-        <main className="bg-white w-full px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12"> {/* Adjusted padding for mobile */}
+        <article className="bg-white w-full container-fluid px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12"> {/* Adjusted padding for mobile */}
+
             <a key={item.id} href="#" className="group block w-full">
-                <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
+                <section className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
                     <img
                         alt="Product image"
                         src={item.image}
                         className="h-full w-full object-cover object-center group-hover:opacity-75"
                     />
-                </div>
+                </section>
+                <section>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '1rem', fontSize: '0.875rem', color: '#4B5563' }}>
+                        <h3>{item.author.username}</h3>
+                        <p>{item.location}</p>
+                    </div>
+                    <p className="mt-1 text-lg font-medium text-gray-900">{item.title}</p>
+                    <p className="mt-1 text-sm font-medium text-gray-900">{item.description}</p>
 
-                <h3 className="mt-4 text-sm text-gray-700 font-medium">{props.item.username}</h3>
-                <p className="mt-1 text-lg font-medium text-gray-900">{props.item.title}</p>
-                <p className="text-xs">{props.item.location}</p>
-
-
+                </section>
                 {edit ? (
                     <>
-                        <form className="flex flex-col items-center" onSubmit={handleOnEditItemSubmit}>
-                            <Button type="button" onClick={handleOnEditClick}>
-                                Edit your item.
-                            </Button>
-                            <Dialog open={isOpen} onClose={setIsOpen}>
-                                <DialogTitle>Edit</DialogTitle>
-                                <DialogDescription>
-                                    The message will be edited.
-                                </DialogDescription>
-                                <DialogBody>
-                                    <Field>
-                                        <Label>Text</Label>
-                                        <Input name="text" placeholder="write your new text" />
-                                    </Field>
-                                </DialogBody>
-                                <DialogActions>
-                                    <Button plain onClick={handleOnEditCancelClick}>
-                                        Cancel
-                                    </Button>
-                                    <Button onClick={handleOnEditItemClick}>Edit</Button>
-                                </DialogActions>
-                            </Dialog>
-                            <Input className="p-4 text-emerald-300 text-sm" type="text" id="text" placeholder={item.text} />
-                            <div className="flex justify-between h-4 items-center my-6 m-2">
-                                <Input className="m-2" type="submit" value={'Edit Text'} />
-                                <Button plain color="white" className="justify-items-start" onClick={handleOnToggleEditClick}>
-                                    <ArrowUturnLeftIcon />
-                                </Button>
-
-                            </div>
-                        </form>
+                        <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+                            <form className="flex flex-col items-center" onSubmit={handleOnEditItemSubmit}>
+                                <section><DialogTitle>Edit</DialogTitle>
+                                    <DialogDescription>
+                                        The title will be edited.
+                                    </DialogDescription>
+                                    <DialogBody>
+                                        <Field>
+                                            <Label>Text</Label>
+                                            <Input type="text" id="text" placeholder={item.text} />
+                                        </Field>
+                                    </DialogBody>
+                                    <DialogActions>
+                                        <Button plain className="m-2" type="submit">Edit</Button>
+                                        <Button plain color="white" className="btn w-full sm:w-auto justify-items-start" onClick={handleOnEditCancelClick}>
+                                            <ArrowUturnLeftIcon />
+                                        </Button>
+                                    </DialogActions>
+                                </section>
+                            </form>
+                        </Dialog>
                     </>
                 ) : null}
 
@@ -221,7 +210,7 @@ function Item(props) {
                             <Textarea type="text" id="text" name="text" ></Textarea>
 
                             <div className="flex justify-between h-4 items-center my-6 m-2">
-                                <Button plain color="white" className="justify-items-start" onClick={handleOnToggleMessageClick}>
+                                <Button className="btn w-33% sm:w-auto justify-items-start" plain color="white" onClick={handleOnToggleMessageClick}>
                                     <ArrowUturnLeftIcon />
                                 </Button>
 
@@ -231,46 +220,32 @@ function Item(props) {
                 ) : null}
 
 
-                <div className="flex justify-between mt-2">
-                    <time className="text-xs">{itemDate}</time>
+                <div className="flex flex-wrap justify-between mt-2 gap-2">
+                    <time className=" sm:w-auto text-xs">{itemDate}</time>
 
                     {!item.own &&
-                        <Button color="white" type="button" onClick={handleOnToggleMessageClickTrue}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                            </svg>
+                        <Button className="btn w-33%  sm:w-auto" plain color="white" type="button" onClick={handleOnToggleMessageClickTrue}>
+                            <EnvelopeIcon />
                         </Button>
 
                     }
                     {item.own && (
-                        <Button color="white" type="button" onClick={handleOnDeleteClick}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                            </svg>
+                        <Button className="btn w-33% sm:w-auto" plain color="white" type="button" onClick={handleOnDeleteClick}>
+                            <TrashIcon />
                         </Button>
                     )}
 
                     {item.own && (
-                        <Button color="white" type="button" onClick={handleOnToggleEditClickTrue}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                            </svg>
+                        <Button className="btn w-33% sm:w-auto" plain color="white" type="button" onClick={handleOnEditClick}>
+                            <PencilSquareIcon />
                         </Button>
                     )}
-
-
-
-                    <Button color={item.fav ? 'red' : 'white'} type="button" onClick={handleToggleFavClick}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
+                    <Button className="btn w-33% sm:w-auto" color={item.fav ? 'red' : 'white'} type="button" onClick={handleToggleFavClick}>
+                        <HeartIcon />
                     </Button>
-
-
-
                 </div>
             </a>
-        </main >
+        </article>
 
     )
 }

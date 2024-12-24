@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 function createItem(location, image, title, description) {
-    validate.location(location)
+    console.log(location)
     validate.image(image)
     validate.title(title)
     validate.description(description)

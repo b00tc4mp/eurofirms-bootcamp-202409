@@ -60,17 +60,15 @@ function Login(props) {
         <form className="p-4 text-left" onSubmit={handleOnLoginSubmit}>
             <Fieldset>
                 <FieldGroup>
-
                     <Field>
-                        <Label htmlFor="username" name="username">Username</Label>
+                        <Label htmlFor="username" >Username</Label>
                         <Input type="text" id="username" placeholder="Write your username" />
                     </Field>
 
                     <Field>
-                        <Label htmlFor="password" name="password">Password</Label>
+                        <Label htmlFor="password" >Password</Label>
                         <Input type="password" id="password" placeholder="Write your password" />
                     </Field>
-
                 </FieldGroup>
             </Fieldset>
 

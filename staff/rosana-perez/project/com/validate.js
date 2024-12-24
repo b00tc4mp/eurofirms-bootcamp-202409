@@ -8,10 +8,10 @@ const validate = {
         if (name.length < 1) throw new ValidationError('invalid name length')
     },
 
-    location(location) {
-        if (typeof location !== 'string') throw new ValidationError('invalid location')
-        if (location.length < 3) throw new ValidationError('invalid location length')
-    },
+    /*  location(location) {
+         if (typeof location !== 'string') throw new ValidationError('invalid location')
+         if (location.length < 3) throw new ValidationError('invalid location length')
+     }, */
 
     email(email) {
         if (typeof email !== 'string') throw new ValidationError('invalid email')
