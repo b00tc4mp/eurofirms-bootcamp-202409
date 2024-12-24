@@ -4,6 +4,7 @@ import Welcome from "./view/Welcome"
 import Login from "./view/Login"
 import Register from "./view/Register"
 import Home from "./view/Home"
+import RegisterPlace from "./view/RegisterPlace"
 
 function App() {
     console.log('App -> render')
@@ -49,6 +50,13 @@ function App() {
             onLogout={function () {
                 setView('login')
             }}
+            onRegisterPlaceClick={function () {
+                setView('registerPlace')
+            }}
+        />}
+
+        {view === 'registerPlace' && <RegisterPlace
+
         />}
     </>
 }

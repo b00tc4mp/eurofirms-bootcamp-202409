@@ -8,6 +8,7 @@ import logoutUser from '../../logic/logoutUser.js'
 import getUserName from '../../logic/getUserName.js'
 import getUserPlaces from '../../logic/getUserPlaces.js'
 import Place from './Place.jsx'
+import registerPlace from '../../logic/registerPlace.js'
 
 function Home(props) {
     console.log('HomeView -> render')
@@ -70,11 +71,23 @@ function Home(props) {
         }
     }
 
+    const handleRegisterSpaceClick = event => {
+        try {
+
+            props.onRegisterPlaceClick()
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
+
     return <main className='p-10'>
         <h2>Bienvenido, {name}</h2>
         {places.map(place => <Place key={place.id} place={place}
         // onDeleted= {handlePlaceDeleted} 
         />)}
+        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleRegisterSpaceClick}>Nueva plaza</button>
         <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleLogoutClick}>Cerrar sesión</button>
     </main>
 }

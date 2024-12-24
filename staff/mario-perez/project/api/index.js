@@ -11,7 +11,9 @@ import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
 import getUserPlaces from './logic/getUserPlaces.js'
+import registerPlace from './logic/registerPlace.js'
 import mongoose from 'mongoose'
+import getParkings from './logic/getParkings.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -116,6 +118,63 @@ mongoose.connect(MONGO_URL)
 
                 getUserPlaces(userId)
                     .then(place => res.json(place))
+                    .catch(error => {
+                        if (error instanceof NotFoundError)
+                            res.status(404).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
+            } catch (error) {
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+            }
+        })
+
+        api.post('/places/:parkingId', jsonBodyParser, (req, res) => {
+            try {
+
+                // TODO rename logic to createPlace
+                // TODO trandcript createPost: use token
+                const authorization = req.headers.authorization
+                const token = authorization.slice(7)
+
+                const payload = jwt.verify(token, JWT_SECRET)
+                const userId = payload.sub
+
+
+                const parkingId = req.params.parkingId
+
+                const level = req.body.level
+                const space = req.body.space
+                const checkin = req.body.checkin
+                const checkout = req.body.checkout
+
+                registerPlace(userId, parkingId, level, space, checkin, checkout)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        if (error instanceof DuplicityError)
+                            res.status(409).json({ error: error.constructor.name, message: error.message })
+                        else if (error instanceof SystemError)
+                            res.status(500).json({ error: error.constructor.name, message: error.message })
+                        else
+                            res.status(500).json({ error: SystemError.name, message: error.message })
+                    })
+            } catch (error) {
+                if (error instanceof ValidationError)
+                    res.status(400).json({ error: error.constructor.name, message: error.message })
+                else
+                    res.status(500).json({ error: SystemError.name, message: error.message })
+            }
+        })
+
+        api.get('/parkings', (req, res) => {
+            try {
+                getParkings()
+                    .then(parkings => res.json(parkings))
                     .catch(error => {
                         if (error instanceof NotFoundError)
                             res.status(404).json({ error: error.constructor.name, message: error.message })

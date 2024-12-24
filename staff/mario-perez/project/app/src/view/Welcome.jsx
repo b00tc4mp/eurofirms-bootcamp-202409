@@ -22,8 +22,8 @@ function Welcome(props) {
                 function (event) {
                     event.preventDefault()
 
-                    // props.onLocalizeClick()
-                }} >Localizar coche</button>
+                    // props.onCreateSpaceClick()
+                }} >Crear plaza</button>
         </div>
     </main>
 }

@@ -1,6 +1,6 @@
 import errors from './errors.js'
 
-const { ValidationError } = errors
+const { ValidationError, NotFoundError } = errors
 
 const validate = {
     name(name) {
@@ -34,6 +34,25 @@ const validate = {
         if (typeof userId !== 'string') throw new ValidationError(' userId inválido')
         if (userId.length !== 24) throw new ValidationError("longitud del userId inválida")
     },
+
+    level(level) {
+        if (typeof level !== 'string') throw new ValidationError(' Nivel inválido')
+    },
+
+    space(space) {
+        if (typeof space !== 'string') throw new ValidationError(' Plaza de parking inválida')
+    },
+
+    checkinAndCheckout(checkin, checkout) {
+        if (typeof checkin !== 'string') throw new ValidationError(' checkin inválido')
+        if (typeof checkout !== 'string') throw new ValidationError(' checkout inválido')
+        if (checkin.length === 0) throw new ValidationError('No existe tiempo de llegada')
+        if (checkout.length === 0) throw new ValidationError('No existe tiempo de salida')
+        if (checkout < checkin) throw new ValidationError('La hora de salida debe ser posterior a la hora de llegada')
+    }
+
+
+
 }
 
 export default validate

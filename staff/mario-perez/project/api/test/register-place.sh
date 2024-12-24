@@ -1,0 +1,1 @@
+curl -X POST -H 'Content-Type: application/json' -d '{"6765b5fc4016723ae53e9ebe", '6765b5fc4016723ae53e9ec3', '1', '1H', '2024-12-20T19:00:00.000Z', '2024-12-20T22:30:00.000Z'}' http://localhost:8080/users -v
