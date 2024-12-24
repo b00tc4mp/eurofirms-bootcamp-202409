@@ -10,9 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "com": "file:../com",
-    "create": "^0.1.0-alpha.8",
-    "vite": "^6.0.5"
+    "com": "file:../com"
   },
   "devDependencies": {
     "http-server": "^14.1.1",
