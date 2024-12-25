@@ -30,7 +30,7 @@ function toggleFav(userId, itemId) {
             } else {
                 //buscar si un ítem (item._id) ya está en favoritos de un usuario ( saved in user.favs)
                 // con favs => favs.toString() === item._id.toString() no funciona, por la estructura de datos de Mongoose
-                const index = user.favs.findIndex(favs => favs.equals(item._id))
+                const index = user.favs.findIndex(favs => favs._id.equals(item._id))
                 if (index !== -1) {
                     user.favs.splice(index, 1)
                 } //Eliminamos el ítem si ya está, incluso si está duplicado

@@ -42,13 +42,14 @@ function App() {
         />}
 
         {view === 'home' && <Home
-            onLogout={() => setView('welcome')}
-
             onCreateItem={() => setView('create')}
 
             onFavItems={() => setView('favItems')}
 
             onUserProfile={() => setView('userProfile')}
+
+            onLogout={() => setView('welcome')}
+
         />}
 
         {view === 'create' && <CreateItem

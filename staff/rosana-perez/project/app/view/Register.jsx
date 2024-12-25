@@ -57,7 +57,7 @@ function Register(props) {
 
     return <main className="text-center h-full w-full justify-items-center p-6 py-8">
 
-        <h2 className="font-bold text-emerald-700 ">Register</h2>
+        <h2 className="font-bold text-emerald-200 ">Register</h2>
 
         <form className="p-4 text-left" onSubmit={handleOnRegisterSubmit}>
             <Fieldset>

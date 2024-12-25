@@ -55,20 +55,22 @@ function Login(props) {
 
     return <main className="text-center h-full w-full justify-items-center p-6 py-8">
 
-        <h2 className="font-bold text-emerald-700">Sign in</h2>
+        <h2 className="font-bold text-emerald-200">Sign in</h2>
 
         <form className="p-4 text-left" onSubmit={handleOnLoginSubmit}>
             <Fieldset>
                 <FieldGroup>
+
                     <Field>
-                        <Label htmlFor="username" >Username</Label>
-                        <Input type="text" id="username" placeholder="Write your username" />
+                        <Label htmlFor="username" name="username">Username</Label>
+                        <Input type="text" id="username" />
                     </Field>
 
                     <Field>
-                        <Label htmlFor="password" >Password</Label>
-                        <Input type="password" id="password" placeholder="Write your password" />
+                        <Label htmlFor="password" name="password">Password</Label>
+                        <Input type="password" id="password" />
                     </Field>
+
                 </FieldGroup>
             </Fieldset>
 

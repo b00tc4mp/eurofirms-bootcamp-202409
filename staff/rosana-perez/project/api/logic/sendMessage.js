@@ -1,28 +1,27 @@
 import { User, Item, Message } from '../data/models.js'
 import { validate, errors } from 'com'
 
-//import nodemailer from 'nodemailer'
-
 const { SystemError, NotFoundError } = errors
 
 function sendMessage(userId, itemId, recipientId, content) {
+    console.log(userId)
     validate.userId(userId)
     validate.itemId(itemId)
     validate.recipientId(recipientId)
     validate.content(content)
 
+
     return Promise.all([
 
         User.findById(userId),
-        Item.findById(itemId).populate('author', '_id'),
+        Item.findById(itemId).populate('_id'),
         User.findById(recipientId)
 
     ])
-
         .catch(error => { throw new SystemError(error.message) })
         .then(([user, item, recipient]) => {
 
-            if (!user) throw new NotFoundError('userId not found')
+            if (!user) throw new NotFoundError('user not found')
             if (!item) throw new NotFoundError('item not found')
             if (!recipient) throw new NotFoundError('recipient not found')
 

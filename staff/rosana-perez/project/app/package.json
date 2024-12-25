@@ -16,14 +16,14 @@
     "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.1",
     "com": "file:../com",
-    "dotenv": "^16.4.7",
     "framer-motion": "^11.13.3",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "mongodb": "^6.12.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
@@ -38,11 +38,6 @@
     "globals": "^15.12.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
-    "vite": "^6.0.5"
-  },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-  "main": "eslint.config.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "vite": "^6.0.1"
+  }
 }

@@ -32,7 +32,7 @@ mongoose.connect(MONGO_URL)
 
         const jsonBodyParser = express.json()
 
-        function handleError(res, error) {
+        function handlePromiseError(res, error) {
             if (error instanceof ValidationError) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             } else if (error instanceof DuplicityError) {
@@ -50,6 +50,14 @@ mongoose.connect(MONGO_URL)
             }
         }
 
+        function handleCatchError(res, error) {
+            if (error instanceof ValidationError)
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            else
+                res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
+
+
         api.post('/users', jsonBodyParser, (req, res) => {
             try {
                 const name = req.body.name
@@ -60,12 +68,9 @@ mongoose.connect(MONGO_URL)
 
                 registerUser(name, location, email, username, password)
                     .then(() => res.status(201).send())
-                    .catch(error => handleError(res, error))
+                    .catch(error => handlePromiseError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                handleCatchError(res, error)
             }
         })
 
@@ -77,12 +82,9 @@ mongoose.connect(MONGO_URL)
                 authenticateUser(username, password)
                     .then(userId => jwt.sign({ sub: userId }, JWT_SECRET))
                     .then(token => res.json(token))
-                    .catch(error => handleError(res, error))
+                    .catch(error => handlePromiseError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                handleCatchError(res, error)
             }
         })
 
@@ -98,12 +100,9 @@ mongoose.connect(MONGO_URL)
 
                 getUserName(userId, targetUserId)
                     .then(user => res.json(user))
-                    .catch(error => handleError(res, error))
+                    .catch(error => handlePromiseError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                handleCatchError(res, error)
             }
         })
 
@@ -122,12 +121,9 @@ mongoose.connect(MONGO_URL)
 
                 createItem(userId, location, image, title, description)
                     .then(() => res.status(201).send())
-                    .catch(error => handleError(res, error))
+                    .catch(error => handlePromiseError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                handleCatchError(res, error)
             }
         })
 
@@ -141,12 +137,9 @@ mongoose.connect(MONGO_URL)
 
                 getItems(userId)
                     .then(items => res.json(items))
-                    .catch(error => handleError(res, error))
+                    .catch(error => handlePromiseError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                handleCatchError(res, error)
             }
         })
 
@@ -164,12 +157,9 @@ mongoose.connect(MONGO_URL)
 
                 editItem(userId, itemId, title)
                     .then(() => res.status(204).send())
-                    .catch(error => handleError(res, error))
+                    .catch(error => handlePromiseError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                handleCatchError(res, error)
             }
         })
 
@@ -185,12 +175,9 @@ mongoose.connect(MONGO_URL)
 
                 deleteItem(userId, itemId)
                     .then(() => res.status(204).send())
-                    .catch(error => handleError(res, error))
+                    .catch(error => handlePromiseError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                handleCatchError(res, error)
             }
         })
 
@@ -201,7 +188,7 @@ mongoose.connect(MONGO_URL)
 
             const payload = jwt.verify(token, JWT_SECRET)
             const userId = payload.sub
-
+            console.log(userId)
             const itemId = req.params.itemId
             const recipientId = req.body.recipientId
             const content = req.body.content
@@ -210,7 +197,7 @@ mongoose.connect(MONGO_URL)
                 .then(() => {
                     return res.status(201).send()
                 })
-                .catch(error => handleError(res, error))
+                .catch(error => handlePromiseError(res, error))
         })
 
         api.get('/messages', (req, res) => {
@@ -223,12 +210,9 @@ mongoose.connect(MONGO_URL)
 
                 getMessages(userId)
                     .then(messages => res.json(messages))
-                    .catch(error => handleError(res, error))
+                    .catch(error => handlePromiseError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                handleCatchError(res, error)
             }
         })
 
@@ -246,7 +230,7 @@ mongoose.connect(MONGO_URL)
                 .then(() => {
                     return res.status(200).send()
                 })
-                .catch(error => handleError(res, error))
+                .catch(error => handlePromiseError(res, error))
 
         })
 
@@ -260,12 +244,9 @@ mongoose.connect(MONGO_URL)
 
                 favItems(userId)
                     .then(items => res.json(items))
-                    .catch(error => handleError(res, error))
+                    .catch(error => handlePromiseError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                handleCatchError(res, error)
             }
         })
 

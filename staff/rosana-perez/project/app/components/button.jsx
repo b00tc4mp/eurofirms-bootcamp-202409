@@ -190,5 +190,3 @@ export function TouchTarget({ children }) {
     </>
   )
 }
-
-export default Button

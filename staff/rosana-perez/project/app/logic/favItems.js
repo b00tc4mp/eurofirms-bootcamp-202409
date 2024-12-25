@@ -12,8 +12,7 @@ function favItems() {
     const userId = payload.sub
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/favs`, {
-        method: 'GET'
-        ,
+        method: 'GET',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }

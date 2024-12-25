@@ -20,26 +20,51 @@ function UserProfile(props) {
     console.log('UserProfile rendering')
 
     const [user, setUser] = useState(null)
-
+    const [name, setName] = useState(null)
     const [items, setItems] = useState([])
-
     const [messages, setMessages] = useState([])
 
-    const itemOwn = items.some(item => item.author.toString() === user?.id)
-
-    const messagesOut = messages.some(message => message.sender.toString() === user?.id)
     // const messagesIn = messages.some(message => message.recipient.toString() === user?.id) TODO: logics in messages in, about the user's items
-
     const { item } = props
-    const userFavs = user.some(user => user.favs.toString() === item?.id)
+
+    useEffect(() => {
+        getUserName()
+            .then(name => {
+                setName(name)
+            })
+            .catch(error => {
+                if (error instanceof NotFoundError)
+                    alert(error.message)
+                else if (error instanceof SystemError)
+                    alert('Sorry, there was a problem. Try again later.')
+
+                console.error(error)
+            })
+    }, [])
+
+    console.log('User Profile -> state: user = ' + name)
 
     useEffect(() => {
         try {
             getUserName()
-                .then(user => {
-                    setUser(user)
-
+                .then((name) => {
+                    setName(name)
                 })
+        } catch (error) {
+            console.error(error)
+        }
+    })
+
+
+    useEffect(() => {
+
+        const itemOwn = items.some(item => item.author.toString() === user?.id)
+
+        const messagesOwn = messages.some(message => message.sender.toString() === user?.id)
+
+        if (user && itemOwn) {
+            getItems()
+                .then(items => setItems(items))
                 .catch(error => {
                     if (error instanceof NotFoundError)
                         alert(error.message)
@@ -48,94 +73,24 @@ function UserProfile(props) {
 
                     console.error(error)
                 })
-        } catch (error) {
-            if (error instanceof ValidationError)
-                alert(error.message)
-            else
-                alert('Sorry, there was a problem. Try again later.')
-
-            console.error(error)
-        }
-    }, [])
-
-    console.log('User Profile -> state: user = ' + user.name)
-
-    function loadAll() {
-
-        if (user && itemOwn) {
-            try {
-                getItems()
-                    .then(items => setItems(items))
-                    .catch(error => {
-                        if (error instanceof NotFoundError)
-                            alert(error.message)
-                        else if (error instanceof SystemError)
-                            alert('Sorry, there was a problem. Try again later.')
-
-                        console.error(error)
-                    })
-            } catch (error) {
-                if (error instanceof ValidationError) {
-                    alert(error.message)
-                } else {
-                    alert('Sorry, there was a problem. Try again later.')
-                }
-                console.error(error)
-            }
         }
 
-        if (user && messagesOut) { //if (user && messagesOut || messagesIn) {
-            try {
-                getMessages()
-                    .then(messages => setMessages(messages))
-                    .catch(error => {
-                        if (error instanceof NotFoundError)
-                            alert(error.message)
-                        else if (error instanceof SystemError)
-                            alert('Sorry, there was a problem. Try again later.')
-                    })
-                console.error(error)
+        if (user && messagesOwn) { //if (user && messagesOut || messagesIn) {
+            getMessages()
+                .then(messages => setMessages(messages))
+                .catch(error => {
+                    if (error instanceof NotFoundError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('Sorry, there was a problem. Try again later.')
 
-            } catch (error) {
-                if (error instanceof ValidationError) {
-                    alert(error.message)
-                } else {
-                    alert('Sorry, there was a problem. Try again later.')
-                }
-                console.error(error)
-            }
+                    console.error(error)
+                })
         }
 
         if (user && user.favs) {
-            try {
-                favItems()
-                    .then(user => setUser(user.favs))
-                    .catch(error => {
-                        if (error instanceof NotFoundError)
-                            alert(error.message)
-                        else if (error instanceof SystemError)
-                            alert('Sorry, there was a problem. Try again later.')
-
-                        console.error(error)
-                    })
-            } catch (error) {
-                if (error instanceof ValidationError) {
-                    alert(error.message)
-                } else {
-                    alert('Sorry, there was a problem. Try again later.')
-                }
-                console.error(error)
-            }
-        }
-    }
-    useEffect(() => {
-        try {
-            loadAll()
-                .then((items, messages, user) => {
-                    setItems(items)
-                    setMessages(messages)
-                    setUser(user.favs)
-                })
+            favItems()
+                .then(user => setUser(user.favs))
                 .catch(error => {
                     if (error instanceof NotFoundError)
                         alert(error.message)
@@ -144,13 +99,6 @@ function UserProfile(props) {
 
                     console.error(error)
                 })
-        } catch (error) {
-            if (error instanceof ValidationError)
-                alert(error.message)
-            else
-                alert('Sorry, there was a problem. Try again later.')
-
-            console.error(error)
         }
     }, [])
 
@@ -160,8 +108,8 @@ function UserProfile(props) {
 
 
     return <>
-        <header className="w-full bg-emerald-400 flex justify-between items-center px-2 h-12 z-10">
-            {user ? <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">Hello, {user.name}!</h3> : null}
+        <header className="w-full bg-emerald-200 flex justify-between items-center px-2 h-12 z-10">
+            {name ? <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">Hello, {name}!</h3> : null}
         </header>
 
         <main className="pt-4 my-6">
@@ -188,13 +136,10 @@ function UserProfile(props) {
                     >
                     </Item>
                 })}
-
-
-
             </section>
 
             <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                {messagesOut.map(message => {
+                {messages.own && messages.map(message => {
                     return (
                         <section key={message._id}>
                             <p>Item: {message.item}</p>
@@ -207,7 +152,7 @@ function UserProfile(props) {
             </section>
 
             <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                {user.map(userFavs => {
+                {user.favs && user.map(user => {
                     return (
                         <section key={item._id}>
                             <p>Item: {item}</p>
@@ -263,7 +208,6 @@ function UserProfile(props) {
                         onClick={handleOnEditProfileClick}
                         className="inline-flex items-center justify-center w-10 h-10 font-medium bg-emerald-600 rounded-full hover:bg-emerald-700 group focus:ring-4 focus:ring-emerald-300 focus:outline-none dark:focus:ring-emerald-800">
                         <PlusIcon className="text-gray-50 w-24 h-24" />
-                        {/* {Use text-gray-50 for a brighter white */}
                         <span className="sr-only">New item</span>
                     </Button>
                 </div>
@@ -277,7 +221,5 @@ function UserProfile(props) {
         </div >
     </>
 }
-
-
 
 export default UserProfile

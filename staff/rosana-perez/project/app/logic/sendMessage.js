@@ -17,6 +17,7 @@ function sendMessage(itemId, recipientId, content) {
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
+
             const status = response.status
 
             if (status === 201) return

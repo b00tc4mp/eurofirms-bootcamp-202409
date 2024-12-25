@@ -13,7 +13,7 @@ import getUserName from '../logic/getUserName'
 import getItems from '../logic/getItems'
 import logoutUser from '../logic/logoutUser'
 import { HeartIcon, UserCircleIcon } from '@heroicons/react/24/outline'
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
 function Home(props) {
     console.log('Home rendering')
@@ -23,13 +23,14 @@ function Home(props) {
     const [user, setUser] = useState(null)
     const [items, setItems] = useState([])
 
+    const { item } = props
+
     console.log('Home -> state: name = ' + name)
 
     useEffect(() => {
         try {
             getUserName()
                 .then((name) => {
-
                     setName(name)
                 })
                 .catch(error => {
@@ -65,9 +66,9 @@ function Home(props) {
     useEffect(() => {
         try {
             if (user && user.favs) {
-                const isFav = user.favs.some(item => item.id === item.id)
+                const isFav = user.favs.some(fav => fav.id === item.id)
                 return isFav
-            } setUser(user)
+            }
         } catch (error) {
             if (error instanceof ValidationError)
                 alert(error.message)
@@ -76,9 +77,7 @@ function Home(props) {
 
             console.error(error)
         }
-
-    }, [])
-
+    }, [user])
 
 
     const handleLogoutClick = () => {
@@ -91,23 +90,54 @@ function Home(props) {
         }
     }
 
-    const handleOnDeleted = () => loadItems()
-    const handleOnEdited = () => loadItems()
-    const handleOnSent = () => loadItems()
+    const handleOnDeleted = () => {
+        getItems()
+            .then(items => setItems(items))
+            .catch(error => {
+                console.error(error)
+
+            })
+    }
+
+    const handleOnEdited = () => {
+        getItems()
+            .then(items => setItems(items))
+            .catch(error => {
+                console.error(error)
+            })
+    }
+
+    const handleOnSent = () => {
+        getItems()
+            .then(items => setItems(items))
+            .catch(error => {
+                console.error(error)
+            })
+    }
+
     const handleOnCreateClick = () => props.onCreateItem()
-    const handleToggleFavClick = () => loadItems()
+
+    const handleToggleFavClick = () => {
+        getItems()
+            .then(items => setItems(items))
+            .catch(error => {
+                console.error(error)
+            })
+    }
+
     const handleOnProfileClick = () => props.onUserProfile()
+
     const handleOnFavItemsClick = () => props.onFavItems()
 
     return (
-        <>
-            <header className="w-full bg-emerald-400 flex justify-between items-center px-2 h-12 z-10">
+        <main>
+            <header className=" pt-0 w-full bg-emerald-200 flex justify-between items-center px-2 h-12 z-10">
 
                 <section className="flex justify-start">
                     {name && <h3 className="text-emerald-700 font-bold gap-2">{name}</h3>}
                 </section>
 
-                <section className="flex justify-end gap-0.5">
+                <nav className="flex justify-end gap-0.5">
 
                     <Button
                         plain
@@ -145,31 +175,33 @@ function Home(props) {
                         <span className="sr-only">Logout</span>
                     </Button>
 
-                </section >
+                </nav >
             </header>
 
-            <main className="container pt-4 pb-4 bg-gray-100 my-6">
-                <div className="mx-auto max-w-2xl px-4 py-10 sm:px-3 sm:py-0 lg:max-w-7xl lg:px-4">
+            <div className="container pt-4 pb-4 bg-gray-100 my-6">
+                <section className="mx-auto max-w-2xl px-4 py-2 sm:px-3 sm:py-0 lg:max-w-7xl lg:px-4">
                     <h2 className="text-2xl font-bold tracking-tight text-emerald-900">Recent products</h2>
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                </section>
+                <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     {items.map(item => {
                         const isFav = user && user.favs ? user.favs.some(fav => fav.id === item.id) : false
                         return (
-                            < Item
-                                key={item.id}
-                                item={item}
-                                isFav={isFav}
-                                onDeleted={handleOnDeleted}
-                                onEdited={handleOnEdited}
-                                onMessage={handleOnSent}
-                                onToggleFavClick={handleToggleFavClick}
-                            />
+                            <article key={item.id}>
+                                < Item
+
+                                    item={item}
+                                    isFav={isFav}
+                                    onDeleted={handleOnDeleted}
+                                    onEdited={handleOnEdited}
+                                    onMessage={handleOnSent}
+                                    onToggleFavClick={handleToggleFavClick}
+                                />
+                            </article>
                         )
                     })}
-                </div>
-            </main>
-        </>
+                </section>
+            </div>
+        </main>
     )
 }
 

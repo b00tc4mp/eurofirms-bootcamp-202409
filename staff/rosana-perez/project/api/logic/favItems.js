@@ -7,7 +7,6 @@ function favItems(userId) {
     validate.userId(userId)
 
     return User.findById(userId)
-        .populate('favs')
         .populate({ //populate es secuencial, es decir, cada uno sobreescribe sobre el anterior
             path: 'favs', //-> escoge sólo la propiedad favs para poblar 
             select: '-_id -__v', // -> elimina esos campos (-)

@@ -65,7 +65,6 @@ function Item(props) {
 
     const handleOnEditCancelClick = () => setIsOpen(false)
 
-
     const handleOnSentMessage = event => {
         event.preventDefault()
 
@@ -98,9 +97,10 @@ function Item(props) {
             }
         }
     }
-    const handleOnToggleMessageClick = () => { toggleMessage(false) }
 
-    const handleOnToggleMessageClickTrue = () => { toggleMessage(true) }
+    const handleOnToggleMessageClick = () => { toggleMessage(true) }
+
+    const handleOnToggleMessageOut = () => { toggleMessage(false) }
 
     const handleOnDeleteClick = () => {
         if (confirm('Delete item?')) {
@@ -157,8 +157,7 @@ function Item(props) {
 
 
     return (
-        <article className="bg-white w-full container-fluid px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12"> {/* Adjusted padding for mobile */}
-
+        <article className="bg-white w-full container-fluid px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
             <a key={item.id} href="#" className="group block w-full">
                 <section className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
                     <img
@@ -168,7 +167,7 @@ function Item(props) {
                     />
                 </section>
                 <section>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '1rem', fontSize: '0.875rem', color: '#4B5563' }}>
+                    <div className="flex justify-between items-start m-1 text-[0.875rem] text-[#4B5563]">
                         <h3>{item.author.username}</h3>
                         <p>{item.location}</p>
                     </div>
@@ -191,9 +190,9 @@ function Item(props) {
                                         </Field>
                                     </DialogBody>
                                     <DialogActions>
-                                        <Button plain className="m-2" type="submit">Edit</Button>
-                                        <Button plain color="white" className="btn w-full sm:w-auto justify-items-start" onClick={handleOnEditCancelClick}>
-                                            <ArrowUturnLeftIcon />
+                                        <Button type="submit">Edit</Button>
+                                        <Button plain color="emerald-300" onClick={handleOnEditCancelClick}>
+                                            Cancel
                                         </Button>
                                     </DialogActions>
                                 </section>
@@ -206,14 +205,21 @@ function Item(props) {
                 {message ? (
                     <>
                         <form className="flex flex-col items-center" onSubmit={handleOnSentMessage}>
-                            <label htmlFor="text">Write a message:</label>
-                            <Textarea type="text" id="text" name="text" ></Textarea>
+
+                            <Field>
+                                <Label htmlFor="text" className="text-xs" >Write a message:</Label>
+                                <Textarea type="text" id="text"  ></Textarea>
+                            </Field>
 
                             <div className="flex justify-between h-4 items-center my-6 m-2">
-                                <Button className="btn w-33% sm:w-auto justify-items-start" plain color="white" onClick={handleOnToggleMessageClick}>
+
+                                <Button className="btn w-33% sm:w-auto justify-items-start" plain color="white" onClick={handleOnToggleMessageOut}>
                                     <ArrowUturnLeftIcon />
                                 </Button>
 
+                                <Button type="submit" className="btn w-33% sm:w-auto justify-items-start" plain color="white">
+                                    Send
+                                </Button>
                             </div>
                         </form>
                     </>
@@ -223,12 +229,12 @@ function Item(props) {
                 <div className="flex flex-wrap justify-between mt-2 gap-2">
                     <time className=" sm:w-auto text-xs">{itemDate}</time>
 
-                    {!item.own &&
-                        <Button className="btn w-33%  sm:w-auto" plain color="white" type="button" onClick={handleOnToggleMessageClickTrue}>
+                    {!item.own && (
+                        <Button className="btn w-33% sm:w-auto" plain color="white" type="button" onClick={handleOnToggleMessageClick}>
                             <EnvelopeIcon />
                         </Button>
+                    )}
 
-                    }
                     {item.own && (
                         <Button className="btn w-33% sm:w-auto" plain color="white" type="button" onClick={handleOnDeleteClick}>
                             <TrashIcon />

@@ -178,6 +178,7 @@ import { errors } from 'com'
 import { Button } from '../components/button'
 import { Input } from '../components/input'
 import { Textarea } from '../components/textarea'
+import { Listbox, ListboxLabel, ListboxOption } from '../components/listbox'
 import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 import { useState, useEffect } from 'react'
@@ -217,17 +218,18 @@ function CreateItem(props) {
 
     const handleOnCancelClick = () => props.onCancelClick()
 
-    const [formData, setFormData] = useState({ location: '' })
+    const [formData, setFormData] = useState({ location: 'A Coruña' });
 
-    const handleChange = (event) => {
-        const { value } = event.target //accede a su valor
+    const handleChange = (selectedValue) => {
+        console.log('Location selected:', selectedValue); // Verifica el valor seleccionado
 
-        console.log('Location selected:', value) // Verifica el valor seleccionado
+        // Update the state with the new location
         setFormData((prevState) => ({
             ...prevState,
-            location: value // actualiza el estado con la nueva location
-        }))
-    }
+            location: selectedValue,
+        }));
+    };
+
 
     const handleCreateItemSubmit = event => {
         event.preventDefault()
@@ -265,12 +267,12 @@ function CreateItem(props) {
 
     return (
         <>
-            <header className="w-full bg-emerald-400 display flex justify-between items-center px-2 h-12">
+            <header className="w-full display flex justify-between items-center bg-emerald-200 px-2 h-12">
                 <section className="w-full flex justify-between">
                     {user && <h3 className="text-gray-700 flex justify-center font-bold gap-2">{user.name}</h3>}
                 </section>
                 <section>
-                    <Button plain onClick={handleOnCancelClick} className="justify-items-end">
+                    <Button plain onClick={handleOnCancelClick} className="mr-auto">
                         <ArrowUturnLeftIcon />
                     </Button>
                 </section>
@@ -278,41 +280,108 @@ function CreateItem(props) {
 
             <main className="min-h-screen flex flex-col items-center justify-center">
                 <div className="text-center w-full p-8 max-w-lg">
-                    <h2 className="font-bold text-emerald-700">Create Item</h2>
+                    <h2 className="font-semibold text-emerald-700">Create item</h2>
 
                     <form className="my-10 text-left" onSubmit={handleCreateItemSubmit}>
                         <Fieldset>
                             <FieldGroup>
                                 <Field>
                                     <div className="input-with-select w-full">
-                                        <Label htmlFor="location" name="location">Select Location</Label>
-                                        <select
-                                            name="city"
-                                            id="city"
-                                            value={formData.location}
-                                            onChange={handleChange}
-                                            className="select-dropdown bg-gray-100">
-                                            <option value="A Coruña">A Coruna</option>
-                                            <option value="Lugo">Lugo</option>
-                                            <option value="Ourense">Ourense</option>
-                                            <option value="Pontevedra">Pontevedra</option>
-                                            <option value="Vigo">Vigo</option>
-                                            <option value="Ferrol">Ferrol</option>
-                                            <option value="Santiago de Compostela">Santiago de Compostela</option>
-                                            <option value="A Estrada">A Estrada</option>
-                                            <option value="Ribeira">Ribeira</option>
-                                            <option value="Betanzos">Betanzos</option>
-                                            <option value="Vilagarcía de Arousa">Vilagarcía de Arousa</option>
-                                            <option value="Monforte de Lemos">Monforte de Lemos</option>
-                                            <option value="Cee">Cee</option>
-                                            <option value="Padrón">Padrón</option>
-                                            <option value="Carballo">Carballo</option>
-                                            <option value="Lalín">Lalín</option>
-                                            <option value="O Grove">O Grove</option>
-                                            <option value="Vilanova de Arousa">Vilanova de Arousa</option>
-                                            <option value="Camariñas">Camarinas</option>
-                                            <option value="Sarria">Sarria</option>
-                                        </select>
+                                        <Field>
+                                            <Label>Location</Label>
+                                            <Listbox as="div" name="city" defaultValue="A Coruña"
+                                                id="city"
+                                                value={formData.location}
+                                                onChange={handleChange}>
+                                                <ListboxOption value="A Coruña">
+                                                    <ListboxLabel>A Coruña</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="A Estrada">
+                                                    <ListboxLabel>A Estrada</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Ames">
+                                                    <ListboxLabel>Ames</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Betanzos">
+                                                    <ListboxLabel>Betanzos</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Boiro">
+                                                    <ListboxLabel>Boiro</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Camariñas">
+                                                    <ListboxLabel>Camariñas</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Carballo">
+                                                    <ListboxLabel>Carballo</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Cee">
+                                                    <ListboxLabel>Cee</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Ferrol">
+                                                    <ListboxLabel>Ferrol</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Lalín">
+                                                    <ListboxLabel>Lalín</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Lugo">
+                                                    <ListboxLabel>Lugo</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Meis">
+                                                    <ListboxLabel>Meis</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Monforte de Lemos">
+                                                    <ListboxLabel>Monforte de Lemos</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Muros">
+                                                    <ListboxLabel>Muros</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Neda">
+                                                    <ListboxLabel>Neda</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="O Barco de Valdeorras">
+                                                    <ListboxLabel>O Barco de Valdeorras</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="O Grove">
+                                                    <ListboxLabel>O Grove</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Ourense">
+                                                    <ListboxLabel>Ourense</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Padrón">
+                                                    <ListboxLabel>Padrón</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Pontecedo">
+                                                    <ListboxLabel>Pontecedo</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Pontevedra">
+                                                    <ListboxLabel>Pontevedra</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Ribeira">
+                                                    <ListboxLabel>Ribeira</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Rianxo">
+                                                    <ListboxLabel>Rianxo</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Ribadeo">
+                                                    <ListboxLabel>Ribadeo</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Santiago de Compostela">
+                                                    <ListboxLabel>Santiago de Compostela</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Sarria">
+                                                    <ListboxLabel>Sarria</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Vigo">
+                                                    <ListboxLabel>Vigo</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Vilanova de Arousa">
+                                                    <ListboxLabel>Vilanova de Arousa</ListboxLabel>
+                                                </ListboxOption>
+                                                <ListboxOption value="Viveiro">
+                                                    <ListboxLabel>Viveiro</ListboxLabel>
+                                                </ListboxOption>
+                                            </Listbox>
+                                        </Field>
                                     </div>
                                 </Field>
 
