@@ -1,8 +1,9 @@
 import { User } from '../data/models.js'
+import { validate } from 'com'
 
 function getUserName(userId, targetUserId) {
-    if (typeof userId !== 'string') throw new Error('invalid userId')
-    if (typeof targetUserId !== 'string') throw new Error('invalid targetUserId')
+    validate.userId(userId)
+    validate.targetUserId(targetUserId)
 
     return Promise.all([
         User.findById(userId),

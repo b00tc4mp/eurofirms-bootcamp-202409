@@ -1,8 +1,9 @@
 import { User, Post } from '../data/models.js'
+import { validate } from 'com'
 
 function deletePost(userId, postId) {
-    if (typeof userId !== 'string') throw new Error('invalid userId')
-    if (typeof postId !== 'string') throw new Error('invalid postId')
+    validate.userId(userId)
+    validate.postId(postId)
 
     return Promise.all([
         User.findById(userId).lean(),
