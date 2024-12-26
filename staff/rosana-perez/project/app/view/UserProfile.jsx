@@ -3,6 +3,9 @@ import { errors } from 'com'
 const { NotFoundError, SystemError, ValidationError } = errors
 
 import { Button } from '../components/button'
+import { Input } from '../components/input'
+import { Text, TextLink } from '../components/text'
+import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
 
 import { useState, useEffect } from 'react'
 
@@ -11,9 +14,9 @@ import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 import Item from './Item'
 
 import getUserName from '../logic/getUserName'
+import getUser from '../logic/getUser'
 import getItems from '../logic/getItems'
 import getMessages from '../logic/getMessages'
-import favItems from '../logic/favItems'
 
 
 function UserProfile(props) {
@@ -27,8 +30,26 @@ function UserProfile(props) {
     // const messagesIn = messages.some(message => message.recipient.toString() === user?.id) TODO: logics in messages in, about the user's items
 
     useEffect(() => {
+
+        getUser()
+            .then(user => {
+                setUser(user)
+
+            })
+            .catch(error => {
+                if (error instanceof NotFoundError)
+                    alert(error.message)
+                else if (error instanceof SystemError)
+                    alert('Sorry, there was a problem. Try again later.')
+
+                console.error(error)
+            })
+
         getUserName()
-            .then(name => setName(name))
+            .then(name => {
+
+                setName(name)
+            })
             .catch(error => {
                 if (error instanceof NotFoundError)
                     alert(error.message)
@@ -40,14 +61,17 @@ function UserProfile(props) {
     }, [])
 
     console.log('User Profile -> state: user = ' + name)
+    console.log("User data:", user)
 
     useEffect(() => {
 
-        const itemOwn = items.some(item => item.author.toString() === user?.id)
+        const { user } = props
+        const itemOwn = items.some(item => item.author._id.toString() === user?.id)
 
         const messagesOwn = messages.some(message => message.sender.toString() === user?.id)
 
         if (user && itemOwn) {
+            console.log('items own _> ', itemOwn)
             getItems()
                 .then(items => setItems(items))
                 .catch(error => {
@@ -72,20 +96,7 @@ function UserProfile(props) {
                     console.error(error)
                 })
         }
-
-        if (user && user.favs) {
-            favItems()
-                .then(user => setUser(user))
-                .catch(error => {
-                    if (error instanceof NotFoundError)
-                        alert(error.message)
-                    else if (error instanceof SystemError)
-                        alert('Sorry, there was a problem. Try again later.')
-
-                    console.error(error)
-                })
-        }
-    }, [])
+    }, [user])
 
     const handleOnCancelClick = () => props.onCancelClick()
     const handleOnFavItemsClick = () => props.onFavItems()//TODO... not functional
@@ -93,6 +104,7 @@ function UserProfile(props) {
 
     const messagesOwn = messages.some(message => message.sender.toString() === user?.id)
     const itemOwn = items.some(item => item.author.toString() === user?.id)
+
 
     return <>
         <header className="w-full bg-emerald-200 flex justify-between items-center px-2 h-24 z-10">
@@ -116,13 +128,30 @@ function UserProfile(props) {
         <main className="pt-4 my-6">
             <div className="mx-auto max-w-screen-xl px-6 py-10 sm:px-3 sm:py-0 lg:max-w-screen-xl lg:px-6">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">User Data</h2>
-                <section className="sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                    <h3 className="mt-4 text-sm text-gray-700 font-medium">{user?.name}</h3>
-                    <p className="mt-1 text-lg font-medium text-gray-900">{user?.location}</p>
-                    <p className="mt-1 text-lg font-medium text-gray-900">{user?.surname}</p>
-                    <p className="mt-1 text-lg font-medium text-gray-900">{user?.email}</p>
+                {/* <form className="p-4 text-left"  >
+                    <Fieldset>
+                        <FieldGroup>
+                            <Field>
+                                <Label htmlFor="name" name="name">Name</Label>
+                                <Input type="text" id="name" placeholder={name} />
+                            </Field>
+                            <Field>
+                                <Label htmlFor="location" name="location">Location</Label>
+                                <Input type="text" id="location" placeholder={user.location} />
+                            </Field>
+                            <Field>
+                                <Label htmlFor="email" name="email">Email</Label>
+                                <Input type="email" id="email" placeholder={user.email} />
+                            </Field>
+                            <Field>
+                                <Label htmlFor="username" name="username">Username</Label>
+                                <Input type="text" id="username" placeholder={user.username} />
+                            </Field>
+                        </FieldGroup>
+                    </Fieldset>
+                    <Button className="my-6 text-xs" color="emerald" type="submit">Change Personal Data</Button>
+                </form> */}
 
-                </section>
                 <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900">Your items</h2>
                     {items.map(item => {
@@ -149,21 +178,6 @@ function UserProfile(props) {
                                 <p>Content: {message.content}</p>
                             </section>
                         )
-                    })}
-                </section>
-
-                <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                    <h2 className="text-2xl font-bold tracking-tight text-gray-900">Favourite items</h2>
-                    {user && user.favs && user.favs.map(item => {
-                        <Item
-                            key={item._id}
-                            location={item.location}
-                            author={item.author}
-                            image={item.image}
-                            title={item.title}
-                            description={item.description}
-                        >
-                        </Item>
                     })}
                 </section>
             </div>

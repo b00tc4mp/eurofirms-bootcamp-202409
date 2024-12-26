@@ -10,6 +10,7 @@ const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFound
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
+import getUser from './logic/getUser.js'
 import createItem from './logic/createItem.js'
 import getItems from './logic/getItems.js'
 import deleteItem from './logic/deleteItem.js'
@@ -105,6 +106,23 @@ mongoose.connect(MONGO_URL)
                 handleCatchError(res, error)
             }
         })
+
+        api.get('/users/:userId/', (req, res) => {
+            try {
+                const authorization = req.headers.authorization
+                const token = authorization.slice(7)
+
+                const payload = jwt.verify(token, JWT_SECRET)
+                const userId = payload.sub
+
+                getUser(userId)
+                    .then(user => res.json(user))
+                    .catch(error => handlePromiseError(res, error))
+            } catch (error) {
+                handleCatchError(res, error)
+            }
+        })
+
 
         api.post('/items', jsonBodyParser, (req, res) => {
             try {

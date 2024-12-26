@@ -18,20 +18,6 @@ function getUserName(userId, targetUserId) {
             if (!user) throw new NotFoundError('user not found')
             if (!targetUser) throw new NotFoundError('target user not found')
 
-            /* if (!user.favs) { user.favs = [] }
-
-            targetUser.favs = targetUser.favs || [] */
-
-            /*  targetUser.favs.forEach((favItem) => {
-                 favItem = favItem.toString()
-             }) */
-
-            /*   for (let i = 0; i < targetUser.favs.length; i++) {
-                  targetUser.favs[i] = targetUser.favs[i].toString()
-              } */
-
-            /* targetUser.favs = targetUser.favs.map(favItem => favItem.toString()) */
-
             return targetUser.name
         })
 }
