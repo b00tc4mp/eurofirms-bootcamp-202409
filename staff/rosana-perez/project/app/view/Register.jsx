@@ -56,8 +56,25 @@ function Register(props) {
 
 
     return <main className="text-center h-full w-full justify-items-center p-6 py-8">
+        <header className="w-full bg-emerald-200 flex justify-between items-center px-2 h-24 z-10">
+            <div className="flex lg:flex-1">
+                <a href="#" className="m-1.5 p-1.5">
+                    <span className="sr-only">Dona2</span>
+                    <img
+                        alt=""
+                        src="/images/greenWorld.png"
+                        className="h-12 w-auto"
+                    />
+                    <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
+                </a>
+            </div>
 
-        <h2 className="font-bold text-emerald-200 ">Register</h2>
+            <Button plain onClick={handleOnCancelClick} className="justify-items-end">
+                <ArrowUturnLeftIcon />
+            </Button>
+        </header>
+
+        <h2 className="font-bold text-emerald-200 mt-12 ">Register</h2>
 
         <form className="p-4 text-left" onSubmit={handleOnRegisterSubmit}>
             <Fieldset>
@@ -90,10 +107,6 @@ function Register(props) {
             <Text className="my-6 text-xs" >Do you already have an account? <TextLink href="#" onClick={handleOnLoginClick}>Login now</TextLink></Text>
 
         </form>
-
-        <Button plain onClick={handleOnCancelClick} className="justify-items-start">
-            <ArrowUturnLeftIcon />
-        </Button>
     </main>
 }
 

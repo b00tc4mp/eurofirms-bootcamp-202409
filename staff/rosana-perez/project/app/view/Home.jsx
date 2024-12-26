@@ -60,7 +60,7 @@ function Home(props) {
 
             console.error(error)
         }
-    }, [])  // Si el user cambia, se vuelve a ejecutar el useEffect
+    }, [])
 
 
     useEffect(() => {
@@ -131,10 +131,20 @@ function Home(props) {
 
     return (
         <main>
-            <header className=" pt-0 w-full bg-emerald-200 flex justify-between items-center px-2 h-12 z-10">
-
+            <header className=" pt-0 w-full flex justify-between bg-emerald-200 items-center px-2 h-24 z-10">
+                <div className="flex lg:flex-1">
+                    <a href="#" className="m-1.5 p-1.5">
+                        <span className="sr-only">Dona2</span>
+                        <img
+                            alt=""
+                            src="/images/greenWorld.png"
+                            className="h-12 w-auto"
+                        />
+                        <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
+                    </a>
+                </div>
                 <section className="flex justify-start">
-                    {name && <h3 className="text-emerald-700 font-bold gap-2">{name}</h3>}
+                    {name && <h3 className="font-bold text-emerald-700 gap-2">{name}</h3>}
                 </section>
 
                 <nav className="flex justify-end gap-0.5">
@@ -174,13 +184,12 @@ function Home(props) {
                         < ArrowUturnLeftIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
                         <span className="sr-only">Logout</span>
                     </Button>
-
                 </nav >
             </header>
 
-            <div className="container pt-4 pb-4 bg-gray-100 my-6">
+            <div className="container pt-4 pb-4 my-6">
                 <section className="mx-auto max-w-2xl px-4 py-2 sm:px-3 sm:py-0 lg:max-w-7xl lg:px-4">
-                    <h2 className="text-2xl font-bold tracking-tight text-emerald-900">Recent products</h2>
+                    <h2 className="text-2xl font-bold tracking-tight text-emerald-900">New listings</h2>
                 </section>
                 <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     {items.map(item => {
@@ -188,7 +197,6 @@ function Home(props) {
                         return (
                             <article key={item.id}>
                                 < Item
-
                                     item={item}
                                     isFav={isFav}
                                     onDeleted={handleOnDeleted}
@@ -201,7 +209,7 @@ function Home(props) {
                     })}
                 </section>
             </div>
-        </main>
+        </main >
     )
 }
 

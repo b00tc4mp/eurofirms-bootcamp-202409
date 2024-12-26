@@ -58,8 +58,8 @@ function FavItems(props) {
     }, [])  // se ejecuta una sola vez al montar el componente
 
     const isFav = (item) => {
-        if (!user || !user.favs) return false
-        return user.favs.some(fav => fav._id && fav._id.equals(item.id))
+        if (!user) return false
+        return user.some(fav => fav._id && fav._id.equals(item.id))
     }
 
     const handleOnCancelClick = () => props.onCancelClick()
@@ -74,10 +74,10 @@ function FavItems(props) {
         const updatedUser = { ...user }
 
         if (isFavorite) {
-            updatedUser.favs = updatedUser.favs.filter(fav => fav.id !== item.id)
+            updatedUser = updatedUser.favs.filter(fav => fav.id !== item.id)
 
         } else {
-            updatedUser.favs.push(item)
+            updatedUser.push(item)
         }
         setUser(updatedUser) //añade el item a user.favs
         toggleFav(user.id, item.id)
@@ -101,18 +101,18 @@ function FavItems(props) {
 
             <main className="pt-4 my-6">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                    {user && user.favs && user.favs.length > 0 ? (
-                        user.favs.map((item) => {
-
+                    {user && user.length > 0 ? (
+                        user.map((item) => {
                             const isFavorite = isFav(item.id)
+
                             return (
                                 <article key={item.id}>
                                     < Item
                                         item={item}
-                                        color={isFavorite ? 'bg-red-500' : 'bg-white'}
+                                        color={isFavorite ? 'fill-current text-red-500' : 'fill-none text-gray-500'}
                                         onMessage={handleOnSendMessage}
                                         onClick={() => handleFavClick(item)}
-                                        className={`h-6 w-6 ${isFavorite ? 'bg-red-500' : 'bg-white'}`}
+                                        className={`h-6 w-6 ${isFavorite ? 'fill-current text-red-500' : 'fill-none text-gray-500'}`}
                                     />
                                 </article>
                             )

@@ -3,6 +3,7 @@ import { errors, formatIsoDate } from 'com'
 import { Button } from '../components/button'
 import { Input } from '../components/input'
 import { Textarea } from '../components/textarea'
+import { Text } from '../components/text'
 import { Field, Label } from '/components/fieldset'
 import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from '../components/dialog'
 import { ArrowUturnLeftIcon, EnvelopeIcon, HeartIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
@@ -157,102 +158,120 @@ function Item(props) {
 
 
     return (
-        <article className="bg-white w-full container-fluid px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
-            <a key={item.id} href="#" className="group block w-full">
-                <section className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
-                    <img
-                        alt="Product image"
-                        src={item.image}
-                        className="h-full w-full object-cover object-center group-hover:opacity-75"
-                    />
-                </section>
+        <article className="bg-white container-fluid px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+            <a key={item.id} href="#" className="group block">
+                <img
+                    alt="Product image"
+                    src={item.image}
+                    className="object-cover object-center group-hover:opacity-75"
+                />
                 <section>
-                    <div className="flex justify-between items-start m-1 text-[0.875rem] text-[#4B5563]">
+                    <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
                         <h3>{item.author.username}</h3>
                         <p>{item.location}</p>
                     </div>
                     <p className="mt-1 text-lg font-medium text-gray-900">{item.title}</p>
-                    <p className="mt-1 text-sm font-medium text-gray-900">{item.description}</p>
-
+                    <Text className="mt-1 text-sm font-medium">{item.description}</Text>
                 </section>
-                {edit ? (
-                    <>
-                        <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-                            <form className="flex flex-col items-center" onSubmit={handleOnEditItemSubmit}>
-                                <section><DialogTitle>Edit</DialogTitle>
-                                    <DialogDescription>
-                                        The title will be edited.
-                                    </DialogDescription>
-                                    <DialogBody>
-                                        <Field>
-                                            <Label>Text</Label>
-                                            <Input type="text" id="text" placeholder={item.text} />
-                                        </Field>
-                                    </DialogBody>
-                                    <DialogActions>
-                                        <Button type="submit">Edit</Button>
-                                        <Button plain color="emerald-300" onClick={handleOnEditCancelClick}>
-                                            Cancel
-                                        </Button>
-                                    </DialogActions>
-                                </section>
-                            </form>
-                        </Dialog>
-                    </>
-                ) : null}
-
-
-                {message ? (
-                    <>
-                        <form className="flex flex-col items-center" onSubmit={handleOnSentMessage}>
-
-                            <Field>
-                                <Label htmlFor="text" className="text-xs" >Write a message:</Label>
-                                <Textarea type="text" id="text"  ></Textarea>
-                            </Field>
-
-                            <div className="flex justify-between h-4 items-center my-6 m-2">
-
-                                <Button className="btn w-33% sm:w-auto justify-items-start" plain color="white" onClick={handleOnToggleMessageOut}>
-                                    <ArrowUturnLeftIcon />
-                                </Button>
-
-                                <Button type="submit" className="btn w-33% sm:w-auto justify-items-start" plain color="white">
-                                    Send
-                                </Button>
-                            </div>
-                        </form>
-                    </>
-                ) : null}
-
-
-                <div className="flex flex-wrap justify-between mt-2 gap-2">
-                    <time className=" sm:w-auto text-xs">{itemDate}</time>
-
-                    {!item.own && (
-                        <Button className="btn w-33% sm:w-auto" plain color="white" type="button" onClick={handleOnToggleMessageClick}>
+                <div className="mt-4 flex flex-wrap justify-between gap-2">
+                    {item.own ? (
+                        <>
+                            <Button
+                                className="btn sm:w-auto"
+                                plain
+                                color="white"
+                                type="button"
+                                onClick={handleOnDeleteClick}
+                            >
+                                <TrashIcon />
+                            </Button>
+                            <Button
+                                className="btn sm:w-auto"
+                                plain
+                                color="white"
+                                type="button"
+                                onClick={handleOnEditClick}
+                            >
+                                <PencilSquareIcon />
+                            </Button>
+                        </>
+                    ) : (
+                        <Button
+                            className="btn sm:w-auto"
+                            plain
+                            color="white"
+                            type="button"
+                            onClick={handleOnToggleMessageClick}
+                        >
                             <EnvelopeIcon />
                         </Button>
                     )}
-
-                    {item.own && (
-                        <Button className="btn w-33% sm:w-auto" plain color="white" type="button" onClick={handleOnDeleteClick}>
-                            <TrashIcon />
-                        </Button>
-                    )}
-
-                    {item.own && (
-                        <Button className="btn w-33% sm:w-auto" plain color="white" type="button" onClick={handleOnEditClick}>
-                            <PencilSquareIcon />
-                        </Button>
-                    )}
-                    <Button className="btn w-33% sm:w-auto" color={item.fav ? 'red' : 'white'} type="button" onClick={handleToggleFavClick}>
-                        <HeartIcon />
+                    <Button
+                        plain
+                        className="btn sm:w-auto"
+                        type="button"
+                        onClick={handleToggleFavClick}
+                    >
+                        <HeartIcon
+                            fill={item.fav ? '#b91c1c' : 'white'}
+                            stroke={item.fav ? '#b91c1c' : '#71717a'}
+                        />
                     </Button>
                 </div>
+
+                {edit && (
+                    <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+                        <form className="flex flex-col items-center" onSubmit={handleOnEditItemSubmit}>
+                            <section>
+                                <DialogBody>
+                                    <Field>
+                                        <Label>New title</Label>
+                                        <Input type="text" id="text" placeholder={item.text} />
+                                    </Field>
+                                </DialogBody>
+                                <DialogActions>
+                                    <Button type="submit">Edit</Button>
+                                    <Button plain onClick={handleOnEditCancelClick}>
+                                        Cancel
+                                    </Button>
+                                </DialogActions>
+                            </section>
+                        </form>
+                    </Dialog>
+
+                )}
+
+                {message && (
+                    <form className="flex flex-col items-center" onSubmit={handleOnSentMessage}>
+                        <Field>
+                            <Label htmlFor="text" className="text-xs">Write a message:</Label>
+                            <Textarea type="text" id="text"></Textarea>
+                        </Field>
+
+                        <div className="flex justify-between h-4 items-center my-6 m-2">
+                            <Button
+                                className="btn sm:w-auto justify-items-start"
+                                plain
+                                color="white"
+                                onClick={handleOnToggleMessageOut}
+                            >
+                                <ArrowUturnLeftIcon />
+                            </Button>
+
+                            <Button
+                                type="submit"
+                                className="btn sm:w-auto justify-items-start"
+                                plain
+                                color="white"
+                            >
+                                Send
+                            </Button>
+                        </div>
+                    </form>
+                )}
+                <div className="sm:w-auto text-xs">{itemDate}</div>
             </a>
         </article>
-
     )
 }
 

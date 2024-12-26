@@ -5,7 +5,7 @@ const { SystemError, DuplicityError } = errors
 
 function registerUser(name, location, email, username, password) {
     validate.name(name)
-    validate.location(location)
+    /* validate.location(location) */
     validate.email(email)
     validate.username(username)
     validate.password(password)

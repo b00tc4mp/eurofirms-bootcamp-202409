@@ -49,7 +49,6 @@ function App() {
             onUserProfile={() => setView('userProfile')}
 
             onLogout={() => setView('welcome')}
-
         />}
 
         {view === 'create' && <CreateItem
