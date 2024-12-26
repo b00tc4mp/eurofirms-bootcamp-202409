@@ -1,68 +1,105 @@
-var Arroz = function () { this.length = 0 }
+class Arroz {
+    constructor() { this.length = 0 }
 
-Arroz.prototype.indexOf = function (searchElement, fromIndex) {
-    if (fromIndex === undefined) {
-        /*
-        buscar searchElement en arroz
-            iterar element por element hasta encontrar serachElement
-        si lo encontramos, entonces devuelve la posicion de ese element (o sea, el index)
-        y si no devolvemos -1
-        */
-
-        for (var i = 0; i < this.length; i++) {
-            var element = this[i]
+    indexOf(searchElement, fromIndex) {
+        for (let i = (fromIndex === undefined ? 0 : (fromIndex < 0 ? this.length + fromIndex : fromIndex)); i < this.length; i++) {
+            const element = this[i]
 
             if (element === searchElement) return i
-        }
-
-        return -1
-    } else {
-        for (var i = fromIndex; i < this.length; i++) {
-            var element = this[i]
-
-            if (element ===searchElement) return i
         }
 
         return -1
     }
 }
 
-console.log('TEST Arroz.prototype. indexOf')
+console.log('TEST Array.prototype.indexOf')
 
 console.log('CASE get index of bison')
 
-var beasts = new Arroz
-beasts[0] = 'ant'
-beasts[1] = 'bison'
-beasts[2] = 'camel'
-beasts[3] = 'duck'
-beasts[4] = 'bison'
-beasts.length = 5
-var index = beasts.indexOf('bison')
-console.log(index);
-//1
+{
+    const beasts = new Arroz
+    beasts[0] = 'ant'
+    beasts[1] = 'bison'
+    beasts[2] = 'camel'
+    beasts[3] = 'duck'
+    beasts[4] = 'bison'
+    beasts.length = 5
+    const index = beasts.indexOf('bison')
+    console.log(index);
+    // 1
+}
 
 console.log('CASE get index of bison starting at index 2')
 
-var beasts = new Arroz
-beasts[0] = 'ant'
-beasts[1] = 'bison'
-beasts[2] = 'camel'
-beasts[3] = 'duck'
-beasts[4] = 'bison'
-beasts.length = 5
-var index = beasts.indexOf('bison', 2)
-console.log(index);
-// 4n
+{
+    const beasts = new Arroz
+    beasts[0] = 'ant'
+    beasts[1] = 'bison'
+    beasts[2] = 'camel'
+    beasts[3] = 'duck'
+    beasts[4] = 'bison'
+    beasts.length = 5
+    const index = beasts.indexOf('bison', 2)
+    console.log(index);
+    // 4
+}
 
-console.log ('CASE get indexof giraffe')
+console.log('CASE get index of giraffe')
 
-var beasts = new Arroz
-beasts[0] = 'ant'
-beasts[1] = 'bison'
-beasts[2] = 'camel'
-beasts[3] = 'duck'
-beasts[4] = 'bison'
-beasts.length = 5
-var index = beasts.indexOf('giraffe')
-console.log(index);
+{
+    const beasts = new Arroz
+    beasts[0] = 'ant'
+    beasts[1] = 'bison'
+    beasts[2] = 'camel'
+    beasts[3] = 'duck'
+    beasts[4] = 'bison'
+    beasts.length = 5
+    const index = beasts.indexOf('giraffe')
+    console.log(index);
+    // -1
+}
+
+console.log('CASE get index of giraffe starting at offset -4')
+
+{
+    const beasts = new Arroz
+    beasts[0] = 'ant'
+    beasts[1] = 'bison'
+    beasts[2] = 'camel'
+    beasts[3] = 'duck'
+    beasts[4] = 'bison'
+    beasts.length = 5
+    const index = beasts.indexOf('giraffe', -4)
+    console.log(index);
+    // -1
+}
+
+console.log('CASE get index of duck starting at offset -4')
+
+{
+    const beasts = new Arroz
+    beasts[0] = 'ant'
+    beasts[1] = 'bison'
+    beasts[2] = 'camel'
+    beasts[3] = 'duck'
+    beasts[4] = 'bison'
+    beasts.length = 5
+    const index = beasts.indexOf('duck', -4)
+    console.log(index);
+    // 3
+}
+
+console.log('CASE get index of duck starting at offset -3')
+
+{
+    const beasts = new Arroz
+    beasts[0] = 'ant'
+    beasts[1] = 'bison'
+    beasts[2] = 'camel'
+    beasts[3] = 'duck'
+    beasts[4] = 'bison'
+    beasts.length = 5
+    const index = beasts.indexOf('bison', -3)
+    console.log(index);
+    // 4
+}
