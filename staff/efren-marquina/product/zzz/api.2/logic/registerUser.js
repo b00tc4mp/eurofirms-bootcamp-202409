@@ -27,15 +27,12 @@ function registerUser(name, email, username, password) {
 
     if (user) throw new Error('user already exists')
 
-    user = {
-        id: uuid(),
-        name,
-        email,
-        username,
-        password,
-
-    }
-
+    user = {}
+    user.id = uuid()
+    user.name = name
+    user.email = email
+    user.username = username
+    user.password = password
 
     users.push(user)
 
