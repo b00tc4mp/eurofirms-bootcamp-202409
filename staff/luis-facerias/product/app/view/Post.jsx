@@ -1,34 +1,51 @@
-import deletePost from '../logic/deletePost'
+import { errors } from 'com'
 
-import './Post.css'
+const { ValidationError, SystemError, NotFoundError, OwnershipError } = errors
+
+import deletePost from '../logic/deletePost'
 
 function Post(props) {
     console.log('Post -> render')
 
     const post = props.post
 
-    return <article>
-        <h3>{post.author}</h3>
-        <img className="post-image" src={post.image} />
+    return <article className="bg-white p-2 my-4">
+        <h3 className="font-bold">{post.author}</h3>
+
+        <div className="flex justify-center">
+            <img src={post.image} />
+        </div>
+
         <p>{post.text}</p>
-        <time>{post.date}</time>
 
-        {post.own && <button type="button" onClick={() => {
-            if (confirm('Delete post?'))
-                try {
-                    deletePost(post.id)
-                        .then(() => props.onDeleted())
-                        .catch(error => {
+        <div className="flex justify-between">
+            <time className="text-xs">{new Date(post.date).toDateString()}</time>
+
+            {post.own && <button type="button" onClick={() => {
+                if (confirm('Delete post?'))
+                    try {
+                        deletePost(post.id)
+                            .then(() => props.onDeleted())
+                            .catch(error => {
+                                if (error instanceof NotFoundError)
+                                    alert(error.message)
+                                else if (error instanceof OwnershipError)
+                                    alert(error.message)
+                                else if (error instanceof SystemError)
+                                    alert('sorry, there was a problem. try again later.')
+
+                                console.error(error)
+                            })
+                    } catch (error) {
+                        if (error instanceof ValidationError)
                             alert(error.message)
+                        else
+                            alert('sorry, there was a problem. try again later.')
 
-                            console.error(error)
-                        })
-                } catch (error) {
-                    alert(error.message)
-
-                    console.error(error)
-                }
-        }}>🗑️</button>}
+                        console.error(error)
+                    }
+            }}>🗑️</button>}
+        </div>
     </article>
 }
 
