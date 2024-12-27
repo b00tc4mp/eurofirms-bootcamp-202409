@@ -1,10 +1,6 @@
 function Welcome(props) {
     console.log('Welcome -> render')
 
-    /*
-    props -> { onRegisterClick, onLoginClick }
-    */
-
     return <main>
         <h2>Welcome!</h2>
         <p>
