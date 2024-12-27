@@ -6,8 +6,8 @@ function registerUser(name, email, username, password) {
     if (email.length < 6) throw new Error('invalid email length')
     if (!email.includes('@')) throw new Error('invalid email format')
     if (!email.includes('.')) throw new Error('invalid email format')
-    const indexOfAt = email.indexOf('@')
-    const indexOfDot = email.indexOf('.')
+    var indexOfAt = email.indexOf('@')
+    var indexOfDot = email.indexOf('.')
     if (indexOfDot < indexOfAt) throw new Error('invalid email format')
     // TODO add more rules for email validation (position of @ and .)
 
@@ -17,25 +17,22 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    return fetch('http://localhost:8080/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, email, username, password })
+    var users = JSON.parse(localStorage.users)
+
+    var user = users.find(function (user) {
+        return user.email === email || user.username === username
     })
-        .catch(error => { throw new Error(error.message) })
-        .then(response => {
-            const status = response.status
 
-            if (status === 201) return
+    if (user !== undefined) throw new Error('user already exists')
 
-            return response.json()
-                .then(body => {
-                    const error = body.error
-                    const message = body.message
+    user = {}
+    user.id = uuid()
+    user.name = name
+    user.email = email
+    user.username = username
+    user.password = password
 
-                    throw new Error(message)
-                })
-        })
+    users.push(user)
+
+    localStorage.users = JSON.stringify(users)
 }

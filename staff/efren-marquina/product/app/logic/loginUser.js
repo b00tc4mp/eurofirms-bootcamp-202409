@@ -5,13 +5,29 @@ function loginUser(username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    var users = JSON.parse(localStorage.users)
-
-    var user = users.find(function (user) {
-        return user.username === username && user.password === password
+    return fetch('http://localhost:8080/users/auth', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
     })
+        .catch(error => { throw new Error(error.message) })
+        .then(response => {
+            const status = response.status
 
-    if (user === undefined) throw new Error('wrong credentials')
+            if (status === 200)
+                return response.json()
+                    .then(userId => {
+                        sessionStorage.userId = userId
+                    })
 
-    sessionStorage.userId = user.id
+            return response.json()
+                .then(body => {
+                    const error = body.error
+                    const message = body.message
+
+                    throw new Error(message)
+                })
+        })
 }

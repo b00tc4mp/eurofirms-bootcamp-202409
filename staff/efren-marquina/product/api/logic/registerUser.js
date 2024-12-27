@@ -1,3 +1,6 @@
+import fs from 'fs'
+import uuid from '../util/uuid.js'
+
 function registerUser(name, email, username, password) {
     if (typeof name !== 'string') throw new Error('invalid name')
     if (name.length < 1) throw new Error('invalid name length')
@@ -17,25 +20,24 @@ function registerUser(name, email, username, password) {
     if (typeof password !== 'string') throw new Error('invalid password')
     if (password.length < 8) throw new Error('invalid password length')
 
-    return fetch('http://localhost:8080/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, email, username, password })
-    })
-        .catch(error => { throw new Error(error.message) })
-        .then(response => {
-            const status = response.status
+    let usersJSON = fs.readFileSync('data/users.json', 'utf8')
+    const users = JSON.parse(usersJSON)
 
-            if (status === 201) return
+    let user = users.find(user => user.email === email || user.username === username)
 
-            return response.json()
-                .then(body => {
-                    const error = body.error
-                    const message = body.message
+    if (user) throw new Error('user already exists')
 
-                    throw new Error(message)
-                })
-        })
+    user = {}
+    user.id = uuid()
+    user.name = name
+    user.email = email
+    user.username = username
+    user.password = password
+
+    users.push(user)
+
+    usersJSON = JSON.stringify(users)
+    fs.writeFileSync('data/users.json', usersJSON)
 }
+
+export default registerUser
