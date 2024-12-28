@@ -1,0 +1,233 @@
+- **20/09/2024 Viernes**: 
+	- Presentación del curso
+	- Forkear el repositorio GitHub BootCamp a nuestra cuenta GitHub
+- **21/09/2024 Sábado**:
+	- Presentación personal
+	- Revisar fork día anterior
+	- Crear enviroment y tarea
+- **27/09/2024 Viernes**:
+	- Repaso de Objetos : memoria stack y Heap JavasCript
+- **28/09/2024 Sábado**:
+	- Trabajo con Array y Objetos, último vídeo al final Obsidian, discusión img
+- **04/10/2024 Viernes**:
+	- Conversar entre compañeros
+	- Trabajo con GitHub
+	- 02:22:00 Pull Recuest
+	- Resto de tiempo correciones
+- **05/10/2024 Sábado**:
+	- M ->Trabajo con Array y Arroz
+	- T 00:00 -> Conversar entre compañeros
+	- T 00:15 -> DOM API
+	- T 01:06 -> Playground trabajos pendientes
+	- T 01:26 -> Hablo del DOM
+	- T 01:31 -> html/DOM
+	- T 02:35 -> Creación rama **apps**
+	- T 02:52 -> Pregunta lider técnico
+	- T 03:01 -> Codificación de app (HTML)
+- **11/10/2024 Viernes**: 
+	- 00:21 -> Presentación agile
+	- 01:05 -> feature/app y single-page application
+	- 02:25 -> Descanso
+	- 03:07 -> feature/app
+- **18/10/2024 Viernes**:
+	- 00:00 -> Presentación agile
+	- 00:45 -> forEach() y Babeljs
+	- 00:55 -> Callback function
+	- 01:48 -> DevTools Node
+	- 02:00 -> Descanso cenar
+	- 02:30 -> Creación de Arroz con callback
+- **19/10/2024 Sábado**:
+	- M 00:00 -> arroz.some
+	- M 02:25 -> ofertas reducidas de backend porque es más serio
+	- M 03:05 -> Civilizaciones
+	- M 03:27 -> Vuelta a Arroz.some push
+	- M 03:40 -> Separación capas: UI, Business y DDBB
+	- M 03:50 -> APPS Separar capas: presentación, lógica negocio, datos
+	- T 00:00 ->
+- **25/10/2024 Viernes**:
+	- 00:00 -> Agile presentación
+	- 00:53 -> Manu empieza clase: repaso DOM
+	- 02:15 -> 02:45 Descanso
+	- 02:45 -> Javascript imperativo
+- **26/10/2024 Sábado**:
+	- M 00:00 -> Presentación agile
+	- M 00:40 -> Side client vs side server
+	- M 01:15 -> JSON
+	- M 02:10-02:40 Descanso
+	- M 02:40 -> UUID como userID
+	- T 00:45 -> React
+	- T 02:55 -> Escribir código propio
+- **02/11/2024 Sábado**
+	- M 00:00 -> Presentación agile
+	- M 00:50 -> React , se crea app10
+	- M 11:10 ->
+	- T 00:00 -> Codificar /YO)
+	- T 02:50 -> Separar el código
+	- T 03:05 -> Pasar a JavaScript 6
+	- T 03:45 -> Node instalar librería express.js
+	- T 04:15 Librearía Ardunino
+- **03/11/2024 Domingo**:
+	- 00:00 ->
+- **08/11/2024 Viernes**:
+	- 00:00 -> Agile
+	- 00:23 -> Portfolios de ex-alumnos
+	- 00:45 -> Rehacemos la App
+	- 01:17 -> Modo debbuger
+	- 01:20 -> Authenticate User
+- **09/11/2024 Sábado**:
+	- M 00:10 -> Mod Programming
+	- M 01:45 -> Descanso
+	- M 02:15 -> Mod Programming
+	- M 04:30 -> Comer
+	- T 00:00 -> Mod Programming
+	- T 02:30 -> Descanso
+	- T 03:00 -> Manu monta Fetch
+	- T 03:45 -> Tea practica Fetch
+- **10/11/2024 Domingo** :
+	- 00:00 -> Agile
+	- 00:34 -> Oscar dudas código
+	- 00:50 -> Explicación API vs Monolítico
+	- 01:25 -> Desayuno
+	- 02:00 -> Conectar App con API con middleware CORS
+	- 02:45 -> Instalar http server y configurar errores
+	- 03:45 -> Tea Mod Programming
+- **15/11/2024 Viernes**:
+	- 00:00 -> Agile
+	- 00:20 -> Duda arroz/array reduce 
+	- 00:40 -> Manu habla del cometido del Bootcamp
+	- 00:58 -> Proyectos
+	- 01:02 -> Desarrollo App
+	- 01:38 -> app.14 es la última del domingo 10/11/2024
+	- 02:00 -> Descanso
+	- 02:45 -> Vuelta descanso
+	- 03:00 -> Mod Programming
+- **16/11/2024 Sábado**:
+	- M 00:00 -> Mod Programming
+	- M 01:30 -> Desayuno
+	- M 02:00 -> Mod Programming
+	- M 03:10 -> Manu:  renombrado ficheros en app:view y aoo:App, creación de post,
+	- M 04:30 -> Comida de 01:30 a 02:30
+	- T 00:00 -> Mod Programming desde 14:30
+	- T 01:30 -> Manu: botón borrado de post
+	- T 02:00 -> Mod Programming
+- **17/11/2024 Domingo**:
+	- 00:00 -> Agile
+	- 00:30 -> Charla sobre el mercado informática
+	- 00:50 -> Herramientas de compresión código: **Vite**
+	- 01:10 -> Vite instalación
+	- 01:30 -> Descanso
+	- 02:05 -> Vite repetición
+	- 02:17 -> App.16 se salva antes de modificaciones
+	- 02:36 -> Registro nuevo usuario
+	- 02:38 -> Se elimina vite y se crea un build para subirla a internet
+	- 02:43 -> favicon.ico
+	- 02:47 -> Salva app.17 con Vite previo a la modificación de código
+	- 02:55 -> Instalar en el navegador react developer tools
+	- 02:58 -> JA6 destructuring
+	- 03:13 -> Aplicar CSS
+	- 03:17 -> Marco móvil
+	- 03:46 -> **commit**: 'move app to vite; add post component and move delete-post logic to it; add stles; #94'  -> Commit fb7ca2b
+- **22/11/2024 Viernes**:
+	- 00:00 -> Presentación Agile
+	- 00:35 -> Figma
+	- 02:06 -> App de Juan Eduardo
+	- 02:22 -> Descanso
+	- 02:42 -> Conectar con BBDD y ejemplos 
+	- 03:30 -> Ossman a instala MongoDB
+	- 04:03 -> **commit**: 'add README in data with first instructions to manage mongodb from mongosh' -> 01f420c
+- **23/11/2024 Sábado**:
+	- M 00:00 -> Presentación Agile
+	- M 00:25 -> Instalación compartida de MongoDB
+	- M 01:45 -> Desayuno
+	- M 03:00 -> Manu retoma MongoDB
+	- M 03:00 -> Conectar MongoDB con la API Javascript: installar en API mongoose (ORM de MongoDB)
+	- M 03:57 -> **commit** add mongoose to api; implement models and populate
+	- M 04:00 -> Mod Programming: Mario comparte pantalla
+	- M 05:05 -> Comida
+	- T 00:00 -> Manu retoma mongoose
+	- T 00:26 -> **commit**: 'use mongoose models in register-user logic; add mongoose to server #94'  
+	- T 00:35 -> Mod Programming: Rossana
+	- T 01:00 -> Manu retoma codificación
+	- T 01:36 -> Normalizamos datos limpios de MongoDB con lean()
+	- T 02:31 -> Comenta que proximamente se trabajará con CSS y Seguridad
+	- T 02.35 -> **commit**: 'add mongoose to all api logics #94' 
+- **29/11/2024 Viernes**:
+	- 00:00 -> Agile
+	- 00:35 -> Manu da apuntes de la agenda del proyecto
+	- 00:50 -> Manu empieza con MongoDB y Tailwindcss
+	- 00:56 -> **Session Storage**
+	- 01:01 -> Manu: Seguridad de la Sesión
+	- 01:08 -> Cambia el user.id de la sesión y suplanta el usuario
+	- 01:21 -> Chocolate Rapanui - Bariloche en La Patagonia (Argentina)
+	- 01:27 -> Añadir **jwt.io** (JSON Web Token) para securizar la app
+	- 01:55 -> Descanso
+	- 02:26 -> Manu salva **Api.4** y **App.18** antes de securizar con JWT
+	- 02:28 -> Instalar **JWT** en la **API**
+	- 02:35 -> Tokenizar en api > index.js y test de pruebas - test de token
+	- 02:42 -> Ejemplo de token
+	- 02:58 -> Modificación código en la App
+	- 03:16 -> **commit** "add jwt protection for user session in api and app"
+	- 03:18 -> Mod Programming
+- **30/11/2024 Sábado**:
+	- M 00:00 -> Agile
+	- M 00:30 -> Mod Programming
+	- M 01:40 -> Desayuno
+	- M 02:05 -> Mod Programming
+	- M 02:50 -> Manu -> Logica del registro: validaciones a un módulo específico api.5/app.18
+	- M 02:52 -> Creamos un módulo llamado **com** en product para almacenar el código común entre app y api y se inicializa con **npm init --yes**
+	- M 02:54 -> Copia de app.19 y api.5
+	- M 02:57 -> Desde **api** o **app** importar el módulo com con **npm i ../com** (**npm uninstall com** para desinstalar)
+	- M 03:17 -> Clases y Herencia
+	- M 03:29 -> **commit** "add com package with validate utility"
+	- M 03:30 -> El objeto Error
+	- M 03:39 -> commit a stuff con ejemplo class error
+	- M 03:40 -> Manu crea com/errors.js
+	- M 04:25 -> **commit** "add custom validations and errors in new package com and use it in app"
+	- M 04:30 -> Descanso comida
+	- T 00:00 -> Manu continua con Error
+	- T 01:15 -> **commit** "use custom errors in all logics in api and app"
+	- T 03:15 -> Rosana instala npm -i ../init al com para que se inicialice 
+- **01/12/2024 Domingo**:
+	- M 00:00 -> Agile Manu habla de los márgenes bootcamp vs proyecto
+	- M 01:05 -> Manu impulsa código: unificar variables en fichero .env, por ejemplo la <URL:PUERTO>
+	- M 01:12 -> Copia de la API antes de aplicar .env + acceso variables de entorno NODE
+	- M 01:16 -> Instalación en la API de dotenv librería para gestionar esto **npm i dotenv**
+	- M 01:23 -> Cambios en la APP para que acceda a los datos de .env - revisar VITE .env
+	- M 01:31 -> Copia de la APP anterior y **commit**: 'add environment variables in api and app'
+	- M 01:33 -> Leer documentación de **Tailwind CSS**
+	- M 01:45 -> Manu explica estadísticas de **Tailwind CSS**
+	- M 01:53 -> Rama nueva para guardar doc y demo de **Tailwind CSS**
+	- M 02:06 -> Desayuno
+	- M 02:25 -> Manu impulsa código: integrar en la app **Tailwind CSS** en **Vite**
+	- M 02:51 -> Instalar extensión **Tailwind CSS** para **VSCode**
+	- M 03:26 -> Problema con el Logout, no se realiza y al refrescar sigues logeado: en LogoutUser,js falta el token
+	- M 03:28 ->Commit con **Tailwind CSS**: 'add tailwindcss for ui design' 
+	- M 03:39 .> **commit**: clean up code
+	- M 03:50 -> Proyecto Personal
+	- M 04:21 -> Primer commit del proyecto personal
+- **06/12/2024 Viernes**: Festivo ->Día de la Constitución
+- **07/12/2024 Sábado**:
+	- M 00:00 -> Agile presentación
+	- M 01:00 -> Proyecto de Rosana
+	- M 02:11 -> Descanso
+	- M 02:40 -> Individualmente impulsar código
+	- M 05:10 -> Comida
+	- T 00:00  -> Individualmente impulsar código 
+	- T 02:53 -> Manu impulsa mejora código: versión 22 de App
+	- T 03:10 -> Commit con la mejora
+- **13/12/2024 Viernes:
+	- M 00:00 -> <b style="background-color: red;color: white;">NO VISTO</b>
+- **14/12/2024**:
+	- M 00:00 -> <b style="background-color: red;color: white;">NO VISTO</b>
+- **20/12/2024 Viernes:**
+	- 00:00 -> Agile
+	- 00:42 -> Manu -> Revisión y correcciones del proyecto de Mario
+	- 01:47 -> Manu -> Revisión y correcciones del proyecto de Rosana
+	- 02:26 -> Manu -> Revisión y correcciones del proyecto de Mario
+	- 02:40 -> Manu -> Revisión y correcciones del proyecto de Juan Balcazar
+	- 03:25 -> Manu comenta el schema de la BBDD de Juan Balcazar
+	- 03:55 -> Rosana y Mario
+- **21/12/2024 Sábado:**
+	- **Mañana**: Revisión y correcciones del proyectos
+	- **Tarde**: Revisión y correcciones del proyectos
+- **27/12/2024 Viernes**: Revisión y correcciones del proyectos
