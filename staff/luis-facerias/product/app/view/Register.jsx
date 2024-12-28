@@ -58,7 +58,7 @@ function Register(props) {
             <input className="border-2 border-black px-2" type="text" id="username" />
 
             <label htmlFor="password">Password</label>
-            <input className="border-2 border-black px-2" type="password" id="password" />
+            <input className="border-2 border-black px-2" type="password" id="password" autoComplete="off"/>
 
             <button className="bg-black text-white" type="submit">Register</button>
         </form>
