@@ -127,7 +127,7 @@ function Home(props) {
 
     const handleOnProfileClick = () => props.onUserProfile()
 
-    const handleOnFavItemsClick = () => props.onFavItems()
+    const handleOnGetFavItemsClick = () => props.onGetFavItems()
 
     return (
         <main>
@@ -170,7 +170,7 @@ function Home(props) {
 
                     <Button
                         plain
-                        type="button" onClick={handleOnFavItemsClick}
+                        type="button" onClick={handleOnGetFavItemsClick}
                         className="inline-flex items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <HeartIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
                         <span className="sr-only">Fav Items</span>
@@ -187,7 +187,7 @@ function Home(props) {
                 </nav >
             </header>
 
-            <div className="container pt-4 pb-4 my-6">
+            <div className="container w-full pt-4 pb-4 my-6 ">
                 <section className="mx-auto max-w-2xl px-4 py-2 sm:px-3 sm:py-0 lg:max-w-7xl lg:px-4">
                     <h2 className="text-2xl font-bold tracking-tight text-emerald-900">New listings</h2>
                 </section>

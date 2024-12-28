@@ -5,7 +5,7 @@ import Login from './view/Login'
 import Register from './view/Register'
 import Home from './view/Home'
 import CreateItem from './view/CreateItem'
-import FavItems from './view/FavItems'
+import GetFavItems from './view/GetFavItems'
 import UserProfile from './view/UserProfile'
 
 import isUserLoggedIn from './logic/isUserLoggedIn'
@@ -44,7 +44,7 @@ function App() {
         {view === 'home' && <Home
             onCreateItem={() => setView('create')}
 
-            onFavItems={() => setView('favItems')}
+            onGetFavItems={() => setView('getFavItems')}
 
             onUserProfile={() => setView('userProfile')}
 
@@ -57,13 +57,13 @@ function App() {
             onCancelClick={() => setView('home')}
         />}
 
-        {view === 'favItems' && <FavItems
+        {view === 'getFavItems' && <GetFavItems
             onCancelClick={() => setView('home')}
         />}
 
         {view === 'userProfile' && <UserProfile
-            onFavItems={() => setView('favItems')}
             onCancelClick={() => setView('home')}
+            onEditUserData={() => setView('home')}
         />}
     </>
 }

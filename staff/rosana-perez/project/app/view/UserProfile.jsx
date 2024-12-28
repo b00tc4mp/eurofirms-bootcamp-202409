@@ -4,7 +4,6 @@ const { NotFoundError, SystemError, ValidationError } = errors
 
 import { Button } from '../components/button'
 import { Input } from '../components/input'
-import { Text, TextLink } from '../components/text'
 import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
 
 import { useState, useEffect } from 'react'
@@ -15,6 +14,7 @@ import Item from './Item'
 
 import getUserName from '../logic/getUserName'
 import getUser from '../logic/getUser'
+import editUserData from '../logic/editUserData'
 import getItems from '../logic/getItems'
 import getMessages from '../logic/getMessages'
 
@@ -27,14 +27,13 @@ function UserProfile(props) {
     const [items, setItems] = useState([])
     const [messages, setMessages] = useState([])
 
-    // const messagesIn = messages.some(message => message.recipient.toString() === user?.id) TODO: logics in messages in, about the user's items
+    // const messagesOwn = messages.some(message => (message.recipient.toString() || message.sender.toString()) === user?.id) TODO: logics in messages in, about the user's items
 
     useEffect(() => {
 
         getUser()
             .then(user => {
                 setUser(user)
-
             })
             .catch(error => {
                 if (error instanceof NotFoundError)
@@ -47,7 +46,6 @@ function UserProfile(props) {
 
         getUserName()
             .then(name => {
-
                 setName(name)
             })
             .catch(error => {
@@ -61,11 +59,9 @@ function UserProfile(props) {
     }, [])
 
     console.log('User Profile -> state: user = ' + name)
-    console.log("User data:", user)
 
     useEffect(() => {
 
-        const { user } = props
         const itemOwn = items.some(item => item.author._id.toString() === user?.id)
 
         const messagesOwn = messages.some(message => message.sender.toString() === user?.id)
@@ -98,12 +94,44 @@ function UserProfile(props) {
         }
     }, [user])
 
-    const handleOnCancelClick = () => props.onCancelClick()
-    const handleOnFavItemsClick = () => props.onFavItems()//TODO... not functional
-    const handleOnEditProfileClick = () => loadAll() //TODO... not functional
+    const handleOnEditUserData = event => {
+        event.preventDefault()
 
-    const messagesOwn = messages.some(message => message.sender.toString() === user?.id)
-    const itemOwn = items.some(item => item.author.toString() === user?.id)
+        const form = event.target
+
+        const name = form.name.value
+        const location = form.location.value
+        const email = form.email.value
+        const username = form.username.value
+        const password = form.password.value
+
+        if (confirm('Edit Personal Data?')) {
+            try {
+                editUserData(name, location, email, username, password)
+                    .then(() => {
+                        props.onEditUserData()
+
+                        setUser(user)
+                    })
+                    .catch(error => {
+                        if (error instanceof SystemError)
+                            alert('Sorry, there was a problem. Try again later.')
+
+                        console.error(error)
+                    })
+            } catch (error) {
+                if (error instanceof ValidationError)
+                    alert(error.message)
+                else
+                    alert('Sorry, there was a problem. Try again later.')
+
+                console.error(error)
+            }
+        }
+    }
+
+
+    const handleOnCancelClick = () => props.onCancelClick()
 
 
     return <>
@@ -128,37 +156,42 @@ function UserProfile(props) {
         <main className="pt-4 my-6">
             <div className="mx-auto max-w-screen-xl px-6 py-10 sm:px-3 sm:py-0 lg:max-w-screen-xl lg:px-6">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">User Data</h2>
-                {/* <form className="p-4 text-left"  >
+                {user && <form className="p-1 text-left" onSubmit={handleOnEditUserData}  >
                     <Fieldset>
                         <FieldGroup>
                             <Field>
                                 <Label htmlFor="name" name="name">Name</Label>
-                                <Input type="text" id="name" placeholder={name} />
+                                <Input type="text" id="name" name="name" placeholder={name} />
                             </Field>
                             <Field>
                                 <Label htmlFor="location" name="location">Location</Label>
-                                <Input type="text" id="location" placeholder={user.location} />
+                                <Input type="text" id="location" name="location" placeholder={user.location} />
                             </Field>
                             <Field>
                                 <Label htmlFor="email" name="email">Email</Label>
-                                <Input type="email" id="email" placeholder={user.email} />
+                                <Input type="email" id="email" name="email" placeholder={user.email} />
                             </Field>
                             <Field>
                                 <Label htmlFor="username" name="username">Username</Label>
-                                <Input type="text" id="username" placeholder={user.username} />
+                                <Input type="text" id="username" name="username" placeholder={user.username} />
+                            </Field>
+                            <Field>
+                                <Label htmlFor="password" name="password">Password</Label>
+                                <Input type="password" id="password" name="password" />
                             </Field>
                         </FieldGroup>
                     </Fieldset>
-                    <Button className="my-6 text-xs" color="emerald" type="submit">Change Personal Data</Button>
-                </form> */}
+                    <Button className="my-6 text-xs" color="emerald" type="submit"  >
+                        Edit Personal Data</Button>
+                </form>
+                }
 
                 <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900">Your items</h2>
                     {items.map(item => {
-                        itemOwn && <Item
+                        <Item
                             key={item._id}
                             location={item.location}
-                            author={item.author}
                             image={item.image}
                             title={item.title}
                             description={item.description}
@@ -169,7 +202,7 @@ function UserProfile(props) {
                 <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900">Messages sent</h2>
 
-                    {messagesOwn && messages.map(message => {
+                    {messages.map(message => {
                         return (
                             <section key={message._id}>
                                 <p>Item: {message.item}</p>

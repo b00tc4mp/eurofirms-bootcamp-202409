@@ -11,6 +11,7 @@ import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
 import getUser from './logic/getUser.js'
+import editUserData from './logic/editUserData.js'
 import createItem from './logic/createItem.js'
 import getItems from './logic/getItems.js'
 import deleteItem from './logic/deleteItem.js'
@@ -18,7 +19,7 @@ import editItem from './logic/editItem.js'
 import sendMessage from './logic/sendMessage.js'
 import getMessages from './logic/getMessages.js'
 import toggleFav from './logic/toggleFav.js'
-import favItems from './logic/favItems.js'
+import getFavItems from './logic/getFavItems.js'
 
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
@@ -33,7 +34,7 @@ mongoose.connect(MONGO_URL)
 
         const jsonBodyParser = express.json()
 
-        function handlePromiseError(res, error) {
+        const handleError = (res, error) => {
             if (error instanceof ValidationError) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             } else if (error instanceof DuplicityError) {
@@ -51,11 +52,14 @@ mongoose.connect(MONGO_URL)
             }
         }
 
-        function handleCatchError(res, error) {
-            if (error instanceof ValidationError)
-                res.status(400).json({ error: error.constructor.name, message: error.message })
-            else
-                res.status(500).json({ error: error.constructor.name, message: error.message })
+        const verifyToken = req => {
+            const authorization = req.headers.authorization
+            const token = authorization.slice(7)
+
+            const payload = jwt.verify(token, JWT_SECRET)
+            const userId = payload.sub
+
+            return userId
         }
 
 
@@ -69,9 +73,9 @@ mongoose.connect(MONGO_URL)
 
                 registerUser(name, location, email, username, password)
                     .then(() => res.status(201).send())
-                    .catch(error => handlePromiseError(res, error))
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                handleCatchError(res, error)
+                handleError(res, error)
             }
         })
 
@@ -83,54 +87,59 @@ mongoose.connect(MONGO_URL)
                 authenticateUser(username, password)
                     .then(userId => jwt.sign({ sub: userId }, JWT_SECRET))
                     .then(token => res.json(token))
-                    .catch(error => handlePromiseError(res, error))
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                handleCatchError(res, error)
+                handleError(res, error)
             }
         })
 
         api.get('/users/:targetUserId/name', (req, res) => {
             try {
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
-
+                const userId = verifyToken(req)
                 const targetUserId = req.params.targetUserId
 
                 getUserName(userId, targetUserId)
                     .then(user => res.json(user))
-                    .catch(error => handlePromiseError(res, error))
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                handleCatchError(res, error)
+                handleError(res, error)
             }
         })
 
         api.get('/users/:userId/', (req, res) => {
             try {
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = verifyToken(req)
 
                 getUser(userId)
                     .then(user => res.json(user))
-                    .catch(error => handlePromiseError(res, error))
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                handleCatchError(res, error)
+                handleError(res, error)
+            }
+        })
+
+        api.patch('/users/:userId', jsonBodyParser, (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                const name = req.body.name
+                const location = req.body.location
+                const email = req.body.email
+                const username = req.body.username
+                const password = req.body.password
+
+                editUserData(userId, name, location, email, username, password)
+                    .then(() => res.status(204).send())
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
             }
         })
 
 
         api.post('/items', jsonBodyParser, (req, res) => {
             try {
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = verifyToken(req)
 
                 const location = req.body.location
                 const image = req.body.image
@@ -139,35 +148,27 @@ mongoose.connect(MONGO_URL)
 
                 createItem(userId, location, image, title, description)
                     .then(() => res.status(201).send())
-                    .catch(error => handlePromiseError(res, error))
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                handleCatchError(res, error)
+                handleError(res, error)
             }
         })
 
         api.get('/items', (req, res) => {
             try {
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = verifyToken(req)
 
                 getItems(userId)
                     .then(items => res.json(items))
-                    .catch(error => handlePromiseError(res, error))
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                handleCatchError(res, error)
+                handleError(res, error)
             }
         })
 
         api.patch('/items/:itemId', jsonBodyParser, (req, res) => {
             try {
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = verifyToken(req)
 
                 const itemId = req.params.itemId
 
@@ -175,38 +176,30 @@ mongoose.connect(MONGO_URL)
 
                 editItem(userId, itemId, title)
                     .then(() => res.status(204).send())
-                    .catch(error => handlePromiseError(res, error))
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                handleCatchError(res, error)
+                handleError(res, error)
             }
         })
 
         api.delete('/items/:itemId', (req, res) => {
             try {
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = verifyToken(req)
 
                 const itemId = req.params.itemId
 
                 deleteItem(userId, itemId)
                     .then(() => res.status(204).send())
-                    .catch(error => handlePromiseError(res, error))
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                handleCatchError(res, error)
+                handleError(res, error)
             }
         })
 
         api.post('/items/:itemId/messages', jsonBodyParser, (req, res) => {
 
-            const authorization = req.headers.authorization
-            const token = authorization.slice(7)
+            const userId = verifyToken(req)
 
-            const payload = jwt.verify(token, JWT_SECRET)
-            const userId = payload.sub
-            console.log(userId)
             const itemId = req.params.itemId
             const recipientId = req.body.recipientId
             const content = req.body.content
@@ -215,32 +208,24 @@ mongoose.connect(MONGO_URL)
                 .then(() => {
                     return res.status(201).send()
                 })
-                .catch(error => handlePromiseError(res, error))
+                .catch(error => handleError(res, error))
         })
 
         api.get('/messages', (req, res) => {
             try {
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = verifyToken(req)
 
                 getMessages(userId)
                     .then(messages => res.json(messages))
-                    .catch(error => handlePromiseError(res, error))
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                handleCatchError(res, error)
+                handleError(res, error)
             }
         })
 
         api.post('/users/favs/:itemId/', (req, res) => {
 
-            const authorization = req.headers.authorization
-            const token = authorization.slice(7)
-
-            const payload = jwt.verify(token, JWT_SECRET)
-            const userId = payload.sub
+            const userId = verifyToken(req)
 
             const itemId = req.params.itemId
 
@@ -248,23 +233,19 @@ mongoose.connect(MONGO_URL)
                 .then(() => {
                     return res.status(200).send()
                 })
-                .catch(error => handlePromiseError(res, error))
+                .catch(error => handleError(res, error))
 
         })
 
         api.get('/users/:userId/favs', (req, res) => {
             try {
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
+                const userId = verifyToken(req)
 
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
-
-                favItems(userId)
+                getFavItems(userId)
                     .then(items => res.json(items))
-                    .catch(error => handlePromiseError(res, error))
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                handleCatchError(res, error)
+                handleError(res, error)
             }
         })
 

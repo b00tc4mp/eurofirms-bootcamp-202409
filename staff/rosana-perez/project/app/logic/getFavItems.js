@@ -6,7 +6,7 @@ import extractPayloadFromJwt from './helpers/extractPayloadFromJWT'
 
 
 
-function favItems() {
+function getFavItems() {
 
     const payload = extractPayloadFromJwt(sessionStorage.token)
     const userId = payload.sub
@@ -39,4 +39,4 @@ function favItems() {
         })
 }
 
-export default favItems
+export default getFavItems

@@ -134,7 +134,7 @@ function Item(props) {
     const handleToggleFavClick = () => {
         try {
             toggleFav(item.id)
-                .then(() => { props.onToggleFavClick() })
+                .then(() => props.onToggleFavClick())
 
                 .catch(error => {
                     if (error instanceof NotFoundError) {
@@ -158,12 +158,12 @@ function Item(props) {
 
 
     return (
-        <article className="bg-white container-fluid px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+        <article className="bg-white container-fluid w-100 h-100 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
             <a key={item.id} href="#" className="group block">
                 <img
                     alt="Product image"
                     src={item.image}
-                    className="object-cover object-center group-hover:opacity-75"
+                    className="object-cover w-40 h-40 object-center group-hover:opacity-75"
                 />
                 <section>
                     <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">

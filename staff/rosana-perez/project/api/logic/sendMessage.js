@@ -33,10 +33,7 @@ function sendMessage(userId, itemId, recipientId, content) {
             })
 
             return message.save()
-                .then(() => {
-                    user.messages.push(message._id)
-                    return user.save()
-                })
+
         })
 
 }
