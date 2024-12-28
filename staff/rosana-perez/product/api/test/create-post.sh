@@ -1,0 +1,1 @@
+curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzQyNTFiNTVkZTRlNThhZmM4OTdmNGYiLCJpYXQiOjE3MzI5MTM2MTd9.PJkTz3d5oDIum2v4djuDQRccoXcsXAs2iwnT7WJao2I' -H 'Content-Type: application/json' -d '{"image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text": "hello world"}' http://localhost:8080/posts -v
