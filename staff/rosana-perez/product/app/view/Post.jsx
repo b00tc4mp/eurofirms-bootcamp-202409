@@ -30,16 +30,15 @@ function Post(props) {
         console.log('post id -> ', post.id, 'text-> ', text)
 
         try {
-            if (confirm('edit post?'))
-                modifyPostText(post.id, text)
-                    .then(() => {
-                        toggleEdit(false)
-                        props.onEdit()
-                    })
-                    .catch(error => {
-                        console.error(error)
-                        alert(error.message)
-                    })
+            modifyPostText(post.id, text)
+                .then(() => {
+                    toggleEdit(false)
+                    props.onEdit()
+                })
+                .catch(error => {
+                    console.error(error)
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -82,7 +81,7 @@ function Post(props) {
 
 
         {edit ? <> <form className=" flex flex-col items-center" onSubmit={handlePostEdit}>
-            <input className="border-2 border-black px-2" type="text" id='text' placeholder={text} />
+            <input className="border-2 border-black px-2" type="text" id='text' defaultValue={text} />
 
             <div className="flex justify-between h-4 items-center my-6 m-2">
                 <input className="m-2" type="submit" value={'edit post'} />
