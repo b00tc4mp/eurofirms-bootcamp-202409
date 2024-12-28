@@ -25,5 +25,3 @@ function getUserName() {
         })
 
 }
-
-export default getUserName

@@ -1,16 +1,17 @@
-function deletePost(postId) {
-    if (typeof postId !== 'string') throw new Error('invalid postId')
-
-    return fetch(`http://localhost:8080/posts/${postId}`, {
-        method: 'DELETE',
+function getPosts() {
+    return fetch(`http://localhost:8080/posts`, {
+        method: 'GET',
         headers: {
             Authorization: `Basic ${sessionStorage.userId}`
         }
     })
+        .catch(error => { throw new Error(error.message) })
         .then(response => {
             const status = response.status
 
-            if (status === 204) return
+            if (status === 200)
+                return response.json()
+                    .then(posts => posts)
 
             return response.json()
                 .then(body => {
@@ -20,6 +21,5 @@ function deletePost(postId) {
                     throw new Error(message)
                 })
         })
-}
 
-export default deletePost
+}
