@@ -22,8 +22,10 @@ function getUserPlaces(userId) {
                 place.id = place._id.toString()
                 delete place._id
 
-                place.parking.id = place.parking._id.toString()
-                delete place.parking._id
+                if (place.parking._id) {
+                    place.parking.id = place.parking._id.toString()
+                    delete place.parking._id
+                }
             })
 
             return places

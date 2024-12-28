@@ -28,7 +28,7 @@ class NotFoundError extends Error {
     }
 }
 
-class OwnershipError extends Error {
+class OwnerShipError extends Error {
     constructor(message) {
         super(message)
     }
@@ -40,7 +40,7 @@ const errors = {
     DuplicityError,
     CredentialsError,
     NotFoundError,
-    OwnershipError
+    OwnerShipError
 }
 
 export default errors

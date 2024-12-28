@@ -19,6 +19,7 @@ function registerPlace(userId, parkingId, level, space, checkin, checkout) {
     //     }
     // }
     return Place.findOne({ parking: parkingId, level, space }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(place => {
             if (place) throw new DuplicityError('la  plaza ya existia')
 

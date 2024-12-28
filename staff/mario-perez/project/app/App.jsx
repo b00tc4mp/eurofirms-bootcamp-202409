@@ -19,6 +19,7 @@ function App() {
     const handleLoginSuccess = () => setView('home')
     const handleLogout = () => setView('login')
     const handleRegisterPlaceClick = () => setView('registerPlace')
+    const handleCreatePlaceSuccess = () => setView('home')
 
     return <>
         <h1 className="text-2xl">ParkSpot</h1>
@@ -45,7 +46,7 @@ function App() {
         />}
 
         {view === 'registerPlace' && <RegisterPlace
-
+            onRegisterPlaceSuccess={handleCreatePlaceSuccess}
         />}
     </>
 }

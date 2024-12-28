@@ -49,6 +49,11 @@ const validate = {
         if (checkin.length === 0) throw new ValidationError('No existe tiempo de llegada')
         if (checkout.length === 0) throw new ValidationError('No existe tiempo de salida')
         if (checkout < checkin) throw new ValidationError('La hora de salida debe ser posterior a la hora de llegada')
+    },
+
+    placeId(placeId) {
+        if (typeof placeId !== 'string') throw new ValidationError(' placeId inválido')
+        if (placeId.length !== 24) throw new ValidationError("longitud del placeId inválida")
     }
 
 

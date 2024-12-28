@@ -4,7 +4,7 @@ import cors from 'cors'
 import jwt from 'jsonwebtoken'
 import { errors } from 'com'
 
-const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFoundError, OwnershipError } = errors
+const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFoundError, OwnerShipError } = errors
 
 
 import registerUser from './logic/registerUser.js'
@@ -14,6 +14,7 @@ import getUserPlaces from './logic/getUserPlaces.js'
 import registerPlace from './logic/registerPlace.js'
 import mongoose from 'mongoose'
 import getParkings from './logic/getParkings.js'
+import deletePlace from './logic/deletePlace.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -22,7 +23,7 @@ const handleError = (res, error) => {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     else if (error instanceof CredentialsError)
         res.status(401).json({ error: error.constructor.name, message: error.message })
-    else if (error instanceof OwnershipError)
+    else if (error instanceof OwnerShipError)
         res.status(403).json({ error: error.constructor.name, message: error.message })
     else if (error instanceof NotFoundError)
         res.status(404).json({ error: error.constructor.name, message: error.message })
@@ -111,7 +112,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.post('/places/:parkingId', jsonBodyParser, (req, res) => {
+        api.post('/places', jsonBodyParser, (req, res) => {
             try {
 
                 // TODO rename logic to createPlace
@@ -119,12 +120,12 @@ mongoose.connect(MONGO_URL)
                 const userId = verifyToken(req)
 
 
-                const parkingId = req.params.parkingId
-
+                const parkingId = req.body.parkingId
                 const level = req.body.level
                 const space = req.body.space
                 const checkin = req.body.checkin
                 const checkout = req.body.checkout
+
 
                 registerPlace(userId, parkingId, level, space, checkin, checkout)
                     .then(() => res.status(201).send())
@@ -138,6 +139,20 @@ mongoose.connect(MONGO_URL)
             try {
                 getParkings()
                     .then(parkings => res.json(parkings))
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
+        api.delete('/places/:placeId', (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                const placeId = req.params.placeId
+
+                deletePlace(userId, placeId)
+                    .then(() => res.status(204).send())
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)

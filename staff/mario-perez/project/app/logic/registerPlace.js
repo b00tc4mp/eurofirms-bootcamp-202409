@@ -7,13 +7,13 @@ function registerPlace(parkingId, level, space, checkin, checkout) {
     validate.space(space)
     validate.checkinAndCheckout(checkin, checkout)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/places/${parkingId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/places`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ level, space, checkin, checkout })
+        body: JSON.stringify({ parkingId, level, space, checkin, checkout })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {

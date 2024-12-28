@@ -13,16 +13,17 @@ function Place(props) {
 
     return <article>
         <div className="mt-5 mb-5 text-center" >
-            <h2 className="text-4xl">Tus coches</h2>
+            <h2 className="text-4xl">Tu coche</h2>
         </div>
 
         <div className="text-center text-2xl">
-            <h3>Nivel: {place.parking.name}</h3>
-            <h4>{place.level}</h4>
+            <h3>{place.parking.name}</h3>
+            <h4>Nivel: {place.level}</h4>
 
             <div className="w-12 bg-blue-900 text-center rounded-xl">
                 <p className="text-white">{place.space}</p>
             </div>
+
         </div>
 
     </article>
