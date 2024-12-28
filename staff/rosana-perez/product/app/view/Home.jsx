@@ -19,48 +19,34 @@ function Home(props) {
 
     console.log('Home -> state: name = ' + name)
 
+    const handleError = (error) => {
+        if (error instanceof NotFoundError)
+            alert(error.message)
+        else if (error instanceof ValidationError)
+            alert(error.message)
+        else if (error instanceof SystemError)
+            alert('sorry, there was a problem. try again later')
+
+        console.error(error)
+    }
+
     function loadPosts() {
         try {
             getPosts()
                 .then(posts => setPosts(posts))
-                .catch(error => {
-                    if (error instanceof NotFoundError)
-                        alert(error.message)
-                    else if (error instanceof SystemError)
-                        alert('sorry, there was a problem. try again later')
-
-                    console.error(error)
-                })
-        } catch (error) {
-            if (error instanceof ValidationError)
-                alert(error.message)
-            else
-                alert('Sorry, there was a problem. Try again later');
-        }
+                .catch(error => handleError(error))
+        } catch (error) { handleError(error) }
     }
+
 
     useEffect(() => {
         try {
             getUserName()
                 .then(name => setName(name))
-                .catch(error => {
-                    if (error instanceof NotFoundError)
-                        alert(error.message)
-                    else if (error instanceof SystemError)
-                        alert('sorry, there was a problem. try again later')
-
-                    console.error(error)
-                })
+                .catch(error => { handleError(error) })
 
             loadPosts()
-        } catch (error) {
-            if (error instanceof ValidationError)
-                alert(error.message)
-            else
-                alert('sorry, there was a problem. try again later')
-
-            console.error(error)
-        }
+        } catch (error) { handleError(error) }
 
     }, [])
 
@@ -69,11 +55,7 @@ function Home(props) {
             logoutUser()
 
             props.onLogout()
-        } catch (error) {
-            alert(error.message)
-
-            console.error(error)
-        }
+        } catch (error) { handleError(error) }
     }
 
     const handlePostDeleted = () => { loadPosts() }
@@ -93,7 +75,10 @@ function Home(props) {
         {< main className="my-8 bg-gray-300" >
             {posts.map(post => (
                 <div key={post.id}>
-                    <Post post={post} onDeleted={handlePostDeleted} onEdit={handlePostEdited} />
+                    <Post
+                        post={post}
+                        onDeleted={handlePostDeleted}
+                        onEdit={handlePostEdited} />
 
                 </div>
             ))}

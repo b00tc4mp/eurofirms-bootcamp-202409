@@ -74,11 +74,12 @@ function Post(props) {
     }
 
 
-    return <article className="bg-white p-2 my-4">
+    return <article className="bg-white p-8 my-4">
         <h3 className="font-bold">{post.author}</h3>
         <div className="flex justify-center">
             <img src={post.image} />
         </div>
+
 
         {edit ? <> <form className=" flex flex-col items-center" onSubmit={handlePostEdit}>
             <input className="border-2 border-black px-2" type="text" id='text' placeholder={text} />
