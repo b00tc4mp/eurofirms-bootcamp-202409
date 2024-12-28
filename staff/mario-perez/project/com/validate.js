@@ -36,7 +36,7 @@ const validate = {
     },
 
     level(level) {
-        if (typeof level !== 'string') throw new ValidationError(' Nivel inválido')
+        if (typeof level !== 'number') throw new ValidationError(' Nivel inválido')
     },
 
     space(space) {

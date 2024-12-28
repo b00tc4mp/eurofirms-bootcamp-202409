@@ -2,7 +2,7 @@ import { errors } from 'com'
 
 const { CredentialsError, SystemError, ValidationError } = errors
 
-import loginUser from '../../logic/loginUser.js'
+import loginUser from '../logic/loginUser.js'
 
 
 function Login(props) {

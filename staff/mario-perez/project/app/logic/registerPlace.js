@@ -5,8 +5,7 @@ const { SystemError } = errors
 function registerPlace(parkingId, level, space, checkin, checkout) {
     validate.level(level)
     validate.space(space)
-    validate.checkinAndCheckout(checkin)
-    validate.checkinAndCheckout(checkout)
+    validate.checkinAndCheckout(checkin, checkout)
 
     return fetch(`${import.meta.env.VITE_API_URL}/places/${parkingId}`, {
         method: 'POST',

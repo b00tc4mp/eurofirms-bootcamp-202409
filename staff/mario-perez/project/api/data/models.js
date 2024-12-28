@@ -70,7 +70,7 @@ const place = new Schema({
     },
 
     level: {
-        type: String,
+        type: Number,
         required: true
     },
 

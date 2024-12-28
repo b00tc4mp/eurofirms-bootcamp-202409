@@ -4,11 +4,11 @@ const { NotFoundError, SystemError, ValidationError } = errors
 
 import { useState, useEffect } from 'react'
 
-import logoutUser from '../../logic/logoutUser.js'
-import getUserName from '../../logic/getUserName.js'
-import getUserPlaces from '../../logic/getUserPlaces.js'
+import logoutUser from '../logic/logoutUser.js'
+import getUserName from '../logic/getUserName.js'
+import getUserPlaces from '../logic/getUserPlaces.js'
 import Place from './Place.jsx'
-import registerPlace from '../../logic/registerPlace.js'
+//import registerPlace from '../../logic/registerPlace.js'
 
 function Home(props) {
     console.log('HomeView -> render')

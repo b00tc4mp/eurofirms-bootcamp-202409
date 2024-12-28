@@ -77,12 +77,12 @@ User
     - address (string, required)
     - city (string, required)
     - levels (number, required)
-    - price ( string, required)
-    - capacity  (number,required)
+    - price (string, required)
+    - capacity (number,required)
 
 - Place
-    - parking : (Parking.id, required)
-    - level (string, required)
+    - parking: (Parking.id, required)
+    - level (number, required)
     - space (string, required)
     - checkin (date, required)
     - checkout (date, required)

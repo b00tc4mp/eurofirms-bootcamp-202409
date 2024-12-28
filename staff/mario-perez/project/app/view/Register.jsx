@@ -2,7 +2,7 @@ import { errors } from 'com'
 
 const { DuplicityError, SystemError, ValidationError } = errors
 
-import registerUser from '../../logic/registerUser.js'
+import registerUser from '../logic/registerUser.js'
 
 function Register(props) {
     console.log('RegisterView -> render')

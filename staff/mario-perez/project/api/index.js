@@ -17,6 +17,33 @@ import getParkings from './logic/getParkings.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
+const handleError = (res, error) => {
+    if (error instanceof ValidationError)
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    else if (error instanceof CredentialsError)
+        res.status(401).json({ error: error.constructor.name, message: error.message })
+    else if (error instanceof OwnershipError)
+        res.status(403).json({ error: error.constructor.name, message: error.message })
+    else if (error instanceof NotFoundError)
+        res.status(404).json({ error: error.constructor.name, message: error.message })
+    else if (error instanceof DuplicityError)
+        res.status(409).json({ error: error.constructor.name, message: error.message })
+    else if (error instanceof SystemError)
+        res.status(500).json({ error: error.constructor.name, message: error.message })
+    else
+        res.status(500).json({ error: SystemError.name, message: error.message })
+}
+
+const verifyToken = req => {
+    const authorization = req.headers.authorization
+    const token = authorization.slice(7)
+
+    const payload = jwt.verify(token, JWT_SECRET)
+    const userId = payload.sub
+
+    return userId
+}
+
 mongoose.connect(MONGO_URL)
     .then(() => {
         const api = express()
@@ -37,19 +64,9 @@ mongoose.connect(MONGO_URL)
                 registerUser(name, email, username, password)
 
                     .then(() => res.status(201).send())
-                    .catch(error => {
-                        if (error instanceof DuplicityError)
-                            res.status(409).json({ error: error.constructor.name, message: error.message })
-                        else if (error instanceof SystemError)
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
-                        else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
-                    })
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                handleError(res, error)
             }
         })
 
@@ -62,75 +79,35 @@ mongoose.connect(MONGO_URL)
 
                     .then(userId => jwt.sign({ sub: userId }, JWT_SECRET))
                     .then(token => res.json(token))
-                    .catch(error => {
-                        if (error instanceof CredentialsError)
-                            res.status(401).json({ error: error.constructor.name, message: error.message })
-                        else if (error instanceof SystemError)
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
-                        else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
-                    })
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                handleError(res, error)
             }
         })
 
         api.get('/users/:targetUserId/name', (req, res) => {
             try {
-                const authorization = req.headers.authorization // Basic <user-id>
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = verifyToken(req)
 
                 const targetUserId = req.params.targetUserId
 
-
-
                 getUserName(userId, targetUserId)
                     .then(name => res.json(name))
-                    .catch(error => {
-                        if (error instanceof NotFoundError)
-                            res.status(404).json({ error: error.constructor.name, message: error.message })
-                        else if (error instanceof SystemError)
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
-                        else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
-                    })
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                handleError(res, error)
             }
         })
 
         api.get('/places', (req, res) => {
             try {
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = verifyToken(req)
 
                 getUserPlaces(userId)
                     .then(place => res.json(place))
-                    .catch(error => {
-                        if (error instanceof NotFoundError)
-                            res.status(404).json({ error: error.constructor.name, message: error.message })
-                        else if (error instanceof SystemError)
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
-                        else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
-                    })
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                handleError(res, error)
             }
         })
 
@@ -139,11 +116,7 @@ mongoose.connect(MONGO_URL)
 
                 // TODO rename logic to createPlace
                 // TODO trandcript createPost: use token
-                const authorization = req.headers.authorization
-                const token = authorization.slice(7)
-
-                const payload = jwt.verify(token, JWT_SECRET)
-                const userId = payload.sub
+                const userId = verifyToken(req)
 
 
                 const parkingId = req.params.parkingId
@@ -155,19 +128,9 @@ mongoose.connect(MONGO_URL)
 
                 registerPlace(userId, parkingId, level, space, checkin, checkout)
                     .then(() => res.status(201).send())
-                    .catch(error => {
-                        if (error instanceof DuplicityError)
-                            res.status(409).json({ error: error.constructor.name, message: error.message })
-                        else if (error instanceof SystemError)
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
-                        else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
-                    })
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                handleError(res, error)
             }
         })
 
@@ -175,19 +138,9 @@ mongoose.connect(MONGO_URL)
             try {
                 getParkings()
                     .then(parkings => res.json(parkings))
-                    .catch(error => {
-                        if (error instanceof NotFoundError)
-                            res.status(404).json({ error: error.constructor.name, message: error.message })
-                        else if (error instanceof SystemError)
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
-                        else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
-                    })
+                    .catch(error => handleError(res, error))
             } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
+                handleError(res, error)
             }
         })
 
