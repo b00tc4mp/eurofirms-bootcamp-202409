@@ -1,1 +1,1 @@
-curl -X POST -H 'Authorization: Basic 4qv6d1gy7ok' -H 'Content-Type: application/json' -d '{"image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hello world"}' http://localhost:8080/posts -v
+curl -X POST -H 'Authorization: Basic 6771881059f1e375bfafa76f' -H 'Content-Type: application/json' -d '{"image":"https://cdn-icons-png.flaticon.com/512/5986/5986331.png","text":"hello world"}' http://localhost:8080/posts -v

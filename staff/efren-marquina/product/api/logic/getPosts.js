@@ -1,30 +1,35 @@
-import fs from 'fs'
+import { User, Post } from '../data/models.js'
 
 function getPosts(userId) {
     if (typeof userId !== 'string') throw new Error('invalid userId')
 
-    const usersJSON = fs.readFileSync('data/users.json', 'utf8')
-    const users = JSON.parse(usersJSON)
+    return Promise.all([
+        User.findById(userId).lean(),
+        Post.find({}, '-__v').populate('author', 'username').sort({ date: -1 }).lean()
+    ])
+        .catch(error => { throw new Error(error.message) })
+        .then(userAndPosts => {
+            const [user, posts] = userAndPosts
 
-    const user = users.find(user => user.id === userId)
+            if (!user) throw new Error('user not found')
 
-    if (!user) throw new Error('user not found')
+            posts.forEach(post => {
+                post.id = post._id.toString()
+                delete post._id
 
-    const postsJSON = fs.readFileSync('data/posts.json', 'utf8')
-    const posts = JSON.parse(postsJSON)
+                if (post.author._id) {
+                    post.author.id = post.author._id.toString()
 
-    posts.forEach(post => {
-        const author = users.find(user => user.id === post.author)
+                    delete post.author._id
+                }
 
-        if (!author) throw new Error('author of post not found')
+                post.own = post.author.id === userId
 
-        post.own = post.author === userId
+                post.author = post.author.username
+            })
 
-        post.author = author.username
-    })
-
-    return posts.reverse()
+            return posts
+        })
 }
 
 export default getPosts
-
