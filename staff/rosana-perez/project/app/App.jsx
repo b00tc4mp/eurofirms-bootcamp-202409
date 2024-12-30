@@ -6,6 +6,7 @@ import Register from './view/Register'
 import Home from './view/Home'
 import CreateItem from './view/CreateItem'
 import GetFavItems from './view/GetFavItems'
+import GetMessages from './view/GetMessages'
 import UserProfile from './view/UserProfile'
 
 import isUserLoggedIn from './logic/isUserLoggedIn'
@@ -48,6 +49,8 @@ function App() {
 
             onUserProfile={() => setView('userProfile')}
 
+            onGetMessages={() => setView('getMessages')}
+
             onLogout={() => setView('welcome')}
         />}
 
@@ -64,6 +67,10 @@ function App() {
         {view === 'userProfile' && <UserProfile
             onCancelClick={() => setView('home')}
             onEditUserData={() => setView('home')}
+        />}
+
+        {view === 'getMessages' && <GetMessages
+            onCancelClick={() => setView('home')}
         />}
     </>
 }

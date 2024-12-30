@@ -14,12 +14,14 @@ import getUser from './logic/getUser.js'
 import editUserData from './logic/editUserData.js'
 import createItem from './logic/createItem.js'
 import getItems from './logic/getItems.js'
+import getItem from './logic/getItem.js'
+import getFavItems from './logic/getFavItems.js'
 import deleteItem from './logic/deleteItem.js'
 import editItem from './logic/editItem.js'
+import toggleFav from './logic/toggleFav.js'
 import sendMessage from './logic/sendMessage.js'
 import getMessages from './logic/getMessages.js'
-import toggleFav from './logic/toggleFav.js'
-import getFavItems from './logic/getFavItems.js'
+
 
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
@@ -160,6 +162,19 @@ mongoose.connect(MONGO_URL)
 
                 getItems(userId)
                     .then(items => res.json(items))
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
+        api.get('/items/:itemId', (req, res) => {
+            try {
+                const userId = verifyToken(req)
+                const itemId = req.params.itemId
+
+                getItem(userId, itemId)
+                    .then(item => res.json(item))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)

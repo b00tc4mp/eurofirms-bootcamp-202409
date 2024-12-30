@@ -14,7 +14,7 @@ function getFavItems(userId) {
                 path: 'author', // escoge la propiedad author para poblar
                 select: 'username -_id'  // selecciona username y elimina id (-)
             }
-        })
+        }).lean()
         .catch(error => {
             throw new SystemError(error.message)
         })

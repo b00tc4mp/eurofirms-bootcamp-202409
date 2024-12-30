@@ -12,16 +12,19 @@ const { ValidationError, SystemError, NotFoundError, OwnershipError } = errors
 
 import deleteItem from '../logic/deleteItem'
 import editItem from '../logic/editItem'
+import getItem from '../logic/getItem'
 import sendMessage from '../logic/sendMessage.js'
 import toggleFav from '../logic/toggleFav.js'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function Item(props) {
     console.log('Item rendering')
 
     const [edit, setEdit] = useState(false)
     const [message, setMessage] = useState(false)
+    const [item, setItem] = useState(null)
+    const [timestamp, setTimeStamp] = useState(Date.now())
 
     function toggleMessage(state) {
         setMessage(state)
@@ -29,9 +32,14 @@ function Item(props) {
 
     const [isOpen, setIsOpen] = useState(false)
 
-    const { item } = props
-    const itemId = props.item.id
+    const itemId = props.itemId
     const itemDate = formatIsoDate(item)
+
+    useEffect(() => {
+        getItem(itemId)
+            .then(item => setItem(item))
+            .catch(error => handleError(error))
+    }, [timestamp])
 
 
     const handleOnEditItemSubmit = event => {
@@ -42,16 +50,15 @@ function Item(props) {
         const newText = textInput.value
 
         try {
-            if (confirm('Edit Item?'))
-                editItem(item.id, newText)
-                    .then(() => {
-                        setIsOpen(false)
-                        props.onEdited()
-                    })
-                    .catch(error => {
-                        console.error(error)
-                        alert(error.message)
-                    })
+            editItem(item?.id, newText)
+                .then(() => {
+                    setIsOpen(false)
+                    props.onEdited()
+                })
+                .catch(error => {
+                    console.error(error)
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
             alert(error.message)
@@ -74,24 +81,20 @@ function Item(props) {
         const contentText = form.text
         const content = contentText.value
 
-        const recipientId = item.author.id
+        const recipientId = item?.author.id
 
         if (content) {
             try {
-                if (confirm('Send Message?')) {
+                sendMessage(itemId, recipientId, content)
+                    .then(() => {
+                        toggleMessage(false)
 
-                    sendMessage(itemId, recipientId, content)
-
-                        .then(() => {
-                            toggleMessage(false)
-
-                            props.onMessage()
-                        })
-                        .catch(error => {
-                            console.error(error)
-                            alert(error.message)
-                        })
-                }
+                        props.onMessage()
+                    })
+                    .catch(error => {
+                        console.error(error)
+                        alert(error.message)
+                    })
             } catch (error) {
                 console.error(error)
                 alert(error.message)
@@ -106,7 +109,7 @@ function Item(props) {
     const handleOnDeleteClick = () => {
         if (confirm('Delete item?')) {
             try {
-                deleteItem(item.id)
+                deleteItem(item?.id)
                     .then(() => props.onDeleted())
                     .catch(error => {
                         if (error instanceof NotFoundError) {
@@ -133,8 +136,11 @@ function Item(props) {
 
     const handleToggleFavClick = () => {
         try {
-            toggleFav(item.id)
-                .then(() => props.onToggleFavClick())
+            toggleFav(item?.id)
+                .then(() => {
+                    // props.onToggleFavClick()
+                    setTimeStamp(Date.now())
+                })
 
                 .catch(error => {
                     if (error instanceof NotFoundError) {
@@ -159,22 +165,22 @@ function Item(props) {
 
     return (
         <article className="bg-white container-fluid w-100 h-100 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
-            <a key={item.id} href="#" className="group block">
+            <a key={item?.id} href="#" className="group block">
                 <img
                     alt="Product image"
-                    src={item.image}
+                    src={item?.image}
                     className="object-cover w-40 h-40 object-center group-hover:opacity-75"
                 />
                 <section>
                     <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
-                        <h3>{item.author.username}</h3>
-                        <p>{item.location}</p>
+                        <h3>{item?.author.username}</h3>
+                        <p>{item?.location}</p>
                     </div>
-                    <p className="mt-1 text-lg font-medium text-gray-900">{item.title}</p>
-                    <Text className="mt-1 text-sm font-medium">{item.description}</Text>
+                    <p className="mt-1 text-lg font-medium text-gray-900">{item?.title}</p>
+                    <Text className="mt-1 text-sm font-medium">{item?.description}</Text>
                 </section>
                 <div className="mt-4 flex flex-wrap justify-between gap-2">
-                    {item.own ? (
+                    {item?.own ? (
                         <>
                             <Button
                                 className="btn sm:w-auto"
@@ -213,8 +219,8 @@ function Item(props) {
                         onClick={handleToggleFavClick}
                     >
                         <HeartIcon
-                            fill={item.fav ? '#b91c1c' : 'white'}
-                            stroke={item.fav ? '#b91c1c' : '#71717a'}
+                            fill={item?.fav ? '#b91c1c' : 'white'}
+                            stroke={item?.fav ? '#b91c1c' : '#71717a'}
                         />
                     </Button>
                 </div>
@@ -226,7 +232,7 @@ function Item(props) {
                                 <DialogBody>
                                     <Field>
                                         <Label>New title</Label>
-                                        <Input type="text" id="text" placeholder={item.text} />
+                                        <Input type="text" id="text" placeholder={item?.text} />
                                     </Field>
                                 </DialogBody>
                                 <DialogActions>

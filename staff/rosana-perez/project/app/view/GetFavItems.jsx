@@ -41,12 +41,11 @@ function GetFavItems(props) {
     }, [])
 
     useEffect(() => {
-        if (user) {
-            getFavItems(user.id)
-                .then((favItems) => setFavItems(favItems))
-                .catch(error => handleError(error))
-        }
-    }, [user])// se ejecuta nuevamente si cambia el user
+        getFavItems()
+            .then((favItems) => setFavItems(favItems))
+            .catch(error => handleError(error))
+
+    }, [])// se ejecuta nuevamente si cambia el user
 
 
     const handleOnCancelClick = () => props.onCancelClick()
@@ -59,7 +58,6 @@ function GetFavItems(props) {
 
     const handleOnSendMessage = () => props.Home()
 
-    const { item } = props
 
     return (
         <>
@@ -77,26 +75,19 @@ function GetFavItems(props) {
 
             <main className="pt-4 my-6">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                    {item ? (
-                        <article key={item.id}>
+                    {favItems.length > 0 && (favItems.map(favItem => {
+                        return (
                             <Item
-                                item={item}
-                                color="fill-current text-red-500"
+                                key={favItem.id}
+                                itemId={favItem.id}
+
                                 onMessage={handleOnSendMessage}
                                 onToggleFavClick={handleOnToggleFav}
-                                className="h-6 w-6 fill-current text-red-500"
+
                             />
-                        </article>
-                    ) : (
-                        <article key={item.id}>
-                            <Item
-                                item={item}
-                                color="fill-none text-gray-500"
-                                onMessage={handleOnSendMessage}
-                                onToggleFavClick={handleOnToggleFav}
-                                className="h-6 w-6 fill-none text-gray-500"
-                            />
-                        </article>
+                        )
+
+                    })
                     )}
                 </div>
             </main>

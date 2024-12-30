@@ -13,7 +13,7 @@ import getUserName from '../logic/getUserName'
 import getItems from '../logic/getItems'
 import logoutUser from '../logic/logoutUser'
 import { HeartIcon, UserCircleIcon } from '@heroicons/react/24/outline'
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
+import { ArrowUturnLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
 
 function Home(props) {
     console.log('Home rendering')
@@ -116,14 +116,15 @@ function Home(props) {
     }
 
     const handleOnCreateClick = () => props.onCreateItem()
+    const handleOnMessagesClick = () => props.onGetMessages()
 
-    const handleToggleFavClick = () => {
-        getItems()
-            .then(items => setItems(items))
-            .catch(error => {
-                console.error(error)
-            })
-    }
+    // const handleToggleFavClick = () => {
+    //     getItems()
+    //         .then(items => setItems(items))
+    //         .catch(error => {
+    //             console.error(error)
+    //         })
+    // }
 
     const handleOnProfileClick = () => props.onUserProfile()
 
@@ -178,6 +179,14 @@ function Home(props) {
 
                     <Button
                         plain
+                        type="button" onClick={handleOnMessagesClick}
+                        className="inline-flex items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                        <EnvelopeIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
+                        <span className="sr-only">Fav Items</span>
+                    </Button>
+
+                    <Button
+                        plain
                         type="button"
                         onClick={handleLogoutClick}
                         className="inline-flex items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-emerald-600 group">
@@ -197,12 +206,12 @@ function Home(props) {
                         return (
                             <article key={item.id}>
                                 < Item
-                                    item={item}
+                                    itemId={item.id}
                                     isFav={isFav}
                                     onDeleted={handleOnDeleted}
                                     onEdited={handleOnEdited}
                                     onMessage={handleOnSent}
-                                    onToggleFavClick={handleToggleFavClick}
+                                /* onToggleFavClick={handleToggleFavClick} */
                                 />
                             </article>
                         )

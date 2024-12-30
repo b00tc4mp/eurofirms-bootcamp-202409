@@ -6,11 +6,13 @@ const { SystemError, NotFoundError } = errors
 function getMessages(userId) {
     validate.userId(userId)
 
-
-
     return Promise.all([
         User.findById(userId).lean(),
-        Message.find({}, '-__v').populate('sender', '_id')
+        Message.find({})
+            .select('-__v')
+            .populate('sender', 'username')
+            .populate('recipient', 'username')
+            .lean()
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(userAndMessages => {
@@ -28,7 +30,12 @@ function getMessages(userId) {
                     delete message.sender._id
                 }
 
-                message.own = message.sender?.id === userId.toString()
+                if (message.recipient && message.recipient._id) {
+                    message.recipient.id = message.recipient._id.toString()
+                    delete message.recipient._id
+                }
+
+                message.own = (message.sender?.id === userId.toString()) || (message.recipient?.id === userId.toString())
 
             })
 
