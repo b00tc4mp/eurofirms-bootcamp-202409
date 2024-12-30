@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
-import sendMessage from './sendMessage.js'
+import getMessagesOut from './getMessagesOut.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => {
         try {
-            return sendMessage('676d88612985eb151fdf75f6', '6765beeed639a9034f2f0d22', '6765beeed639a9034f2f0d1f', 'testing messages In in logic')
-                .then(() => console.log('message sent succesfully'))
+            return getMessagesOut('676d88612985eb151fdf75f6')
+                .then(messages => console.log(messages))
                 .catch(error => console.error(error))
         } catch (error) {
             console.error(error)

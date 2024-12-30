@@ -2,9 +2,9 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-function getMessages() {
+function getMessagesIn() {
 
-    return fetch(`${import.meta.env.VITE_API_URL}/messages`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/messagesIn`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
@@ -32,4 +32,4 @@ function getMessages() {
         })
 }
 
-export default getMessages
+export default getMessagesIn

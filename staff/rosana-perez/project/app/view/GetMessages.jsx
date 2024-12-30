@@ -19,7 +19,6 @@ function GetMessages(props) {
 
     const [user, setUser] = useState(null)
     const [name, setName] = useState(null)
-    const [userLoaded, setUserLoaded] = useState(true)
     const [messages, setMessages] = useState([])
 
     const handleError = error => {
@@ -37,7 +36,6 @@ function GetMessages(props) {
         getUser()
             .then(user => {
                 setUser(user)
-                setUserLoaded(false)
                 return getUserName()
             })
             .then(name => setName(name))
@@ -48,9 +46,9 @@ function GetMessages(props) {
     console.log('user data -> ', user)
 
     useEffect(() => {
-        if (user && user?.id && !userLoaded) {
+        if (user && user?.id) {
             console.log('User ID:', user.id)
-            getMessages(user.id)
+            getMessages()
                 .then(messages => {
                     console.log('Messages from API ->', messages)
                     setMessages(messages)
@@ -58,7 +56,7 @@ function GetMessages(props) {
                 })
                 .catch(error => handleError(error))
         }
-    }, [user, userLoaded])
+    }, [user])
 
     useEffect(() => {
         console.log('Messages downloaded -> ', messages)
@@ -83,32 +81,36 @@ function GetMessages(props) {
                     <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
                 </a>
             </div>
-            {name ? <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">Hello, {name}!</h3> : null}
+            {name ? <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">{name}</h3> : null}
             <Button plain onClick={handleOnCancelClick} className="justify-items-end">
                 <ArrowUturnLeftIcon />
             </Button>
         </header>
 
-        <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <div>
+            <h2 className="text-l py-4 tracking-tight text-gray-900 flex justify-center">Your messages</h2>
+            <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                {messageOwn ? (
+                    messages.map(message => {
+                        return (
+                            <article
+                                key={message.id}
+                                message={message}
+                                recipient={message.recipient.username}
+                                content={message.content}
+                            >
+                                <Item
+                                    itemId={message.item}
+                                />
+                                { /* onDeleted={handleOnDeleted}*/}
+                            </article>
+                        )
+                    })
 
-            <h2 className="text-xl tracking-tight text-gray-900">Your messages</h2>
-            {messageOwn ? (
-                messages.map(message => {
-                    return (
-                        <article
-                            key={message.id}>
-                            <Item
-                                item={message.item}
-                                image={message.item.image}
-                                title={message.item.title} />
-                            { /* onDeleted={handleOnDeleted}*/}
-                        </article>
-                    )
-                })
-
-            ) : (<p>No Messages found</p>)
-            }
-        </section >
+                ) : (<p>No Messages found</p>)
+                }
+            </section >
+        </div>
     </>
 }
 

@@ -92,13 +92,39 @@ const message = new Schema({
 
 }, { timestamps: true })
 
+const chat = new Schema({
+    message: {
+        type: ObjectId,
+        ref: 'Message',
+        required: true
+    },
+    from: { //sender
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    to: { //recipient
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    subject: { //asunto: item
+        type: ObjectId,
+        ref: 'Item',
+        required: true
+    }
+
+})
+
 const User = model('User', user)
 const Item = model('Item', item)
 const Message = model('Message', message)
+const Chat = model('Chat', chat)
 
 
 export {
     User,
     Item,
     Message,
+    Chat
 }

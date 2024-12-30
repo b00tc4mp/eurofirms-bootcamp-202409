@@ -72,7 +72,7 @@ function Login(props) {
             </Button>
         </header>
 
-        <h2 className="font-bold mt-20 text-emerald-200">Sign in</h2>
+        <h2 className="font-bold mt-20">Sign in</h2>
 
         <form className="p-4 text-left" onSubmit={handleOnLoginSubmit}>
             <Fieldset>

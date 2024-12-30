@@ -12,7 +12,7 @@ import Item from './Item'
 import getUserName from '../logic/getUserName'
 import getUser from '../logic/getUser'
 import getFavItems from '../logic/getFavItems'
-import toggleFav from '../logic/toggleFav'
+
 
 function GetFavItems(props) {
     console.log('Fav Items rendering')
@@ -80,7 +80,6 @@ function GetFavItems(props) {
                             <Item
                                 key={favItem.id}
                                 itemId={favItem.id}
-
                                 onMessage={handleOnSendMessage}
                                 onToggleFavClick={handleOnToggleFav}
 

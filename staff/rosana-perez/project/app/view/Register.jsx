@@ -74,7 +74,7 @@ function Register(props) {
             </Button>
         </header>
 
-        <h2 className="font-bold text-emerald-200 mt-12 ">Register</h2>
+        <h2 className="font-bold  mt-12 ">Register</h2>
 
         <form className="p-4 text-left" onSubmit={handleOnRegisterSubmit}>
             <Fieldset>

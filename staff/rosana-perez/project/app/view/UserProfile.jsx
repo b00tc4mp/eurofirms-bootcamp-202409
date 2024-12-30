@@ -10,13 +10,9 @@ import { useState, useEffect } from 'react'
 
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
-import Item from './Item'
-
 import getUserName from '../logic/getUserName'
 import getUser from '../logic/getUser'
 import editUserData from '../logic/editUserData'
-import getItems from '../logic/getItems'
-import getMessages from '../logic/getMessages'
 
 
 function UserProfile(props) {

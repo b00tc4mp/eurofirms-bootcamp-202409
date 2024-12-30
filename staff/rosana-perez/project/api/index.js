@@ -20,7 +20,8 @@ import deleteItem from './logic/deleteItem.js'
 import editItem from './logic/editItem.js'
 import toggleFav from './logic/toggleFav.js'
 import sendMessage from './logic/sendMessage.js'
-import getMessages from './logic/getMessages.js'
+import getMessagesIn from './logic/getMessagesIn.js'
+import getMessagesOut from './logic/getMessagesOut.js'
 
 
 
@@ -226,15 +227,27 @@ mongoose.connect(MONGO_URL)
                 .catch(error => handleError(res, error))
         })
 
-        api.get('/messages', (req, res) => {
+        api.get('/messagesIn', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
-                getMessages(userId)
+                getMessagesIn(userId)
                     .then(messages => res.json(messages))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
+            }
+        })
+
+        api.get('/messagesOut', (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                getMessagesOut(userId)
+                    .then(messages => res.json(messages))
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(error)
             }
         })
 

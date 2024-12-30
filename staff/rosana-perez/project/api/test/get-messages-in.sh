@@ -1,0 +1,1 @@
+curl -X 'GET' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzY1YmVlZWQ2MzlhOTAzNGYyZjBkMWYiLCJpYXQiOjE3MzU1ODgyNzl9.7XJgV76LX2kU-OfAo_Y7a5LeJ2Rp8jmnQ-s9ZbjZOOw' http://localhost:8081/messagesIn -v

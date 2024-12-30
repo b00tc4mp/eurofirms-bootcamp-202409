@@ -3,15 +3,16 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-function getMessages(userId) {
+function getMessagesIn(userId) {
     validate.userId(userId)
 
     return Promise.all([
         User.findById(userId).lean(),
-        Message.find({})
+        Message.find({ recipient: userId })
             .select('-__v')
-            .populate('sender', 'username')
-            .populate('recipient', 'username')
+            .populate('sender', 'username id')
+            .populate('recipient', 'username id')
+            .populate('item', 'id image title')
             .lean()
     ])
         .catch(error => { throw new SystemError(error.message) })
@@ -29,18 +30,18 @@ function getMessages(userId) {
                     message.sender.id = message.sender._id.toString()
                     delete message.sender._id
                 }
-
                 if (message.recipient && message.recipient._id) {
                     message.recipient.id = message.recipient._id.toString()
                     delete message.recipient._id
                 }
+                if (message.item && message.item._id) {
+                    message.item.id = message.item._id.toString()
+                    delete message.item._id
 
-                message.own = (message.sender?.id === userId.toString()) || (message.recipient?.id === userId.toString())
-
+                }
             })
-
             return messages
         })
 }
 
-export default getMessages
+export default getMessagesIn

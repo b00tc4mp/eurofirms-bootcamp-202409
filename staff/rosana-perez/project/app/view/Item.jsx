@@ -26,6 +26,19 @@ function Item(props) {
     const [item, setItem] = useState(null)
     const [timestamp, setTimeStamp] = useState(Date.now())
 
+    const handleError = (error) => {
+        if (error instanceof NotFoundError) {
+            alert(error.message)
+        } else if (error instanceof OwnershipError) {
+            alert(error.message)
+        } else if (error instanceof ValidationError) {
+            alert(error.message)
+        } else if (error instanceof SystemError) {
+            alert('Sorry, there was a problem. Try again later.')
+        }
+        console.error(error)
+    }
+
     function toggleMessage(state) {
         setMessage(state)
     }
@@ -111,29 +124,10 @@ function Item(props) {
             try {
                 deleteItem(item?.id)
                     .then(() => props.onDeleted())
-                    .catch(error => {
-                        if (error instanceof NotFoundError) {
-                            alert(error.message)
-                        } else if (error instanceof OwnershipError) {
-                            alert(error.message)
-                        } else if (error instanceof SystemError) {
-                            alert('Sorry, there was a problem. Try again later.')
-                        }
-
-                        console.error(error)
-                    })
-            } catch (error) {
-                if (error instanceof ValidationError) {
-                    alert(error.message)
-                } else {
-                    alert('Sorry, there was a problem. Try again later.')
-                }
-
-                console.error(error)
-            }
+                    .catch(error => handleError(error))
+            } catch (error) { handleError(error) }
         }
     }
-
     const handleToggleFavClick = () => {
         try {
             toggleFav(item?.id)
@@ -141,25 +135,8 @@ function Item(props) {
                     // props.onToggleFavClick()
                     setTimeStamp(Date.now())
                 })
-
-                .catch(error => {
-                    if (error instanceof NotFoundError) {
-                        alert(error.message)
-                    } else if (error instanceof SystemError) {
-                        alert('Sorry, there was a problem. Try again later.')
-                    }
-
-                    console.error(error)
-                })
-        } catch (error) {
-            if (error instanceof ValidationError) {
-                alert(error.message)
-            } else {
-                alert('Sorry, there was a problem. Try again later.')
-            }
-
-            console.error(error)
-        }
+                .catch(error => handleError(error))
+        } catch (error) { handleError(error) }
     }
 
 
