@@ -4,62 +4,60 @@ const { CredentialsError, SystemError, ValidationError } = errors
 
 import loginUser from '../logic/loginUser'
 
-import './Login.css'
-
 function Login(props) {
     console.log('Login -> render')
 
-    /*
-    props -> { onRegisterClick, onLoginSuccess }
-    */
+    const handleLoginSubmit = event => {
+        event.preventDefault()
 
-    return <main>
-        <h2>Login</h2>
+        const form = event.target
 
-        <form className="login-form" onSubmit={event => {
-            event.preventDefault()
+        const username = form.username.value
+        const password = form.password.value
 
-            const form = event.target
+        try {
+            loginUser(username, password)
+                .then(() => props.onLoginSuccess())
+                .catch(error => {
+                    if (error instanceof CredentialsError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('sorry, there was a problem. try again later.')
 
-            const username = form.username.value
-            const password = form.password.value
+                    console.error(error)
+                })
+        } catch (error) {
+            if (error instanceof ValidationError)
+                alert(error.message)
+            else
+                alert('sorry, there was a problem. try again later.')
 
-            try {
-                loginUser(username, password)
-                    .then(() => props.onLoginSuccess())
-                    .catch(error => {
-                        if (error instanceof CredentialsError)
-                            alert(error.message)
-                        else if (error instanceof SystemError)
-                            alert('sorry, there was a problem. try again later.')
+            console.error(error)
+        }
+    }
 
-                        console.error(error)
-                    })
-            } catch (error) {
-                if (error instanceof ValidationError)
-                    alert(error.message)
-                else
-                    alert('sorry, there was a problem. try again later.')
+    const handleRegisterClick = event => {
+        event.preventDefault()
 
-                console.error(error)
-            }
-        }}>
+        props.onRegisterClick()
+    }
+
+    return <main className="p-20">
+        <h2 className="text-3xl">Login</h2>
+
+        <form className="flex flex-col gap-2" onSubmit={handleLoginSubmit}>
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
+            <input className="border-2 border-black px-2" type="text" id="username" />
 
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+            <input className="border-2 border-black px-2" type="password" id="password" />
 
-            <button type="submit">Login</button>
+            <button className="bg-black text-white" type="submit">Login</button>
         </form>
 
         <p></p>
 
-        <a href="" onClick={event => {
-            event.preventDefault()
-
-            props.onRegisterClick()
-        }}>Register</a>
+        <a className="underline" href="" onClick={handleRegisterClick}>Register</a>
     </main>
 }
 
