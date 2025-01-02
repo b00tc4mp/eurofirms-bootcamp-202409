@@ -1,3 +1,7 @@
+import { errors } from 'com'
+
+const { DuplicityError, SystemError, ValidationError } = errors
+
 import registerUser from '../logic/registerUser'
 
 import './Register.css'
@@ -26,12 +30,18 @@ function Register(props) {
                 registerUser(name, email, username, password)
                     .then(() => props.onRegisterSuccess())
                     .catch(error => {
-                        alert(error.message)
+                        if (error instanceof DuplicityError)
+                            alert(error.message)
+                        else if (error instanceof SystemError)
+                            alert('sorry, there was a problem. try again later.')
 
                         console.error(error)
                     })
             } catch (error) {
-                alert(error.message)
+                if (error instanceof ValidationError)
+                    alert(error.message)
+                else
+                    alert('sorry, there was a problem. try again later.')
 
                 console.error(error)
             }

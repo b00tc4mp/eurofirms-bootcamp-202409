@@ -1,4 +1,6 @@
-import {validate} from 'com'
+import { validate, errors } from 'com'
+
+const { SystemError } = errors
 
 function loginUser(username, password) {
     validate.username(username)
@@ -11,22 +13,26 @@ function loginUser(username, password) {
         },
         body: JSON.stringify({ username, password })
     })
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
             if (status === 200)
                 return response.json()
+                    .catch(error => { throw new SystemError(error.message) })
                     .then(token => {
                         sessionStorage.token = token
                     })
 
             return response.json()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(body => {
                     const error = body.error
                     const message = body.message
 
-                    throw new Error(message)
+                    const constructor = errors[error]
+
+                    throw new constructor(message)
                 })
         })
 }

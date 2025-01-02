@@ -1,3 +1,7 @@
+import { errors } from 'com'
+
+const { ValidationError, SystemError, NotFoundError, OwnershipError } = errors
+
 import deletePost from '../logic/deletePost'
 
 import './Post.css'
@@ -19,12 +23,20 @@ function Post(props) {
                     deletePost(post.id)
                         .then(() => props.onDeleted())
                         .catch(error => {
-                            alert(error.message)
+                            if (error instanceof NotFoundError)
+                                alert(error.message)
+                            else if (error instanceof OwnershipError)
+                                alert(error.message)
+                            else if (error instanceof SystemError)
+                                alert('sorry, there was a problem. try again later.')
 
                             console.error(error)
                         })
                 } catch (error) {
-                    alert(error.message)
+                    if (error instanceof ValidationError)
+                        alert(error.message)
+                    else
+                        alert('sorry, there was a problem. try again later.')
 
                     console.error(error)
                 }

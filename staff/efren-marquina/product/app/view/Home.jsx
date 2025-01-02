@@ -1,3 +1,7 @@
+import { errors } from 'com'
+
+const { NotFoundError, SystemError, ValidationError } = errors
+
 import { useState, useEffect } from 'react'
 
 import Post from './Post'
@@ -32,7 +36,10 @@ function Home(props) {
             getUserName()
                 .then(name => setName(name))
                 .catch(error => {
-                    alert(error.message)
+                    if (error instanceof NotFoundError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('sorry, there was a problem. try again later.')
 
                     console.error(error)
                 })
@@ -40,12 +47,18 @@ function Home(props) {
             getPosts()
                 .then(posts => setPosts(posts))
                 .catch(error => {
-                    alert(error.message)
+                    if (error instanceof NotFoundError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('sorry, there was a problem. try again later.')
 
                     console.error(error)
                 })
         } catch (error) {
-            alert(error.message)
+            if (error instanceof ValidationError)
+                alert(error.message)
+            else
+                alert('sorry, there was a problem. try again later.')
 
             console.error(error)
         }
@@ -80,12 +93,20 @@ function Home(props) {
                     getPosts()
                         .then(posts => setPosts(posts))
                         .catch(error => {
-                            alert(error.message)
+                            if (error instanceof NotFoundError)
+                                alert(error.message)
+                            else if (error instanceof SystemError)
+                                alert('sorry, there was a problem. try again later.')
 
                             console.error(error)
                         })
                 } catch (error) {
-                    alert(error.message)
+                    if (error instanceof ValidationError)
+                        alert(error.message)
+                    else
+                        alert('sorry, there was a problem. try again later.')
+
+                    console.error(error)
 
                     console.log(error)
                 }

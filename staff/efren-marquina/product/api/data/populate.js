@@ -4,7 +4,6 @@ import { User, Post } from './models.js'
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => User.deleteMany())
     .then(() => Post.deleteMany())
-    .then(user => console.log(user))
     // .then(() => {
     //     const user = new User({ name: 'Pepito Grillo', email: 'pepito@grillo.com', username: 'pepitogrillo', password: '123123123' })
 
@@ -48,5 +47,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // return User.updateOne({ _id: pepito._id }, { $set: { password: '234234234' } })
     })
+    .then(() => console.log('the end'))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())
