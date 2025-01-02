@@ -1,10 +1,12 @@
-function deletePost(postId) {
-    if (typeof postId !== 'string') throw new Error('invalid postId')
+import { validate } from 'com'
 
+function deletePost(postId) {
+    validate.postId(postId)
+    
     return fetch(`http://localhost:8080/posts/${postId}`, {
         method: 'DELETE',
         headers: {
-            Authorization: `Basic ${sessionStorage.userId}`
+            Authorization: `Baerer ${sessionStorage.token}`
         }
     })
         .then(response => {

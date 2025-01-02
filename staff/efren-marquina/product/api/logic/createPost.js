@@ -1,7 +1,11 @@
 import { User, Post } from '../data/models.js'
+import { validate } from 'com'
 
 function createPost(userId, image, text) {
-    if (typeof userId !== 'string') throw new Error('invalid userId')
+    validate.userId(userId)
+    validate.image(image)
+    validate.text(text)
+
     if (typeof image !== 'string') throw new Error('invalid image')
     if (typeof text !== 'string') throw new Error('invalid text')
 
