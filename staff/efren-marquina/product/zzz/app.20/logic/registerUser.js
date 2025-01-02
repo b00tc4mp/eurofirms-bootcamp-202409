@@ -2,17 +2,18 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-function createPost(image, text) {
-    validate.image(image)
-    validate.text(text)
+function registerUser(name, email, username, password) {
+    validate.name(name)
+    validate.email(email)
+    validate.username(username)
+    validate.password(password)
 
-    return fetch( `${import.meta.env.VITE_API_URL}/post`, {
+    return fetch('http://localhost:8080/users', {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image, text })
+        body: JSON.stringify({ name, email, username, password })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
@@ -33,4 +34,4 @@ function createPost(image, text) {
         })
 }
 
-export default createPost
+export default registerUser
