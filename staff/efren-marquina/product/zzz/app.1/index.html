@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+</head>
+
+<body>
+    <h1>App</h1>
+
+    <section>
+        <h2>Welcome</h2>
+
+        <p>Please, <a href="">register</a> or <a href="">login</a></p>
+    </section>
+
+    <section>
+        <h2>Register</h2>
+
+        <form>
+            <label for="name">Name</label>
+            <input type="text" id="name">
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email">
+
+            <label for="username">Username</label>
+            <input type="text" id="username">
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Error ...</p>
+
+        <a href="">Login</a>
+    </section>
+
+    <section>
+        <h2>Login</h2>
+
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username">
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Error...</p>
+
+<a href="">Register</a>
+    </section>
+
+    <section>
+        <h2>Home</h2>
+
+        <p>Hello, User!</p>
+
+        <button>Logout</button>
+    </section>
+
+    <script>
+        var users = []
+
+        var sections = document.querySelectorAll('section')
+        
+        var welcomeSection = sections[0]
+        var registerSection = sections[1]
+        var loginSection = sections[2]
+        var homeSection = sections[3]
+
+        registerSection.style.display = 'none'
+        loginSection.style.display = 'none'
+        homeSection.style.display = 'none'
+
+        var welcomeLinks = welcomeSection.querySelectorAll('a')
+
+        var welcomeRegisterLink = welcomeLinks[0]
+        var welcomeLoginLink = welcomeLinks[1]
+
+        welcomeRegisterLink.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            welcomeSection.style.display = 'none'
+            registerSection.style.display = ''            
+        })
+
+        welcomeLoginLink.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            welcomeSection.style.display = 'none'
+            loginSection.style.display =''
+        })
+
+        var registerLinks = registerSection.querySelectorAll('a')
+
+        var registerLoginLink = registerLinks[0]
+
+        registerLoginLink.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            registerSection.style.display = 'none'
+            loginSection.style.display = ''
+        })
+
+        var loginLinks =loginSection.querySelectorAll('a')
+
+        var loginRegisterLink = loginLinks [0]
+
+        loginRegisterLink.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            loginSection.style.display = 'none'
+            registerSection.style.display = ''
+        })
+
+        var registerForm = registerSection.querySelector('form')
+
+        registerForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+
+        var registerFormInputs = registerForm.querySelectorAll('input')
+
+        var registerFormNameInput = registerFormInputs[0]
+        var registerFormEmailInput = registerFormInputs[1]
+        var registerFormUsernameInput = registerFormInputs[2]
+        var registerFormPasswordInput = registerFormInputs[3]
+
+        var name = registerFormNameInput.value
+        var email = registerFormEmailInput.value
+        var username = registerFormUsernameInput.value
+        var password = registerFormPasswordInput.value
+
+        var user = {}
+        user.name = name
+        user.email = email
+        user.username = username
+        user.password = password
+
+        users.push(user)
+
+        registerForm.reset()
+
+        registerSection.style.display = 'none'
+        loginSection.style.display = ''
+        })
+    </script>
+</body>
+
+</html>
