@@ -1,7 +1,7 @@
-import Validate from './validate.js'
+import validate from './validate.js'
 import errors from './errors.js'
 
 export {
-    Validate,
+    validate,
     errors
 }

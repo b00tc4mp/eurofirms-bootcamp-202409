@@ -28,7 +28,7 @@ const validate = {
         if (password.length < 8) throw new ValidationError('invalid password length')
     },
 
-    userid(userId) {
+    userId(userId) {
         if (typeof userId !== 'string') throw new ValidationError('invalid userId')
     },
 
@@ -36,8 +36,8 @@ const validate = {
         if (typeof image !== 'string') throw new ValidationError('invalid image')
     },
 
-    title(title) {
-        if (typeof title !== 'string') throw new ValidationError('invalid title')
+    text(text) {
+        if (typeof text !== 'string') throw new ValidationError('invalid title')
     },
 
     postId(postId) {
@@ -48,17 +48,14 @@ const validate = {
         if (typeof targetUserId !== 'string') throw new ValidationError('invalid targetUserId')
     },
 
-    description(description) {
-        if (typeof description !== 'string') throw new ValidationError('invalid description')
-    },
-
     category(category) {
         if (typeof category !== 'string') throw new ValidationError('invalid category')
     },
 
     status(status) {
         if (typeof status !== 'string') throw new ValidationError('invalid status')
-    }
+    },
+
 }
 
 export default validate
