@@ -12,6 +12,7 @@ function RegisterPlace(props) {
     const place = props.place
     const [parkings, setParkings] = useState([])
     const [levels, setLevels] = useState([])
+    const [date, setDate] = useState("2025-01-07T19:27")
 
     useEffect(() => {
         handleGetParking()
@@ -30,7 +31,7 @@ function RegisterPlace(props) {
 
         try {
             registerPlace(parking, level, space, checkin, checkout)
-                .then(() => props.onRegisterSuccess())
+                .then(() => props.onRegisterPlaceSuccess())
                 .catch(error => {
                     if (error instanceof DuplicityError)
                         alert(error.message)
@@ -83,6 +84,14 @@ function RegisterPlace(props) {
 
     }
 
+    const handleSetTime = event => {
+        setDate(event.target.value)
+    }
+
+    const handleBackHomeClick = event => {
+        props.onBackHomeClick()
+    }
+
     return <article>
         <div>
             <h2 className='text-xl text-center text-red-500'>Aparcar en una plaza</h2>
@@ -107,15 +116,17 @@ function RegisterPlace(props) {
             <input placeholder="Escribe la plaza donde has aparcado" type="text" id="space" />
 
             <label htmlFor="checkin">Hora de entrada</label>
-            <input placeholder="Escribe cuándo entras" type="datetime-local" id="checkin" />
+            <input placeholder="Escribe cuándo entras" type="datetime-local" id="checkin" value={date} onChange={handleSetTime} step="60" />
 
             <label htmlFor="checkout">Hora de salida</label>
-            <input placeholder="Escribe cuándo sales " type="datetime-local" id="checkout" />
+            <input placeholder="Escribe cuándo sales " type="datetime-local" id="checkout" value={date} onChange={handleSetTime} step="60" />
 
 
 
             <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" type="submit">Crear</button>
         </form>
+
+        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleBackHomeClick}>Volver</button>
     </article>
 }
 

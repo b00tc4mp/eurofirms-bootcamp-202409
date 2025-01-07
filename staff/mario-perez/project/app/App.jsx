@@ -12,7 +12,7 @@ function App() {
     const [view, setView] = useState('welcome')
 
     console.log('App -> state: view = ' + view)
-
+    //TODO mejorar metodos de navegacion
     const handleRegisterClick = () => setView('register')
     const handleLoginClick = () => setView('login')
     const handleRegisterSuccess = () => setView('login')
@@ -20,6 +20,8 @@ function App() {
     const handleLogout = () => setView('login')
     const handleRegisterPlaceClick = () => setView('registerPlace')
     const handleCreatePlaceSuccess = () => setView('home')
+    const handleDeletePlaceClick = () => setView('home')
+    const handleBackHomeClick = () => setView('home')
 
     return <>
         <h1 className="text-2xl">ParkSpot</h1>
@@ -43,10 +45,15 @@ function App() {
         {view === 'home' && <Home
             onLogout={handleLogout}
             onRegisterPlaceClick={handleRegisterPlaceClick}
+        //onBackHomeClick={handleBackHomeClick}
         />}
 
         {view === 'registerPlace' && <RegisterPlace
             onRegisterPlaceSuccess={handleCreatePlaceSuccess}
+        />}
+
+        {view === 'place' && <Place
+            onDeletePlaceClick={handleDeletePlaceClick}
         />}
     </>
 }

@@ -2,7 +2,7 @@ import { errors } from 'com'
 
 const { ValidationError, SystemError, NotFoundError, OwnershipError } = errors
 
-// import deletePlace from
+import deletePlace from '../logic/deletePlace.js'
 
 function Place(props) {
     console.log('Place -> render')
@@ -10,6 +10,18 @@ function Place(props) {
     const place = props.place
 
     // TODO logic of deletePlaceClick
+    const handleDeletePlaceClick = () => {
+        try {
+            deletePlace(place.id)
+                .then(() => props.updatePlace())
+
+            // props.updatePlace()
+        } catch (error) {
+            alert(error.message)
+
+            console.error(error)
+        }
+    }
 
     return <article>
         <div className="mt-5 mb-5 text-center" >
@@ -20,10 +32,11 @@ function Place(props) {
             <h3>{place.parking.name}</h3>
             <h4>Nivel: {place.level}</h4>
 
-            <div className="w-12 bg-blue-900 text-center rounded-xl">
+            <div className="bg-blue-900 text-center rounded-xl">
                 <p className="text-white">{place.space}</p>
             </div>
 
+            <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleDeletePlaceClick}>Quitar plaza</button>
         </div>
 
     </article>

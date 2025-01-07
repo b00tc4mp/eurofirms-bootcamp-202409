@@ -1,7 +1,7 @@
-fetch('http://localhost:8080/places/676fc2e142b3b5df437b61dd', {
+fetch('http://localhost:8080/places/677023bffc67141d4b0f28a3', {
     method: 'DELETE',
     headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzY1YjVmYzQwMTY3MjNhZTUzZTllYmUiLCJpYXQiOjE3MzUzODY3MTd9.-zctwHZuzI46cSbgGTLBW9OIs65GzeoHWdx55LQbmBs'
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzY1YjVmYzQwMTY3MjNhZTUzZTllYmYiLCJpYXQiOjE3MzYxMDQ2MjB9.6crBsuCHCd2wLw9ZStwIMFXXJv3feyltC2B68ZSOFZQ'
     }
 })
     .then(response => {
