@@ -57,7 +57,7 @@ En la versión inicial, el usuario User está autorizado para:
 ### Data Model
 
 - User
-  - _id (uuid)
+  - id (uuid)
   - name (string, required)
   - location (string, required)
   - email (string, required, unique)
@@ -66,7 +66,7 @@ En la versión inicial, el usuario User está autorizado para:
   - favs (Item.id, required)
 
 - Item
-  - _id (uuid)
+  - id (uuid)
   - author (User.id, required)
   - location (string, required)
   - image (string, required)
@@ -74,10 +74,15 @@ En la versión inicial, el usuario User está autorizado para:
   - description (string, required)
   - date (date, required)
 
-- Message
-  - _id (uuid)
+- Chat
+  - id (uuid)
+  - users ([User.id], required)
   - item (Item.id, required)
-  - sender (User.id, required)
-  - recipient (User.id, required)
+  - messages ([Message])
+  - date (date, required)
+
+- Message
+  - id (uuid)
+  - user (User.id, required)
   - content(string, required)
   - date (date, required)

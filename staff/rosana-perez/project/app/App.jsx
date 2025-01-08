@@ -5,8 +5,8 @@ import Login from './view/Login'
 import Register from './view/Register'
 import Home from './view/Home'
 import CreateItem from './view/CreateItem'
-import GetFavItems from './view/GetFavItems'
-import GetMessages from './view/GetMessages'
+import FavItems from './view/FavItems'
+import Chats from './view/Chats'
 import UserProfile from './view/UserProfile'
 
 import isUserLoggedIn from './logic/isUserLoggedIn'
@@ -45,11 +45,11 @@ function App() {
         {view === 'home' && <Home
             onCreateItem={() => setView('create')}
 
-            onGetFavItems={() => setView('getFavItems')}
+            onFavItems={() => setView('favItems')}
 
             onUserProfile={() => setView('userProfile')}
 
-            onGetMessages={() => setView('getMessages')}
+            onChats={() => setView('chats')}
 
             onLogout={() => setView('welcome')}
         />}
@@ -60,7 +60,7 @@ function App() {
             onCancelClick={() => setView('home')}
         />}
 
-        {view === 'getFavItems' && <GetFavItems
+        {view === 'favItems' && <FavItems
             onCancelClick={() => setView('home')}
         />}
 
@@ -69,7 +69,7 @@ function App() {
             onEditUserData={() => setView('home')}
         />}
 
-        {view === 'getMessages' && <GetMessages
+        {view === 'chats' && <Chats
             onCancelClick={() => setView('home')}
         />}
     </>

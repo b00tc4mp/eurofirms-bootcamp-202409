@@ -1,10 +1,10 @@
-fetch('http://localhost:8081/items/676177935a732e2fa38984ba/messages/', {
+fetch('http://localhost:8081/chats/', {
     method: 'POST',
     headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzYxNzc5MzVhNzMyZTJmYTM4OTg0YjYiLCJpYXQiOjE3MzQ0NDk4NDl9.6kRcuuz_P7aJ_0Q8s5gJeMhKQck1RIU_S5wdbB-6ICc',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzY1YmVlZWQ2MzlhOTAzNGYyZjBkMjAiLCJpYXQiOjE3MzU5Mzg3Njh9.BXa3D9iys_PyeZrvPxLf0G4gK3ip0yW_Bd24fxxZJJw',
         'Content-Type': 'application/json'
     },
-    body: '{ "recipientId": "676177935a732e2fa38984b7", "content": "message testing js"}'
+    body: '{ "itemId": "676d89052985eb151fdf7623", "content": "message testing send-message.js"}'
 
 })
     .then(response => {

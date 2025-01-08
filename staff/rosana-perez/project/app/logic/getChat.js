@@ -1,25 +1,23 @@
-import { validate, errors } from 'com'
+import { errors } from 'com'
 
 const { SystemError } = errors
 
-function sendMessage(itemId, content) {
-    validate.itemId(itemId)
-    validate.content(content)
+function getChat(chatId) {
 
-    return fetch(`${import.meta.env.VITE_API_URL}/chats/`, {
-        method: 'POST',
+    return fetch(`${import.meta.env.VITE_API_URL}/chats/${chatId}`, {
+        method: 'GET',
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ itemId, content })
+            Authorization: `Bearer ${sessionStorage.token}`
+        }
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
-
             const status = response.status
 
-            if (status === 201) return
+            if (status === 200)
+                return response.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(messages => messages)
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -28,9 +26,10 @@ function sendMessage(itemId, content) {
                     const message = body.message
 
                     const constructor = errors[error]
+
                     throw new constructor(message)
                 })
         })
 }
 
-export default sendMessage
+export default getChat

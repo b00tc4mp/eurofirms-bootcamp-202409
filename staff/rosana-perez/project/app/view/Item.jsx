@@ -1,4 +1,4 @@
-import { errors, formatIsoDate } from 'com'
+import { errors, util } from 'com'
 
 import { Button } from '../components/button'
 import { Input } from '../components/input'
@@ -46,12 +46,12 @@ function Item(props) {
     const [isOpen, setIsOpen] = useState(false)
 
     const itemId = props.itemId
-    const itemDate = formatIsoDate(item)
+    const itemDate = util.formatIsoDate(item)
 
     useEffect(() => {
         getItem(itemId)
-            .then(item => setItem(item))
             .catch(error => handleError(error))
+            .then(item => setItem(item))
     }, [timestamp])
 
 
@@ -132,7 +132,7 @@ function Item(props) {
         try {
             toggleFav(item?.id)
                 .then(() => {
-                    // props.onToggleFavClick()
+                    props.onToggleFavClick()
                     setTimeStamp(Date.now())
                 })
                 .catch(error => handleError(error))
@@ -146,7 +146,7 @@ function Item(props) {
                 <img
                     alt="Product image"
                     src={item?.image}
-                    className="object-cover w-40 h-40 object-center group-hover:opacity-75"
+                    className="object-cover w-40 h-40 object-center rounded-lg group-hover:opacity-75"
                 />
                 <section>
                     <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">

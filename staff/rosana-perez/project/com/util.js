@@ -10,4 +10,7 @@ function formatIsoDate(date, monthIndex, year) {
     return `${dayFormated}/${monthFormated}/${yearFormated}`
 }
 
-export default formatIsoDate
+const util = { formatIsoDate }
+
+
+export default util

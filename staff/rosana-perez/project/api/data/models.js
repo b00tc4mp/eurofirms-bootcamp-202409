@@ -65,22 +65,10 @@ const item = new Schema({
         required: true,
         minLength: 3
     },
-
 }, { timestamps: true })
 
-
 const message = new Schema({
-    item: {
-        type: ObjectId,
-        ref: 'Item',
-        required: true
-    },
-    sender: {
-        type: ObjectId,
-        ref: 'User',
-        required: true
-    },
-    recipient: {
+    user: {
         type: ObjectId,
         ref: 'User',
         required: true
@@ -89,32 +77,25 @@ const message = new Schema({
         type: String,
         required: true
     }
-
 }, { timestamps: true })
 
 const chat = new Schema({
-    message: {
-        type: ObjectId,
-        ref: 'Message',
-        required: true
-    },
-    from: { //sender
+    users: [{
         type: ObjectId,
         ref: 'User',
         required: true
-    },
-    to: { //recipient
-        type: ObjectId,
-        ref: 'User',
-        required: true
-    },
-    subject: { //asunto: item
+    }],
+    item: {
         type: ObjectId,
         ref: 'Item',
         required: true
-    }
+    },
+    messages: [message],
+}, { timestamps: true })
 
-})
+
+
+
 
 const User = model('User', user)
 const Item = model('Item', item)

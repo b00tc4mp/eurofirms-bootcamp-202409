@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
-import getMessagesOut from './getMessagesOut.js'
+import getChat from './getChat.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => {
         try {
-            return getMessagesOut('676d88612985eb151fdf75f6')
-                .then(messages => console.log(messages))
+            return getChat('6765beeed639a9034f2f0d20', '6778531a9458ab128a49d2c1')
+                .then(chat => console.dir(chat, { depth: 3 }))
                 .catch(error => console.error(error))
         } catch (error) {
             console.error(error)

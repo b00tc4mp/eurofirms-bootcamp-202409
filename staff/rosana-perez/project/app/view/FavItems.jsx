@@ -10,11 +10,10 @@ import { useState, useEffect } from 'react'
 import Item from './Item'
 
 import getUserName from '../logic/getUserName'
-import getUser from '../logic/getUser'
 import getFavItems from '../logic/getFavItems'
 
 
-function GetFavItems(props) {
+function FavItems(props) {
     console.log('Fav Items rendering')
 
     const [user, setUser] = useState(null)
@@ -35,9 +34,6 @@ function GetFavItems(props) {
             .then((name) => setName(name))
             .catch(error => handleError(error))
 
-        getUser()
-            .then((user) => setUser(user))
-            .catch(error => handleError(error))
     }, [])
 
     useEffect(() => {
@@ -51,7 +47,7 @@ function GetFavItems(props) {
     const handleOnCancelClick = () => props.onCancelClick()
 
     const handleOnToggleFav = () => {
-        getFavItems(user.id)
+        getFavItems()
             .then(favItems => setFavItems(favItems))
             .catch(error => handleError(error))
     }
@@ -94,4 +90,4 @@ function GetFavItems(props) {
     )
 }
 
-export default GetFavItems
+export default FavItems

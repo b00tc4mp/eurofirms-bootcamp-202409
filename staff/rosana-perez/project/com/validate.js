@@ -62,12 +62,8 @@ const validate = {
         if (typeof description !== 'string') throw new ValidationError('invalid description')
     },
 
-    recipientId(recipientId) {
-        if (typeof recipientId !== 'string') throw new ValidationError('invalid recipientId')
-    },
-
-    senderId(senderId) {
-        if (typeof senderId !== 'string') throw new ValidationError('invalid senderId')
+    chatId(chatId) {
+        if (typeof chatId !== 'string') throw new ValidationError('invalid chatId')
     },
 
     content(content) {

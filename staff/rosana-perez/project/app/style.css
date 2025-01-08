@@ -9,6 +9,10 @@
     background-color: rgba(0, 0, 0, .1);
 }
 
-.uppy * {
-    font-family: "Switzer", sans-serif;
-}
+.tooltip {
+    @apply invisible absolute;
+  }
+  
+  .has-tooltip:hover .tooltip {
+    @apply visible z-50;
+  }

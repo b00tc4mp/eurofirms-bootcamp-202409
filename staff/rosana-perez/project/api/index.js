@@ -20,9 +20,8 @@ import deleteItem from './logic/deleteItem.js'
 import editItem from './logic/editItem.js'
 import toggleFav from './logic/toggleFav.js'
 import sendMessage from './logic/sendMessage.js'
-import getMessagesIn from './logic/getMessagesIn.js'
-import getMessagesOut from './logic/getMessagesOut.js'
-
+import getChats from './logic/getChats.js'
+import getChat from './logic/getChat.js'
 
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
@@ -109,7 +108,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.get('/users/:userId/', (req, res) => {
+        api.get('/users/:userId', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
@@ -212,42 +211,42 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.post('/items/:itemId/messages', jsonBodyParser, (req, res) => {
+        api.post('/chats', jsonBodyParser, (req, res) => {
 
             const userId = verifyToken(req)
 
-            const itemId = req.params.itemId
-            const recipientId = req.body.recipientId
+            const itemId = req.body.itemId
             const content = req.body.content
 
-            sendMessage(userId, itemId, recipientId, content)
+            sendMessage(userId, itemId, content)
                 .then(() => {
                     return res.status(201).send()
                 })
                 .catch(error => handleError(res, error))
         })
 
-        api.get('/messagesIn', (req, res) => {
+        api.get('/chats', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
-                getMessagesIn(userId)
-                    .then(messages => res.json(messages))
+                getChats(userId)
+                    .then(chats => res.json(chats))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
 
-        api.get('/messagesOut', (req, res) => {
+        api.get('/chats/:chatId', (req, res) => {
             try {
                 const userId = verifyToken(req)
+                const chatId = req.params.chatId
 
-                getMessagesOut(userId)
-                    .then(messages => res.json(messages))
+                getChat(userId, chatId)
+                    .then(chat => res.json(chat))
                     .catch(error => handleError(res, error))
             } catch (error) {
-                handleError(error)
+                handleError(res, error)
             }
         })
 

@@ -1,6 +1,7 @@
 import { errors } from 'com'
 
 import { Button } from '../components/button'
+import { Text } from '../components/text'
 import { PlusIcon } from '@heroicons/react/24/solid'
 
 const { NotFoundError, SystemError, ValidationError } = errors
@@ -20,10 +21,18 @@ function Home(props) {
 
 
     const [name, setName] = useState(null)
-    const [user, setUser] = useState(null)
     const [items, setItems] = useState([])
 
-    const { item } = props
+    const handleError = error => {
+        if (error instanceof NotFoundError)
+            alert(error.message)
+        else if (error instanceof ValidationError)
+            alert(error.message)
+        else if (error instanceof SystemError)
+            alert('Sorry, there was a problem. Try again later.')
+
+        console.error(error)
+    }
 
     console.log('Home -> state: name = ' + name)
 
@@ -33,51 +42,13 @@ function Home(props) {
                 .then((name) => {
                     setName(name)
                 })
-                .catch(error => {
-                    if (error instanceof NotFoundError)
-                        alert(error.message)
-                    else if (error instanceof SystemError)
-                        alert('Sorry, there was a problem. Try again later.')
-
-                    console.error(error)
-                })
+                .catch(error => handleError(error))
 
             getItems()
                 .then(items => setItems(items))
-                .catch(error => {
-                    if (error instanceof NotFoundError)
-                        alert(error.message)
-                    else if (error instanceof SystemError)
-                        alert('Sorry, there was a problem. Try again later.')
-
-                    console.error(error)
-                })
-        } catch (error) {
-            if (error instanceof ValidationError)
-                alert(error.message)
-            else
-                alert('Sorry, there was a problem. Try again later.')
-
-            console.error(error)
-        }
+                .catch(error => handleError(error))
+        } catch (error) { handleError(error) }
     }, [])
-
-
-    useEffect(() => {
-        try {
-            if (user && user.favs) {
-                const isFav = user.favs.some(fav => fav.id === item.id)
-                return isFav
-            }
-        } catch (error) {
-            if (error instanceof ValidationError)
-                alert(error.message)
-            else
-                alert('Sorry, there was a problem. Try again later.')
-
-            console.error(error)
-        }
-    }, [user])
 
 
     const handleLogoutClick = () => {
@@ -93,46 +64,37 @@ function Home(props) {
     const handleOnDeleted = () => {
         getItems()
             .then(items => setItems(items))
-            .catch(error => {
-                console.error(error)
-
-            })
+            .catch(error => handleError(error))
     }
 
     const handleOnEdited = () => {
         getItems()
             .then(items => setItems(items))
-            .catch(error => {
-                console.error(error)
-            })
+            .catch(error => handleError(error))
     }
 
     const handleOnSent = () => {
         getItems()
             .then(items => setItems(items))
-            .catch(error => {
-                console.error(error)
-            })
+            .catch(error => handleError(error))
     }
 
     const handleOnCreateClick = () => props.onCreateItem()
-    const handleOnMessagesClick = () => props.onGetMessages()
+    const handleOnChatsClick = () => props.onChats()
 
-    // const handleToggleFavClick = () => {
-    //     getItems()
-    //         .then(items => setItems(items))
-    //         .catch(error => {
-    //             console.error(error)
-    //         })
-    // }
+    const handleToggleFavClick = () => {
+        getItems()
+            .then(items => setItems(items))
+            .catch(error => handleError(error))
+    }
 
     const handleOnProfileClick = () => props.onUserProfile()
 
-    const handleOnGetFavItemsClick = () => props.onGetFavItems()
+    const handleOnFavItemsClick = () => props.onFavItems()
 
     return (
         <main>
-            <header className=" pt-0 w-full flex justify-between bg-emerald-200 items-center px-2 h-24 z-10">
+            <header className="pt-0 w-full flex justify-between items-center px-2 h-24 z-10">
                 <div className="flex lg:flex-1">
                     <a href="#" className="m-1.5 p-1.5">
                         <span className="sr-only">Dona2</span>
@@ -145,7 +107,7 @@ function Home(props) {
                     </a>
                 </div>
                 <section className="flex justify-start">
-                    {name && <h3 className="font-bold text-emerald-700 gap-2">{name}</h3>}
+                    {name && <Text className="gap-4 mr-3 text-sm">Welcome back, {name}</Text>}
                 </section>
 
                 <nav className="flex justify-end gap-0.5">
@@ -156,7 +118,8 @@ function Home(props) {
                         onClick={handleOnProfileClick}
                         className="inline-flex items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group ">
                         <UserCircleIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
-                        <span className="sr-only">Profile</span>
+                        <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0 m-8">Profile</span>
                     </Button>
 
                     <Button
@@ -171,7 +134,7 @@ function Home(props) {
 
                     <Button
                         plain
-                        type="button" onClick={handleOnGetFavItemsClick}
+                        type="button" onClick={handleOnFavItemsClick}
                         className="inline-flex items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <HeartIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
                         <span className="sr-only">Fav Items</span>
@@ -179,10 +142,10 @@ function Home(props) {
 
                     <Button
                         plain
-                        type="button" onClick={handleOnMessagesClick}
+                        type="button" onClick={handleOnChatsClick}
                         className="inline-flex items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <EnvelopeIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
-                        <span className="sr-only">Fav Items</span>
+                        <span className="sr-only">Chats</span>
                     </Button>
 
                     <Button
@@ -197,21 +160,19 @@ function Home(props) {
             </header>
 
             <div className="container w-full pt-4 pb-4 my-6 ">
-                <section className="mx-auto max-w-2xl px-4 py-2 sm:px-3 sm:py-0 lg:max-w-7xl lg:px-4">
-                    <h2 className="text-2xl font-bold tracking-tight text-emerald-900">New listings</h2>
+                <section className="mx-auto px-4 sm:px-3 sm:py-0 lg:px-4">
+                    <h2 className="text-2xl font-bold tracking-tight">New listings</h2>
                 </section>
                 <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     {items.map(item => {
-                        const isFav = user && user.favs ? user.favs.some(fav => fav.id === item.id) : false
                         return (
                             <article key={item.id}>
                                 < Item
                                     itemId={item.id}
-                                    isFav={isFav}
                                     onDeleted={handleOnDeleted}
                                     onEdited={handleOnEdited}
                                     onMessage={handleOnSent}
-                                /* onToggleFavClick={handleToggleFavClick} */
+                                    onToggleFavClick={handleToggleFavClick}
                                 />
                             </article>
                         )
