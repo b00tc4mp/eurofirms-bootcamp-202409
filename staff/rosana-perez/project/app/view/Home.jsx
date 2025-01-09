@@ -129,7 +129,8 @@ function Home(props) {
                         onClick={handleOnCreateClick}
                         className="inline-flex items-center justify-center font-medium hover:bg-gray-50  dark:hover:bg-gray-800 group focus:ring-4">
                         <PlusIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
-                        <span className="sr-only">New item</span>
+                        <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0 m-8">New item</span>
                     </Button>
 
                     <Button
@@ -137,7 +138,8 @@ function Home(props) {
                         type="button" onClick={handleOnFavItemsClick}
                         className="inline-flex items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <HeartIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
-                        <span className="sr-only">Fav Items</span>
+                        <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0 m-8">Fav items</span>
                     </Button>
 
                     <Button
@@ -145,7 +147,8 @@ function Home(props) {
                         type="button" onClick={handleOnChatsClick}
                         className="inline-flex items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-gray-800 group">
                         <EnvelopeIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
-                        <span className="sr-only">Chats</span>
+                        <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0 m-8">Chat</span>
                     </Button>
 
                     <Button
@@ -154,7 +157,8 @@ function Home(props) {
                         onClick={handleLogoutClick}
                         className="inline-flex items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-emerald-600 group">
                         < ArrowUturnLeftIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
-                        <span className="sr-only">Logout</span>
+                        <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0 m-8">Profile</span>
                     </Button>
                 </nav >
             </header>

@@ -2,10 +2,7 @@ import { errors, util } from 'com'
 
 const { ValidationError, SystemError, NotFoundError } = errors
 
-import { Field, Label } from '../components/fieldset.jsx'
-import { Button } from '../components/button.jsx'
-import { ArrowUturnLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
-import { Textarea } from '../components/textarea.jsx'
+import { Text } from '../components/text.jsx'
 
 import sendMessage from '../logic/sendMessage.js'
 import getChat from '../logic/getChat.js'
@@ -20,8 +17,8 @@ function Chat({ chatId }) { //recibe chatId = props
 
     const [chat, setChat] = useState(null)
     const [timestamp, setTimeStamp] = useState(Date.now())
+    const userId = getLoggedInUserId()
 
-    console.log('timeStamp->  ', timestamp)
 
     const handleError = (error) => {
         if (error instanceof NotFoundError) {
@@ -36,7 +33,6 @@ function Chat({ chatId }) { //recibe chatId = props
 
 
     useEffect(() => {
-        console.log('fetchhingg chat info')
         getChat(chatId)
             .then(chat => setChat(chat))
             .catch(error => handleError(error))
@@ -48,6 +44,9 @@ function Chat({ chatId }) { //recibe chatId = props
         }, 5000)
 
     }, [timestamp])
+
+    const itemImage = chat?.item.image
+    const itemTitle = chat?.item.title
 
     function toggleChat(state) {
         setChat(state)
@@ -88,39 +87,34 @@ function Chat({ chatId }) { //recibe chatId = props
     const recipientUser = chat?.users.find(user => user.id !== getLoggedInUserId())
 
     const lastMessage = chat?.messages[chat.messages.length - 1]
+    const messageDate = util.formatIsoDate(lastMessage?.updatedAt)
+
 
     return (
-        <article >
-            {chat &&
-                <a href="#">
-                    <p>{recipientUser.username}</p>
-                    <section>
-                        {lastMessage &&
-                            <Message
-                                from={lastMessage.user.id}
-                                content={lastMessage.content}
-                                date={lastMessage.updatedAt} />
-                        }
-                    </section>
-                    {/* 
-                    <form className="flex flex-col items-center" onSubmit={handleMessageSubmit}>
-                        <Field>
-                            <Label htmlFor="text" className="text-xs">Write a message:</Label>
-                            <Textarea type="text" id="text"></Textarea>
-                        </Field>
-
-                        <div className="flex justify-between h-4 items-center my-6 m-2">
-                            <Button
-                                type="submit"
-                                className="btn sm:w-auto justify-items-start"
-                                plain
-                                color="white">
-                                Send
-                            </Button>
+        <article>
+            {chat ? (
+                <div>
+                    <div className="group/f0df7a36 flex w-full cursor-pointer items-center gap-4 overflow-hidden rounded-2xl px-3 py-3 hover:bg-neutral-50 active:bg-neutral-100">
+                        <div className="group/bec25ae6 bg-orange-100 relative flex h-12 w-12 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg">
+                            <img className="absolute h-12 w-12 flex-none object-cover" src={itemImage} alt="chat item" />
                         </div>
-                    </form> */}
-                </a>
-            }
+                        <div className="flex shrink-0 grow basis-0 flex-col items-start">
+                            <div className="flex w-full items-center gap-2">
+                                <span className="text-sm">{recipientUser.username}</span>
+                                <span>{messageDate}</span>
+                            </div>
+                            <div className="flex w-full items-center gap-2">
+                                <span className="font-semibold tracking-tight">{itemTitle}</span>
+                            </div>
+                            <div className="flex w-full items-center gap-2">
+                                <Text>{lastMessage?.content}</Text>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <p>No messages or chat found</p>
+            )}
         </article>
     )
 }

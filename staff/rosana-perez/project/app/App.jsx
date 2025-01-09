@@ -6,8 +6,10 @@ import Register from './view/Register'
 import Home from './view/Home'
 import CreateItem from './view/CreateItem'
 import FavItems from './view/FavItems'
-import Chats from './view/Chats'
+import ChatList from './view/ChatList'
+import ChatMessages from './view/ChatMessages'
 import UserProfile from './view/UserProfile'
+
 
 import isUserLoggedIn from './logic/isUserLoggedIn'
 
@@ -15,6 +17,7 @@ function App() {
     console.log('App rendering')
 
     const [view, setView] = useState(isUserLoggedIn() ? 'home' : 'welcome')
+    const [chatId, setChatId] = useState(null)
 
     console.log('App -> state: view = ' + view)
 
@@ -49,7 +52,7 @@ function App() {
 
             onUserProfile={() => setView('userProfile')}
 
-            onChats={() => setView('chats')}
+            onChats={() => setView('chatList')}
 
             onLogout={() => setView('welcome')}
         />}
@@ -66,11 +69,22 @@ function App() {
 
         {view === 'userProfile' && <UserProfile
             onCancelClick={() => setView('home')}
+
             onEditUserData={() => setView('home')}
         />}
 
-        {view === 'chats' && <Chats
+        {view === 'chatList' && <ChatList
+            onChatMessages={(chatId) => {
+                setChatId(chatId)
+                setView('chatMessages')
+            }}
+
             onCancelClick={() => setView('home')}
+        />}
+
+        {view === 'chatMessages' && <ChatMessages
+            chatId={chatId}
+            onCancelClick={() => setView('chatList')}
         />}
     </>
 }

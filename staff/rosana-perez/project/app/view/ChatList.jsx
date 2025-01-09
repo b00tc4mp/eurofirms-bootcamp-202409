@@ -1,4 +1,4 @@
-import { errors } from 'com'
+import { errors, util } from 'com'
 
 const { NotFoundError, SystemError, ValidationError, OwnershipError } = errors
 
@@ -9,15 +9,14 @@ import { useState, useEffect } from 'react'
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
 import Chat from './Chat'
-import Item from './Item'
 
 import getLoggedInUserId from '../logic/getLogggedInUserId'
 import getUserName from '../logic/getUserName'
 import getChats from '../logic/getChats'
 
 
-function Chats(props) {
-    console.log('Chats rendering')
+function ChatList(props) {
+    console.log('ChatList rendering')
 
     const [userId, setUserId] = useState(null)
     const [name, setName] = useState(null)
@@ -49,32 +48,35 @@ function Chats(props) {
 
     useEffect(() => {
         if (userId) {
-            getChats()
+            getChats() // retorna lastMessage
                 .then(chats => { setChats(chats) })
                 .catch(error => handleError(error))
         }
     }, [userId])
 
+    console.log('chats', chats)
+    console.log('ChatList -> state: user = ' + name)
 
-    console.log('Chats -> state: user = ' + name)
+    const handleOnChatClick = (chatId) => {
+        props.onChatMessages(chatId)
+    }
+
+
+    const lastChatMessage = chats?.map(chat => chat.lastMessage)
+    console.log('lastMessage', lastChatMessage)
+    const lastMessageDate = util.formatIsoDate(lastChatMessage?.updatedAt)
 
     const handleOnCancelClick = () => props.onCancelClick()
 
-    const totalMssByChat = chats.forEach(chat => {
-        chat.messages.length - 1
-    })
-    const totalMessages = totalMssByChat
+    /* const handleOnSent = () => {
+        getMessagesIn()
+            .catch(error => { console.error(error) })
+            .then(() => {
+                if (messageIn) { messageIn.push(messageIn) }
+                else if (messageOut) { messageOut.push(messageOut) }
+            })
+    } */
 
-    /*
-        const handleOnSent = () => {
-            getMessagesIn()
-                .catch(error => { console.error(error) })
-                .then(() => {
-                    if (messageIn) { messageIn.push(messageIn) }
-                    else if (messageOut) { messageOut.push(messageOut) }
-                })
-        }
-     */
 
     return <>
         <header className="w-full flex justify-between items-center px-2 h-24 z-10">
@@ -95,24 +97,22 @@ function Chats(props) {
             </Button>
         </header>
 
-        <div className="container">
-            <h2 className="text-l py-4 tracking-tight text-gray-900 flex justify-center">Your chats</h2>
+        <div className="flex w-full flex-col flex-items-center items-start gap-1 p-6">
+            <h2 className="text-2xl font-semibold py-4 tracking-tight text-gray-900 ">Your chats</h2>
             <div>
-                <h3>Total Messages: {totalMessages}</h3>
-                <div className="">
+                <div className="" >
                     {chats ? (
                         chats.map(chat => {
                             return (
-                                <div key={chat.id}>
-
+                                <div key={chat.id} onClick={() => handleOnChatClick(chat.id)}>
                                     <Chat
-                                        chatId={chat.id}>
+                                        chatId={chat.id}
+                                        message={lastChatMessage}
+                                        date={lastMessageDate}
+                                    >
                                         {/*                                        onMessage={handleOnSent} />
                                         {/* onDeleted={handleOnDeleted}*/}
                                     </Chat>
-                                    <Item
-                                        itemId={chat.item.id}
-                                    />
                                 </div>
                             )
                         })
@@ -124,4 +124,4 @@ function Chats(props) {
     </>
 }
 
-export default Chats
+export default ChatList
