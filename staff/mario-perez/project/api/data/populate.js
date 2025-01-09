@@ -37,7 +37,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/project')
             password: '123123123'
         })
 
-
+        // parkings
         const augusta = new Parking({
             name: 'Parking Augusta',
             address: 'Avda de Navarra, s/n',
@@ -74,6 +74,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/project')
             capacity: 3600
         })
 
+        // places
         const place1 = new Place({
             parking: grancasa._id,
             level: 2,
@@ -81,7 +82,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/project')
             checkin: new Date('2024-12-16T09:00:00Z'),
             checkout: new Date('2024-12-16T17:00:00Z'),
             free: false,
-            user: pepito._id
+            user: pepito._id,
+            vehicleRegistration: '1234-ABC'
+
             //location:
         })
 
@@ -92,7 +95,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/project')
             checkin: new Date('2024-12-15T08:00:00Z'),
             checkout: new Date('2024-12-15T18:00:00Z'),
             free: true,
-            user: peter._id
+            user: peter._id,
+            vehicleRegistration: '4567-DEF'
             //location:
         })
         return Promise.all([

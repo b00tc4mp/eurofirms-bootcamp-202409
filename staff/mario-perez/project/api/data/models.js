@@ -27,7 +27,6 @@ const user = new Schema({
         minLength: 8
     }
 })
-
 const parking = new Schema({
     name: {
         type: String,
@@ -101,6 +100,12 @@ const place = new Schema({
     user: {
         type: ObjectId,
         ref: 'User'
+    },
+
+    vehicleRegistration: { // matrícula coche
+        type: String,
+        required: true,
+        unique: true
     }
 })
 const User = model('User', user)

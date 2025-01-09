@@ -54,9 +54,12 @@ const validate = {
     placeId(placeId) {
         if (typeof placeId !== 'string') throw new ValidationError(' placeId inválido')
         if (placeId.length !== 24) throw new ValidationError("longitud del placeId inválida")
+    },
+
+    vehicleRegistration(vehicleRegistration) {
+        if (typeof vehicleRegistration !== 'string') throw new ValidationError('Matrícula no válida')
+        if (vehicleRegistration.length !== 8) throw new ValidationError('Longitud de matrícula demasiado corta')
     }
-
-
 
 }
 

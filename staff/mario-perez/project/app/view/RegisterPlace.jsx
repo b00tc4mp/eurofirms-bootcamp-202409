@@ -28,9 +28,10 @@ function RegisterPlace(props) {
         const space = form.space.value
         const checkin = form.checkin.value
         const checkout = form.checkout.value
+        const vehicleRegistration = form.vehicleRegistration.value
 
         try {
-            registerPlace(parking, level, space, checkin, checkout)
+            registerPlace(parking, level, space, checkin, checkout, vehicleRegistration)
                 .then(() => props.onRegisterPlaceSuccess())
                 .catch(error => {
                     if (error instanceof DuplicityError)
@@ -121,6 +122,8 @@ function RegisterPlace(props) {
             <label htmlFor="checkout">Hora de salida</label>
             <input placeholder="Escribe cuándo sales " type="datetime-local" id="checkout" value={date} onChange={handleSetTime} step="60" />
 
+            <label htmlFor="vehicleRegistration">Matrícula</label>
+            <input placeholder="Escribe la matrícula de tu automóvil" type="text" id="vehicleRegistration" />
 
 
             <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" type="submit">Crear</button>

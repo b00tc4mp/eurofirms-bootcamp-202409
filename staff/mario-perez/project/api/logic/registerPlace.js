@@ -3,11 +3,12 @@ import { validate, errors } from 'com'
 
 const { SystemError, DuplicityError } = errors
 
-function registerPlace(userId, parkingId, level, space, checkin, checkout) {
+function registerPlace(userId, parkingId, level, space, checkin, checkout, vehicleRegistration) {
     validate.userId(userId)
     validate.space(space)
     validate.level(level)
     validate.checkinAndCheckout(checkin, checkout)
+    validate.vehicleRegistration(vehicleRegistration)
 
     // TODO find place with parkingId, level and space.
 
@@ -23,7 +24,7 @@ function registerPlace(userId, parkingId, level, space, checkin, checkout) {
         .then(place => {
             if (place) throw new DuplicityError('la  plaza ya existia')
 
-            return Place.create({ parking: parkingId, level, space, checkin, checkout, user: userId })
+            return Place.create({ parking: parkingId, level, space, checkin, checkout, user: userId, vehicleRegistration })
                 .catch(error => {
                     if (error.code === 11000) throw new DuplicityError('La plaza ya está ocupada')
 

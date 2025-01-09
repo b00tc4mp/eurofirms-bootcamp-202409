@@ -125,9 +125,10 @@ mongoose.connect(MONGO_URL)
                 const space = req.body.space
                 const checkin = req.body.checkin
                 const checkout = req.body.checkout
+                const vehicleRegistration = req.body.vehicleRegistration
 
 
-                registerPlace(userId, parkingId, level, space, checkin, checkout)
+                registerPlace(userId, parkingId, level, space, checkin, checkout, vehicleRegistration)
                     .then(() => res.status(201).send())
                     .catch(error => handleError(res, error))
             } catch (error) {

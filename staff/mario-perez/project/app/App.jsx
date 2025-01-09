@@ -45,11 +45,11 @@ function App() {
         {view === 'home' && <Home
             onLogout={handleLogout}
             onRegisterPlaceClick={handleRegisterPlaceClick}
-        //onBackHomeClick={handleBackHomeClick}
         />}
 
         {view === 'registerPlace' && <RegisterPlace
             onRegisterPlaceSuccess={handleCreatePlaceSuccess}
+            onBackHomeClick={handleBackHomeClick}
         />}
 
         {view === 'place' && <Place
