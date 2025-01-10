@@ -1,0 +1,27 @@
+{
+  "name": "ia2060-project",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Proyecto para eurofirms bootcamp",
+  "main": "./api/server.js",
+  "proxy": "http://localhost:5000",
+  "scripts": {
+    "start": "node ./api/server.js",
+    "dev": "nodemon ./api/server.js",
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.x",
+    "@babel/node": "^7.x",
+    "@babel/preset-env": "^7.x",
+    "@babel/preset-react": "^7.x"
+  }
+}
