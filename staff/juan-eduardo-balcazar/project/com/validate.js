@@ -43,8 +43,8 @@ const validate = {
         if (typeof text !== 'string') throw new ValidationError('invalid text')
     },
 
-    postId(postId) {
-        if (typeof postId !== 'string') throw new ValidationError('invalid postId')
+    infoId(infoId) {
+        if (typeof infoId !== 'string') throw new ValidationError('invalid infoId')
     },
 
     targetUserId(targetUserId) {

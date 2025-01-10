@@ -4,17 +4,17 @@ const { NotFoundError, SystemError, ValidationError } = errors
 
 import { useState, useEffect } from 'react'
 
-import Post from './Post'
+import Info from './Info'
 
 import getUserName from '../logic/getUserName'
-import getPosts from '../logic/getPosts'
+import getInfos from '../logic/getInfos'
 import logoutUser from '../logic/logoutUser'
 
 function Home(props) {
     console.log('Home -> render')
 
     const [name, setName] = useState(null)
-    const [posts, setPosts] = useState([])
+    const [infos, setInfos] = useState([])
 
     console.log('Home -> state: name = ' + name)
 
@@ -31,8 +31,8 @@ function Home(props) {
                     console.error(error)
                 })
 
-            getPosts()
-                .then(posts => setPosts(posts))
+            getInfos()
+                .then(infos => setInfos(infos))
                 .catch(error => {
                     if (error instanceof NotFoundError)
                         alert(error.message)
@@ -63,10 +63,10 @@ function Home(props) {
         }
     }
 
-    const handlePostDeleted = () => {
+    const handleInfoDeleted = () => {
         try {
-            getPosts()
-                .then(posts => setPosts(posts))
+            getInfos()
+                .then(infos => setInfos(infos))
                 .catch(error => {
                     if (error instanceof NotFoundError)
                         alert(error.message)
@@ -87,7 +87,7 @@ function Home(props) {
         }
     }
 
-    const handleCreatePostClick = () => props.onCreatePost()
+    const handleCreateInfoClick = () => props.onCreateInfo()
 
     return <>
         <header className="fixed w-full top-0 flex justify-between items-center bg-black text-white px-2 h-8">
@@ -101,11 +101,11 @@ function Home(props) {
         </header>
 
         {<main className="my-8 bg-gray-300">
-            {posts.map(post => <Post key={post.id} post={post} onDeleted={handlePostDeleted} />)}
+            {infos.map(info => <Info key={info.id} info={info} onDeleted={handleInfoDeleted} />)}
         </main>}
 
         <footer className="bg-blue text-white fixed bottom-0 w-full flex justify-center items-center h-8">
-            <button className="leading-3 rounded h-4 p-1 flex items-center" type="button" onClick={handleCreatePostClick}>
+            <button className="leading-3 rounded h-4 p-1 flex items-center" type="button" onClick={handleCreateInfoClick}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>

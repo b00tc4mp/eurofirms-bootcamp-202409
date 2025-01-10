@@ -15,11 +15,11 @@ This project will be use en IA2060 company to develop the work
 
 User
 - view data
-- create date
-- delete date
-- edit date
-- add comment to date
-- remove comment from date
+- create data
+- delete data
+- edit data
+- add comment to data
+- remove comment from data
 - ...
 
 ### UIUX Design
@@ -54,23 +54,37 @@ User
 
 User
 - id (uuid)
-- Emprice Name (string, required)
-- Contact Emprice teletphone numnber(string, required)
-- Recepcionista Name (string, required)
-- Contact name 1 (string, required)
-- Contact name 2 (string, not required)
-- Last contact Name 1 (string, required)
-- last name 2 (string, not required)
 - email (string, required)
 - username (string, required)
+- phone (string, required)
 - password (string, required)
-
-Post
-- id (uuid)
+- role (string, required, commercial|admin|provider|client)
 - author (User.id)
-- image (string, required)
+- date (date, required)
+- status (string, open|closed)
+
+Info
+- id (uuid)
+- user (User.id, required)
+- email (string)
+- companyName (string, required)
+- companyActivity (string)
+- companyPhone (string, required)
+- recepcionistName (string, required)
+- contactName (string)
+- contactPhone (string)
+- contactEmail (string)
+- date (date, required)
+- description (string)
+
+Comment 
+- id (uuid)
+- user (User.id, required)
+- author (User.id, required)
+- visibility (string, private|public)
 - text (string, required)
-- data (date, required)
+- date (date, required)
+
 
 [gif]: https://media.giphy.com/media/
 [def]: https://media.giphy.com/media/QihmNnEssSR36OwCUt/giphy.gif?cid=ecf05e4752xrl8yyyz6iofximhzmvxtae6ygldl087qoekus&ep=v1_gifs_related&rid=giphy.gif&ct=g

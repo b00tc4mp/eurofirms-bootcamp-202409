@@ -5,56 +5,177 @@ import { Schema, model, Types } from 'mongoose'
 const { ObjectId } = Types
 
 const user = new Schema({
-    name: {
+    // id (uuid)
+
+    email: {
+        type: String,
+        required: true,
+        minLength: 6,
+        unique: true
+    },
+
+    username: {
         type: String,
         required: true,
         minLength: 1
     },
-    email: {
-        type: String,
-        reuqired: true,
-        minLength: 6,
-        unique: true
-    },
-    username: {
+
+    phone: {
         type: String,
         required: true,
-        minLength: 4,
-        unique: true
+        minLength: 1
     },
+
+    // username: {
+    //     type: String,
+    //     required: true,
+    //     minLength: 4,
+    //     unique: true
+    // },
     password: {
         type: String,
         required: true,
         minLength: 8
-    }
-})
+    },
 
-const post = new Schema({
+    role: {
+        type: String,
+        required: true,
+        minLength: 8
+    },
+
     author: {
-        type: ObjectId,
-        required: true,
-    },
-    image: {
         type: String,
         required: true,
-        maxLength: 1000
+        minLength: 8
     },
-    text: {
-        type: String,
-        required: true,
-        maxLength: 1000
-    },
+
+    // User-id
+
     date: {
-        type: Date,
+        type: String,
         required: true,
-        default: Date.now
-    }
+        minLength: 8
+    },
+
+    status: {
+        type: String,
+        required: true,
+        minLength: 8
+    },
+
+
+
+
 })
 
+const info = new Schema({
+
+    // // id (uuid)
+
+    user: {
+        type: String,
+        required: true,
+        minLength: 6,
+        unique: true
+    },
+    // User.id
+
+    email: {
+        type: String,
+        required: false,
+        minLength: 6,
+        unique: false
+    },
+
+    companyName: {
+        type: String,
+        required: true,
+        minLength: 1
+    },
+
+    companyActivity: {
+        type: String,
+        required: false,
+        minLength: 1
+    },
+
+    companyPhone: {
+        type: String,
+        required: true,
+        minLength: 1
+    },
+
+    otherCompanyName: {
+        type: String,
+        required: false,
+        minLength: 1
+    },
+
+    contactName: {
+        type: String,
+        required: true,
+        minLength: 1
+    },
+
+    contactPhone: {
+        type: String,
+        required: true,
+        minLength: 1
+    },
+
+    contactEmail: {
+        type: String,
+        required: true,
+        minLength: 1
+    },
+
+    date: {
+        type: String,
+        required: true,
+        minLength: 1
+    },
+
+    description: {
+        type: String,
+        required: false,
+        minLength: 1
+    },
+
+    // username: {
+    //     type: String,
+    //     required: true,
+    //     minLength: 4,
+    //     unique: true
+    // },
+
+    // const post = new Schema({
+    //     author: {
+    //         type: ObjectId,
+    //         required: true,
+    //     },
+    //     image: {
+    //         type: String,
+    //         required: true,
+    //         maxLength: 1000
+    //     },
+    //     text: {
+    //         type: String,
+    //         required: true,
+    //         maxLength: 1000
+    //     },
+    //     date: {
+    //         type: Date,
+    //         required: true,
+    //         default: Date.now
+    //     }
+    // })
+
+})
 const User = model('User', user)
-const Post = model('Post', post)
+const Info = model('Info', info)
 
 export {
     User,
-    Post
+    Info
 }

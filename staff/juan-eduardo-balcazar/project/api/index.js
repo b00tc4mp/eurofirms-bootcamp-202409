@@ -10,9 +10,9 @@ const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFound
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
-import getPosts from './logic/getPosts.js'
-import createPost from './logic/createPost.js'
-import deletePost from './logic/deletePost.js'
+import getInfos from './logic/getInfos.js'
+import createInfo from './logic/createInfo.js'
+import deleteInfo from './logic/deleteInfo.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -26,32 +26,34 @@ mongoose.connect(MONGO_URL)
 
         const jsonBodyParser = express.json()
 
-        api.post('/users', jsonBodyParser, (req, res) => {
-            try {
-                const name = req.body.name
-                const email = req.body.email
-                const username = req.body.username
-                const password = req.body.password
+        api.info = function () {
+            ('/users', jsonBodyParser, (req, res) => {
+                try {
+                    const name = req.body.name
+                    const email = req.body.email
+                    const username = req.body.username
+                    const password = req.body.password
 
-                registerUser(name, email, username, password)
-                    .then(() => res.status(201).send())
-                    .catch(error => {
-                        if (error instanceof DuplicityError)
-                            res.status(409).json({ error: error.constructor.name, message: error.message })
-                        else if (error instanceof SystemError)
-                            res.status(500).json({ error: error.constructor.name, message: error.message })
-                        else
-                            res.status(500).json({ error: SystemError.name, message: error.message })
-                    })
-            } catch (error) {
-                if (error instanceof ValidationError)
-                    res.status(400).json({ error: error.constructor.name, message: error.message })
-                else
-                    res.status(500).json({ error: SystemError.name, message: error.message })
-            }
-        })
+                    registerUser(name, email, username, password)
+                        .then(() => res.status(201).send())
+                        .catch(error => {
+                            if (error instanceof DuplicityError)
+                                res.status(409).json({ error: error.constructor.name, message: error.message })
+                            else if (error instanceof SystemError)
+                                res.status(500).json({ error: error.constructor.name, message: error.message })
+                            else
+                                res.status(500).json({ error: SystemError.name, message: error.message })
+                        })
+                } catch (error) {
+                    if (error instanceof ValidationError)
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+                    else
+                        res.status(500).json({ error: SystemError.name, message: error.message })
+                }
+            })
+        }
 
-        api.post('/users/auth', jsonBodyParser, (req, res) => {
+        api.info('/users/auth', jsonBodyParser, (req, res) => {
             try {
                 const username = req.body.username
                 const password = req.body.password
@@ -103,7 +105,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.get('/posts', (req, res) => {
+        api.get('/infos', (req, res) => {
             try {
                 const authorization = req.headers.authorization
                 const token = authorization.slice(7)
@@ -111,8 +113,8 @@ mongoose.connect(MONGO_URL)
                 const payload = jwt.verify(token, JWT_SECRET)
                 const userId = payload.sub
 
-                getPosts(userId)
-                    .then(posts => res.json(posts))
+                getInfos(userId)
+                    .then(infos => res.json(infos))
                     .catch(error => {
                         if (error instanceof NotFoundError)
                             res.status(404).json({ error: error.constructor.name, message: error.message })
@@ -129,7 +131,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.post('/posts', jsonBodyParser, (req, res) => {
+        api.info('/infos', jsonBodyParser, (req, res) => {
             try {
                 const authorization = req.headers.authorization
                 const token = authorization.slice(7)
@@ -137,10 +139,10 @@ mongoose.connect(MONGO_URL)
                 const payload = jwt.verify(token, JWT_SECRET)
                 const userId = payload.sub
 
-                const image = req.body.image
+                // const image = req.body.image
                 const text = req.body.text
 
-                createPost(userId, image, text)
+                createInfo(userId, text)
                     .then(() => res.status(201).send())
                     .catch(error => {
                         if (error instanceof NotFoundError)
@@ -158,7 +160,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.delete('/posts/:postId', (req, res) => {
+        api.delete('/infos/:infoId', (req, res) => {
             try {
                 const authorization = req.headers.authorization
                 const token = authorization.slice(7)
@@ -166,9 +168,9 @@ mongoose.connect(MONGO_URL)
                 const payload = jwt.verify(token, JWT_SECRET)
                 const userId = payload.sub
 
-                const postId = req.params.postId
-
-                deletePost(userId, postId)
+                const infoId = req.params.infoId
+                i
+                deleteInfo(userId, infoId)
                     .then(() => res.status(204).send())
                     .catch(error => {
                         if (error instanceof NotFoundError)

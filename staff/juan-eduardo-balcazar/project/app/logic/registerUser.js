@@ -9,7 +9,7 @@ function registerUser(name, email, username, password) {
     validate.password(password)
 
     return fetch(`${import.meta.env.VITE_API_URL}/users`, {
-        method: 'POST',
+        method: 'INFO',
         headers: {
             'Content-Type': 'application/json'
         },

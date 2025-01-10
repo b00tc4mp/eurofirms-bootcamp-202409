@@ -3,8 +3,10 @@ import { useState } from 'react'
 import Welcome from './view/Welcome'
 import Login from './view/Login'
 import Register from './view/Register'
+import Homeaux from './view/Homeaux'
 import Home from './view/Home'
-import CreatePost from './view/CreatePost'
+import CreateInfo from './view/CreateInfo'
+// import CreatePost from './view/CreatePost'
 import isUserLoggedIn from './logic/isUserLoggedln'
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
     const [view, setView] = useState(isUserLoggedIn() ? 'home' : 'welcome')
 
     console.log('App -> state: view = ' + view)
+
+    console.log(view, setView)
     return <>
         {view === 'welcome' && <Welcome
             onRegisterClick={() => setView('register')}
@@ -21,25 +25,25 @@ function App() {
         />}
 
         {view === 'register' && <Register
-            onLoginClick={() => setView('login')}
+            onHomeauxClick={() => setView('homeaux')}
 
-            onRegisterSuccess={() => setView('login')}
+            onRegisterSuccess={() => setView('register')}
         />}
 
         {view === 'login' && <Login
-            onRegisterClick={() => setView('register')}
+            // onRegisterClick={() => setView('register')}
 
-            onLoginSuccess={() => setView('home')}
+            onHomeauxSuccess={() => setView('homeaux')}
         />}
 
-        {view === 'home' && <Home
+        {view === 'homeaux' && <Homeaux
             onLogout={() => setView('login')}
 
-            onCreatePost={() => setView('create-post')}
+            onCreateInfo={() => setView('create-info')}
         />}
 
-        {view === 'create-post' && <CreatePost
-            onCreated={() => setView('home')}
+        {view === 'create-info' && <CreateInfo
+            onCreated={() => setView('homeaux')}
         />}
     </>
 }

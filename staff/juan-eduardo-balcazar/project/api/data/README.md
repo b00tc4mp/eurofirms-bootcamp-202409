@@ -78,17 +78,17 @@ test>
 same for another collection
 
 ```sh
-test> db.posts.insertOne({ author:  ObjectId('6740ef141bbda32c13400b86'), image: 'https://static.wikia.nocookie.net/disneyypixar/images/4/42/Jiminy_KH3.png/revision/latest?cb=20181216183245&path-prefix=es', text: 'hi! this is me!', date: ISODate() })
+test> db.infos.insertOne({ author:  ObjectId('6740ef141bbda32c13400b86'), image: 'https://static.wikia.nocookie.net/disneyypixar/images/4/42/Jiminy_KH3.png/revision/latest?cb=20181216183245&path-prefix=es', text: 'hi! this is me!', date: ISODate() })
 {
   acknowledged: true,
   insertedId: ObjectId('6740f0201bbda32c13400b88')
 }
-test> db.posts.insertOne({ author:  ObjectId('6740ef5f1bbda32c13400b87'), image: 'https://static.wikia.nocookie.net/dhadas/images/b/b8/Tinkerbell.jpg/revision/latest/scale-to-width-down/238?cb=20101123010642&path-prefix=es', text: 'hello there!', date: ISODate() })
+test> db.infos.insertOne({ author:  ObjectId('6740ef5f1bbda32c13400b87'), image: 'https://static.wikia.nocookie.net/dhadas/images/b/b8/Tinkerbell.jpg/revision/latest/scale-to-width-down/238?cb=20101123010642&path-prefix=es', text: 'hello there!', date: ISODate() })
 {
   acknowledged: true,
   insertedId: ObjectId('6740f0741bbda32c13400b89')
 }
-test> db.posts.find()
+test> db.infos.find()
 [
   {
     _id: ObjectId('6740f0201bbda32c13400b88'),

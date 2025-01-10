@@ -1,5 +1,5 @@
 fetch('http://localhost:8080/users', {
-    method: 'POST',
+    method: 'INFO',
     headers: {
         'Content-Type': 'application/json'
     },
