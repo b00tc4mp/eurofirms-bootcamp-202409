@@ -86,7 +86,7 @@ function Item(props) {
 
     const handleOnEditCancelClick = () => setIsOpen(false)
 
-    const handleOnSentMessage = event => {
+    const handleOnMessage = event => {
         event.preventDefault()
 
         const form = event.target
@@ -94,11 +94,12 @@ function Item(props) {
         const contentText = form.text
         const content = contentText.value
 
-        const recipientId = item?.author.id
+        const { chatId } = props
+
 
         if (content) {
             try {
-                sendMessage(itemId, recipientId, content)
+                sendMessage(content, chatId, itemId)
                     .then(() => {
                         toggleMessage(false)
 
@@ -115,9 +116,9 @@ function Item(props) {
         }
     }
 
-    const handleOnToggleMessageClick = () => { toggleMessage(true) }
+    const handleOnMessageClick = () => { toggleMessage(true) }
 
-    const handleOnToggleMessageOut = () => { toggleMessage(false) }
+    const handleOnMessageExit = () => { toggleMessage(false) }
 
     const handleOnDeleteClick = () => {
         if (confirm('Delete item?')) {
@@ -141,120 +142,129 @@ function Item(props) {
 
 
     return (
-        <article className="bg-white container-fluid w-100 h-100 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
-            <a key={item?.id} href="#" className="group block">
-                <img
-                    alt="Product image"
-                    src={item?.image}
-                    className="object-cover w-40 h-40 object-center rounded-lg group-hover:opacity-75"
-                />
-                <section>
-                    <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
-                        <h3>{item?.author.username}</h3>
-                        <p>{item?.location}</p>
-                    </div>
-                    <p className="mt-1 text-lg font-medium text-gray-900">{item?.title}</p>
-                    <Text className="mt-1 text-sm font-medium">{item?.description}</Text>
-                </section>
-                <div className="mt-4 flex flex-wrap justify-between gap-2">
-                    {item?.own ? (
-                        <>
-                            <Button
-                                className="btn sm:w-auto"
-                                plain
-                                color="white"
-                                type="button"
-                                onClick={handleOnDeleteClick}
-                            >
-                                <TrashIcon />
-                            </Button>
-                            <Button
-                                className="btn sm:w-auto"
-                                plain
-                                color="white"
-                                type="button"
-                                onClick={handleOnEditClick}
-                            >
-                                <PencilSquareIcon />
-                            </Button>
-                        </>
-                    ) : (
-                        <Button
-                            className="btn sm:w-auto"
-                            plain
-                            color="white"
-                            type="button"
-                            onClick={handleOnToggleMessageClick}
-                        >
-                            <EnvelopeIcon />
-                        </Button>
-                    )}
-                    <Button
-                        plain
-                        className="btn sm:w-auto"
-                        type="button"
-                        onClick={handleToggleFavClick}
-                    >
-                        <HeartIcon
-                            fill={item?.fav ? '#b91c1c' : 'white'}
-                            stroke={item?.fav ? '#b91c1c' : '#71717a'}
+        <>
+            {item ? (
+                <article className="bg-white container-fluid w-100 h-100 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+                    <a key={item?.id} href="#" className="group block">
+                        <img
+                            alt="Product image"
+                            src={item?.image}
+                            className="object-cover w-40 h-40 object-center rounded-lg group-hover:opacity-75"
                         />
-                    </Button>
-                </div>
-
-                {edit && (
-                    <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-                        <form className="flex flex-col items-center" onSubmit={handleOnEditItemSubmit}>
-                            <section>
-                                <DialogBody>
-                                    <Field>
-                                        <Label>New title</Label>
-                                        <Input type="text" id="text" placeholder={item?.text} />
-                                    </Field>
-                                </DialogBody>
-                                <DialogActions>
-                                    <Button type="submit">Edit</Button>
-                                    <Button plain onClick={handleOnEditCancelClick}>
-                                        Cancel
+                        <section>
+                            <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
+                                <h3>{item?.author.username}</h3>
+                                <p>{item?.location}</p>
+                            </div>
+                            <p className="mt-1 text-lg font-medium text-gray-900">{item?.title}</p>
+                            <Text className="mt-1 text-sm font-medium">{item?.description}</Text>
+                        </section>
+                        <div className="mt-4 flex flex-wrap justify-between gap-2">
+                            {item?.own && (
+                                <>
+                                    <Button
+                                        className="btn sm:w-auto"
+                                        plain
+                                        color="white"
+                                        type="button"
+                                        onClick={handleOnDeleteClick}
+                                    >
+                                        <TrashIcon />
                                     </Button>
-                                </DialogActions>
-                            </section>
-                        </form>
-                    </Dialog>
+                                    <Button
+                                        className="btn sm:w-auto"
+                                        plain
+                                        color="white"
+                                        type="button"
+                                        onClick={handleOnEditClick}
+                                    >
+                                        <PencilSquareIcon />
+                                    </Button>
+                                </>
+                            )}
 
-                )}
-
-                {message && (
-                    <form className="flex flex-col items-center" onSubmit={handleOnSentMessage}>
-                        <Field>
-                            <Label htmlFor="text" className="text-xs">Write a message:</Label>
-                            <Textarea type="text" id="text"></Textarea>
-                        </Field>
-
-                        <div className="flex justify-between h-4 items-center my-6 m-2">
-                            <Button
-                                className="btn sm:w-auto justify-items-start"
-                                plain
-                                color="white"
-                                onClick={handleOnToggleMessageOut}
-                            >
-                                <ArrowUturnLeftIcon />
-                            </Button>
-
-                            <Button
-                                type="submit"
-                                className="btn sm:w-auto justify-items-start"
-                                plain
-                                color="white"
-                            >
-                                Send
-                            </Button>
+                            {!item?.own && (
+                                <>
+                                    <Button
+                                        className="btn sm:w-auto"
+                                        plain
+                                        color="white"
+                                        type="button"
+                                        onClick={handleOnMessageClick}
+                                    >
+                                        <EnvelopeIcon />
+                                    </Button>
+                                    <Button
+                                        plain
+                                        className="btn sm:w-auto"
+                                        type="button"
+                                        onClick={handleToggleFavClick}
+                                    >
+                                        <HeartIcon
+                                            fill={item?.fav ? '#b91c1c' : 'white'}
+                                            stroke={item?.fav ? '#b91c1c' : '#71717a'}
+                                        />
+                                    </Button>
+                                </>
+                            )}
                         </div>
-                    </form>
-                )}
-                <div className="sm:w-auto text-xs">{itemDate}</div>
-            </a>
-        </article>
+
+                        {edit && (
+                            <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+                                <form className="flex flex-col items-center" onSubmit={handleOnEditItemSubmit}>
+                                    <section>
+                                        <DialogBody>
+                                            <Field>
+                                                <Label>New title</Label>
+                                                <Input type="text" id="text" placeholder={item?.text} />
+                                            </Field>
+                                        </DialogBody>
+                                        <DialogActions>
+                                            <Button type="submit">Edit</Button>
+                                            <Button plain onClick={handleOnEditCancelClick}>
+                                                Cancel
+                                            </Button>
+                                        </DialogActions>
+                                    </section>
+                                </form>
+                            </Dialog>
+                        )}
+
+                        {message && (
+                            <form className="flex flex-col items-center" onSubmit={handleOnMessage}>
+                                <Field>
+                                    <Label htmlFor="text" className="text-xs">Write a message:</Label>
+                                    <Textarea type="text" id="text"></Textarea>
+                                </Field>
+
+                                <div className="flex justify-between h-4 items-center my-6 m-2">
+                                    <Button
+                                        className="btn sm:w-auto justify-items-start"
+                                        plain
+                                        color="white"
+                                        onClick={handleOnMessageExit}
+                                    >
+                                        <ArrowUturnLeftIcon />
+                                    </Button>
+
+                                    <Button
+                                        type="submit"
+                                        className="btn sm:w-auto justify-items-start"
+                                        plain
+                                        color="white"
+                                    >
+                                        Send
+                                    </Button>
+                                </div>
+                            </form>
+                        )}
+                        <div className="sm:w-auto text-xs">{itemDate}</div>
+                    </a>
+                </article>
+            ) : (
+                <div>Loading...</div>
+            )}
+        </>
     )
 }
 

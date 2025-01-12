@@ -1,10 +1,11 @@
-fetch('http://localhost:8081/chats/', {
+fetch('http://localhost:8081/chats', {
     method: 'POST',
     headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzY1YmVlZWQ2MzlhOTAzNGYyZjBkMjAiLCJpYXQiOjE3MzU5Mzg3Njh9.BXa3D9iys_PyeZrvPxLf0G4gK3ip0yW_Bd24fxxZJJw',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzZkODhjMzI5ODVlYjE1MWZkZjc1ZmEiLCJpYXQiOjE3MzY1MDg4NDJ9.uVJD35XPz08qdnRYO6FIury6zNFFQId8L4UlU3Geq-E',
+
         'Content-Type': 'application/json'
     },
-    body: '{ "itemId": "676d89052985eb151fdf7623", "content": "message testing send-message.js"}'
+    body: '{ "content": "message after new sendMessage logic", "chatId": "", "itemId": "6765beeed639a9034f2f0d24" }'
 
 })
     .then(response => {

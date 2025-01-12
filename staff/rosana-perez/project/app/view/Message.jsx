@@ -1,11 +1,11 @@
 import { Text } from '../components/text.jsx'
-import '../style.css'
 
+import getLoggedInUserId from '../logic/getLogggedInUserId.js'
 
-function Message({ from, content, date, userId }) { //userId = receptor
+function Message({ from, content, date, senderId }) {
     console.log('Message rendering')
 
-    const fromUser = from !== userId
+    const fromUser = senderId === getLoggedInUserId()
 
     return (
         <article className={`message ${fromUser ? 'sent' : 'received'}`}>

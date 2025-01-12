@@ -76,7 +76,15 @@ const message = new Schema({
     content: {
         type: String,
         required: true
-    }
+    },
+    chatId: {
+        type: ObjectId,
+        ref: 'Chat'
+    },
+    itemId: {
+        type: ObjectId,
+        ref: 'Item'
+    },
 }, { timestamps: true })
 
 const chat = new Schema({
@@ -92,9 +100,6 @@ const chat = new Schema({
     },
     messages: [message],
 }, { timestamps: true })
-
-
-
 
 
 const User = model('User', user)

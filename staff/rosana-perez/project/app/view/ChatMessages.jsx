@@ -1,30 +1,33 @@
 import { errors, util } from 'com'
+import '../style.css'
 
 const { NotFoundError, SystemError, ValidationError, OwnershipError } = errors
 
 import { Button } from '../components/button'
+import { Field, Label } from '../components/fieldset.jsx'
+import { Input } from '../components/input'
 
 import { useState, useEffect } from 'react'
 
-import { ArrowUturnLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
-import { Field, Label } from '../components/fieldset.jsx'
+import { ArrowUturnLeftIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
 
 import Message from './Message'
 
 import getUserName from '../logic/getUserName'
 import getChat from '../logic/getChat'
-
+import sendMessage from '../logic/sendMessage'
 
 function ChatMessages(props) {
     console.log('ChatMessages rendering')
 
-
     const [name, setName] = useState(null)
     const [chat, setChat] = useState([])
+    const [message, setMessage] = useState(null)
+
     const [timestamp, setTimeStamp] = useState(Date.now())
 
     const chatId = props.chatId
-    const userId = props.userId
+    const itemId = props.itemId
 
     const handleError = error => {
         if (error instanceof NotFoundError)
@@ -64,15 +67,29 @@ function ChatMessages(props) {
 
     const handleOnCancelClick = () => props.onCancelClick()
 
-    /* const handleOnSent = () => {
-        getMessagesIn()
-            .catch(error => { console.error(error) })
-            .then(() => {
-                if (messageIn) { messageIn.push(messageIn) }
-                else if (messageOut) { messageOut.push(messageOut) }
-            }) */
+    const handleOnMessage = event => {
+        event.preventDefault()
 
+        const form = event.target
 
+        const content = form.content.value
+
+        if (content) {
+            sendMessage(content, chatId, itemId)
+                .then((newMessage) => {
+                    setMessage(newMessage)
+
+                    props.onMessage()
+                })
+                .catch(error => { console.error(error) })
+        }
+    }
+
+    const handleOnSent = () => {
+        getChat(chatId)
+            .then(message => setMessage(message))
+            .catch(error => handleError(error))
+    }
 
     return (
         <>
@@ -95,21 +112,22 @@ function ChatMessages(props) {
             </header>
 
             <div className="flex w-full flex-col items-start gap-1 p-6">
-                <h2 className="text-2xl font-semibold py-4 tracking-tight text-gray-900">Chat</h2>
+                <div>
+                    <h2 className="text-2xl font-semibold py-4 tracking-tight text-gray-900">Chat</h2>
 
-                {chat?.item &&
-                    <div className="group/f0df7a36 flex w-full cursor-pointer items-center gap-4 overflow-hidden rounded-2xl px-3 py-3 hover:bg-neutral-50 active:bg-neutral-100">
-                        <div className="group/bec25ae6 bg-orange-100 relative flex h-12 w-12 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg">
-                            <img className="absolute h-12 w-12 flex-none object-cover" src={chat.item.image} alt="chat item" />
+                    {chat?.item &&
+                        <div className="group/f0df7a36 flex w-full cursor-pointer items-center gap-4 overflow-hidden rounded-2xl px-3 py-3 hover:bg-neutral-50 active:bg-neutral-100">
+                            <div className="group/bec25ae6 bg-orange-100 relative flex h-12 w-12 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg">
+                                <img className="absolute h-12 w-12 flex-none object-cover" src={chat.item.image} alt="chat item" />
+                            </div>
+
+                            <div className="flex flex-col gap-2 justify-center">
+                                <span className="font-semibold text-lg tracking-tight">{chat.item.title}</span>
+                            </div>
                         </div>
-
-                        <div className="flex flex-col gap-2 justify-center">
-                            <span className="font-semibold text-lg tracking-tight">{chat.item.title}</span>
-                        </div>
-                    </div>
-                }
-
-                <div className="messages-container mt-4">
+                    }
+                </div>
+                <div className="messages-container mt-4 pb-12">
                     {chat?.messages ? (
                         chat.messages.map(message => (
                             <Message
@@ -117,12 +135,28 @@ function ChatMessages(props) {
                                 from={message.user.username}
                                 content={message.content}
                                 date={util.formatIsoDate(message.updatedAt)}
-                                userId={userId}
+                                senderId={message.user.id}
+                                onMessage={handleOnSent}
                             />
                         ))
                     ) : (
                         <p>No messages found</p>
                     )}
+                    <form className="flex justify-between items-center w-full" onSubmit={handleOnMessage}>
+                        <div className="flex-grow">
+                            <Field>
+                                <Label htmlFor="text" name="content" ></Label>
+                                <Input type="text" id="content" placeholder="Write a message:" className="w-full text-xs flex justify-start"></Input>
+                            </Field>
+                        </div>
+                        <Button
+                            type="submit"
+                            plain
+                            className="flex justify-end ml-2"
+                            color="white">
+                            <PaperAirplaneIcon />
+                        </Button>
+                    </form>
                 </div>
             </div>
         </>

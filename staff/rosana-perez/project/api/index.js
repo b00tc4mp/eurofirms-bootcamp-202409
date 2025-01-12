@@ -14,6 +14,7 @@ import getUser from './logic/getUser.js'
 import editUserData from './logic/editUserData.js'
 import createItem from './logic/createItem.js'
 import getItems from './logic/getItems.js'
+import getItemsList from './logic/getItemsList.js'
 import getItem from './logic/getItem.js'
 import getFavItems from './logic/getFavItems.js'
 import deleteItem from './logic/deleteItem.js'
@@ -168,13 +169,28 @@ mongoose.connect(MONGO_URL)
             }
         })
 
+        api.get('/items/list', (req, res) => {
+            try {
+                getItemsList()
+                    .then(items => res.json(items))
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
         api.get('/items/:itemId', (req, res) => {
             try {
-                const userId = verifyToken(req)
+                const userId = req.headers.authorization && verifyToken(req)
                 const itemId = req.params.itemId
 
                 getItem(userId, itemId)
-                    .then(item => res.json(item))
+                    .then(item => {
+                        if (userId) {
+                            item.userId = userId
+                        }
+                        res.json(item)
+                    })
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
@@ -215,10 +231,11 @@ mongoose.connect(MONGO_URL)
 
             const userId = verifyToken(req)
 
-            const itemId = req.body.itemId
             const content = req.body.content
+            const chatId = req.body.chatId
+            const itemId = req.body.itemId
 
-            sendMessage(userId, itemId, content)
+            sendMessage(userId, content, chatId, itemId)
                 .then(() => {
                     return res.status(201).send()
                 })

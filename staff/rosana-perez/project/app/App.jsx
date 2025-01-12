@@ -9,9 +9,11 @@ import FavItems from './view/FavItems'
 import ChatList from './view/ChatList'
 import ChatMessages from './view/ChatMessages'
 import UserProfile from './view/UserProfile'
+import ItemsList from './view/ItemsList'
 
 
 import isUserLoggedIn from './logic/isUserLoggedIn'
+import getChat from './logic/getChat'
 
 function App() {
     console.log('App rendering')
@@ -27,6 +29,8 @@ function App() {
             onRegisterClick={() => setView('register')}
 
             onLoginClick={() => setView('login')}
+
+            onGetStarted={() => setView('itemsList')}
         />}
 
         {view === 'register' && <Register
@@ -84,8 +88,17 @@ function App() {
 
         {view === 'chatMessages' && <ChatMessages
             chatId={chatId}
+            onMessage={getChat(chatId)}
+
             onCancelClick={() => setView('chatList')}
         />}
+
+        {view === 'itemsList' && <ItemsList
+            onLoginClick={() => setView('login')}
+
+            onCancelClick={() => setView('welcome')}
+        />
+        }
     </>
 }
 

@@ -19,7 +19,6 @@ import { ArrowUturnLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
 function Home(props) {
     console.log('Home rendering')
 
-
     const [name, setName] = useState(null)
     const [items, setItems] = useState([])
 
@@ -33,8 +32,6 @@ function Home(props) {
 
         console.error(error)
     }
-
-    console.log('Home -> state: name = ' + name)
 
     useEffect(() => {
         try {
@@ -50,43 +47,28 @@ function Home(props) {
         } catch (error) { handleError(error) }
     }, [])
 
+    console.log('Home -> state: name = ' + name)
 
     const handleLogoutClick = () => {
         try {
             logoutUser()
             props.onLogout()
-        } catch (error) {
-            alert(error.message)
-            console.error(error)
-        }
+        } catch (error) { handleError(error) }
     }
 
-    const handleOnDeleted = () => {
+    const updateItems = () => {
         getItems()
             .then(items => setItems(items))
             .catch(error => handleError(error))
     }
 
-    const handleOnEdited = () => {
-        getItems()
-            .then(items => setItems(items))
-            .catch(error => handleError(error))
-    }
-
-    const handleOnSent = () => {
-        getItems()
-            .then(items => setItems(items))
-            .catch(error => handleError(error))
-    }
+    const handleOnDeleted = () => updateItems()
+    const handleOnEdited = () => updateItems()
+    const handleOnSent = () => updateItems()
+    const handleOnFavClick = () => updateItems()
 
     const handleOnCreateClick = () => props.onCreateItem()
     const handleOnChatsClick = () => props.onChats()
-
-    const handleToggleFavClick = () => {
-        getItems()
-            .then(items => setItems(items))
-            .catch(error => handleError(error))
-    }
 
     const handleOnProfileClick = () => props.onUserProfile()
 
@@ -176,7 +158,7 @@ function Home(props) {
                                     onDeleted={handleOnDeleted}
                                     onEdited={handleOnEdited}
                                     onMessage={handleOnSent}
-                                    onToggleFavClick={handleToggleFavClick}
+                                    onToggleFavClick={handleOnFavClick}
                                 />
                             </article>
                         )

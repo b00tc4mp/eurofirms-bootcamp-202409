@@ -1,11 +1,11 @@
 import { User, Chat } from '../data/models.js'
 import { validate, errors } from 'com'
-
+import mongoose from 'mongoose';
+const { ObjectId } = mongoose.Types;
 const { SystemError, NotFoundError } = errors
 
 function getChats(userId) {
     validate.userId(userId)
-
 
     return Promise.all([
         User.findById(userId).lean(),
@@ -21,6 +21,7 @@ function getChats(userId) {
                 select: 'username'
             })
             .lean()
+
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(userAndChats => {
@@ -30,8 +31,10 @@ function getChats(userId) {
             if (!user) throw new NotFoundError('user not found')
 
             chats.forEach(chat => {
-                chat.id = chat._id.toString()
-                delete chat._id
+                if (chat._id instanceof ObjectId) {
+                    chat.id = chat._id.toString();
+                    delete chat._id;
+                }
 
                 chat.users.forEach(user => {
                     if (user._id) {
@@ -54,10 +57,8 @@ function getChats(userId) {
                     chat.lastMessage.user.id = chat.lastMessage.user._id.toString()
                     delete chat.lastMessage.user._id
                 }
-
             })
-            return chats // [userId -> chats, each chat with item(id, image, title)]
-            //last message -> delete all except the last
+            return chats
         })
 }
 

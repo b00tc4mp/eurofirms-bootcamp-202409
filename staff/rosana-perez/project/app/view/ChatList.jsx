@@ -54,29 +54,16 @@ function ChatList(props) {
         }
     }, [userId])
 
-    console.log('chats', chats)
     console.log('ChatList -> state: user = ' + name)
 
     const handleOnChatClick = (chatId) => {
         props.onChatMessages(chatId)
     }
 
-
     const lastChatMessage = chats?.map(chat => chat.lastMessage)
-    console.log('lastMessage', lastChatMessage)
     const lastMessageDate = util.formatIsoDate(lastChatMessage?.updatedAt)
 
     const handleOnCancelClick = () => props.onCancelClick()
-
-    /* const handleOnSent = () => {
-        getMessagesIn()
-            .catch(error => { console.error(error) })
-            .then(() => {
-                if (messageIn) { messageIn.push(messageIn) }
-                else if (messageOut) { messageOut.push(messageOut) }
-            })
-    } */
-
 
     return <>
         <header className="w-full flex justify-between items-center px-2 h-24 z-10">
@@ -110,8 +97,6 @@ function ChatList(props) {
                                         message={lastChatMessage}
                                         date={lastMessageDate}
                                     >
-                                        {/*                                        onMessage={handleOnSent} />
-                                        {/* onDeleted={handleOnDeleted}*/}
                                     </Chat>
                                 </div>
                             )

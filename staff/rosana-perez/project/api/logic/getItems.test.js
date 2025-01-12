@@ -4,7 +4,7 @@ import getItems from './getItems.js'
 mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => {
         try {
-            return getItems('6765beeed639a9034f2f0d20')
+            return getItems('676d88c32985eb151fdf75fa')
                 .then(items => console.log(items))
                 .catch(error => console.error(error))
         } catch (error) {

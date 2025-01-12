@@ -6,18 +6,18 @@
 @tailwind utilities;
 
 ::selection {
-    background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, .1);
 }
 
 .tooltip {
-    @apply invisible absolute;
-  }
-  
-  .has-tooltip:hover .tooltip {
-    @apply visible z-50;
-  }
+  @apply invisible absolute;
+}
 
- .message {
+.has-tooltip:hover .tooltip {
+  @apply visible z-50;
+}
+
+.message {
   display: flex;
   justify-content: flex-start;
   margin: 10px 0;
@@ -27,7 +27,6 @@
 .message.sent {
   justify-content: flex-end;
 }
-
 
 .message.received {
   justify-content: flex-start;
@@ -60,5 +59,3 @@
 .message .group .text-sm {
   margin-right: 5px;
 }
-
-

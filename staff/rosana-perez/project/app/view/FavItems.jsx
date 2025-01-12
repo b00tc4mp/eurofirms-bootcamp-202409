@@ -16,7 +16,6 @@ import getFavItems from '../logic/getFavItems'
 function FavItems(props) {
     console.log('Fav Items rendering')
 
-    const [user, setUser] = useState(null)
     const [name, setName] = useState(null)
     const [favItems, setFavItems] = useState([])
 
@@ -52,7 +51,7 @@ function FavItems(props) {
             .catch(error => handleError(error))
     }
 
-    const handleOnSendMessage = () => props.Home()
+    const handleOnMessage = () => props.onMessageView()
 
 
     return (
@@ -76,7 +75,7 @@ function FavItems(props) {
                             <Item
                                 key={favItem.id}
                                 itemId={favItem.id}
-                                onMessage={handleOnSendMessage}
+                                onMessage={handleOnMessage}
                                 onToggleFavClick={handleOnToggleFav}
 
                             />

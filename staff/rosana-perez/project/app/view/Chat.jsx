@@ -4,11 +4,8 @@ const { ValidationError, SystemError, NotFoundError } = errors
 
 import { Text } from '../components/text.jsx'
 
-import sendMessage from '../logic/sendMessage.js'
 import getChat from '../logic/getChat.js'
 import getLoggedInUserId from '../logic/getLogggedInUserId.js'
-
-import Message from './Message'
 
 import { useState, useEffect } from 'react'
 
@@ -18,7 +15,6 @@ function Chat({ chatId }) { //recibe chatId = props
     const [chat, setChat] = useState(null)
     const [timestamp, setTimeStamp] = useState(Date.now())
     const userId = getLoggedInUserId()
-
 
     const handleError = (error) => {
         if (error instanceof NotFoundError) {
@@ -48,42 +44,6 @@ function Chat({ chatId }) { //recibe chatId = props
     const itemImage = chat?.item.image
     const itemTitle = chat?.item.title
 
-    function toggleChat(state) {
-        setChat(state)
-    }
-
-    const handleMessageSubmit = (event) => {
-        event.preventDefault()
-
-        const form = event.target
-
-        const contentText = form.text
-        const content = contentText.value
-
-        /*  let recipientId = () => {
-             if (messageIn) {
-                 recipientId = messageIn.sender.id
-             } else if (messageOut) {
-                 recipientId = messageOut.recipient.id
-             }
-         }
-     
-         if (content && recipientId) {
-             try {
-                 sendMessage(itemId, recipientId, content)
-                     .then(() => {
-                         props.onMessage()
-     
-                         if (messageIn) { toggleMessageIn(false) }
-                         else if (messageOut) {
-                             toggleMessageOut(false)
-                         }
-                     })
-                     .catch(error => handleError(error))
-     
-             } catch (error) { handleError(error) }
-         } */
-    }
     const recipientUser = chat?.users.find(user => user.id !== getLoggedInUserId())
 
     const lastMessage = chat?.messages[chat.messages.length - 1]

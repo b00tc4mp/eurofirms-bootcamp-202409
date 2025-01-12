@@ -36,6 +36,7 @@ const validate = {
 
     userId(userId) {
         if (typeof userId !== 'string') throw new ValidationError('invalid userId')
+        if (userId.length < 24) throw new ValidationError('invalid userId length')
     },
 
     image(image) {
@@ -44,6 +45,7 @@ const validate = {
 
     text(text) {
         if (typeof text !== 'string') throw new ValidationError('invalid text')
+        if (text.includes('')) throw new ValidationError("text is needed")
     },
 
     title(title) {
@@ -52,10 +54,12 @@ const validate = {
 
     itemId(itemId) {
         if (typeof itemId !== 'string') throw new ValidationError('invalid itemId')
+        if (itemId.length < 24) throw new ValidationError('invalid itemId length')
     },
 
     targetUserId(targetUserId) {
         if (typeof targetUserId !== 'string') throw new ValidationError('invalid targetUserId')
+        if (targetUserId.length < 24) throw new ValidationError('invalid targetUserId length')
     },
 
     description(description) {
@@ -64,6 +68,21 @@ const validate = {
 
     chatId(chatId) {
         if (typeof chatId !== 'string') throw new ValidationError('invalid chatId')
+
+        let idIsBlank = true
+
+        for (let i = 0; i < chatId.length && idIsBlank; i++) {
+            const char = chatId[i]
+
+            if (char !== ' ')
+                idIsBlank = false
+        }
+        if (idIsBlank)
+            throw new ValidationError("chatId can't be all blank characters")
+
+        if (chatId.length < 24) throw new ValidationError('invalid chatId length')
+
+        /*  if (chatId.includes('')) throw new ValidationError("chatId can't include blank characters") */
     },
 
     content(content) {
