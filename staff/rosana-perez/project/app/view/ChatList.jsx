@@ -65,48 +65,53 @@ function ChatList(props) {
 
     const handleOnCancelClick = () => props.onCancelClick()
 
-    return <>
-        <header className="w-full flex justify-between items-center px-2 h-24 z-10">
-            <div className="flex lg:flex-1">
-                <a href="#" className="m-1.5 p-1.5">
-                    <span className="sr-only">Dona2</span>
-                    <img
-                        alt=""
-                        src="/images/greenWorld.png"
-                        className="h-12 w-auto"
-                    />
-                    <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
-                </a>
-            </div>
-            {userId ? <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">{name}</h3> : null}
-            <Button plain onClick={handleOnCancelClick} className="justify-items-end">
-                <ArrowUturnLeftIcon />
-            </Button>
-        </header>
+    return (
+        <>
+            <header className="w-full flex justify-between items-center px-2 h-24 z-10">
+                <div className="flex lg:flex-1">
+                    <a href="#" className="m-1.5 p-1.5">
+                        <span className="sr-only">Dona2</span>
+                        <img
+                            alt=""
+                            src="/images/greenWorld.png"
+                            className="h-12 w-auto"
+                        />
+                        <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
+                    </a>
+                </div>
+                <section className="flex justify-start">
+                    {userId ? <h3 className="font-semibold text-gray-500 text-sm  gap-2">{name}</h3> : null}
+                </section>
 
-        <div className="flex w-full flex-col flex-items-center items-start gap-1 p-6">
-            <h2 className="text-2xl font-semibold py-4 tracking-tight text-gray-900 ">Your chats</h2>
-            <div>
-                <div className="" >
-                    {chats ? (
-                        chats.map(chat => {
-                            return (
-                                <div key={chat.id} onClick={() => handleOnChatClick(chat.id)}>
-                                    <Chat
-                                        chatId={chat.id}
-                                        message={lastChatMessage}
-                                        date={lastMessageDate}
-                                    >
-                                    </Chat>
-                                </div>
-                            )
-                        })
-                    ) : (<p>No chats found</p>)
-                    }
-                </div >
+                <Button plain onClick={handleOnCancelClick} className="justify-items-end">
+                    <ArrowUturnLeftIcon />
+                </Button>
+            </header>
+
+            <div className="text-center w-full p-2 max-w-lg">
+                <h2 className=" font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your chat list</h2>
+                <div>
+                    <div>
+                        {chats ? (
+                            chats.map(chat => {
+                                return (
+                                    <div key={chat.id} onClick={() => handleOnChatClick(chat.id)}>
+                                        <Chat
+                                            chatId={chat.id}
+                                            message={lastChatMessage}
+                                            date={lastMessageDate}
+                                        >
+                                        </Chat>
+                                    </div>
+                                )
+                            })
+                        ) : (<p>No chats found</p>)
+                        }
+                    </div >
+                </div>
             </div>
-        </div>
-    </>
+        </>
+    )
 }
 
 export default ChatList

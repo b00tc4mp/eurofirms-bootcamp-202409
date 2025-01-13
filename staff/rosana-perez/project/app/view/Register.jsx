@@ -56,7 +56,7 @@ function Register(props) {
 
 
     return <main className="text-center h-full w-full justify-items-center p-6 py-8">
-        <header className="w-full bg-emerald-200 flex justify-between items-center px-2 h-24 z-10">
+        <header className="w-full flex justify-between items-center px-2 h-24 z-10">
             <div className="flex lg:flex-1">
                 <a href="#" className="m-1.5 p-1.5">
                     <span className="sr-only">Dona2</span>

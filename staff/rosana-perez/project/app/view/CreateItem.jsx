@@ -99,7 +99,7 @@ function CreateItem(props) {
     return (
         <>
             <main>
-                <header className="w-full bg-emerald-200 flex justify-between items-center px-2 h-24 z-10">
+                <header className="w-full flex justify-between items-center px-2 h-24 z-8">
                     <div className="flex lg:flex-1">
                         <a href="#" className="m-1.5 p-1.5">
                             <span className="sr-only">Dona2</span>
@@ -112,7 +112,7 @@ function CreateItem(props) {
                         </a>
                     </div>
                     <section className="flex justify-start">
-                        {name && <h3 className="font-bold gap-2">{name}</h3>}
+                        {name && <h3 className="font-semibold text-gray-500 text-sm  gap-2">{name}</h3>}
                     </section>
 
                     <Button plain onClick={handleOnCancelClick} className="justify-items-end">
@@ -121,8 +121,8 @@ function CreateItem(props) {
                 </header>
 
                 <div className="min-h-screen flex flex-col items-center justify-center">
-                    <div className="text-center w-full p-8 max-w-lg">
-                        <h2 className="font-semibold">Create item</h2>
+                    <div className="text-center w-full p-2 max-w-lg">
+                        <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Create your item</h2>
 
                         <form className="my-10 text-left" onSubmit={handleCreateItemSubmit}>
                             <Fieldset>
@@ -246,7 +246,7 @@ function CreateItem(props) {
                                 </FieldGroup>
                             </Fieldset>
 
-                            <Button color="emerald" className="my-6 text-xs text-emerald-800 font-bold" type="submit">Create</Button>
+                            <Button color="emerald-500" className="my-6 text-xs text-emerald-800 font-bold" type="submit">Create</Button>
                         </form>
                     </div>
                 </div>

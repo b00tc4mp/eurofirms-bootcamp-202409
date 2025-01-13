@@ -54,7 +54,7 @@ function ChatMessages(props) {
                 .then(chat => setChat(chat))
                 .catch(error => handleError(error))
         }
-    }, [chatId])
+    }, [timestamp])
 
     useEffect(() => {
         setTimeout(() => {
@@ -76,20 +76,14 @@ function ChatMessages(props) {
 
         if (content) {
             sendMessage(content, chatId, itemId)
-                .then((newMessage) => {
-                    setMessage(newMessage)
-
-                    props.onMessage()
+                .then(() => {
+                    setTimeStamp(Date.now())
+                    form.reset()
                 })
                 .catch(error => { console.error(error) })
         }
     }
 
-    const handleOnSent = () => {
-        getChat(chatId)
-            .then(message => setMessage(message))
-            .catch(error => handleError(error))
-    }
 
     return (
         <>
@@ -105,58 +99,62 @@ function ChatMessages(props) {
                         <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
                     </a>
                 </div>
-                {name ? <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">{name}</h3> : null}
+                <section className="flex justify-start">
+                    {name ? <h3 className="font-semibold text-gray-500 text-sm  gap-2">{name}</h3> : null}
+                </section>
+
                 <Button plain onClick={handleOnCancelClick} className="justify-items-end">
                     <ArrowUturnLeftIcon />
                 </Button>
             </header>
 
-            <div className="flex w-full flex-col items-start gap-1 p-6">
-                <div>
-                    <h2 className="text-2xl font-semibold py-4 tracking-tight text-gray-900">Chat</h2>
-
-                    {chat?.item &&
-                        <div className="group/f0df7a36 flex w-full cursor-pointer items-center gap-4 overflow-hidden rounded-2xl px-3 py-3 hover:bg-neutral-50 active:bg-neutral-100">
-                            <div className="group/bec25ae6 bg-orange-100 relative flex h-12 w-12 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg">
-                                <img className="absolute h-12 w-12 flex-none object-cover" src={chat.item.image} alt="chat item" />
-                            </div>
-
-                            <div className="flex flex-col gap-2 justify-center">
-                                <span className="font-semibold text-lg tracking-tight">{chat.item.title}</span>
-                            </div>
+            <div className="min-h-screen flex flex-col items-center justify-center">
+                <div className="text-center w-full p-2 max-w-lg">
+                    <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Chat</h2>
+                    <div className="flex w-full flex-col items-center gap-1 p-6">
+                        <div>
+                            {chat?.item &&
+                                <div className="group/f0df7a36 flex w-full cursor-pointer items-center gap-4 overflow-hidden rounded-2xl px-3 py-3 hover:bg-neutral-50 active:bg-neutral-100">
+                                    <div className="group/bec25ae6 bg-orange-100 relative flex h-12 w-12 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg">
+                                        <img className="absolute h-12 w-12 flex-none object-cover" src={chat.item.image} alt="chat item" />
+                                    </div>
+                                    <div className="flex flex-col gap-2 justify-center">
+                                        <span className="font-semibold text-lg tracking-tight">{chat.item.title}</span>
+                                    </div>
+                                </div>
+                            }
                         </div>
-                    }
-                </div>
-                <div className="messages-container mt-4 pb-12">
-                    {chat?.messages ? (
-                        chat.messages.map(message => (
-                            <Message
-                                key={message.id}
-                                from={message.user.username}
-                                content={message.content}
-                                date={util.formatIsoDate(message.updatedAt)}
-                                senderId={message.user.id}
-                                onMessage={handleOnSent}
-                            />
-                        ))
-                    ) : (
-                        <p>No messages found</p>
-                    )}
-                    <form className="flex justify-between items-center w-full" onSubmit={handleOnMessage}>
-                        <div className="flex-grow">
-                            <Field>
-                                <Label htmlFor="text" name="content" ></Label>
-                                <Input type="text" id="content" placeholder="Write a message:" className="w-full text-xs flex justify-start"></Input>
-                            </Field>
+                        <div className="messages-container mt-4 pb-12">
+                            {chat?.messages ? (
+                                chat.messages.map(message => (
+                                    <Message
+                                        key={message.id}
+                                        from={message.user.username}
+                                        content={message.content}
+                                        date={util.formatIsoDate(message.updatedAt)}
+                                        senderId={message.user.id}
+                                    />
+                                ))
+                            ) : (
+                                <p>No messages found</p>
+                            )}
+                            <form className="flex justify-between items-center w-full" onSubmit={handleOnMessage}>
+                                <div className="flex-grow">
+                                    <Field>
+                                        <Label htmlFor="text" name="content" ></Label>
+                                        <Input type="text" id="content" placeholder="Write a message:" className="w-full text-xs flex justify-start"></Input>
+                                    </Field>
+                                </div>
+                                <Button
+                                    type="submit"
+                                    plain
+                                    className="flex justify-end ml-2"
+                                    color="white">
+                                    <PaperAirplaneIcon />
+                                </Button>
+                            </form>
                         </div>
-                        <Button
-                            type="submit"
-                            plain
-                            className="flex justify-end ml-2"
-                            color="white">
-                            <PaperAirplaneIcon />
-                        </Button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </>

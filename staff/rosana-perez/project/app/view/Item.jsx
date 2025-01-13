@@ -5,7 +5,7 @@ import { Input } from '../components/input'
 import { Textarea } from '../components/textarea'
 import { Text } from '../components/text'
 import { Field, Label } from '/components/fieldset'
-import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from '../components/dialog'
+import { Dialog, DialogActions, DialogBody } from '../components/dialog'
 import { ArrowUturnLeftIcon, EnvelopeIcon, HeartIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
 
 const { ValidationError, SystemError, NotFoundError, OwnershipError } = errors
@@ -29,8 +29,6 @@ function Item(props) {
     const handleError = (error) => {
         if (error instanceof NotFoundError) {
             alert(error.message)
-        } else if (error instanceof OwnershipError) {
-            alert(error.message)
         } else if (error instanceof ValidationError) {
             alert(error.message)
         } else if (error instanceof SystemError) {
@@ -50,8 +48,8 @@ function Item(props) {
 
     useEffect(() => {
         getItem(itemId)
-            .catch(error => handleError(error))
             .then(item => setItem(item))
+            .catch(error => handleError(error))
     }, [timestamp])
 
 
@@ -68,14 +66,9 @@ function Item(props) {
                     setIsOpen(false)
                     props.onEdited()
                 })
-                .catch(error => {
-                    console.error(error)
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
-            alert(error.message)
-        }
+                .catch(error => { handleError(error) })
+
+        } catch (error) { handleError(error) }
     }
 
     const handleOnEditClick = () => {
@@ -105,14 +98,9 @@ function Item(props) {
 
                         props.onMessage()
                     })
-                    .catch(error => {
-                        console.error(error)
-                        alert(error.message)
-                    })
-            } catch (error) {
-                console.error(error)
-                alert(error.message)
-            }
+                    .catch(error => { handleError(error) })
+
+            } catch (error) { handleError(error) }
         }
     }
 
@@ -126,6 +114,7 @@ function Item(props) {
                 deleteItem(item?.id)
                     .then(() => props.onDeleted())
                     .catch(error => handleError(error))
+
             } catch (error) { handleError(error) }
         }
     }
@@ -137,9 +126,9 @@ function Item(props) {
                     setTimeStamp(Date.now())
                 })
                 .catch(error => handleError(error))
+
         } catch (error) { handleError(error) }
     }
-
 
     return (
         <>

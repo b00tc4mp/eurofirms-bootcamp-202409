@@ -155,10 +155,10 @@ function Welcome(props) {
                         <div className="mt-10 flex items-center justify-center gap-x-6">
                             <a
                                 href="#"
-                                className="rounded-md bg-emerald-400 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                                className="rounded-md bg-emerald-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
                                 onClick={handleGetStarted}
                             >
-                                Get started
+                                Browse items
                             </a>
                             <a href="#" className="text-sm/6 font-semibold text-gray-900">
                                 Learn more <span aria-hidden="true">→</span>

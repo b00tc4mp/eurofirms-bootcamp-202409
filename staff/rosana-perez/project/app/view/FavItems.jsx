@@ -56,33 +56,47 @@ function FavItems(props) {
 
     return (
         <>
-            <header className="w-full bg-emerald-200 display flex justify-between items-center px-2 h-12 z-10">
-                <section className="w-full flex justify-between">
-                    {name && <h3 className="text-emerald-700 flex justify-center font-bold gap-2 ">{name}</h3>}
-                    <h2 className="font-bold text-emerald-700 px-2">Your favourite Items</h2>
-                </section>
-                <section>
+            <main>
+                <header className="w-full flex justify-between items-center px-2 h-24 z-10">
+                    <div className="flex lg:flex-1">
+                        <a href="#" className="m-1.5 p-1.5">
+                            <span className="sr-only">Dona2</span>
+                            <img
+                                alt=""
+                                src="/images/greenWorld.png"
+                                className="h-12 w-auto"
+                            />
+                            <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
+                        </a>
+                    </div>
+                    <section className="flex justify-start">
+                        {name && <h3 className="font-semibold text-gray-500 text-sm gap-2">{name}</h3>}
+                    </section>
+
                     <Button plain onClick={handleOnCancelClick} className="justify-items-end">
                         <ArrowUturnLeftIcon />
                     </Button>
-                </section>
-            </header>
+                </header>
 
-            <main className="pt-4 my-6">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                    {favItems.length > 0 && (favItems.map(favItem => {
-                        return (
-                            <Item
-                                key={favItem.id}
-                                itemId={favItem.id}
-                                onMessage={handleOnMessage}
-                                onToggleFavClick={handleOnToggleFav}
+                <div className="min-h-screen flex flex-col items-center justify-center">
+                    <div className="text-center w-full p-2 max-w-lg">
+                        <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your favorite items</h2>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                            {favItems.length > 0 && (favItems.map(favItem => {
+                                return (
+                                    <Item
+                                        key={favItem.id}
+                                        itemId={favItem.id}
+                                        onMessage={handleOnMessage}
+                                        onToggleFavClick={handleOnToggleFav}
 
-                            />
-                        )
+                                    />
+                                )
 
-                    })
-                    )}
+                            })
+                            )}
+                        </div>
+                    </div>
                 </div>
             </main>
         </>

@@ -107,61 +107,64 @@ function UserProfile(props) {
 
     const handleOnCancelClick = () => props.onCancelClick()
 
+    return (
+        <>
+            <header className="w-full flex justify-between items-center px-2 h-24 z-10">
+                <div className="flex lg:flex-1">
+                    <a href="#" className="m-1.5 p-1.5">
+                        <span className="sr-only">Dona2</span>
+                        <img
+                            alt=""
+                            src="/images/greenWorld.png"
+                            className="h-12 w-auto"
+                        />
+                        <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
+                    </a>
+                </div>
+                <section className="flex justify-start">
+                    {name ? <h3 className="font-semibold text-gray-500 text-sm gap-2">Hello, {name}!</h3> : null}
+                </section>
 
+                <Button plain onClick={handleOnCancelClick} className="justify-items-end">
+                    <ArrowUturnLeftIcon />
+                </Button>
+            </header>
+            <main>
+                <div className="py-2 flex flex-col items-center justify-center">
+                    <div className="text-center w-full p-2 max-w-lg">
+                        <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">You can change your personal data</h2>
+                        <div className="mx-auto w-[40%] flex-items-center max-w-screen-xl px-6 py-4 sm:px-3 sm:py-0 lg:max-w-screen-xl lg:px-6"></div>
+                        {user && <form className="p-3 text-left" onSubmit={handleOnEditUserData}  >
+                            <Fieldset>
+                                <FieldGroup>
+                                    <Field>
+                                        <Label htmlFor="name" name="name">Name</Label>
+                                        <Input type="text" id="name" name="name" defaultValue={name} />
+                                    </Field>
+                                    <Field>
+                                        <Label htmlFor="location" name="location">Location</Label>
+                                        <Input type="text" id="location" name="location" defaultValue={user.location} />
+                                    </Field>
+                                    <Field>
+                                        <Label htmlFor="email" name="email">Email</Label>
+                                        <Input type="email" id="email" name="email" defaultValue={user.email} />
+                                    </Field>
+                                    <Field>
+                                        <Label htmlFor="username" name="username">Username</Label>
+                                        <Input type="text" id="username" name="username" defaultValue={user.username} />
+                                    </Field>
+                                    <Field>
+                                        <Label htmlFor="password" name="password">Password</Label>
+                                        <Input type="password" id="password" name="password" />
+                                    </Field>
+                                </FieldGroup>
+                            </Fieldset>
+                            <Button className="my-6 text-xs" color="emerald" type="submit"  >
+                                Edit</Button>
+                        </form>
+                        }
 
-    return <>
-        <header className="w-full bg-emerald-200 flex justify-between items-center px-2 h-24 z-10">
-            <div className="flex lg:flex-1">
-                <a href="#" className="m-1.5 p-1.5">
-                    <span className="sr-only">Dona2</span>
-                    <img
-                        alt=""
-                        src="/images/greenWorld.png"
-                        className="h-12 w-auto"
-                    />
-                    <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
-                </a>
-            </div>
-            {name ? <h3 className="text-gray-700 flex justify-center font-bold gap-2 ">Hello, {name}!</h3> : null}
-            <Button plain onClick={handleOnCancelClick} className="justify-items-end">
-                <ArrowUturnLeftIcon />
-            </Button>
-        </header>
-
-        <main className="pt-4 my-6 ">
-            <div className="mx-auto w-[40%] flex-items-center max-w-screen-xl px-6 py-10 sm:px-3 sm:py-0 lg:max-w-screen-xl lg:px-6">
-                <h3 className="text-1xl  p-3 tracking-tight text-gray-900">You can change your personal data.</h3>
-                {user && <form className="p-3 text-left" onSubmit={handleOnEditUserData}  >
-                    <Fieldset>
-                        <FieldGroup>
-                            <Field>
-                                <Label htmlFor="name" name="name">Name</Label>
-                                <Input type="text" id="name" name="name" defaultValue={name} />
-                            </Field>
-                            <Field>
-                                <Label htmlFor="location" name="location">Location</Label>
-                                <Input type="text" id="location" name="location" defaultValue={user.location} />
-                            </Field>
-                            <Field>
-                                <Label htmlFor="email" name="email">Email</Label>
-                                <Input type="email" id="email" name="email" defaultValue={user.email} />
-                            </Field>
-                            <Field>
-                                <Label htmlFor="username" name="username">Username</Label>
-                                <Input type="text" id="username" name="username" defaultValue={user.username} />
-                            </Field>
-                            <Field>
-                                <Label htmlFor="password" name="password">Password</Label>
-                                <Input type="password" id="password" name="password" />
-                            </Field>
-                        </FieldGroup>
-                    </Fieldset>
-                    <Button className="my-6 text-xs" color="emerald" type="submit"  >
-                        Edit Personal Data</Button>
-                </form>
-                }
-
-                {/* <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                        {/* <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900">Your items</h2>
                     {items.map(item => {
                         <Item
@@ -188,9 +191,11 @@ function UserProfile(props) {
                         )
                     })}
                 </section> */}
-            </div>
-        </main >
-    </>
+                    </div>
+                </div>
+            </main >
+        </>
+    )
 }
 
 export default UserProfile

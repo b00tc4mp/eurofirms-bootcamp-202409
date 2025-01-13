@@ -21,7 +21,6 @@ function getChats(userId) {
                 select: 'username'
             })
             .lean()
-
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(userAndChats => {
@@ -43,15 +42,18 @@ function getChats(userId) {
                     }
                 })
 
-                chat.item.id = chat.item._id.toString()
-                delete chat.item._id
+                if (chat.item._id) {
+                    chat.item.id = chat.item._id.toString()
+                    delete chat.item._id
+                }
 
                 chat.lastMessage = chat.messages.at(-1)
-
                 delete chat.messages
 
-                chat.lastMessage.id = chat.lastMessage._id.toString()
-                delete chat.lastMessage._id
+                if (chat.lastMessage._id) {
+                    chat.lastMessage.id = chat.lastMessage._id.toString()
+                    delete chat.lastMessage._id
+                }
 
                 if (chat.lastMessage.user._id) {
                     chat.lastMessage.user.id = chat.lastMessage.user._id.toString()
