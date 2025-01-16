@@ -58,8 +58,14 @@ const validate = {
 
     vehicleRegistration(vehicleRegistration) {
         if (typeof vehicleRegistration !== 'string') throw new ValidationError('Matrícula no válida')
-        if (vehicleRegistration.length !== 8) throw new ValidationError('Longitud de matrícula demasiado corta')
-    }
+        if (vehicleRegistration.length !== 8) throw new ValidationError('Longitud de matrícula tiene que ser de 8')
+        // TODO more validations
+    },
+
+    parkingId(parkingId) {
+        if (typeof parkingId !== 'string') throw new ValidationError(' placeId inválido')
+        if (parkingId.length !== 24) throw new ValidationError("longitud del placeId inválida")
+    },
 
 }
 

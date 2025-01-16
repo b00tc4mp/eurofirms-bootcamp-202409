@@ -5,11 +5,16 @@ import Login from "./view/Login"
 import Register from "./view/Register"
 import Home from "./view/Home"
 import RegisterPlace from "./view/RegisterPlace"
+import EditPlace from "./view/EditPlace"
+// import Place from "./view/Place"
+
+import getUserPlaces from "./logic/getUserPlaces.js"
 
 function App() {
     console.log('App -> render')
 
     const [view, setView] = useState('welcome')
+    //const [place, setPlace] = useState({})
 
     console.log('App -> state: view = ' + view)
     //TODO mejorar metodos de navegacion
@@ -22,6 +27,11 @@ function App() {
     const handleCreatePlaceSuccess = () => setView('home')
     const handleDeletePlaceClick = () => setView('home')
     const handleBackHomeClick = () => setView('home')
+    const handleEditPlaceClick = () => setView('editPlace')
+    const handleEditPlaceSuccess = () => setView('home')
+    const onGetPlace = () => {
+        // coger id de place
+    }
 
     return <>
         <h1 className="text-2xl">ParkSpot</h1>
@@ -38,13 +48,13 @@ function App() {
 
         {view === 'login' && <Login
             onRegisterClick={handleRegisterClick}
-
             onLoginSuccess={handleLoginSuccess}
         />}
 
         {view === 'home' && <Home
             onLogout={handleLogout}
             onRegisterPlaceClick={handleRegisterPlaceClick}
+            onEditPlaceClick={handleEditPlaceClick}
         />}
 
         {view === 'registerPlace' && <RegisterPlace
@@ -52,8 +62,10 @@ function App() {
             onBackHomeClick={handleBackHomeClick}
         />}
 
-        {view === 'place' && <Place
-            onDeletePlaceClick={handleDeletePlaceClick}
+        {view === 'editPlace' && <EditPlace
+            //onEditPlaceSuccess={handleEditPlaceSuccess}
+            onBackHomeClick={handleBackHomeClick}
+            onGetPlace={onGetPlace}
         />}
     </>
 }

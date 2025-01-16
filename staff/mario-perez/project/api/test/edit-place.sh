@@ -1,0 +1,1 @@
+curl -X 'PATCH' -H 'Content-Type: application/json' -H 'Authorization: Bearer ' -d '{}' http://localhost:8080/places/677ee28af6a244efd20ff5d6 -v

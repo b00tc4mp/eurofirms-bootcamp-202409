@@ -107,9 +107,37 @@ function Home(props) {
         }
     }
 
+    const handleEditPlaceClick = () => {
+        try {
+            getUserPlaces()
+                .then((places) => {
+                    console.log(places)
+                    setPlaces(places)
+                    props.onEditPlaceClick()
+                })
+                .catch(error => {
+                    if (error instanceof NotFoundError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('Hubo un problema. Inténtalo más tarde.')
+
+                    console.error(error)
+                })
+        } catch (error) {
+            if (error instanceof ValidationError)
+                alert(error.message)
+            else
+                alert('Hubo un problema. Inténtalo más tarde.')
+
+            console.error(error)
+        }
+    }
+
+
+
     return <main className='p-10'>
         <h2>Bienvenido, {name}</h2>
-        {places.map(place => <Place key={place.id} place={place} updatePlace={handleUpdatePlaceClick}
+        {places.map(place => <Place key={place.id} place={place} updatePlace={handleUpdatePlaceClick} onEditPlaceClick={handleEditPlaceClick}
         />)}
         <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleRegisterPlaceClick}>Nueva plaza</button>
         <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleLogoutClick}>Cerrar sesión</button>

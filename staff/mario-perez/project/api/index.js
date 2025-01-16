@@ -15,6 +15,7 @@ import registerPlace from './logic/registerPlace.js'
 import mongoose from 'mongoose'
 import getParkings from './logic/getParkings.js'
 import deletePlace from './logic/deletePlace.js'
+import getOnePlace from './logic/getOnePlace.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -159,6 +160,42 @@ mongoose.connect(MONGO_URL)
                 handleError(res, error)
             }
         })
+
+        api.patch('/places/:placeId', jsonBodyParser, (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                const placeId = req.params.placeId
+                const parkingId = req.params.parkingId
+                const level = req.params.level
+                const space = req.params.space
+                const checkin = req.params.checkin
+                const checkout = req.params.checkout
+
+                editPlace(userId, placeId, parkingId, level, space, checkin, checkout)
+                    .then(() => res.status(204).send())
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
+        api.get('/places/:placeId', (req, res) => {
+            try {
+                console.log("¨hola mundo")
+                const userId = verifyToken(req)
+
+                const placeId = req.params.placeId
+
+                getOnePlace(userId, placeId)
+                    .then(place => res.json(place))
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
+
 
         api.listen(PORT, () => console.log(`La API está lista para funcionar en el puerto ${PORT}`))
     })

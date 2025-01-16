@@ -4,12 +4,13 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 function getUserName(userId, targetUserId) {
+    debugger
     validate.userId(userId)
     validate.userId(targetUserId)
 
     return Promise.all([
-        User.findById(userId),
-        User.findById(targetUserId)
+        User.findById(userId).lean(),
+        User.findById(targetUserId).lean()
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(users => {

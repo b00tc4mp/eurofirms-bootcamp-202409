@@ -72,6 +72,8 @@ function RegisterPlace(props) {
         }
     }
 
+    // Muestra los niveles del parking seleccionado
+
     const handleParkingChange = event => {
         const selectedParking = parkings.find(parking => parking.id === event.target.value)
         console.log('Parking seleccionado: ', selectedParking)
