@@ -15,7 +15,7 @@ function getChat(userId, chatId) {
                 path: 'users',
                 select: 'username _id'
             })
-            .populate('item', 'image title')
+            .populate('item', 'image title sold')
             .populate({
                 path: 'messages.user',
                 select: 'username _id'
@@ -33,30 +33,36 @@ function getChat(userId, chatId) {
 
             if (!found) throw new OwnershipError('user is not participant in chat')
 
-            chat.id = chat._id.toString()
-            delete chat._id
-
-            chat.users.forEach(user => {
-                if (user._id) {
-                    user.id = user._id.toString()
-                    delete user._id
-                }
-            })
-
-            chat.item.id = chat.item._id.toString()
-            delete chat.item._id
+            if (chat._id) {
+                chat.id = chat._id.toString()
+                delete chat._id
+            }
+            if (chat.users) {
+                chat.users.forEach(user => {
+                    if (user._id) {
+                        user.id = user._id.toString()
+                        delete user._id
+                    }
+                })
+            }
+            if (chat.item._id) {
+                chat.item.id = chat.item._id.toString()
+                delete chat.item._id
+            }
 
             const { messages } = chat
 
-            messages.forEach(message => {
-                message.id = message._id.toString()
-                delete message._id
+            if (messages) {
+                messages.forEach(message => {
+                    message.id = message._id.toString()
+                    delete message._id
 
-                if (message.user._id) {
-                    message.user.id = message.user._id.toString()
-                    delete message.user._id
-                }
-            })
+                    if (message.user._id) {
+                        message.user.id = message.user._id.toString()
+                        delete message.user._id
+                    }
+                })
+            }
             return chat
         })
 }

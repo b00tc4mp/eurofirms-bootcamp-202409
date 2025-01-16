@@ -4,10 +4,10 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError, OwnershipError } = errors
 
-function editItem(userId, itemId, text) {
+function editItem(userId, itemId, title) {
     validate.userId(userId)
     validate.itemId(itemId)
-    validate.text(text)
+    validate.title(title)
 
     return Promise.all([
         User.findById(userId).lean(),
@@ -21,7 +21,7 @@ function editItem(userId, itemId, text) {
 
             if (item.author.toString() !== userId) throw new OwnershipError('user is not author of item')
 
-            return Item.updateOne({ _id: item._id }, { 'title': text })
+            return Item.updateOne({ _id: item._id }, { 'title': title })
                 .catch(error => { throw new SystemError(error.message) })
         })
         .then(_ => { })

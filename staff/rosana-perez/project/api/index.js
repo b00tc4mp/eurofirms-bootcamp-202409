@@ -18,6 +18,7 @@ import getItemsList from './logic/getItemsList.js'
 import getItem from './logic/getItem.js'
 import getFavItems from './logic/getFavItems.js'
 import deleteItem from './logic/deleteItem.js'
+import sellItem from './logic/sellItem.js'
 import editItem from './logic/editItem.js'
 import toggleFav from './logic/toggleFav.js'
 import sendMessage from './logic/sendMessage.js'
@@ -148,8 +149,9 @@ mongoose.connect(MONGO_URL)
                 const image = req.body.image
                 const title = req.body.title
                 const description = req.body.description
+                const sold = req.body.sold
 
-                createItem(userId, location, image, title, description)
+                createItem(userId, location, image, title, description, sold)
                     .then(() => res.status(201).send())
                     .catch(error => handleError(res, error))
             } catch (error) {
@@ -220,6 +222,20 @@ mongoose.connect(MONGO_URL)
                 const itemId = req.params.itemId
 
                 deleteItem(userId, itemId)
+                    .then(() => res.status(204).send())
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
+        api.patch('/sell/:itemId', (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                const itemId = req.params.itemId
+
+                sellItem(userId, itemId)
                     .then(() => res.status(204).send())
                     .catch(error => handleError(res, error))
             } catch (error) {

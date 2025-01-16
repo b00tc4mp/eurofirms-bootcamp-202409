@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react'
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
 import Chat from './Chat'
+import ChatItemSold from './ChatItemSold'
 
 import getLoggedInUserId from '../logic/getLogggedInUserId'
 import getUserName from '../logic/getUserName'
@@ -21,6 +22,7 @@ function ChatList(props) {
     const [userId, setUserId] = useState(null)
     const [name, setName] = useState(null)
     const [chats, setChats] = useState([])
+    const [isChatBlocked, setIsChatBlocked] = useState(false)
 
     const handleError = error => {
         if (error instanceof NotFoundError)
@@ -40,7 +42,6 @@ function ChatList(props) {
         if (loggedUserId) {
             setUserId(loggedUserId)
         }
-
         getUserName()
             .then(name => { setName(name) })
             .catch(error => handleError(error))
@@ -57,7 +58,14 @@ function ChatList(props) {
     console.log('ChatList -> state: user = ' + name)
 
     const handleOnChatClick = (chatId) => {
-        props.onChatMessages(chatId)
+        if (!isChatBlocked) {
+
+            props.onChatMessages(chatId)
+        }
+    }
+
+    const handleOnItemSold = () => {
+        setIsChatBlocked(true)
     }
 
     const lastChatMessage = chats?.map(chat => chat.lastMessage)
@@ -87,29 +95,47 @@ function ChatList(props) {
                     <ArrowUturnLeftIcon />
                 </Button>
             </header>
-
-            <div className="text-center w-full p-2 max-w-lg">
-                <h2 className=" font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your chat list</h2>
-                <div>
+            <main className="text-center w-full   p-2 max-w-lg">
+                <h2 className=" font-semibold flex justify-center text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your chat list</h2>
+                <div className="flex justify-center">
                     <div>
-                        {chats ? (
-                            chats.map(chat => {
-                                return (
-                                    <div key={chat.id} onClick={() => handleOnChatClick(chat.id)}>
-                                        <Chat
-                                            chatId={chat.id}
-                                            message={lastChatMessage}
-                                            date={lastMessageDate}
-                                        >
-                                        </Chat>
-                                    </div>
+                        {chats?.map(chat => {
+                            const recipientUser = chat?.users.find(user => user.id !== getLoggedInUserId())
+                            const itemSold = chat?.item?.sold //item.sold[true]
+
+                            return (
+                                chat?.item && (
+                                    !itemSold ? ( //item.sold[false]
+                                        <div key={chat.id} onClick={() => { chat.item && handleOnChatClick(chat.id) }}>
+                                            <Chat
+                                                chatId={chat.id}
+                                                image={chat.item.image}
+                                                title={chat.item.title}
+                                                user={recipientUser.username}
+                                                message={lastChatMessage}
+                                                date={lastMessageDate}
+                                            />
+                                        </div>
+                                    ) : ( //item.sold[true]
+                                        <div onClick={handleOnItemSold}>
+                                            <ChatItemSold
+                                                chatId={chat.id}
+                                                image={chat.item.image}
+                                                title={chat.item.title}
+                                                user={recipientUser.username}
+                                                message={lastChatMessage}
+                                                date={lastMessageDate}
+                                            />
+                                            <p>Item no available</p>
+                                        </div>
+                                    )
                                 )
-                            })
-                        ) : (<p>No chats found</p>)
-                        }
+                            )
+                        })}
+                        {!chats?.length && <p>No chats found</p>}
                     </div >
                 </div>
-            </div>
+            </main>
         </>
     )
 }

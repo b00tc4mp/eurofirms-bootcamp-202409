@@ -21,6 +21,7 @@ function Home(props) {
 
     const [name, setName] = useState(null)
     const [items, setItems] = useState([])
+    // const [timestamp, setTimeStamp] = useState(Date.now())
 
     const handleError = error => {
         if (error instanceof NotFoundError)
@@ -63,15 +64,11 @@ function Home(props) {
     }
 
     const handleOnDeleted = () => updateItems()
-    const handleOnEdited = () => updateItems()
-    const handleOnSent = () => updateItems()
     const handleOnFavClick = () => updateItems()
 
     const handleOnCreateClick = () => props.onCreateItem()
     const handleOnChatsClick = () => props.onChats()
-
     const handleOnProfileClick = () => props.onUserProfile()
-
     const handleOnFavItemsClick = () => props.onFavItems()
 
     return (
@@ -89,7 +86,7 @@ function Home(props) {
                     </a>
                 </div>
                 <section className="flex justify-start">
-                    {name && <Text className="gap-4 mr-3 text-sm">Welcome back, {name}</Text>}
+                    {name && <Text className="gap-4 mr-3 text-sm">Welcome, {name}</Text>}
                 </section>
 
                 <nav className="flex justify-end gap-0.5">
@@ -151,17 +148,18 @@ function Home(props) {
                 </section>
                 <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     {items.map(item => {
-                        return (
-                            <article key={item.id}>
-                                < Item
-                                    itemId={item.id}
-                                    onDeleted={handleOnDeleted}
-                                    onEdited={handleOnEdited}
-                                    onMessage={handleOnSent}
-                                    onToggleFavClick={handleOnFavClick}
-                                />
-                            </article>
-                        )
+                        if (!item?.sold) {
+                            return (
+                                <article key={item.id}>
+                                    <Item
+                                        itemId={item.id}
+                                        onDeleted={handleOnDeleted}
+                                        onToggleFavClick={handleOnFavClick}
+                                    />
+                                </article>
+                            )
+                        }
+                        return null
                     })}
                 </section>
             </div>

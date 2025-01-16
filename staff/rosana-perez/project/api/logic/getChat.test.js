@@ -4,7 +4,7 @@ import getChat from './getChat.js'
 mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => {
         try {
-            return getChat('6765beeed639a9034f2f0d20', '6778531a9458ab128a49d2c1')
+            return getChat('676d88c32985eb151fdf75fa', '6786b0434f3a3c49cf4cef8b')
                 .then(chat => console.dir(chat, { depth: 3 }))
                 .catch(error => console.error(error))
         } catch (error) {

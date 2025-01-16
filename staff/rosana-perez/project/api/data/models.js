@@ -65,6 +65,10 @@ const item = new Schema({
         required: true,
         minLength: 3
     },
+    sold: {
+        type: Boolean,
+        required: true
+    }
 }, { timestamps: true })
 
 const message = new Schema({

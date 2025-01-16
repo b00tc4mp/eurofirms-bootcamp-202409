@@ -16,6 +16,7 @@ const uppy = new Uppy({
 })
 uppy.use(Dashboard, { inline: true, target: 'body', proudlyDisplayPoweredByUppy: false })
 uppy.use(Webcam)*/
+
 const { ValidationError, SystemError, NotFoundError } = errors
 
 function CreateItem(props) {
@@ -71,11 +72,12 @@ function CreateItem(props) {
         const image = form.image.value
         const title = form.title.value
         const description = form.description.value
+        const sold = false
 
-        console.log('Form data on submit:', { location, image, title, description }) // Verifica los valores antes de enviarlos
+        console.log('Form data on submit:', { location, image, title, description, sold }) // Verifica los valores antes de enviarlos
 
         try {
-            createItem(location, image, title, description)
+            createItem(location, image, title, description, sold)
                 .then(() => { props.onCreated() })
                 .catch(error => {
                     if (error instanceof NotFoundError)

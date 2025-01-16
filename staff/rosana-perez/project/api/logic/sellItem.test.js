@@ -1,11 +1,12 @@
 import mongoose from 'mongoose'
-import getItems from './getItems.js'
+
+import sellItem from './sellItem.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => {
         try {
-            return getItems('676d88612985eb151fdf75f6')
-                .then(items => console.log(items))
+            return sellItem('676d88c32985eb151fdf75fa', '6788094c96e06c838c0011e1')
+                .then(() => console.log('item sold'))
                 .catch(error => console.error(error))
         } catch (error) {
             console.error(error)

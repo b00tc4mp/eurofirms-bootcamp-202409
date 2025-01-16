@@ -8,7 +8,7 @@ function getItem(userId, itemId) {
     validate.itemId(itemId)
 
     const userPromise = userId && User.findById(userId).lean() || Promise.resolve(null)
-    const itemPromise = Item.findById(itemId, '-__v').populate('author', 'username -_id').lean()
+    const itemPromise = Item.findById(itemId, '-__v').populate('author', 'username _id').lean()
 
     return Promise.all([userPromise, itemPromise])
         .then(([user, item]) => {
@@ -19,7 +19,7 @@ function getItem(userId, itemId) {
             delete item._id
 
             if (user) {
-                item.own = item.author?.id === userId.toString()
+                item.own = item.author._id.toString() === userId.toString()
 
                 item.fav = user.favs?.some(itemObjectId => {
                     return itemObjectId.toString() === item.id

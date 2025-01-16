@@ -108,23 +108,21 @@ function ChatMessages(props) {
                 </Button>
             </header>
 
-            <div className="min-h-screen flex flex-col items-center justify-center">
+            <main className="flex flex-col items-center justify-center">
                 <div className="text-center w-full p-2 max-w-lg">
                     <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Chat</h2>
                     <div className="flex w-full flex-col items-center gap-1 p-6">
-                        <div>
-                            {chat?.item &&
-                                <div className="group/f0df7a36 flex w-full cursor-pointer items-center gap-4 overflow-hidden rounded-2xl px-3 py-3 hover:bg-neutral-50 active:bg-neutral-100">
-                                    <div className="group/bec25ae6 bg-orange-100 relative flex h-12 w-12 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg">
-                                        <img className="absolute h-12 w-12 flex-none object-cover" src={chat.item.image} alt="chat item" />
-                                    </div>
-                                    <div className="flex flex-col gap-2 justify-center">
-                                        <span className="font-semibold text-lg tracking-tight">{chat.item.title}</span>
-                                    </div>
+                        {chat?.item &&
+                            <div className="group/f0df7a36 w-full flex justify-center cursor-pointer items-center gap-4 overflow-hidden rounded-2xl px-3 py-3 hover:bg-neutral-50 active:bg-neutral-100">
+                                <div className="group/bec25ae6 bg-orange-100 relative flex h-12 w-12 flex-col gap-2 overflow-hidden rounded-lg">
+                                    <img className="absolute h-12 w-12 flex-none object-cover" src={chat.item.image} alt="chat item" />
                                 </div>
-                            }
-                        </div>
-                        <div className="messages-container mt-4 pb-12">
+                                <div className="flex flex-col gap-2 justify-center items-center">
+                                    <span className="font-semibold text-lg  tracking-tight">{chat.item.title}</span>
+                                </div>
+                            </div>
+                        }
+                        <div className="messages-container mt-4 pb-12 w-full">
                             {chat?.messages ? (
                                 chat.messages.map(message => (
                                     <Message
@@ -156,7 +154,7 @@ function ChatMessages(props) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </>
     )
 }

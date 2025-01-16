@@ -3,13 +3,12 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-function createItem(userId, location, image, title, description) {
-
+function createItem(userId, location, image, title, description, sold) {
     validate.userId(userId)
-
     validate.image(image)
     validate.title(title)
     validate.description(description)
+    validate.sold(sold)
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -17,7 +16,7 @@ function createItem(userId, location, image, title, description) {
             if (!user) throw new NotFoundError('user not found')
 
 
-            return Item.create({ author: userId, location, image, title, description })
+            return Item.create({ author: userId, location, image, title, description, sold })
 
                 .catch(error => { throw new SystemError(error.message) })
         })

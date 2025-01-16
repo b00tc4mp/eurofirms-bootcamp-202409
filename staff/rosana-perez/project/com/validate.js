@@ -94,6 +94,10 @@ const validate = {
         if (typeof owner !== 'string') throw new ValidationError('invalid owner')
     },
 
+    sold(sold) {
+        if (typeof sold !== 'boolean') throw new ValidationError('invalid sold value')
+    }
+
 }
 
 export default validate

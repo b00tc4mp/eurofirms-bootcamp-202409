@@ -82,7 +82,6 @@ function App() {
                 setChatId(chatId)
                 setView('chatMessages')
             }}
-
             onCancelClick={() => setView('home')}
         />}
 
