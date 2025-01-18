@@ -80,13 +80,15 @@ mongoose.connect(MONGO_URL)
             } catch (error) {
                 handleError(res, error)
             }
-        })
+        })      
 
         api.get('/users/:targetUserId/name', (req, res) => {
+            // corregir esto para poder buscar cualquier usuario
             try {
                 const userId = verifyToken(req)
 
-                const targetUserId = verifyToken(req)
+                //const targetUserId = verifyToken(req)     // No tiene que comprobar el token, tiene que recoger el parámetro
+                const targetUserId = req.params.targetUserId
 
                 getUserName(userId, targetUserId)
                     .then(name => res.json(name))

@@ -22,6 +22,7 @@ function App() {
     const handleLogout = () => setView('login')
     const handleCreatePost = () => setView('create-post')
     const handlePostCreated = () => setView('home')
+    const handleReturnHome = () => setView('home')
 
     return <>
         {view === 'welcome' && <Welcome
@@ -46,6 +47,7 @@ function App() {
 
         {view === 'create-post' && <CreatePost
             onCreated={handlePostCreated}
+            onReturnHome={handleReturnHome}
         />}
     </>
 }

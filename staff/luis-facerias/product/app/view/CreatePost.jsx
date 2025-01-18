@@ -36,6 +36,12 @@ function CreatePost(props) {
         }
     }
 
+    const handleReturnHome = event => {
+        event.preventDefault()
+
+        props.onReturnHome()
+    }
+
     return <main className="p-20">
         <h2 className="text-3xl">Create Post</h2>
 
@@ -48,6 +54,10 @@ function CreatePost(props) {
 
             <button className="bg-black text-white" type="submit">Create</button>
         </form>
+
+        <p></p>
+
+        <a className="underline" href="" onClick={handleReturnHome}>Home</a>
     </main>
 }
 
