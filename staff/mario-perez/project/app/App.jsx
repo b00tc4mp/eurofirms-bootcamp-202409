@@ -7,13 +7,14 @@ import Home from "./view/Home"
 import RegisterPlace from "./view/RegisterPlace"
 import EditPlace from "./view/EditPlace"
 // import Place from "./view/Place"
+import isUserLoggedIn from "./logic/isUserLoggedIn.js"
 
 import getUserPlaces from "./logic/getUserPlaces.js"
 
 function App() {
     console.log('App -> render')
 
-    const [view, setView] = useState('welcome')
+    const [view, setView] = useState(isUserLoggedIn() ? 'home' : 'welcome')
     //const [place, setPlace] = useState({})
 
     console.log('App -> state: view = ' + view)

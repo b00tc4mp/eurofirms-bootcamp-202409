@@ -4,7 +4,7 @@ import getParkings from "../logic/getParkings.js"
 import editPlace from '../logic/editPlace.js'
 import getOnePlace from '../logic/getOnePlace.js'
 
-const { NotFoundError, SystemError, ValidationError } = errors
+const { DuplicityError, NotFoundError, SystemError, ValidationError } = errors
 
 function EditPlace(props) {
     console.log('EditPlace -> render')
@@ -14,6 +14,7 @@ function EditPlace(props) {
     const [levels, setLevels] = useState([])
     const [date, setDate] = useState([])
     const [status, setStatus] = useState('edit')
+    const [selectedParkingId, setSelectedParkingId] = useState(place?.parking.id)
 
     useEffect(() => {
         handleGetParking()
@@ -31,6 +32,7 @@ function EditPlace(props) {
     const handleParkingChange = event => {
         const selectedParking = parkings.find(parking => parking.id === event.target.value)
         console.log('Parking seleccionado: ', selectedParking)
+        setSelectedParkingId(selectedParking.id)
         if (selectedParking) {
             const levels = Array.from({ length: selectedParking.levels }, (_, i) => i + 1)
             console.log('Niveles seleccionados: ', levels)
@@ -76,24 +78,47 @@ function EditPlace(props) {
 
         const form = event.target
 
+        const placeId = props.place.id
         const parking = form.parking.value
         const level = Number(form.level.value)
         const space = form.space.value
         const checkin = form.checkin.value
         const checkout = form.checkout.value
         const vehicleRegistration = form.vehicleRegistration.value
+
+        try {
+            editPlace(placeId, parking, level, space, checkin, checkout)
+                .then(() => props.onEditPlaceSuccess())
+                .catch(error => {
+                    if (error instanceof DuplicityError)
+                        alert(error.message)
+                    if (error instanceof SystemError)
+                        alert('Hubo un problema. Inténtalo más tarde')
+
+                    console.error(error)
+                })
+        } catch (error) {
+            if (error instanceof ValidationError)
+                alert(error.message)
+            else
+                alert('Hubo un problema. Inténtalo más tarde')
+
+            console.error(error)
+        }
     }
+
+    //   const parkingsMap = parkings.map( (parking, index) => parking[index].name)
 
     return <article>
         <form className="flex flex-col gap-2" onSubmit={handleEditPlaceSubmit}>
-            <select id="parkings" name="parking" value={place?.parking.id} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleParkingChange}>
+            <select id="parkings" name="parking" value={selectedParkingId} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleParkingChange}>
                 {/* <option defaultValue={place.parking.id}>Elige un parking</option> */}
                 {parkings?.map(parking => (
                     <option key={parking.id} value={parking.id}>{parking.name}</option>
                 ))}
             </select>
 
-            <select id="level" name="level" value={place?.level} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <select id="level" name="level" defaultValue={place?.level} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 {/* <option defaultValue={place.level}>Elige un nivel</option> */}
                 {levels?.map(level => (
                     <option key={level} value={level}>{level}</option>
@@ -101,16 +126,16 @@ function EditPlace(props) {
             </select>
 
             <label htmlFor="space">Plaza</label>
-            <input defaultValue={place.space} type="text" id="space" />
+            <input defaultValue={place?.space} type="text" id="space" />
 
             <label htmlFor="checkin">Hora de entrada</label>
-            <input type="datetime-local" id="checkin" defaultValue={place.checkin} onChange={handleSetTime} step="60" />
+            <input type="datetime-local" id="checkin" defaultValue={place?.checkin.slice(0, 16)} onChange={handleSetTime} />
 
             <label htmlFor="checkout">Hora de salida</label>
-            <input type="datetime-local" id="checkout" defaultValue={place.checkout} onChange={handleSetTime} step="60" />
+            <input type="datetime-local" id="checkout" defaultValue={place?.checkout.slice(0, 16)} onChange={handleSetTime} />
 
             <label htmlFor="vehicleRegistration">Matrícula</label>
-            <input defaultValue={place.vehicleRegistration} type="text" id="vehicleRegistration" />
+            <input defaultValue={place?.vehicleRegistration} type="text" id="vehicleRegistration" />
 
 
             <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" type="submit">Actualizar</button>

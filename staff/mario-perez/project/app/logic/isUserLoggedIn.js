@@ -1,5 +1,5 @@
 function isUserLoggedIn() {
-    if (sessionStorage.userId !== undefined) return true
+    if (sessionStorage.token !== undefined) return true
 
     return false
 }

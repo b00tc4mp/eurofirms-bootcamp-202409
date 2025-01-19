@@ -16,6 +16,7 @@ import mongoose from 'mongoose'
 import getParkings from './logic/getParkings.js'
 import deletePlace from './logic/deletePlace.js'
 import getOnePlace from './logic/getOnePlace.js'
+import editPlace from './logic/editPlace.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -166,11 +167,11 @@ mongoose.connect(MONGO_URL)
                 const userId = verifyToken(req)
 
                 const placeId = req.params.placeId
-                const parkingId = req.params.parkingId
-                const level = req.params.level
-                const space = req.params.space
-                const checkin = req.params.checkin
-                const checkout = req.params.checkout
+                const parkingId = req.body.parkingId
+                const level = req.body.level
+                const space = req.body.space
+                const checkin = req.body.checkin
+                const checkout = req.body.checkout
 
                 editPlace(userId, placeId, parkingId, level, space, checkin, checkout)
                     .then(() => res.status(204).send())

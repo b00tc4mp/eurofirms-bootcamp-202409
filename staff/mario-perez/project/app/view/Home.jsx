@@ -82,7 +82,7 @@ function Home(props) {
         }
     }
 
-    const handleUpdatePlaceClick = () => {
+    const handlePlaceDeleted = () => {
         try {
             getUserPlaces()
                 .then((places) => {
@@ -107,13 +107,13 @@ function Home(props) {
         }
     }
 
-    const handleEditPlaceClick = () => {
+    const handlePlaceEdited = () => {
         try {
             getUserPlaces()
                 .then((places) => {
                     console.log(places)
                     setPlaces(places)
-                    props.onEditPlaceClick()
+                    /* props.onEditPlaceClick() */
                 })
                 .catch(error => {
                     if (error instanceof NotFoundError)
@@ -137,7 +137,7 @@ function Home(props) {
 
     return <main className='p-10'>
         <h2>Bienvenido, {name}</h2>
-        {places.map(place => <Place key={place.id} place={place} updatePlace={handleUpdatePlaceClick} onEditPlaceClick={handleEditPlaceClick}
+        {places.map(place => <Place key={place.id} place={place} onPlaceDeleted={handlePlaceDeleted} onPlaceEdited={handlePlaceEdited}
         />)}
         <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleRegisterPlaceClick}>Nueva plaza</button>
         <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleLogoutClick}>Cerrar sesión</button>

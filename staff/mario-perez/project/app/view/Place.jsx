@@ -7,6 +7,7 @@ import deletePlace from '../logic/deletePlace.js'
 import { useEffect, useState } from 'react'
 
 import EditPlace from './EditPlace.jsx'
+import getUserPlaces from '../logic/getUserPlaces.js'
 
 function Place(props) {
     console.log('Place -> render')
@@ -14,16 +15,15 @@ function Place(props) {
 
     const [status, setStatus] = useState('read')
 
-
-
     const place = props.place
+    console.log(place)
     const { date: formattedDate, time: formattedTime } = utils.formatDate(place.checkout)
 
     // TODO logic of deletePlaceClick
     const handleDeletePlaceClick = () => {
         try {
             deletePlace(place.id)
-                .then(() => props.updatePlace())
+                .then(() => props.onPlaceDeleted())
 
             // props.updatePlace()
         } catch (error) {
@@ -35,6 +35,11 @@ function Place(props) {
 
     const handleEditPlaceClick = () => {
         setStatus('edit')
+    }
+
+    const handleEditPlaceSuccess = () => {
+        setStatus('read')
+        props.onPlaceEdited()
     }
 
 
@@ -69,7 +74,7 @@ function Place(props) {
 
             {
                 status === 'edit' && <><h1>Status  =  edit</h1>
-                    <EditPlace place={place} backToView={() => setStatus('read')} />
+                    <EditPlace place={place} backToView={() => setStatus('read')} onEditPlaceSuccess={handleEditPlaceSuccess} />
                 </>
             }
 
