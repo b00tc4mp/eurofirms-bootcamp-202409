@@ -1,12 +1,11 @@
 import mongoose from 'mongoose'
-import toggleFav from './toggleFav.js'
+import getMyItems from './getMyItems.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => {
         try {
-            return toggleFav('6761cf9a04294e6631323165', '6761cf9a04294e6631323166')
-                //userId                      itemId
-                .then(() => console.log('item updated in user favs'))
+            return getMyItems('678b954de22738643f56e4a9')
+                .then(items => console.log(items))
                 .catch(error => console.error(error))
         } catch (error) {
             console.error(error)

@@ -9,7 +9,8 @@ import FavItems from './view/FavItems'
 import ChatList from './view/ChatList'
 import ChatMessages from './view/ChatMessages'
 import UserProfile from './view/UserProfile'
-import ItemsList from './view/ItemsList'
+import ItemsAsGuest from './view/ItemsAsGuest'
+import MyItems from './view/MyItems'
 
 
 import isUserLoggedIn from './logic/isUserLoggedIn'
@@ -30,7 +31,7 @@ function App() {
 
             onLoginClick={() => setView('login')}
 
-            onGetStarted={() => setView('itemsList')}
+            onBrowseItems={() => setView('itemsAsGuest')}
         />}
 
         {view === 'register' && <Register
@@ -54,6 +55,8 @@ function App() {
 
             onFavItems={() => setView('favItems')}
 
+            onMyItems={() => setView('myItems')}
+
             onUserProfile={() => setView('userProfile')}
 
             onChats={() => setView('chatList')}
@@ -68,6 +71,10 @@ function App() {
         />}
 
         {view === 'favItems' && <FavItems
+            onCancelClick={() => setView('home')}
+        />}
+
+        {view === 'myItems' && <MyItems
             onCancelClick={() => setView('home')}
         />}
 
@@ -92,7 +99,7 @@ function App() {
             onCancelClick={() => setView('chatList')}
         />}
 
-        {view === 'itemsList' && <ItemsList
+        {view === 'itemsAsGuest' && <ItemsAsGuest
             onLoginClick={() => setView('login')}
 
             onCancelClick={() => setView('welcome')}

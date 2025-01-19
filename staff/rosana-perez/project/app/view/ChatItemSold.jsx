@@ -51,7 +51,7 @@ function ChatItemSold({ chatId }) {
                 <div className="opacity-50 group/f0df7a36 flex w-full cursor-pointer items-center gap-4 overflow-hidden rounded-2xl px-3 py-3 hover:bg-neutral-50 active:bg-neutral-100">
                     <div className="group/bec25ae6 bg-orange-100 relative flex h-12 w-12 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg">
                         <img className="absolute h-12 w-12 flex-none object-cover" src={chat.item?.image} alt="chat item" />
-                        <p className="mt-1 text-sm font-medium">Item no available</p>
+                        <p className="mt-1 text-sm font-medium opacity-50">Item not available</p>
                     </div>
                     <div className="flex shrink-0 grow basis-0 flex-col items-start">
                         <div className="flex w-full items-center gap-2">

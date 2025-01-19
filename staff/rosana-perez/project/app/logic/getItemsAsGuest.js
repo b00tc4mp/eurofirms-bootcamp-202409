@@ -2,9 +2,9 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-function getItemsList() {
+function getItemsAsGuest() {
 
-    return fetch(`${import.meta.env.VITE_API_URL}/items/list`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/items/guest`, {
         method: 'GET'
     })
         .catch(error => { throw new SystemError(error.message) })
@@ -29,4 +29,4 @@ function getItemsList() {
         })
 }
 
-export default getItemsList
+export default getItemsAsGuest

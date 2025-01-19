@@ -1,23 +1,23 @@
 import { errors } from 'com'
 
 import { Button } from '../components/button'
-import { ArrowUturnLeftIcon, HeartIcon } from '@heroicons/react/24/outline'
+import { ArrowUturnLeftIcon, GiftIcon } from '@heroicons/react/24/outline'
 
 const { SystemError, NotFoundError } = errors
 
 import { useState, useEffect } from 'react'
 
-import Item from './Item'
+import OwnItem from './OwnItem'
 
 import getUserName from '../logic/getUserName'
-import getFavItems from '../logic/getFavItems'
+import getMyItems from '../logic/getMyItems'
 
 
-function FavItems(props) {
-    console.log('Fav Items rendering')
+function MyItems(props) {
+    console.log('My Items rendering')
 
     const [name, setName] = useState(null)
-    const [favItems, setFavItems] = useState([])
+    const [items, setItems] = useState([])
 
     const handleError = error => {
         if (error instanceof NotFoundError)
@@ -36,8 +36,8 @@ function FavItems(props) {
     }, [])
 
     useEffect(() => {
-        getFavItems()
-            .then((favItems) => setFavItems(favItems))
+        getMyItems()
+            .then((items) => setItems(items))
             .catch(error => handleError(error))
 
     }, [])// se ejecuta nuevamente si cambia el user
@@ -45,14 +45,11 @@ function FavItems(props) {
 
     const handleOnCancelClick = () => props.onCancelClick()
 
-    const handleOnToggleFavItem = () => {
-        getFavItems()
-            .then(favItems => setFavItems(favItems))
+    const handleOnToggleSoldItem = () => {
+        getMyItems()
+            .then((items) => setItems(items))
             .catch(error => handleError(error))
     }
-
-    const handleOnMessage = () => props.onMessageView()
-
 
     return (
         <>
@@ -80,15 +77,14 @@ function FavItems(props) {
 
                 <div className="min-h-screen flex flex-col items-center justify-center">
                     <div className="text-center w-full p-2 max-w-lg">
-                        <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your favorite items</h2>
+                        <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your products</h2>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                            {favItems.length > 0 && (favItems.map(favItem => {
+                            {items?.length > 0 && (items?.map(item => {
                                 return (
-                                    <Item
-                                        key={favItem.id}
-                                        itemId={favItem.id}
-                                        onMessage={handleOnMessage}
-                                        onToggleFavClick={handleOnToggleFavItem}
+                                    <OwnItem
+                                        key={item.id}
+                                        item={item}
+                                        onToggleSold={handleOnToggleSoldItem}
 
                                     />
                                 )
@@ -103,4 +99,4 @@ function FavItems(props) {
     )
 }
 
-export default FavItems
+export default MyItems

@@ -28,7 +28,7 @@ function Welcome(props) {
         props.onLoginClick()
     }
 
-    const handleGetStarted = () => props.onGetStarted()
+    const handleBrowseItems = () => props.onBrowseItems()
 
     return (
         <div className="bg-white">
@@ -156,7 +156,7 @@ function Welcome(props) {
                             <a
                                 href="#"
                                 className="rounded-md bg-emerald-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
-                                onClick={handleGetStarted}
+                                onClick={handleBrowseItems}
                             >
                                 Browse items
                             </a>

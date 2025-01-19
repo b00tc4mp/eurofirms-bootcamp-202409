@@ -10,10 +10,11 @@ import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
 import Item from './Item'
 
-import getItemsList from '../logic/getItemsList'
+import getItemsAsGuest from '../logic/getItemsAsGuest'
 
 
-function ItemsList(props) {
+function ItemsAsGuest(props) {
+
     console.log('ItemList rendering')
 
     const [items, setItems] = useState(null)
@@ -26,7 +27,7 @@ function ItemsList(props) {
     }
 
     useEffect(() => {
-        getItemsList()
+        getItemsAsGuest()
             .then(items => setItems(items))
             .catch(error => handleError(error))
     }, [])
@@ -64,7 +65,11 @@ function ItemsList(props) {
                 </section>
                 <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
                     {items?.map(item => {
+                        /* 
+                                                const itemSold = item.sold === true
+                         */
                         return (
+                            /* !itemSold && ( */ //item.sold[false] 
                             <article key={item.id} onClick={handleUserNoLogged}>
                                 <Item
                                     itemId={item.id}
@@ -76,12 +81,12 @@ function ItemsList(props) {
                                 />
                             </article>
                         )
-                    })
-                    }
+                        /* ) */
+                    })}
                 </section>
             </div>
         </main>
     )
 }
 
-export default ItemsList
+export default ItemsAsGuest

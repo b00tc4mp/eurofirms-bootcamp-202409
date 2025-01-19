@@ -9,11 +9,12 @@ const { NotFoundError, SystemError, ValidationError } = errors
 import { useState, useEffect } from 'react'
 
 import Item from './Item'
+import OwnItem from './OwnItem'
 
 import getUserName from '../logic/getUserName'
 import getItems from '../logic/getItems'
 import logoutUser from '../logic/logoutUser'
-import { HeartIcon, UserCircleIcon } from '@heroicons/react/24/outline'
+import { HeartIcon, UserCircleIcon, GiftIcon } from '@heroicons/react/24/outline'
 import { ArrowUturnLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
 
 function Home(props) {
@@ -65,11 +66,13 @@ function Home(props) {
 
     const handleOnDeleted = () => updateItems()
     const handleOnFavClick = () => updateItems()
+    const handleOnItemSold = () => updateItems()
 
     const handleOnCreateClick = () => props.onCreateItem()
     const handleOnChatsClick = () => props.onChats()
     const handleOnProfileClick = () => props.onUserProfile()
     const handleOnFavItemsClick = () => props.onFavItems()
+    const handleOnItemsOwn = () => props.onMyItems()
 
     return (
         <main>
@@ -99,6 +102,15 @@ function Home(props) {
                         <UserCircleIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
                         <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
     -translate-x-1/2 translate-y-full opacity-0 m-8">Profile</span>
+                    </Button>
+                    <Button
+                        plain
+                        type="button"
+                        onClick={handleOnItemsOwn}
+                        className="inline-flex items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group ">
+                        <GiftIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
+                        <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0 m-8">Own Items</span>
                     </Button>
 
                     <Button
@@ -144,23 +156,27 @@ function Home(props) {
 
             <div className="container w-full pt-4 pb-4 my-6 ">
                 <section className="mx-auto px-4 sm:px-3 sm:py-0 lg:px-4">
-                    <h2 className="text-2xl font-bold tracking-tight">New listings</h2>
+                    <h2 className="text-2xl font-bold tracking-tight">New items</h2>
                 </section>
                 <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     {items.map(item => {
-                        if (!item?.sold) {
-                            return (
-                                <article key={item.id}>
+                        return (
+                            <article key={item.id}>
+                                {!item.own ? (
                                     <Item
-                                        itemId={item.id}
+                                        item={item}
                                         onDeleted={handleOnDeleted}
                                         onToggleFavClick={handleOnFavClick}
                                     />
-                                </article>
-                            )
-                        }
-                        return null
-                    })}
+                                ) : (
+                                    <OwnItem
+                                        item={item}
+                                        onToggleSold={handleOnItemSold}
+                                    />
+                                )}
+                            </article>)
+                    }
+                    )}
                 </section>
             </div>
         </main >

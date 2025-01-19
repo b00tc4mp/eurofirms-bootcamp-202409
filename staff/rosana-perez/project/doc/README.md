@@ -12,19 +12,25 @@ Los artículos susceptibles de donación serán: juguetes, libros, ropa, ropa de
 
 ## Functional
 
-En esta aplicación, el usuario es "User", y el anuncio con el artículo objeto del intercambio es un "Item".
+En esta aplicación, el usuario es "User", el anuncio con el artículo objeto del intercambio es un "Item", y la vista de mensajes es "Chat".
 
 ### Use cases
 
-En la versión inicial, el usuario User está autorizado para:
+En la versión inicial, cualquier usuario puede visualizar los items, pero si quiere obtener información o contactar debe registrarse/login.
+
+Una vez registrado, el usuario User está autorizado para:
 
 - Ver todos los items de la app
-- Marcar y desmarcar interés en un item
-- Comunicar con el anunciante para contactar y recoger
+- Marcar y desmarcar interés en un item como favorito, visualizar todos sus favoritos
+- Comunicar con el anunciante para obtener más información y recoger el producto
+- Obtener un listado de chats y mensajes enviados y recibidos
 - Si desea publicar un item, podrá:
   - Crear un anuncio
   - Editar el título asociado al anuncio
   - Eliminar un anuncio publicado
+
+Una vez eliminado un item, se mantiene en la base de datos temporalmente, se renderizan los chats asociados a cada User en estado  bloqueado,
+visualizando únicamente el último mensaje.
 
 ### UI/UX Design
 
@@ -72,6 +78,7 @@ En la versión inicial, el usuario User está autorizado para:
   - image (string, required)
   - title (string, required)
   - description (string, required)
+  - sold (boolean, required)
   - date (date, required)
 
 - Chat

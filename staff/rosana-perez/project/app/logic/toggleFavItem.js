@@ -2,7 +2,7 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-function toggleFav(itemId) {
+function toggleFavItem(itemId) {
     validate.itemId(itemId)
 
 
@@ -31,4 +31,4 @@ function toggleFav(itemId) {
         })
 }
 
-export default toggleFav
+export default toggleFavItem

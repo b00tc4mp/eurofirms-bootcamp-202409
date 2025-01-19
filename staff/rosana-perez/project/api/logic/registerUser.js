@@ -16,6 +16,7 @@ function registerUser(name, location, email, username, password) {
 
             throw new SystemError(error.message)
         })
+        .then(() => { })
 }
 
 export default registerUser

@@ -1,9 +1,9 @@
 import { User, Item } from '../data/models.js'
 import { validate, errors } from 'com'
 
-const { SystemError, NotFoundError, OwnershipError, ValidationError } = errors
+const { SystemError, NotFoundError, OwnershipError } = errors
 
-function sellItem(userId, itemId) {
+function toggleSoldItem(userId, itemId) {
     validate.userId(userId)
     validate.itemId(itemId)
 
@@ -20,12 +20,12 @@ function sellItem(userId, itemId) {
 
             if (item.author.toString() !== userId) throw new OwnershipError('sale not available, user is not author of item')
 
-            if (item.sold) throw new ValidationError('item already sold')
-
-            return Item.findByIdAndUpdate(item._id, { sold: true })
+            return Item.updateOne({ _id: item._id }, { sold: !item.sold })
+                .catch(error => { throw new SystemError(error.message) })
+                .then(() => { })
 
 
         })
 }
 
-export default sellItem
+export default toggleSoldItem

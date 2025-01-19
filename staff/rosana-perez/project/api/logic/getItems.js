@@ -8,7 +8,7 @@ function getItems(userId) {
 
     return Promise.all([
         User.findById(userId).lean(),
-        Item.find({}, '-__v').populate('author', 'username _id').sort({ date: -1 }).lean()
+        Item.find({}, '-__v').populate('author', 'username _id').populate('sold').sort({ date: -1 }).lean()
     ])
         .catch(error => { throw new SystemError(error.message) })
         .then(userAndItems => {

@@ -11,21 +11,20 @@ import { ArrowUturnLeftIcon, EnvelopeIcon, HeartIcon, PencilSquareIcon, TrashIco
 const { ValidationError, SystemError, NotFoundError } = errors
 
 import deleteItem from '../logic/deleteItem'
-import sellItem from '../logic/sellItem'
+import toggleSoldItem from '../logic/toggleSoldItem'
 import editItem from '../logic/editItem'
-import getItem from '../logic/getItem'
 import sendMessage from '../logic/sendMessage.js'
-import toggleFav from '../logic/toggleFav.js'
+import toggleFavItem from '../logic/toggleFavItem.js'
 import isUserLoggedIn from '../logic/isUserLoggedIn.js'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 function Item(props) {
     console.log('Item rendering')
 
     const [edit, setEdit] = useState(false)
     const [message, setMessage] = useState(false)
-    const [item, setItem] = useState(null)
+    const [soldItem, setSoldItem] = useState(false)
     const [timestamp, setTimeStamp] = useState(Date.now())
 
     const handleError = (error) => {
@@ -43,20 +42,16 @@ function Item(props) {
         setMessage(state)
     }
 
-    const [isOpen, setIsOpen] = useState(false)
+    function toggleSoldItem(state) {
+        setSoldItem(state)
+    }
 
-    const itemId = props.itemId
-    const itemDate = util.formatIsoDate(item)
+    const [isOpen, setIsOpen] = useState(false)
 
     const userLoggedIn = isUserLoggedIn()
 
-
-    useEffect(() => {
-        getItem(itemId)
-            .then(item => setItem(item))
-            .catch(error => handleError(error))
-    }, [timestamp])
-
+    const { id: itemId, author, location, image, title, description, sold, own, fav, updatedAt } = props.item || {}
+    const itemDate = util.formatIsoDate(updatedAt)
 
     const handleOnEditItemSubmit = event => {
         event.preventDefault()
@@ -66,7 +61,7 @@ function Item(props) {
         const newTitle = titleInput.value
 
         try {
-            editItem(item?.id, newTitle)
+            editItem(itemId, newTitle)
                 .then(() => {
                     setIsOpen(false)
                     setTimeStamp(Date.now())
@@ -113,7 +108,7 @@ function Item(props) {
     const handleOnDeleteClick = () => {
         if (confirm('Delete item?')) {
             try {
-                deleteItem(item?.id)
+                deleteItem(itemId)
                     .then(() => props.onDeleted())
                     .catch(error => handleError(error))
 
@@ -122,8 +117,9 @@ function Item(props) {
     }
     const handleOnItemSold = () => {
         try {
-            sellItem(item?.id)
+            toggleSoldItem(itemId)
                 .then(() => {
+                    props.onToggleSold()
                     setTimeStamp(Date.now())
                 })
                 .catch(error => handleError(error))
@@ -132,7 +128,7 @@ function Item(props) {
 
     const handleToggleFavClick = () => {
         try {
-            toggleFav(item?.id)
+            toggleFavItem(itemId)
                 .then(() => {
                     props.onToggleFavClick()
                     setTimeStamp(Date.now())
@@ -143,27 +139,27 @@ function Item(props) {
     }
 
     return (
-        item ? (
-            !item?.sold ? ( //item.sold[false]
+        !sold ? (
+            props.item && ( //item.sold[false]
                 <article className="bg-white container-fluid w-100 h-100 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
-                    <a key={item?.id} href="#" className="group block">
+                    <a key={itemId} href="#" className="group block">
                         <img
                             alt="Product image"
-                            src={item?.image}
+                            src={image}
                             className="object-cover w-40 h-40 object-center rounded-lg group-hover:opacity-75"
                         />
                         <section>
                             <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
-                                <h3>{item?.author.username}</h3>
-                                <p>{item?.location}</p>
+                                <h3>{author?.username}</h3>
+                                <p>{location}</p>
                             </div>
-                            <p className="mt-1 text-lg font-medium text-gray-900">{item?.title}</p>
-                            <Text className="mt-1 text-sm font-medium">{item?.description}</Text>
+                            <p className="mt-1 text-lg font-medium text-gray-900">{title}</p>
+                            <Text className="mt-1 text-sm font-medium">{description}</Text>
                         </section>
                         {userLoggedIn && (
                             <main>
                                 <div className="mt-4 flex flex-wrap justify-between gap-2">
-                                    {item?.own && (
+                                    {own && (
                                         <>
                                             <Button
                                                 className="btn sm:w-auto"
@@ -190,13 +186,15 @@ function Item(props) {
                                                 onClick={handleOnItemSold}
                                             >
                                                 <ShoppingBagIcon
+                                                    fill={sold ? '#60a5fa' : 'white'}
+                                                    stroke={sold ? '#60a5fa' : '#71717a'}
                                                 />
                                             </Button>
                                         </>
                                     )}
                                 </div>
                                 <div className="mt-4 flex flex-wrap justify-between gap-2">
-                                    {!item?.own && (
+                                    {!own && (
                                         <>
                                             <Button
                                                 className="btn sm:w-auto"
@@ -214,8 +212,8 @@ function Item(props) {
                                                 onClick={handleToggleFavClick}
                                             >
                                                 <HeartIcon
-                                                    fill={item?.fav ? '#b91c1c' : 'white'}
-                                                    stroke={item?.fav ? '#b91c1c' : '#71717a'}
+                                                    fill={fav ? '#b91c1c' : 'white'}
+                                                    stroke={fav ? '#b91c1c' : '#71717a'}
                                                 />
                                             </Button>
                                         </>
@@ -229,7 +227,7 @@ function Item(props) {
                                                 <DialogBody>
                                                     <Field>
                                                         <Label>New title</Label>
-                                                        <Input type="text" id="title" name="title" placeholder={item?.title} />
+                                                        <Input type="text" id="title" name="title" placeholder={title} />
                                                     </Field>
                                                 </DialogBody>
                                                 <DialogActions>
@@ -276,30 +274,48 @@ function Item(props) {
                         )}
                     </a>
                 </article>
-            ) : ( //item.sold[true]
-                <article className="bg-white container-fluid w-100 h-100 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12 opacity-50">
-                    <a key={item?.id} href="#" className="group block">
-                        <img
-                            alt="Product image"
-                            src={item?.image}
-                            className="object-cover w-40 h-40 object-center rounded-lg group-hover:opacity-50"
-                        />
-                        <p className="mt-1 text-sm font-medium">Item no available</p>
-                        <section>
-                            <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
-                                <h3>{item?.author.username}</h3>
-                                <p>{item?.location}</p>
-                            </div>
-                            <p className="mt-1 text-lg font-medium text-gray-900">{item?.title}</p>
-                            <Text className="mt-1 text-sm font-medium">{item?.description}</Text>
-                        </section>
-                    </a>
-                </article>
-            )
-        ) : (
-            <div>Loading...</div>
-        )
-    )
+            )) : (//item.sold[true]
+            userLoggedIn && (
+                props.item && (
+                    !own ? ( // item.sold[true] && item.own[false]
+                        <article className="bg-white container-fluid w-100 h-100 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12 opacity-50">
+                            <a key={itemId} href="#" className="group block">
+                                <img
+                                    alt="Product image"
+                                    src={image}
+                                    className="object-cover w-40 h-40 object-center rounded-lg group-hover:opacity-50"
+                                />
+                                <p className="mt-1 text-sm font-medium opacity-50">Item not available</p>
+                                <section>
+                                    <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
+                                        <h3>{author?.username}</h3>
+                                        <p>{location}</p>
+                                    </div>
+                                    <p className="mt-1 text-lg font-medium text-gray-900">{title}</p>
+                                    <Text className="mt-1 text-sm font-medium">{description}</Text>
+                                </section>
+                            </a>
+                        </article>
+                    ) : (// item.sold[true] && item.own[true]
+                        <article className="bg-white container-fluid w-100 h-100 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12 ">
+                            <a key={itemId} href="#" className="group block">
+                                <img
+                                    alt="Product image"
+                                    src={image}
+                                    className="object-cover w-40 h-40 object-center rounded-lg group-hover:opacity-50"
+                                />
+                                <section>
+                                    <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
+                                        <h3>{author?.username}</h3>
+                                        <p>{location}</p>
+                                    </div>
+                                    <p className="mt-1 text-lg font-medium text-gray-900">{title}</p>
+                                    <Text className="mt-1 text-sm font-medium">{description}</Text>
+                                </section>
+                            </a>
+                        </article>
+                    )))
+        ))
 }
 
 export default Item

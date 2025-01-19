@@ -1,12 +1,11 @@
-import { validate, errors } from 'com'
+import { errors } from 'com'
 
 const { SystemError } = errors
 
-function sellItem(itemId) {
-    validate.itemId(itemId)
+function getMyItems() {
 
-    return fetch(`${import.meta.env.VITE_API_URL}/sell/${itemId}`, {
-        method: 'PATCH',
+    return fetch(`${import.meta.env.VITE_API_URL}/items/owner`, {
+        method: 'GET',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
@@ -15,7 +14,10 @@ function sellItem(itemId) {
         .then(response => {
             const status = response.status
 
-            if (status === 204) return
+            if (status === 200)
+                return response.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(items => items)
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -30,4 +32,4 @@ function sellItem(itemId) {
         })
 }
 
-export default sellItem
+export default getMyItems

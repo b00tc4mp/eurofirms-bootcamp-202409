@@ -126,7 +126,7 @@ function ChatList(props) {
                                                 message={lastChatMessage}
                                                 date={lastMessageDate}
                                             />
-                                            <p>Item no available</p>
+                                            <p className="mt-1 text-sm font-medium opacity-50">Item not available</p>
                                         </div>
                                     )
                                 )

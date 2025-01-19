@@ -11,6 +11,7 @@ function getItem(userId, itemId) {
     const itemPromise = Item.findById(itemId, '-__v').populate('author', 'username _id').lean()
 
     return Promise.all([userPromise, itemPromise])
+        .catch(error => { throw new SystemError(error.message) })
         .then(([user, item]) => {
 
             if (!item) throw new NotFoundError('item not found')
@@ -31,7 +32,7 @@ function getItem(userId, itemId) {
 
             return item
         })
-        .catch(error => { throw new SystemError(error.message) })
+
 }
 
 export default getItem

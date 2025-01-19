@@ -14,13 +14,14 @@ import getUser from './logic/getUser.js'
 import editUserData from './logic/editUserData.js'
 import createItem from './logic/createItem.js'
 import getItems from './logic/getItems.js'
-import getItemsList from './logic/getItemsList.js'
+import getItemsAsGuest from './logic/getItemsAsGuest.js'
 import getItem from './logic/getItem.js'
+import getMyItems from './logic/getMyItems.js'
 import getFavItems from './logic/getFavItems.js'
 import deleteItem from './logic/deleteItem.js'
-import sellItem from './logic/sellItem.js'
+import toggleSoldItem from './logic/toggleSoldItem.js'
 import editItem from './logic/editItem.js'
-import toggleFav from './logic/toggleFav.js'
+import toggleFavItem from './logic/toggleFavItem.js'
 import sendMessage from './logic/sendMessage.js'
 import getChats from './logic/getChats.js'
 import getChat from './logic/getChat.js'
@@ -171,9 +172,21 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.get('/items/list', (req, res) => {
+        api.get('/items/guest', (req, res) => {
             try {
-                getItemsList()
+                getItemsAsGuest()
+                    .then(items => res.json(items))
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
+        api.get('/items/owner', (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                getMyItems(userId)
                     .then(items => res.json(items))
                     .catch(error => handleError(res, error))
             } catch (error) {
@@ -229,13 +242,13 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.patch('/sell/:itemId', (req, res) => {
+        api.patch('/sold/:itemId', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
                 const itemId = req.params.itemId
 
-                sellItem(userId, itemId)
+                toggleSoldItem(userId, itemId)
                     .then(() => res.status(204).send())
                     .catch(error => handleError(res, error))
             } catch (error) {
@@ -289,7 +302,7 @@ mongoose.connect(MONGO_URL)
 
             const itemId = req.params.itemId
 
-            toggleFav(userId, itemId)
+            toggleFavItem(userId, itemId)
                 .then(() => {
                     return res.status(200).send()
                 })

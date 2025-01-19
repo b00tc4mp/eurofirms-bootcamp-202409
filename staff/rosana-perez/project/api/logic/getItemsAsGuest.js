@@ -3,10 +3,11 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-function getItemsList() {
+function getItemsAsGuest() {
 
     return Item.find({}, '-__v')
         .populate('author', 'username _id')
+        .populate('sold')
         .sort({ date: -1 })
         .lean()
 
@@ -25,4 +26,4 @@ function getItemsList() {
         })
         .catch(error => { throw new SystemError(error.message) })
 }
-export default getItemsList
+export default getItemsAsGuest

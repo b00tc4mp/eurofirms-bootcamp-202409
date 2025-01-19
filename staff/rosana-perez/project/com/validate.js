@@ -54,7 +54,7 @@ const validate = {
 
     itemId(itemId) {
         if (typeof itemId !== 'string') throw new ValidationError('invalid itemId')
-        if (itemId.length < 24) throw new ValidationError('invalid itemId length')
+        /* if (itemId.length < 24) throw new ValidationError('invalid itemId length') */
     },
 
     targetUserId(targetUserId) {

@@ -1,4 +1,4 @@
-fetch('http://localhost:8081/items/list', {
+fetch('http://localhost:8081/items/guest', {
     method: 'GET',
 })
     .then(response => {

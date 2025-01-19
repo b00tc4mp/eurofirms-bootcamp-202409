@@ -8,7 +8,7 @@ const handleError = (error) => {
 
 function getItem(itemId) {
 
-    const token = sessionStorage.getItem('token') // verify if sessionStorage exists, to be compatible with getItemsList (no logged users)
+    const token = sessionStorage.getItem('token') // verify if sessionStorage exists, to be compatible with getItemsAsGuest (no logged users)
     const headers = token && { Authorization: `Bearer ${token}` } //only takes headers if sessionStorage exists, otherwise headers is omitted
 
     return fetch(`${import.meta.env.VITE_API_URL}/items/${itemId}`, {
