@@ -64,24 +64,18 @@ function ItemsAsGuest(props) {
                     <h2 className="text-3xl font-bold text-gray-800 tracking-tight">New Listings</h2>
                 </section>
                 <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+
                     {items?.map(item => {
-                        /* 
-                                                const itemSold = item.sold === true
-                         */
                         return (
-                            /* !itemSold && ( */ //item.sold[false] 
-                            <article key={item.id} onClick={handleUserNoLogged}>
-                                <Item
-                                    itemId={item.id}
-                                    author={item.author.username}
-                                    location={item.location}
-                                    image={item.image}
-                                    title={item.title}
-                                    className="p-4 bg-white shadow-lg rounded-lg hover:shadow-xl transition duration-200"
-                                />
-                            </article>
+                            !item.sold && (  //item.sold[false] 
+                                <article key={item.id} onClick={handleUserNoLogged}>
+                                    <Item
+                                        item={item}
+                                        className="p-4 bg-white shadow-lg rounded-lg hover:shadow-xl transition duration-200"
+                                    />
+                                </article>
+                            )
                         )
-                        /* ) */
                     })}
                 </section>
             </div>

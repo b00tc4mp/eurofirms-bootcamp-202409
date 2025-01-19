@@ -37,7 +37,13 @@ function FavItems(props) {
 
     useEffect(() => {
         getFavItems()
-            .then((favItems) => setFavItems(favItems))
+            .then((favItems) => {
+                favItems.map(item => {
+                    item.fav = true
+                })
+                setFavItems(favItems)
+                console.log('favItems ->', favItems)
+            })
             .catch(error => handleError(error))
 
     }, [])// se ejecuta nuevamente si cambia el user
@@ -82,11 +88,11 @@ function FavItems(props) {
                     <div className="text-center w-full p-2 max-w-lg">
                         <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your favorite items</h2>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                            {favItems.length > 0 && (favItems.map(favItem => {
+                            {favItems?.length > 0 && (favItems?.map(favItem => {
                                 return (
                                     <Item
                                         key={favItem.id}
-                                        itemId={favItem.id}
+                                        item={favItem}
                                         onMessage={handleOnMessage}
                                         onToggleFavClick={handleOnToggleFavItem}
 

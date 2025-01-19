@@ -1,7 +1,7 @@
 import { errors } from 'com'
 
 import { Button } from '../components/button'
-import { ArrowUturnLeftIcon, GiftIcon } from '@heroicons/react/24/outline'
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
 const { SystemError, NotFoundError } = errors
 

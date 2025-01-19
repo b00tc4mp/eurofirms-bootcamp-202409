@@ -4,7 +4,7 @@ import getFavItems from './getFavItems.js'
 mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => {
         try {
-            return getFavItems('6765beeed639a9034f2f0d1f')
+            return getFavItems('678b954de22738643f56e4a9')
                 .then(getFavItems => console.log(getFavItems))
                 .catch(error => console.error(error))
         } catch (error) {

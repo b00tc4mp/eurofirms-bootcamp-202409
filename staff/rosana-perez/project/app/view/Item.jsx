@@ -11,7 +11,6 @@ import { ArrowUturnLeftIcon, EnvelopeIcon, HeartIcon, PencilSquareIcon, TrashIco
 const { ValidationError, SystemError, NotFoundError } = errors
 
 import deleteItem from '../logic/deleteItem'
-import toggleSoldItem from '../logic/toggleSoldItem'
 import editItem from '../logic/editItem'
 import sendMessage from '../logic/sendMessage.js'
 import toggleFavItem from '../logic/toggleFavItem.js'
@@ -285,7 +284,7 @@ function Item(props) {
                                     src={image}
                                     className="object-cover w-40 h-40 object-center rounded-lg group-hover:opacity-50"
                                 />
-                                <p className="mt-1 text-sm font-medium opacity-50">Item not available</p>
+                                <p className="mt-1 text-sm font-medium opacity-50">Item not available</p> {/* sold + view to user logged and not author of item */}
                                 <section>
                                     <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
                                         <h3>{author?.username}</h3>
@@ -303,10 +302,9 @@ function Item(props) {
                                     alt="Product image"
                                     src={image}
                                     className="object-cover w-40 h-40 object-center rounded-lg group-hover:opacity-50"
-                                />
+                                />{/* sold + view to user logged and author of item */}
                                 <section>
                                     <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
-                                        <h3>{author?.username}</h3>
                                         <p>{location}</p>
                                     </div>
                                     <p className="mt-1 text-lg font-medium text-gray-900">{title}</p>

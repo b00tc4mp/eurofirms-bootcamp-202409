@@ -141,6 +141,32 @@ mongoose.connect(MONGO_URL)
             }
         })
 
+        api.get('/users/:userId/favs', (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                getFavItems(userId)
+                    .then(items => res.json(items))
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
+        api.post('/users/favs/:itemId/', (req, res) => {
+
+            const userId = verifyToken(req)
+
+            const itemId = req.params.itemId
+
+            toggleFavItem(userId, itemId)
+                .then(() => {
+                    return res.status(200).send()
+                })
+                .catch(error => handleError(res, error))
+
+        })
+
 
         api.post('/items', jsonBodyParser, (req, res) => {
             try {
@@ -296,31 +322,6 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.post('/users/favs/:itemId/', (req, res) => {
-
-            const userId = verifyToken(req)
-
-            const itemId = req.params.itemId
-
-            toggleFavItem(userId, itemId)
-                .then(() => {
-                    return res.status(200).send()
-                })
-                .catch(error => handleError(res, error))
-
-        })
-
-        api.get('/users/:userId/favs', (req, res) => {
-            try {
-                const userId = verifyToken(req)
-
-                getFavItems(userId)
-                    .then(items => res.json(items))
-                    .catch(error => handleError(res, error))
-            } catch (error) {
-                handleError(res, error)
-            }
-        })
 
         api.listen(PORT, () => console.log(`API is up on ${PORT}`))
     })
