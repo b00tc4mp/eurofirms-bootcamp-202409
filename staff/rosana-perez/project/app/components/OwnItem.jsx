@@ -19,7 +19,6 @@ function OwnItem(props) {
     console.log('OwnItems rendering')
 
     const [edit, setEdit] = useState(false)
-    const [timestamp, setTimeStamp] = useState(Date.now())
 
     const handleError = (error) => {
         if (error instanceof NotFoundError) {
@@ -48,7 +47,7 @@ function OwnItem(props) {
             editItem(itemId, newTitle)
                 .then(() => {
                     setIsOpen(false)
-                    setTimeStamp(Date.now())
+                    props.onEditItem()
                 })
                 .catch(error => { handleError(error) })
 
@@ -77,7 +76,6 @@ function OwnItem(props) {
             toggleSoldItem(itemId)
                 .then(() => {
                     props.onToggleSold()
-                    setTimeStamp(Date.now())
                 })
                 .catch(error => handleError(error))
         } catch (error) { handleError(error) }
@@ -91,14 +89,14 @@ function OwnItem(props) {
                 <img
                     alt="Product image"
                     src={image}
-                    className="object-cover w-40 h-40 object-center rounded-lg group-hover:opacity-75"
+                    className="object-cover w-full h-40 object-center rounded-lg group-hover:opacity-75"
                 />
                 <section>
                     <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
                         <p>{location}</p>
                     </div>
-                    <p className="mt-1 text-lg font-medium text-gray-900">{title}</p>
-                    <Text className="mt-1 text-sm font-medium">{description}</Text>
+                    <p className="mt-1 flex items-start text-lg font-medium text-gray-900">{title}</p>
+                    <Text className="mt-1 flex items-start text-sm font-medium">{description}</Text>
                 </section>
 
                 <div className="mt-4 flex flex-wrap justify-between gap-2">
@@ -133,30 +131,28 @@ function OwnItem(props) {
                             />
                         </Button>
                     </>
-
+                    {edit && (
+                        <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+                            <form className="flex flex-col items-center" onSubmit={handleOnEditItemSubmit}>
+                                <section>
+                                    <DialogBody>
+                                        <Field>
+                                            <Label>New title</Label>
+                                            <Input type="text" id="title" name="title" placeholder={title} />
+                                        </Field>
+                                    </DialogBody>
+                                    <DialogActions>
+                                        <Button type="submit">Edit</Button>
+                                        <Button plain onClick={handleOnEditCancelClick}>
+                                            Cancel
+                                        </Button>
+                                    </DialogActions>
+                                </section>
+                            </form>
+                        </Dialog>
+                    )}
+                    <div className="sm:w-auto text-xs">{itemDate}</div>
                 </div>
-
-                {edit && (
-                    <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-                        <form className="flex flex-col items-center" onSubmit={handleOnEditItemSubmit}>
-                            <section>
-                                <DialogBody>
-                                    <Field>
-                                        <Label>New title</Label>
-                                        <Input type="text" id="title" name="title" placeholder={title} />
-                                    </Field>
-                                </DialogBody>
-                                <DialogActions>
-                                    <Button type="submit">Edit</Button>
-                                    <Button plain onClick={handleOnEditCancelClick}>
-                                        Cancel
-                                    </Button>
-                                </DialogActions>
-                            </section>
-                        </form>
-                    </Dialog>
-                )}
-                <div className="sm:w-auto text-xs">{itemDate}</div>
             </a>
         </article>
     )

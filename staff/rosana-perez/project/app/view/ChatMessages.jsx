@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react'
 
 import { ArrowUturnLeftIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
 
-import Message from './Message'
+import Message from '../components/Message'
 
 import getUserName from '../logic/getUserName'
 import getChat from '../logic/getChat'
@@ -20,9 +20,8 @@ import sendMessage from '../logic/sendMessage'
 function ChatMessages(props) {
     console.log('ChatMessages rendering')
 
-    const [name, setName] = useState(null)
+    const [userName, setUserName] = useState(null)
     const [chat, setChat] = useState([])
-    const [message, setMessage] = useState(null)
 
     const [timestamp, setTimeStamp] = useState(Date.now())
 
@@ -44,7 +43,7 @@ function ChatMessages(props) {
 
     useEffect(() => {
         getUserName()
-            .then(name => { setName(name) })
+            .then(userName => { setUserName(userName) })
             .catch(error => handleError(error))
     }, [])
 
@@ -100,7 +99,7 @@ function ChatMessages(props) {
                     </a>
                 </div>
                 <section className="flex justify-start">
-                    {name ? <h3 className="font-semibold text-gray-500 text-sm  gap-2">{name}</h3> : null}
+                    {userName ? <h3 className="font-semibold text-gray-500 text-sm  gap-2">{userName}</h3> : null}
                 </section>
 
                 <Button plain onClick={handleOnCancelClick} className="justify-items-end">

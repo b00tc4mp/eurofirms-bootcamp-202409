@@ -16,7 +16,7 @@ import createItem from './logic/createItem.js'
 import getItems from './logic/getItems.js'
 import getItemsAsGuest from './logic/getItemsAsGuest.js'
 import getItem from './logic/getItem.js'
-import getMyItems from './logic/getMyItems.js'
+import getItemsFromUser from './logic/getItemsFromUser.js'
 import getFavItems from './logic/getFavItems.js'
 import deleteItem from './logic/deleteItem.js'
 import toggleSoldItem from './logic/toggleSoldItem.js'
@@ -104,7 +104,7 @@ mongoose.connect(MONGO_URL)
                 const targetUserId = req.params.targetUserId
 
                 getUserName(userId, targetUserId)
-                    .then(user => res.json(user))
+                    .then(userName => res.json(userName))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
@@ -146,7 +146,7 @@ mongoose.connect(MONGO_URL)
                 const userId = verifyToken(req)
 
                 getFavItems(userId)
-                    .then(items => res.json(items))
+                    .then(favItems => res.json(favItems))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
@@ -212,7 +212,7 @@ mongoose.connect(MONGO_URL)
             try {
                 const userId = verifyToken(req)
 
-                getMyItems(userId)
+                getItemsFromUser(userId)
                     .then(items => res.json(items))
                     .catch(error => handleError(res, error))
             } catch (error) {

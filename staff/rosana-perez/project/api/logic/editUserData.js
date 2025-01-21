@@ -26,7 +26,7 @@ function editUserData(userId, name, location, email, username, password) {
 
                 .catch(error => { throw new SystemError(error.message) })
         })
-        .then(_ => { })
+        .then(updatedUser => { })
 
 }
 

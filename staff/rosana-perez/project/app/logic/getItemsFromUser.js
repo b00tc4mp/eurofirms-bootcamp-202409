@@ -2,7 +2,7 @@ import { errors } from 'com'
 
 const { SystemError } = errors
 
-function getMyItems() {
+function getItemsFromUser() {
 
     return fetch(`${import.meta.env.VITE_API_URL}/items/owner`, {
         method: 'GET',
@@ -32,4 +32,4 @@ function getMyItems() {
         })
 }
 
-export default getMyItems
+export default getItemsFromUser

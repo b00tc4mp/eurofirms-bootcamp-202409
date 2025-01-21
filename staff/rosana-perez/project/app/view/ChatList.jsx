@@ -8,8 +8,8 @@ import { useState, useEffect } from 'react'
 
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
-import Chat from './Chat'
-import ChatItemSold from './ChatItemSold'
+import Chat from '../components/Chat'
+import ChatItemSold from '../components/ChatItemSold'
 
 import getLoggedInUserId from '../logic/getLogggedInUserId'
 import getUserName from '../logic/getUserName'
@@ -20,7 +20,7 @@ function ChatList(props) {
     console.log('ChatList rendering')
 
     const [userId, setUserId] = useState(null)
-    const [name, setName] = useState(null)
+    const [userName, setUserName] = useState(null)
     const [chats, setChats] = useState([])
     const [isChatBlocked, setIsChatBlocked] = useState(false)
 
@@ -43,19 +43,19 @@ function ChatList(props) {
             setUserId(loggedUserId)
         }
         getUserName()
-            .then(name => { setName(name) })
+            .then(userName => { setUserName(userName) })
             .catch(error => handleError(error))
     }, [])
 
     useEffect(() => {
         if (userId) {
-            getChats() // retorna lastMessage
+            getChats() // returns lastMessage
                 .then(chats => { setChats(chats) })
                 .catch(error => handleError(error))
         }
     }, [userId])
 
-    console.log('ChatList -> state: user = ' + name)
+    console.log('ChatList -> state: user = ' + userName)
 
     const handleOnChatClick = (chatId) => {
         if (!isChatBlocked) {
@@ -88,7 +88,7 @@ function ChatList(props) {
                     </a>
                 </div>
                 <section className="flex justify-start">
-                    {userId ? <h3 className="font-semibold text-gray-500 text-sm  gap-2">{name}</h3> : null}
+                    {userId ? <h3 className="font-semibold text-gray-500 text-sm  gap-2">{userName}</h3> : null}
                 </section>
 
                 <Button plain onClick={handleOnCancelClick} className="justify-items-end">
@@ -100,7 +100,8 @@ function ChatList(props) {
                 <div className="flex justify-center">
                     <div>
                         {chats?.map(chat => {
-                            const recipientUser = chat?.users.find(user => user.id !== getLoggedInUserId())
+
+                            const receiverUser = chat?.users.find(user => user.id !== getLoggedInUserId())
                             const itemSold = chat?.item?.sold //item.sold[true]
 
                             return (
@@ -111,7 +112,7 @@ function ChatList(props) {
                                                 chatId={chat.id}
                                                 image={chat.item.image}
                                                 title={chat.item.title}
-                                                user={recipientUser.username}
+                                                user={receiverUser.username}
                                                 message={lastChatMessage}
                                                 date={lastMessageDate}
                                             />
@@ -122,7 +123,7 @@ function ChatList(props) {
                                                 chatId={chat.id}
                                                 image={chat.item.image}
                                                 title={chat.item.title}
-                                                user={recipientUser.username}
+                                                user={receiverUser.username}
                                                 message={lastChatMessage}
                                                 date={lastMessageDate}
                                             />

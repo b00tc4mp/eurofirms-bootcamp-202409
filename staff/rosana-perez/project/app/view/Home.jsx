@@ -8,8 +8,8 @@ const { NotFoundError, SystemError, ValidationError } = errors
 
 import { useState, useEffect } from 'react'
 
-import Item from './Item'
-import OwnItem from './OwnItem'
+import Item from '../components/Item'
+import OwnItem from '../components/OwnItem'
 
 import getUserName from '../logic/getUserName'
 import getItems from '../logic/getItems'
@@ -20,9 +20,8 @@ import { ArrowUturnLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
 function Home(props) {
     console.log('Home rendering')
 
-    const [name, setName] = useState(null)
+    const [userName, setUserName] = useState(null)
     const [items, setItems] = useState([])
-    // const [timestamp, setTimeStamp] = useState(Date.now())
 
     const handleError = error => {
         if (error instanceof NotFoundError)
@@ -38,8 +37,8 @@ function Home(props) {
     useEffect(() => {
         try {
             getUserName()
-                .then((name) => {
-                    setName(name)
+                .then(userName => {
+                    setUserName(userName)
                 })
                 .catch(error => handleError(error))
 
@@ -67,6 +66,8 @@ function Home(props) {
     const handleOnDeleted = () => updateItems()
     const handleOnFavClick = () => updateItems()
     const handleOnItemSold = () => updateItems()
+    const handleOnItemEdited = () => updateItems()
+    const handleOnMessageSent = () => updateItems()
 
     const handleOnCreateClick = () => props.onCreateItem()
     const handleOnChatsClick = () => props.onChats()
@@ -89,7 +90,7 @@ function Home(props) {
                     </a>
                 </div>
                 <section className="flex justify-start">
-                    {name && <Text className="gap-4 mr-3 text-sm">Welcome, {name}</Text>}
+                    {userName && <Text className="gap-4 mr-3 text-sm">Welcome, {userName}</Text>}
                 </section>
 
                 <nav className="flex justify-end gap-0.5">
@@ -154,7 +155,7 @@ function Home(props) {
                 </nav >
             </header>
 
-            <div className="container w-full pt-4 pb-4 my-6 ">
+            <div className="container w-full pt-4 pb-4 my-4 ">
                 <section className="mx-auto px-4 sm:px-3 sm:py-0 lg:px-4">
                     <h2 className="text-2xl font-bold tracking-tight">New items</h2>
                 </section>
@@ -165,13 +166,16 @@ function Home(props) {
                                 {!item.own ? (
                                     <Item
                                         item={item}
-                                        onDeleted={handleOnDeleted}
                                         onToggleFavClick={handleOnFavClick}
+                                        onMessageSent={handleOnMessageSent}
+
                                     />
                                 ) : (
                                     <OwnItem
                                         item={item}
+                                        onDeleted={handleOnDeleted}
                                         onToggleSold={handleOnItemSold}
+                                        onEditItem={handleOnItemEdited}
                                     />
                                 )}
                             </article>)

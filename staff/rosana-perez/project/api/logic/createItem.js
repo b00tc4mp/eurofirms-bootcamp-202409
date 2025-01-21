@@ -21,7 +21,7 @@ function createItem(userId, location, image, title, description, sold) {
                 .catch(error => { throw new SystemError(error.message) })
         })
 
-        .then(_ => { })
+        .then(itemCreated => { })
 
 }
 

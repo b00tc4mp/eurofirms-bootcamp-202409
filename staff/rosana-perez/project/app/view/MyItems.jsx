@@ -7,16 +7,16 @@ const { SystemError, NotFoundError } = errors
 
 import { useState, useEffect } from 'react'
 
-import OwnItem from './OwnItem'
+import OwnItem from '../components/OwnItem'
 
 import getUserName from '../logic/getUserName'
-import getMyItems from '../logic/getMyItems'
+import getItemsFromUser from '../logic/getItemsFromUser'
 
 
 function MyItems(props) {
     console.log('My Items rendering')
 
-    const [name, setName] = useState(null)
+    const [userName, setUserName] = useState(null)
     const [items, setItems] = useState([])
 
     const handleError = error => {
@@ -30,14 +30,14 @@ function MyItems(props) {
 
     useEffect(() => {
         getUserName()
-            .then((name) => setName(name))
+            .then(userName => setUserName(userName))
             .catch(error => handleError(error))
 
     }, [])
 
     useEffect(() => {
-        getMyItems()
-            .then((items) => setItems(items))
+        getItemsFromUser()
+            .then(items => setItems(items))
             .catch(error => handleError(error))
 
     }, [])// se ejecuta nuevamente si cambia el user
@@ -46,8 +46,8 @@ function MyItems(props) {
     const handleOnCancelClick = () => props.onCancelClick()
 
     const handleOnToggleSoldItem = () => {
-        getMyItems()
-            .then((items) => setItems(items))
+        getItemsFromUser()
+            .then(items => setItems(items))
             .catch(error => handleError(error))
     }
 
@@ -67,7 +67,7 @@ function MyItems(props) {
                         </a>
                     </div>
                     <section className="flex justify-start">
-                        {name && <h3 className="font-semibold text-gray-500 text-sm gap-2">{name}</h3>}
+                        {userName && <h3 className="font-semibold text-gray-500 text-sm gap-2">{userName}</h3>}
                     </section>
 
                     <Button plain onClick={handleOnCancelClick} className="justify-items-end">
@@ -75,10 +75,10 @@ function MyItems(props) {
                     </Button>
                 </header>
 
-                <div className="min-h-screen flex flex-col items-center justify-center">
+                <div className="container mx-auto px-4 py-6">
                     <div className="text-center w-full p-2 max-w-lg">
                         <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your products</h2>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                        <div className="grid grid-cols-2 gap-4">
                             {items?.length > 0 && (items?.map(item => {
                                 return (
                                     <OwnItem
@@ -88,7 +88,6 @@ function MyItems(props) {
 
                                     />
                                 )
-
                             })
                             )}
                         </div>

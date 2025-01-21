@@ -24,7 +24,7 @@ function editItem(userId, itemId, title) {
             return Item.updateOne({ _id: item._id }, { 'title': title })
                 .catch(error => { throw new SystemError(error.message) })
         })
-        .then(_ => { })
+        .then(updatedItem => { })
 }
 
 export default editItem

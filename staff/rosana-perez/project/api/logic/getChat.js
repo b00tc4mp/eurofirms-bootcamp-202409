@@ -29,9 +29,9 @@ function getChat(userId, chatId) {
             if (!user) throw new NotFoundError('user not found')
             if (!chat) throw new NotFoundError('chat not found')
 
-            const found = chat.users.some(user => user._id.toString() === userId)
+            const userInsideChat = chat.users.some(user => user._id.toString() === userId)
 
-            if (!found) throw new OwnershipError('user is not participant in chat')
+            if (!userInsideChat) throw new OwnershipError('user is not participant in chat')
 
             if (chat._id) {
                 chat.id = chat._id.toString()

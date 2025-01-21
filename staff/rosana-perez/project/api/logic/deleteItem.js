@@ -23,7 +23,7 @@ function deleteItem(userId, itemId) {
             return Item.deleteOne({ _id: item._id })
                 .catch(error => { throw new SystemError(error.message) })
         })
-        .then(_ => { })
+        .then(deletedItem => { })
 }
 
 export default deleteItem

@@ -44,7 +44,7 @@ function Chat({ chatId }) { //recibe chatId = props
     const itemImage = chat?.item.image
     const itemTitle = chat?.item.title
 
-    const recipientUser = chat?.users.find(user => user.id !== getLoggedInUserId())
+    const receiverUser = chat?.users.find(user => user.id !== userId)
 
     const lastMessage = chat?.messages[chat.messages.length - 1]
     const messageDate = util.formatIsoDate(lastMessage?.updatedAt)
@@ -60,7 +60,7 @@ function Chat({ chatId }) { //recibe chatId = props
                         </div>
                         <div className="flex shrink-0 grow basis-0 flex-col items-start">
                             <div className="flex w-full items-center gap-2">
-                                <span className="text-sm">{recipientUser.username}</span>
+                                <span className="text-sm">{receiverUser.username}</span>
                                 <span>{messageDate}</span>
                             </div>
                             <div className="flex w-full items-center gap-2">

@@ -3,7 +3,7 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-function getMyItems(userId) {
+function getItemsFromUser(userId) {
     validate.userId(userId)
 
     return Promise.all([
@@ -26,4 +26,4 @@ function getMyItems(userId) {
         })
 }
 
-export default getMyItems
+export default getItemsFromUser

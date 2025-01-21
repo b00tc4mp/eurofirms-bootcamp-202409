@@ -1,35 +1,31 @@
 import { errors } from 'com'
+
 import { Button } from '../components/button'
 import { Input } from '../components/input'
 import { Textarea } from '../components/textarea'
 import { Listbox, ListboxLabel, ListboxOption } from '../components/listbox'
 import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
+
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 import { useState, useEffect } from 'react'
+
 import createItem from '../logic/createItem'
 import getUserName from '../logic/getUserName'
-/*import { Uppy, Dashboard, Webcam } from "https://releases.transloadit.com/uppy/v4.9.0/uppy.min.mjs"
 
-const uppy = new Uppy({
-    id: 'uppy',
-    autoProceed: true,
-})
-uppy.use(Dashboard, { inline: true, target: 'body', proudlyDisplayPoweredByUppy: false })
-uppy.use(Webcam)*/
 
 const { ValidationError, SystemError, NotFoundError } = errors
 
 function CreateItem(props) {
     console.log('CreateItem rendering')
 
-    const [name, setName] = useState(null)
+    const [userName, setUserName] = useState(null)
 
     useEffect(() => {
         try {
             getUserName()
-                .then((name) => {
+                .then(userName => {
 
-                    setName(name)
+                    setUserName(userName)
                 })
                 .catch(error => {
                     if (error instanceof NotFoundError)
@@ -78,7 +74,7 @@ function CreateItem(props) {
 
         try {
             createItem(location, image, title, description, sold)
-                .then(() => { props.onCreated() })
+                .then(() => props.onCreated())
                 .catch(error => {
                     if (error instanceof NotFoundError)
                         alert(error.message)
@@ -114,7 +110,7 @@ function CreateItem(props) {
                         </a>
                     </div>
                     <section className="flex justify-start">
-                        {name && <h3 className="font-semibold text-gray-500 text-sm  gap-2">{name}</h3>}
+                        {userName && <h3 className="font-semibold text-gray-500 text-sm  gap-2">{userName}</h3>}
                     </section>
 
                     <Button plain onClick={handleOnCancelClick} className="justify-items-end">
@@ -230,7 +226,6 @@ function CreateItem(props) {
                                     </Field>
 
                                     <Field>
-                                        {/*<div id="uppy" />*/}
                                         <Label htmlFor="image" name="image">Image</Label>
                                         <Input className="text-xs" type="url" id="image" placeholder="Put the image link here" />
                                     </Field>
