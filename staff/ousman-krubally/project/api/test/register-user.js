@@ -1,4 +1,4 @@
-fetch('http://localhost:8080/users', {
+fetch('http://localhost:8082/users', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -8,7 +8,7 @@ fetch('http://localhost:8080/users', {
     .then(response => {
         console.log(response.status)
 
-        return response.texte()
+        return response.text()
     })
     .then(body => console.log(body))
     .catch(error => console.error(error))

@@ -49,7 +49,7 @@ mongoose.connect(MONGO_URL)
 
         const jsonBodyParser = express.json()
 
-        api.post('/user', jsonBodyParser, (req, res) => {
+        api.post('/users', jsonBodyParser, (req, res) => {
             try {
                 const name = req.body.name
                 const email = req.body.email
