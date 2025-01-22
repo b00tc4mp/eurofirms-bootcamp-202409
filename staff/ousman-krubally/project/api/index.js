@@ -9,8 +9,10 @@ const { ValidationError, DuplicityError, SystemError, CredentialsError,
     NotFoundError, OwnershipError } = errors
 
 import registerUser from './logic/registerUser.js'
+import authenticateUser from './logic/authenticateUser.js'
+import getUserName from './logic/getUserName.js'
 
-const { MONGO_URL, PORT } = process.env
+const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
 const handleError = (res, error) => {
     if (error instanceof ValidationError)
@@ -33,7 +35,7 @@ const handleError = (res, error) => {
      const authorization = req.headers.authorization
      const token = authorization.slice(7)
  
-     const payload = jwt.verify(token, JWD_SECRET)
+     const payload = jwt.verify(token, JWT_SECRET)
      const userId = payload.sub
  
      return userId
@@ -61,6 +63,34 @@ mongoose.connect(MONGO_URL)
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
+            }
+        })
+
+        api.post('/users/auth',jsonBodyParser, (req, res) => {
+            try {
+                const username = req.body.username
+                const password = req.body.password
+
+                authenticateUser(username, password)
+                    .then(userId => jwt.sign({ sub: userId }, JWT_SECRET))
+                    .then(token => res.json(token))
+                    .catch(error => handleError(req, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
+        api.get('/users/:targetUserId/name', (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                const targetUserId = req.params.targetUserId
+
+                getUserName(userId, targetUserId)
+                    .then(name => res.json(name))
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res,error)
             }
         })
 
