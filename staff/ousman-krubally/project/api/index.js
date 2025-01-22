@@ -11,6 +11,7 @@ const { ValidationError, DuplicityError, SystemError, CredentialsError,
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
+import getPosts from './logic/getPosts.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -91,6 +92,18 @@ mongoose.connect(MONGO_URL)
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res,error)
+            }
+        })
+
+        api.get('/posts', (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                getPosts(userId)
+                    .then(posts => res.json(posts))
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
             }
         })
 
