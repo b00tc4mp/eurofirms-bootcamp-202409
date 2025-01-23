@@ -72,7 +72,6 @@ function Item(props) {
             toggleFavItem(itemId)
                 .then(() => {
                     props.onToggleFavClick()
-                    setTimeStamp(Date.now())
                 })
                 .catch(error => handleError(error))
 

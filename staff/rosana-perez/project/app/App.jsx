@@ -11,18 +11,18 @@ import ChatMessages from './view/ChatMessages'
 import UserProfile from './view/UserProfile'
 import ItemsAsGuest from './view/ItemsAsGuest'
 import MyItems from './view/MyItems'
+import Header from './components/Header'
 
-
-import isUserLoggedIn from './logic/isUserLoggedIn'
-import getChat from './logic/getChat'
+import logic from './logic/index.js'
 
 function App() {
     console.log('App rendering')
 
-    const [view, setView] = useState(isUserLoggedIn() ? 'home' : 'welcome')
+    const [view, setView] = useState(logic.isUserLoggedIn() ? 'home' : 'welcome')
     const [chatId, setChatId] = useState(null)
 
     console.log('App -> state: view = ' + view)
+
 
     return <>
 
@@ -50,7 +50,9 @@ function App() {
             onCancelClick={() => setView('welcome')}
         />}
 
-        {view === 'home' && <Home
+        {view === 'home' && <><Header
+            onSetHome={() => setView('home')}
+
             onCreateItem={() => setView('create')}
 
             onFavItems={() => setView('favItems')}
@@ -61,43 +63,122 @@ function App() {
 
             onChats={() => setView('chatList')}
 
-            onLogout={() => setView('welcome')}
-        />}
+            onLogout={() => setView('welcome')} />
+            <Home />
+        </>}
 
-        {view === 'create' && <CreateItem
-            onCreated={() => setView('home')}
+        {view === 'create' && <><Header
+            onSetHome={() => setView('home')}
 
-            onCancelClick={() => setView('home')}
-        />}
+            onCreateItem={() => setView('create')}
 
-        {view === 'favItems' && <FavItems
-            onCancelClick={() => setView('home')}
-        />}
+            onFavItems={() => setView('favItems')}
 
-        {view === 'myItems' && <MyItems
-            onCancelClick={() => setView('home')}
-        />}
+            onMyItems={() => setView('myItems')}
 
-        {view === 'userProfile' && <UserProfile
-            onCancelClick={() => setView('home')}
+            onUserProfile={() => setView('userProfile')}
 
-            onEditUserData={() => setView('home')}
-        />}
+            onChats={() => setView('chatList')}
 
-        {view === 'chatList' && <ChatList
-            onChatMessages={(chatId) => {
-                setChatId(chatId)
-                setView('chatMessages')
-            }}
-            onCancelClick={() => setView('home')}
-        />}
+            onLogout={() => setView('welcome')} />
+            <CreateItem
+                onCreated={() => setView('home')}
 
-        {view === 'chatMessages' && <ChatMessages
-            chatId={chatId}
-            onMessage={getChat(chatId)}
+                onCancelClick={() => setView('home')}
+            /></>}
 
-            onCancelClick={() => setView('chatList')}
-        />}
+        {view === 'favItems' && <><Header
+            onSetHome={() => setView('home')}
+
+            onCreateItem={() => setView('create')}
+
+            onFavItems={() => setView('favItems')}
+
+            onMyItems={() => setView('myItems')}
+
+            onUserProfile={() => setView('userProfile')}
+
+            onChats={() => setView('chatList')}
+
+            onLogout={() => setView('welcome')} /><FavItems
+
+            /></>}
+
+        {view === 'myItems' && <><Header
+            onSetHome={() => setView('home')}
+
+            onCreateItem={() => setView('create')}
+
+            onFavItems={() => setView('favItems')}
+
+            onMyItems={() => setView('myItems')}
+
+            onUserProfile={() => setView('userProfile')}
+
+            onChats={() => setView('chatList')}
+
+            onLogout={() => setView('welcome')} /><MyItems
+
+            /></>}
+
+        {view === 'userProfile' && <><Header
+            onSetHome={() => setView('home')}
+
+            onCreateItem={() => setView('create')}
+
+            onFavItems={() => setView('favItems')}
+
+            onMyItems={() => setView('myItems')}
+
+            onUserProfile={() => setView('userProfile')}
+
+            onChats={() => setView('chatList')}
+
+            onLogout={() => setView('welcome')} />
+            <UserProfile
+                onEditUserData={() => setView('home')}
+            /></>}
+
+        {view === 'chatList' && <> <Header
+            onSetHome={() => setView('home')}
+
+            onCreateItem={() => setView('create')}
+
+            onFavItems={() => setView('favItems')}
+
+            onMyItems={() => setView('myItems')}
+
+            onUserProfile={() => setView('userProfile')}
+
+            onChats={() => setView('chatList')}
+
+            onLogout={() => setView('welcome')} />
+            <ChatList
+                onChatMessages={(chatId) => {
+                    setChatId(chatId)
+                    setView('chatMessages')
+                }}
+                onCancelClick={() => setView('home')}
+            /> </>}
+
+        {view === 'chatMessages' && <><Header
+            onSetHome={() => setView('home')}
+
+            onCreateItem={() => setView('create')}
+
+            onFavItems={() => setView('favItems')}
+
+            onMyItems={() => setView('myItems')}
+
+            onUserProfile={() => setView('userProfile')}
+
+            onChats={() => setView('chatList')}
+
+            onLogout={() => setView('welcome')} />
+            <ChatMessages
+                chatId={chatId}
+                onMessage={logic.getChat(chatId)}
+            /></>}
 
         {view === 'itemsAsGuest' && <ItemsAsGuest
             onLoginClick={() => setView('login')}

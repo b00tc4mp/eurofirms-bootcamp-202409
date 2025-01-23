@@ -9,18 +9,15 @@ import { Input } from '../components/input'
 
 import { useState, useEffect } from 'react'
 
-import { ArrowUturnLeftIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
+import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
 
 import Message from '../components/Message'
 
-import getUserName from '../logic/getUserName'
-import getChat from '../logic/getChat'
-import sendMessage from '../logic/sendMessage'
+import logic from '../logic/index.js'
 
 function ChatMessages(props) {
     console.log('ChatMessages rendering')
 
-    const [userName, setUserName] = useState(null)
     const [chat, setChat] = useState([])
 
     const [timestamp, setTimeStamp] = useState(Date.now())
@@ -42,14 +39,8 @@ function ChatMessages(props) {
     }
 
     useEffect(() => {
-        getUserName()
-            .then(userName => { setUserName(userName) })
-            .catch(error => handleError(error))
-    }, [])
-
-    useEffect(() => {
         if (chatId) {
-            getChat(chatId)
+            logic.getChat(chatId)
                 .then(chat => setChat(chat))
                 .catch(error => handleError(error))
         }
@@ -62,9 +53,10 @@ function ChatMessages(props) {
 
     }, [timestamp])
 
-    console.log('ChatMessages -> state: user = ' + name)
+    const { user } = props
+    const userName = user?.name
 
-    const handleOnCancelClick = () => props.onCancelClick()
+    console.log('ChatMessages -> state: user = ' + userName)
 
     const handleOnMessage = event => {
         event.preventDefault()
@@ -74,7 +66,7 @@ function ChatMessages(props) {
         const content = form.content.value
 
         if (content) {
-            sendMessage(content, chatId, itemId)
+            logic.sendMessage(content, chatId, itemId)
                 .then(() => {
                     setTimeStamp(Date.now())
                     form.reset()
@@ -86,27 +78,6 @@ function ChatMessages(props) {
 
     return (
         <>
-            <header className="w-full flex justify-between items-center px-2 h-24 z-10">
-                <div className="flex lg:flex-1">
-                    <a href="#" className="m-1.5 p-1.5">
-                        <span className="sr-only">Dona2</span>
-                        <img
-                            alt=""
-                            src="/images/greenWorld.png"
-                            className="h-12 w-auto"
-                        />
-                        <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
-                    </a>
-                </div>
-                <section className="flex justify-start">
-                    {userName ? <h3 className="font-semibold text-gray-500 text-sm  gap-2">{userName}</h3> : null}
-                </section>
-
-                <Button plain onClick={handleOnCancelClick} className="justify-items-end">
-                    <ArrowUturnLeftIcon />
-                </Button>
-            </header>
-
             <main className="flex flex-col items-center justify-center">
                 <div className="text-center w-full p-2 max-w-lg">
                     <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Chat</h2>

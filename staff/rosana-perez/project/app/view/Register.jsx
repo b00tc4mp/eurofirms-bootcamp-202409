@@ -9,7 +9,7 @@ import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
 const { DuplicityError, SystemError, ValidationError } = errors
 
-import registerUser from '../logic/registerUser'
+import logic from '../logic/index.js'
 
 function Register(props) {
     console.log('Register rendering')
@@ -26,7 +26,7 @@ function Register(props) {
         const password = form.password.value
 
         try {
-            registerUser(name, location, email, username, password)
+            logic.registerUser(name, location, email, username, password)
                 .then(() => props.onRegisterSuccess())
                 .catch(error => {
                     if (error instanceof DuplicityError)

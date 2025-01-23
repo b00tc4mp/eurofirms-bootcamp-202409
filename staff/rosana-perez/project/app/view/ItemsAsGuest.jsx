@@ -10,7 +10,7 @@ import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
 import Item from '../components/Item'
 
-import getItemsAsGuest from '../logic/getItemsAsGuest'
+import logic from '../logic/index.js'
 
 
 function ItemsAsGuest(props) {
@@ -27,7 +27,7 @@ function ItemsAsGuest(props) {
     }
 
     useEffect(() => {
-        getItemsAsGuest()
+        logic.getItemsAsGuest()
             .then(items => setItems(items))
             .catch(error => handleError(error))
     }, [])

@@ -2,16 +2,6 @@ import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
-/* const navigation = [
-    { name: 'Product', href: '#' },
-    { name: 'Features', href: '#' },
-    { name: 'Marketplace', href: '#' },
-    { name: 'Company', href: '#' },
-]
-    */
-
-
-const navigation = [] // empty navigation for now
 
 function Welcome(props) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)

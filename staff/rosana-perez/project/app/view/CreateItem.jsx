@@ -6,45 +6,14 @@ import { Textarea } from '../components/textarea'
 import { Listbox, ListboxLabel, ListboxOption } from '../components/listbox'
 import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
 
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-import createItem from '../logic/createItem'
-import getUserName from '../logic/getUserName'
-
+import logic from '../logic/index.js'
 
 const { ValidationError, SystemError, NotFoundError } = errors
 
 function CreateItem(props) {
     console.log('CreateItem rendering')
-
-    const [userName, setUserName] = useState(null)
-
-    useEffect(() => {
-        try {
-            getUserName()
-                .then(userName => {
-
-                    setUserName(userName)
-                })
-                .catch(error => {
-                    if (error instanceof NotFoundError)
-                        alert(error.message)
-                    else if (error instanceof SystemError)
-                        alert('Sorry, there was a problem. Try again later.')
-                    console.error(error)
-                })
-        } catch (error) {
-            if (error instanceof ValidationError)
-                alert(error.message)
-            else
-                alert('Sorry, there was a problem. Try again later.')
-
-            console.error(error)
-        }
-    }, [])
-
-    const handleOnCancelClick = () => props.onCancelClick()
 
     const [formData, setFormData] = useState({ location: 'A Coruña' });
 
@@ -55,9 +24,8 @@ function CreateItem(props) {
         setFormData((prevState) => ({
             ...prevState,
             location: selectedValue,
-        }));
-    };
-
+        }))
+    }
 
     const handleCreateItemSubmit = event => {
         event.preventDefault()
@@ -70,10 +38,8 @@ function CreateItem(props) {
         const description = form.description.value
         const sold = false
 
-        console.log('Form data on submit:', { location, image, title, description, sold }) // Verifica los valores antes de enviarlos
-
         try {
-            createItem(location, image, title, description, sold)
+            logic.createItem(location, image, title, description, sold)
                 .then(() => props.onCreated())
                 .catch(error => {
                     if (error instanceof NotFoundError)
@@ -97,27 +63,6 @@ function CreateItem(props) {
     return (
         <>
             <main>
-                <header className="w-full flex justify-between items-center px-2 h-24 z-8">
-                    <div className="flex lg:flex-1">
-                        <a href="#" className="m-1.5 p-1.5">
-                            <span className="sr-only">Dona2</span>
-                            <img
-                                alt=""
-                                src="/images/greenWorld.png"
-                                className="h-12 w-auto"
-                            />
-                            <p className="px-3 py-2.5 flex justify-center font-semibold text-emerald-700">Dona2</p>
-                        </a>
-                    </div>
-                    <section className="flex justify-start">
-                        {userName && <h3 className="font-semibold text-gray-500 text-sm  gap-2">{userName}</h3>}
-                    </section>
-
-                    <Button plain onClick={handleOnCancelClick} className="justify-items-end">
-                        <ArrowUturnLeftIcon />
-                    </Button>
-                </header>
-
                 <div className="min-h-screen flex flex-col items-center justify-center">
                     <div className="text-center w-full p-2 max-w-lg">
                         <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Create your item</h2>

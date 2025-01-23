@@ -9,7 +9,7 @@ import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
 const { CredentialsError, SystemError, ValidationError } = errors
 
-import loginUser from '../logic/loginUser'
+import logic from '../logic/index.js'
 
 function Login(props) {
     console.log('Login rendering')
@@ -23,7 +23,7 @@ function Login(props) {
         const password = form.password.value
 
         try {
-            loginUser(username, password)
+            logic.loginUser(username, password)
                 .then(() => props.onLoginSuccess())
                 .catch(error => {
                     if (error instanceof CredentialsError)
