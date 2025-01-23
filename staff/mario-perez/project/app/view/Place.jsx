@@ -19,7 +19,6 @@ function Place(props) {
     console.log(place)
     const { date: formattedDate, time: formattedTime } = utils.formatDate(place.checkout)
 
-    // TODO logic of deletePlaceClick
     const handleDeletePlaceClick = () => {
         try {
             deletePlace(place.id)

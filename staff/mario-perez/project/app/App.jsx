@@ -18,7 +18,7 @@ function App() {
     //const [place, setPlace] = useState({})
 
     console.log('App -> state: view = ' + view)
-    //TODO mejorar metodos de navegacion
+    //TODO mejorar métodos de navegacion
     const handleRegisterClick = () => setView('register')
     const handleLoginClick = () => setView('login')
     const handleRegisterSuccess = () => setView('login')

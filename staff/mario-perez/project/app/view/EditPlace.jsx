@@ -87,7 +87,7 @@ function EditPlace(props) {
         const vehicleRegistration = form.vehicleRegistration.value
 
         try {
-            editPlace(placeId, parking, level, space, checkin, checkout)
+            editPlace(placeId, parking, level, space, checkin, checkout, vehicleRegistration)
                 .then(() => props.onEditPlaceSuccess())
                 .catch(error => {
                     if (error instanceof DuplicityError)

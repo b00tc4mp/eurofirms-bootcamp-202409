@@ -10,23 +10,26 @@ function registerPlace(userId, parkingId, level, space, checkin, checkout, vehic
     validate.checkinAndCheckout(checkin, checkout)
     validate.vehicleRegistration(vehicleRegistration)
 
-    // TODO find place with parkingId, level and space.
-
-    // If there are some place, throw error, else create new place.
-
-    // if (Place.findById(parkingId)) {
-    //     if (Place.findOne({ level: level })) {
-    //         if (Place.findOne({ space: { space: space } })) throw new DuplicityError('La plaza ya está ocupada porque ya existe')
-    //     }
-    // }
-    return Place.findOne({ parking: parkingId, level, space }).lean()
+    return Place.find({ parking: parkingId, level, space }).lean() // Vemos si hay plazas que tienen los mismos datos
         .catch(error => { throw new SystemError(error.message) })
-        .then(place => {
-            if (place) throw new DuplicityError('la  plaza ya existia')
+        .then(places => {
+            const checkinObjMils = new Date(checkin).getTime()
+            const checkoutObjMils = new Date(checkout).getTime()
+
+            places.forEach(place => {
+
+                // Comprobamos que el checkin de la nueva plaza no está entre el checkin y el checkout de las anteriores
+                if (place.checkin.getTime() <= checkinObjMils && place.checkout.getTime() >= checkinObjMils)
+                    throw new Error('El checkin se está intentando realizar en un tramo de tiempo ocupado')
+                if (place.checkin.getTime() <= checkoutObjMils && place.checkout.getTime() >= checkoutObjMils)
+                    throw new Error('El checkout se está intentando realizar en un tramo de tiempo ocupado')
+                if (place.checkin.getTime() > checkinObjMils && place.checkout.getTime() < checkoutObjMils)
+                    throw new Error('El periodo reservado ya contiene otra reserva')
+            })
 
             return Place.create({ parking: parkingId, level, space, checkin, checkout, user: userId, vehicleRegistration })
                 .catch(error => {
-                    if (error.code === 11000) throw new DuplicityError('La plaza ya está ocupada')
+                    //if (error.code === 11000) throw new Error('La plaza no puede crearse')
 
                     throw new SystemError(error.message)
                 })

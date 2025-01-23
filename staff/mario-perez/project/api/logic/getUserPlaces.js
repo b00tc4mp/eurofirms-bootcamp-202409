@@ -16,7 +16,7 @@ function getUserPlaces(userId) {
 
             if (!user) throw new NotFoundError('No existe el usuario')
 
-            // TODO sanitize places before returning it
+            // TODO sanar plazas antes de devolverlas
 
             places.forEach((place) => {
                 place.id = place._id.toString()

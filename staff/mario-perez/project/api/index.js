@@ -117,8 +117,8 @@ mongoose.connect(MONGO_URL)
         api.post('/places', jsonBodyParser, (req, res) => {
             try {
 
-                // TODO rename logic to createPlace
-                // TODO trandcript createPost: use token
+                // TODO cambiar nombre de la logica a createPlace
+                // TODO transcripción createPost: usar token
                 const userId = verifyToken(req)
 
 
@@ -172,8 +172,10 @@ mongoose.connect(MONGO_URL)
                 const space = req.body.space
                 const checkin = req.body.checkin
                 const checkout = req.body.checkout
+                const vehicleRegistration = req.body.vehicleRegistration
 
-                editPlace(userId, placeId, parkingId, level, space, checkin, checkout)
+                editPlace(userId, placeId, parkingId, level, space, checkin, checkout, vehicleRegistration
+                )
                     .then(() => res.status(204).send())
                     .catch(error => handleError(res, error))
             } catch (error) {

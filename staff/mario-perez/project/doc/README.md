@@ -22,15 +22,15 @@ User
 - Registrar la ubicación de la plaza de parking
 - Añadir y editar detalles como matrícula, número de plaza y nivel 
 - Ver un mapa de la ubicación del parking 
-- Recibir recordatorios de la ubicación del coche y de la duracion del aparcamiento
+- Recibir recordatorios de la ubicación del coche y de la duracion del aparcamiento con un contador
 - Compartir la ubicación con otros usuarios (enviar email o qr)...
 - Crear BD entre varios usuarios para conocer las dimensiones del parking
 -->
 
 - Register the parking spot location
 - Add and edit details such as registration car, spot number and level
-- View a map of the parking location
-- Receive reminders of the car's location
+<!-- - View a map of the parking location -->
+- Receive reminders of the car's location and duration with a count
 - Share the location with other users (sending email or qr)
 - Create a database between several users to know the dimensions of the parking lot
 
