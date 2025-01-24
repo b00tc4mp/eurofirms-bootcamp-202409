@@ -13,6 +13,7 @@ import getUserName from './logic/getUserName.js'
 import getPosts from './logic/getPosts.js'
 import createPost from './logic/createPost.js'
 import deletePost from './logic/deletePost.js'
+import updatePost from './logic/updatePost.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -132,6 +133,22 @@ mongoose.connect(MONGO_URL)
                 const postId = req.params.postId
 
                 deletePost(userId, postId)
+                    .then(() => res.status(204).send())
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
+        api.patch('/posts/:postId', jsonBodyParser, (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                const postId = req.params.postId
+
+                const text = req.body.text
+
+                updatePost(userId, postId, text)
                     .then(() => res.status(204).send())
                     .catch(error => handleError(res, error))
             } catch (error) {

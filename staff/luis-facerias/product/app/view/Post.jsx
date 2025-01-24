@@ -1,4 +1,5 @@
 import { errors } from 'com'
+import { useState } from 'react'
 
 const { ValidationError, SystemError, NotFoundError, OwnershipError } = errors
 
@@ -8,6 +9,24 @@ function Post(props) {
     console.log('Post -> render')
 
     const post = props.post
+
+    const [text, setText] = useState(post.text)
+    const [isEditing, setIsEditing] = useState(false)
+
+    // Maneja el cambio de texto
+    const handleChange = (event) => {
+        setText(event.target.value);
+    }
+    
+    // Habilita el modo de edición
+    const handleEditClick = () => {
+        setIsEditing(true);
+    }
+
+    // Deshabilita el modo de edición y guarda el texto
+    const handleSaveClick = () => {
+        setIsEditing(false);
+    }
 
     const handleDeleteClick = () => {
         if (confirm('Delete post?'))

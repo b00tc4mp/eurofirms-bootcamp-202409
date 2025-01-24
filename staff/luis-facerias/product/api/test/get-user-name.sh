@@ -1,4 +1,4 @@
-curl -X GET -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzZhZTEyZTA3ZWQxZjA4YWNlNDlkZjgiLCJpYXQiOjE3MzUyMzI3MTR9.Rz-L2CFqL_1bDi124E7BlvHqdjzjmBHL5XcmMx6hpwQ' http://localhost:8080/users/676ae12e07ed1f08ace49df9/name -v
+curl -X GET -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzZhZTEyZTA3ZWQxZjA4YWNlNDlkZjgiLCJpYXQiOjE3MzUyMzI3MTR9.Rz-L2CFqL_1bDi124E7BlvHqdjzjmBHL5XcmMx6hpwQ' http://localhost:8080/users/678bc92917fb44873673400c/name -v
 
 
 # * Host localhost:8080 was resolved.

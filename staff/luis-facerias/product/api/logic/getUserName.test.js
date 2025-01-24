@@ -4,7 +4,7 @@ import getUserName from './getUserName.js'
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            return getUserName('6741e9db7a4eafb54ae6ee8a', '6741e9db7a4eafb54ae6ee8a')
+            return getUserName('676ae12e07ed1f08ace49df9', '676ae12e07ed1f08ace49df9')
                 .then(name => console.log(name))
                 .catch(error => console.error(error))
         } catch (error) {
