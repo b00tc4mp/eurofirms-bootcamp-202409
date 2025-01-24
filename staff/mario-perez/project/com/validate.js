@@ -60,7 +60,7 @@ const validate = {
         if (typeof vehicleRegistration !== 'string') throw new ValidationError('Matrícula no válida')
         if (vehicleRegistration.length !== 8) throw new ValidationError('Longitud de matrícula tiene que ser de 8')
 
-        if (!vehicleRegistration.includes('-')) throw new ValidationError('Matrícula no ')
+        if (!vehicleRegistration.includes('-')) throw new ValidationError('Matrícula sin guión')
         // TODO más validaciones
     },
 

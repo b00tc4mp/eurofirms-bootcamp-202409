@@ -34,13 +34,20 @@ class OwnerShipError extends Error {
     }
 }
 
+class TimeError extends Error {
+    constructor(message) {
+        super(message)
+    }
+}
+
 const errors = {
     ValidationError,
     SystemError,
     DuplicityError,
     CredentialsError,
     NotFoundError,
-    OwnerShipError
+    OwnerShipError,
+    TimeError
 }
 
 export default errors

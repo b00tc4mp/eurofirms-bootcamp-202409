@@ -19,20 +19,22 @@ It allows users to register the location of their car in a parking lot, includin
 
 User
 <!-- 
-- Registrar la ubicación de la plaza de parking
-- Añadir y editar detalles como matrícula, número de plaza y nivel 
+- Registrar la ubicación de la plaza de aparcamiento
+- Editar plaza de aparcamiento (detalles como matrícula, número de plaza y nivel)
+- Quitar plaza de aparcamiento
 - Ver un mapa de la ubicación del parking 
-- Recibir recordatorios de la ubicación del coche y de la duracion del aparcamiento con un contador
-- Compartir la ubicación con otros usuarios (enviar email o qr)...
-- Crear BD entre varios usuarios para conocer las dimensiones del parking
+- Recibir recordatorios de la ubicación del coche y de la duracion del aparcamiento con un contador (v 0.1)
+- Compartir la ubicación con otros usuarios (enviar email o qr)... (v 0.1)
+- Crear BD entre varios usuarios para conocer las dimensiones del parking (v 0.1)
 -->
 
-- Register the parking spot location
-- Add and edit details such as registration car, spot number and level
+- Add parking place
+- Edit parking place ( details such as registration car, spot number and level)
+- Remove place
 <!-- - View a map of the parking location -->
-- Receive reminders of the car's location and duration with a count
-- Share the location with other users (sending email or qr)
-- Create a database between several users to know the dimensions of the parking lot
+- Receive reminders of the car's location and duration with a count (v 0.1)
+- Share the location with other users (sending email or qr) (v 0.1)
+- Create a database between several users to know the dimensions of the parking lot (v 0.1)
 
 
 ### UI Design
@@ -86,7 +88,7 @@ User
     - space (string, required)
     - checkin (date, required)
     - checkout (date, required)
-    - location (?, required) <!-- geolocalizacion -->
+    - vehicleRegistration (string, required, unique)
     - user: (User.id, required)  
 
 ## Additional notes
@@ -101,10 +103,16 @@ User
 
 ### Others
 
-Native language: Spanish
+Native language: Spanish (Errors)
 
 ### Thanks
 
 
 
 ### Versions
+
+#### Version 0.1
+
+- Add parking place
+- Edit parking place ( details such as registration car, spot number and level)
+- Remove place

@@ -17,7 +17,9 @@ function Place(props) {
 
     const place = props.place
     console.log(place)
-    const { date: formattedDate, time: formattedTime } = utils.formatDate(place.checkout)
+    const { date: formattedDateCheckout, time: formattedTimeCheckout } = utils.formatDate(place.checkout)
+    const { date: formattedDateCheckin, time: formattedTimeCheckin } = utils.formatDate(place.checkin)
+
 
     const handleDeletePlaceClick = () => {
         try {
@@ -43,9 +45,9 @@ function Place(props) {
 
 
     return (
-        <article>
+        <article className="border-2 border-black m-2">
             {
-                status === 'read' && <> <h1>Status = read</h1>
+                status === 'read' && <>
                     <div className="mt-5 mb-5 text-center" >
                         <h2 className="text-4xl">Tu coche con matrícula {place.vehicleRegistration}</h2>
                     </div>
@@ -55,12 +57,13 @@ function Place(props) {
                         <h4>Nivel: {place.level}</h4>
                     </div>
 
-                    <div className="bg-blue-900 text-center rounded-xl">
-                        <p className="text-white">{place.space}</p>
+                    <div className="text-center text-2xl">
+                        <h4>Plaza: {place.space}</h4>
                     </div>
 
                     <div className="text-center text-2xl">
-                        <h4>Finaliza el : {formattedDate} a las {formattedTime}</h4>
+                        <h4>Comienza el : {formattedDateCheckin} a las {formattedTimeCheckin}</h4>
+                        <h4>Finaliza el : {formattedDateCheckout} a las {formattedTimeCheckout}</h4>
                     </div>
 
                     <div className="text-center text-2xl">
@@ -72,7 +75,7 @@ function Place(props) {
             }
 
             {
-                status === 'edit' && <><h1>Status  =  edit</h1>
+                status === 'edit' && <>
                     <EditPlace place={place} backToView={() => setStatus('read')} onEditPlaceSuccess={handleEditPlaceSuccess} />
                 </>
             }

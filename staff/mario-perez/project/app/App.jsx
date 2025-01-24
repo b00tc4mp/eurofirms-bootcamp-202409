@@ -26,10 +26,8 @@ function App() {
     const handleLogout = () => setView('login')
     const handleRegisterPlaceClick = () => setView('registerPlace')
     const handleCreatePlaceSuccess = () => setView('home')
-    const handleDeletePlaceClick = () => setView('home')
     const handleBackHomeClick = () => setView('home')
     const handleEditPlaceClick = () => setView('editPlace')
-    const handleEditPlaceSuccess = () => setView('home')
     const onGetPlace = () => {
         // coger id de place
     }
