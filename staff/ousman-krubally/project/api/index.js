@@ -11,6 +11,7 @@ const { ValidationError, DuplicityError, SystemError, CredentialsError,
 import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
+import createPost from './logic/createPost.js'
 import getPosts from './logic/getPosts.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
@@ -32,15 +33,15 @@ const handleError = (res, error) => {
         res.status(500).json({ error: SystemError.name, message: error.message })
 }
 
- const verifyToken = req => {
-     const authorization = req.headers.authorization
-     const token = authorization.slice(7)
- 
-     const payload = jwt.verify(token, JWT_SECRET)
-     const userId = payload.sub
- 
-     return userId
- }
+const verifyToken = req => {
+    const authorization = req.headers.authorization
+    const token = authorization.slice(7)
+
+    const payload = jwt.verify(token, JWT_SECRET)
+    const userId = payload.sub
+
+    return userId
+}
 
 mongoose.connect(MONGO_URL)
     .then(() => {
@@ -67,7 +68,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-        api.post('/users/auth',jsonBodyParser, (req, res) => {
+        api.post('/users/auth', jsonBodyParser, (req, res) => {
             try {
                 const username = req.body.username
                 const password = req.body.password
@@ -91,7 +92,7 @@ mongoose.connect(MONGO_URL)
                     .then(name => res.json(name))
                     .catch(error => handleError(res, error))
             } catch (error) {
-                handleError(res,error)
+                handleError(res, error)
             }
         })
 
@@ -101,6 +102,21 @@ mongoose.connect(MONGO_URL)
 
                 getPosts(userId)
                     .then(posts => res.json(posts))
+                    .catch(error => handleError(res, error))
+            } catch (error) {
+                handleError(res, error)
+            }
+        })
+
+        api.post('/posts', jsonBodyParser, (req, res) => {
+            try {
+                const userId = verifyToken(req)
+
+                const image = req.body.image
+                const text = req.body.text
+
+                createPost(userId, image, text)
+                    .then(() => res.status(201).send())
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
