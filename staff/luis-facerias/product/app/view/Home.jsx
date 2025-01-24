@@ -87,6 +87,30 @@ function Home(props) {
         }
     }
 
+    const handlePostUpdated = () => {
+        try {
+            getPosts()
+                .then(posts => setPosts(posts))
+                .catch(error => {
+                    if (error instanceof NotFoundError)
+                        alert(error.message)
+                    else if (error instanceof SystemError)
+                        alert('sorry, there was a problem. try again later.')
+
+                    console.error(error)
+                })
+        } catch (error) {
+            if (error instanceof ValidationError)
+                alert(error.message)
+            else
+                alert('sorry, there was a problem. try again later.')
+
+            console.error(error)
+
+            console.log(error)
+        }
+    }
+
     const handleCreatePostClick = () => props.onCreatePost()
 
     return <>
@@ -101,7 +125,7 @@ function Home(props) {
         </header>
 
         {<main className="my-8 bg-gray-300">
-            {posts.map(post => <Post key={post.id} post={post} onDeleted={handlePostDeleted} />)}
+            {posts.map(post => <Post key={post.id} post={post} onDeleted={handlePostDeleted} onUpdated={handlePostUpdated}/>)}
         </main>}
 
         <footer className="bg-black text-white fixed bottom-0 w-full flex justify-center items-center h-8">
