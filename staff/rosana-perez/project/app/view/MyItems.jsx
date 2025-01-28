@@ -9,7 +9,7 @@ import OwnItem from '../components/OwnItem'
 import logic from '../logic/index.js'
 
 
-function MyItems(props) {
+function MyItems() {
     console.log('My Items rendering')
 
     const [items, setItems] = useState([])

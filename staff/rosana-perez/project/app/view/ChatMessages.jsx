@@ -53,11 +53,6 @@ function ChatMessages(props) {
 
     }, [timestamp])
 
-    const { user } = props
-    const userName = user?.name
-
-    console.log('ChatMessages -> state: user = ' + userName)
-
     const handleOnMessage = event => {
         event.preventDefault()
 

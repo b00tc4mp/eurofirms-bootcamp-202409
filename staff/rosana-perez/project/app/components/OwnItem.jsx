@@ -2,7 +2,6 @@ import { errors, util } from 'com'
 
 import { Button } from '../components/button.jsx'
 import { Input } from '../components/input.jsx'
-import { Text } from '../components/text.jsx'
 import { Field, Label } from '/components/fieldset'
 import { Dialog, DialogActions, DialogBody } from '../components/dialog.jsx'
 import { PencilSquareIcon, TrashIcon, ShoppingBagIcon } from '@heroicons/react/24/outline'
@@ -33,7 +32,7 @@ function OwnItem(props) {
 
     const [isOpen, setIsOpen] = useState(false)
 
-    const { id: itemId, location, image, title, description, sold, updatedAt } = props.item
+    const { id: itemId, location, image, title, sold, updatedAt } = props.item
     const itemDate = util.formatIsoDate(updatedAt)
 
     const handleOnEditItemSubmit = event => {
@@ -81,6 +80,11 @@ function OwnItem(props) {
         } catch (error) { handleError(error) }
     }
 
+    const handleItemDownload = (itemId) => {
+
+        props.onItemDownload(itemId)
+    }
+
 
     return (
 
@@ -89,6 +93,7 @@ function OwnItem(props) {
                 <img
                     alt="Product image"
                     src={image}
+                    onClick={() => handleItemDownload(itemId)}
                     className="object-cover w-full h-40 object-center rounded-lg group-hover:opacity-75"
                 />
                 <section>
@@ -96,7 +101,6 @@ function OwnItem(props) {
                         <p>{location}</p>
                     </div>
                     <p className="mt-1 flex items-start text-lg font-medium text-gray-900">{title}</p>
-                    <Text className="mt-1 flex items-start text-sm font-medium">{description}</Text>
                 </section>
 
                 <div className="mt-4 flex flex-wrap justify-between gap-2">
@@ -151,7 +155,7 @@ function OwnItem(props) {
                             </form>
                         </Dialog>
                     )}
-                    <div className="sm:w-auto text-xs">{itemDate}</div>
+                    <div className="sm:w-auto text-xs flex items-center">{itemDate}</div>
                 </div>
             </a>
         </article>

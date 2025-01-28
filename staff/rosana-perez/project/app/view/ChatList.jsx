@@ -44,11 +44,6 @@ function ChatList(props) {
         }
     }, [userId])
 
-    const { user } = props
-    const userName = user?.name
-
-    console.log('ChatList -> state: user = ' + userName)
-
     const handleOnChatClick = (chatId) => {
         if (!isChatBlocked) {
 
@@ -63,50 +58,53 @@ function ChatList(props) {
     const lastChatMessage = chats?.map(chat => chat.lastMessage)
     const lastMessageDate = util.formatIsoDate(lastChatMessage?.updatedAt)
 
-
+    const handleOnItemDownloaded = (itemId) => props.onItemDownloaded(itemId)
 
     return (
         <>
-            <main className="text-center w-full   p-2 max-w-lg">
-                <h2 className=" font-semibold flex justify-center text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your chat list</h2>
-                <div className="flex justify-center">
-                    <div>
-                        {chats?.map(chat => {
+            <main className="flex flex-col w-full items-center justify-center">
+                <div className="text-center w-full p-2 max-w-lg">
+                    <h2 className=" font-semibold flex justify-center text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your chat list</h2>
+                    <div className="flex justify-center">
+                        <div>
+                            {chats?.map(chat => {
 
-                            const receiverUser = chat?.users.find(user => user.id !== userId)
-                            const itemSold = chat?.item?.sold //item.sold[true]
+                                const receiverUser = chat?.users.find(user => user.id !== userId)
+                                const itemSold = chat?.item?.sold //item.sold[true]
 
-                            return (
-                                chat?.item && (
-                                    !itemSold ? ( //item.sold[false]
-                                        <div key={chat.id} onClick={() => { chat.item && handleOnChatClick(chat.id) }}>
-                                            <Chat
-                                                chatId={chat.id}
-                                                image={chat.item.image}
-                                                title={chat.item.title}
-                                                user={receiverUser.username}
-                                                message={lastChatMessage}
-                                                date={lastMessageDate}
-                                            />
-                                        </div>
-                                    ) : ( //item.sold[true]
-                                        <div onClick={handleOnItemSold}>
-                                            <ChatItemSold
-                                                chatId={chat.id}
-                                                image={chat.item.image}
-                                                title={chat.item.title}
-                                                user={receiverUser.username}
-                                                message={lastChatMessage}
-                                                date={lastMessageDate}
-                                            />
-                                            <p className="mt-1 text-sm font-medium opacity-50">Item not available</p>
-                                        </div>
+                                return (
+                                    chat?.item && (
+                                        !itemSold ? ( //item.sold[false]
+                                            <div key={chat.id} onClick={() => { chat.item && handleOnChatClick(chat.id) }}>
+                                                <Chat
+                                                    chatId={chat.id}
+                                                    image={chat.item.image}
+                                                    title={chat.item.title}
+                                                    user={receiverUser.username}
+                                                    message={lastChatMessage}
+                                                    date={lastMessageDate}
+                                                    onItemDownload={handleOnItemDownloaded}
+                                                />
+                                            </div>
+                                        ) : ( //item.sold[true]
+                                            <div onClick={handleOnItemSold}>
+                                                <ChatItemSold
+                                                    chatId={chat.id}
+                                                    image={chat.item.image}
+                                                    title={chat.item.title}
+                                                    user={receiverUser.username}
+                                                    message={lastChatMessage}
+                                                    date={lastMessageDate}
+                                                />
+                                                <p className="mt-1 text-sm font-medium opacity-50">Item not available</p>
+                                            </div>
+                                        )
                                     )
                                 )
-                            )
-                        })}
-                        {!chats?.length && <p>No chats found</p>}
-                    </div >
+                            })}
+                            {!chats?.length && <p>No chats found</p>}
+                        </div >
+                    </div>
                 </div>
             </main>
         </>

@@ -38,7 +38,7 @@ function Header(props) {
             setUserId(loggedUserId)
         }
         getUserName()
-            .then(userName => { setUserName(userName) })
+            .then(userName => setUserName(userName))
             .catch(error => handleError(error))
     }, [])
 
@@ -142,7 +142,6 @@ function Header(props) {
                 </Button>
             </nav >
         </header>
-
     )
 }
 

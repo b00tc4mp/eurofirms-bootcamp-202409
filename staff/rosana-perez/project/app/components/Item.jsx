@@ -2,7 +2,6 @@ import { errors, util } from 'com'
 
 import { Button } from '../components/button'
 import { Textarea } from '../components/textarea'
-import { Text } from '../components/text'
 import { Field, Label } from '/components/fieldset'
 import { ArrowUturnLeftIcon, EnvelopeIcon, HeartIcon } from '@heroicons/react/24/outline'
 
@@ -17,7 +16,6 @@ import { useState } from 'react'
 function Item(props) {
     console.log('Item rendering')
 
-    const [edit, setEdit] = useState(false)
     const [message, setMessage] = useState(false)
 
     const handleError = (error) => {
@@ -37,7 +35,7 @@ function Item(props) {
 
     const userLoggedIn = isUserLoggedIn()
 
-    const { id: itemId, author, location, image, title, description, sold, own, fav, updatedAt } = props.item || {}
+    const { id: itemId, author, location, image, title, sold, own, fav, updatedAt } = props.item || {}
     const itemDate = util.formatIsoDate(updatedAt)
 
     const handleOnMessage = event => {
@@ -78,6 +76,11 @@ function Item(props) {
         } catch (error) { handleError(error) }
     }
 
+    const handleItemDownload = (itemId) => {
+
+        props.onItemDownload(itemId)
+    }
+
     return (
         !sold ? (
             props.item && ( //item.sold[false]
@@ -86,6 +89,7 @@ function Item(props) {
                         <img
                             alt="Product image"
                             src={image}
+                            onClick={() => handleItemDownload(itemId)}
                             className="object-cover w-full h-40 object-center rounded-lg group-hover:opacity-75"
                         />
                         <section>
@@ -95,7 +99,7 @@ function Item(props) {
                             </div>
 
                             <p className="mt-1 flex items-start text-lg font-medium text-gray-900">{title}</p>
-                            <Text className="mt-1 flex items-start text-sm font-medium">{description}</Text>
+                            {/* <Text className="mt-1 flex items-start text-sm font-medium">{description}</Text> */}
 
                         </section>
                         {userLoggedIn && (
@@ -153,7 +157,7 @@ function Item(props) {
                                         </div>
                                     </form>
                                 )}
-                                <div className="sm:w-auto text-xs">{itemDate}</div>
+                                <div className="sm:w-auto flex items-center text-xs">{itemDate}</div>
                             </div>
                         )}
                     </a>
@@ -171,14 +175,14 @@ function Item(props) {
                                 />
                                 <div className="overlay">
                                     <span className="overlay-text">Item Not Available</span>
-                                </div> {/* sold + view to user logged and not author of item */}
+                                </div> {/* item.sold[true] + userLoggedIn[true] + user not author of item */}
                                 <section>
                                     <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
                                         <h3>{author?.username}</h3>
                                         <p>{location}</p>
                                     </div>
                                     <p className="mt-1 text-lg font-medium text-gray-900">{title}</p>
-                                    <Text className="mt-1 text-sm font-medium">{description}</Text>
+                                    {/*  <Text className="mt-1 text-sm font-medium">{description}</Text> */}
                                 </section>
                             </a>
                         </article>
@@ -189,13 +193,13 @@ function Item(props) {
                                     alt="Product image"
                                     src={image}
                                     className="object-cover w-full h-40 object-center rounded-lg group-hover:opacity-50"
-                                />{/* sold + view to user logged and author of item */}
+                                />{/* item.sold[true] + userLoggedIn[true] + user is author of item */}
                                 <section>
                                     <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
                                         <p>{location}</p>
                                     </div>
                                     <p className="mt-1 text-lg font-medium text-gray-900">{title}</p>
-                                    <Text className="mt-1 text-sm font-medium">{description}</Text>
+                                    {/*    <Text className="mt-1 text-sm font-medium">{description}</Text> */}
                                 </section>
                             </a>
                         </article>

@@ -12,6 +12,8 @@ import UserProfile from './view/UserProfile'
 import ItemsAsGuest from './view/ItemsAsGuest'
 import MyItems from './view/MyItems'
 import Header from './components/Header'
+import Article from './view/Article.jsx'
+
 
 import logic from './logic/index.js'
 
@@ -20,6 +22,7 @@ function App() {
 
     const [view, setView] = useState(logic.isUserLoggedIn() ? 'home' : 'welcome')
     const [chatId, setChatId] = useState(null)
+    const [itemId, setItemId] = useState(null)
 
     console.log('App -> state: view = ' + view)
 
@@ -64,7 +67,11 @@ function App() {
             onChats={() => setView('chatList')}
 
             onLogout={() => setView('welcome')} />
-            <Home />
+            <Home
+                onItemDownloaded={(itemId) => {
+                    setItemId(itemId)
+                    setView('article')
+                }} />
         </>}
 
         {view === 'create' && <><Header
@@ -100,7 +107,12 @@ function App() {
 
             onChats={() => setView('chatList')}
 
-            onLogout={() => setView('welcome')} /><FavItems
+            onLogout={() => setView('welcome')} />
+            <FavItems
+                onItemDownloaded={(itemId) => {
+                    setItemId(itemId)
+                    setView('article')
+                }}
 
             /></>}
 
@@ -158,6 +170,10 @@ function App() {
                     setChatId(chatId)
                     setView('chatMessages')
                 }}
+                onItemDownloaded={(itemId) => {
+                    setItemId(itemId)
+                    setView('article')
+                }}
                 onCancelClick={() => setView('home')}
             /> </>}
 
@@ -178,6 +194,24 @@ function App() {
             <ChatMessages
                 chatId={chatId}
                 onMessage={logic.getChat(chatId)}
+            /></>}
+
+        {view === 'article' && <><Header
+            onSetHome={() => setView('home')}
+
+            onCreateItem={() => setView('create')}
+
+            onFavItems={() => setView('favItems')}
+
+            onMyItems={() => setView('myItems')}
+
+            onUserProfile={() => setView('userProfile')}
+
+            onChats={() => setView('chatList')}
+
+            onLogout={() => setView('welcome')} />
+            <Article
+                itemId={itemId}
             /></>}
 
         {view === 'itemsAsGuest' && <ItemsAsGuest

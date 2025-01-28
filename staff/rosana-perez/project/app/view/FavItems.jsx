@@ -30,7 +30,6 @@ function FavItems(props) {
                     item.fav = true
                 })
                 setFavItems(favItems)
-                console.log('favItems ->', favItems)
             })
             .catch(error => handleError(error))
 
@@ -43,32 +42,30 @@ function FavItems(props) {
             .catch(error => handleError(error))
     }
 
-    const handleOnMessage = () => props.onMessageView()
-
+    const handleOnItemDownloaded = (itemId) => props.onItemDownloaded(itemId)
 
     return (
         <>
-            <main>
-                <div className="container mx-auto px-4 py-6">
-                    <section className="text-center w-full p-2 max-w-lg">
-                        <h2 className="font-semibold  text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your favorite items</h2>
+            <main className="flex flex-col w-full items-center justify-center">
+                <div className="text-center w-full p-2 max-w-lg">
+                    <div className="text-center w-full p-2 max-w-lg">
+                        <h2 className=" font-semibold flex justify-center text-gray-600 border-2 border-emerald-500 p-2 rounded-lg">Your favorite items</h2>
                         <div className="grid grid-cols-2 gap-4">
                             {favItems?.length > 0 && (favItems?.map(favItem => {
                                 return (
                                     <article key={favItem.id}>
                                         <Item
                                             item={favItem}
-                                            onMessage={handleOnMessage}
                                             onToggleFavClick={handleOnToggleFavItem}
+                                            onItemDownload={handleOnItemDownloaded}
 
                                         />
                                     </article>
                                 )
-
                             })
                             )}
                         </div>
-                    </section>
+                    </div>
                 </div>
             </main>
         </>

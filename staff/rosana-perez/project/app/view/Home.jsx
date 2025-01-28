@@ -10,7 +10,7 @@ import OwnItem from '../components/OwnItem'
 import logic from '../logic/index.js'
 
 
-function Home() {
+function Home(props) {
     console.log('Home rendering')
 
     const [items, setItems] = useState([])
@@ -34,7 +34,6 @@ function Home() {
         } catch (error) { handleError(error) }
     }, [])
 
-    console.log('Home -> state: name = ' + name)
 
     const updateItems = () => {
         logic.getItems()
@@ -48,6 +47,8 @@ function Home() {
     const handleOnItemEdited = () => updateItems()
     const handleOnMessageSent = () => updateItems()
 
+    const handleOnItemDownloaded = (itemId) => props.onItemDownloaded(itemId)
+
 
     return (
         <main>
@@ -55,16 +56,16 @@ function Home() {
                 <section className="mx-auto px-4 sm:px-3 sm:py-0 lg:px-4">
                     <h2 className="text-2xl font-bold tracking-tight">New items</h2>
                 </section>
-                <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                    {items.map(item => {
+                <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4">
+                    {items?.map(item => {
                         return (
-                            <article key={item.id}>
+                            <article key={item.id} >
                                 {!item.own ? (
                                     <Item
                                         item={item}
                                         onToggleFavClick={handleOnFavClick}
                                         onMessageSent={handleOnMessageSent}
-
+                                        onItemDownload={handleOnItemDownloaded}
                                     />
                                 ) : (
                                     <OwnItem
@@ -72,6 +73,7 @@ function Home() {
                                         onDeleted={handleOnDeleted}
                                         onToggleSold={handleOnItemSold}
                                         onEditItem={handleOnItemEdited}
+                                        onItemDownload={handleOnItemDownloaded}
                                     />
                                 )}
                             </article>)
