@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.cdnfonts.com/css/switzer');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::selection {
+  background-color: rgba(0, 0, 0, .1);
+}
+
+.tooltip {
+  @apply invisible absolute;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-50;
+}
+
+.message {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px 0;
+  padding: 5px;
+}
+
+.message.sent {
+  justify-content: flex-end;
+}
+
+.message.received {
+  justify-content: flex-start;
+}
+
+.message .group {
+  display: inline-block;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-radius: 12px;
+  max-width: 60%;
+}
+
+.message.sent .group {
+  background-color: #e6f8ee;
+  color: white;
+  text-align: right;
+}
+
+.message.received .group {
+  background-color: #e1e1e1;
+  color: #333;
+}
+
+.message .group span {
+  font-size: 12px;
+  color: #555;
+}
+
+.message .group .text-sm {
+  margin-right: 5px;
+}

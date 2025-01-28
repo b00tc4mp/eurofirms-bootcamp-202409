@@ -1,0 +1,1 @@
+curl -X GET -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzhiOTU0ZGUyMjczODY0M2Y1NmU0YWEiLCJpYXQiOjE3MzcyMTA2ODV9.3a3WFOgn_J9YbpvmNoF-WshzurKjlZp0rMrjRWdc1lw' http://localhost:8081/items/owner -v
