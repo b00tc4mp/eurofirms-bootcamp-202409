@@ -1,4 +1,4 @@
-import { errors, utils } from "../../com"
+import { errors } from "../../com"
 
 const { SystemError } = errors
 function getUserPlaces() {

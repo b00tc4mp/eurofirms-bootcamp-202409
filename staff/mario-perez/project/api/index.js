@@ -11,7 +11,7 @@ import registerUser from './logic/registerUser.js'
 import authenticateUser from './logic/authenticateUser.js'
 import getUserName from './logic/getUserName.js'
 import getUserPlaces from './logic/getUserPlaces.js'
-import registerPlace from './logic/registerPlace.js'
+import createPlace from './logic/createPlace.js'
 import mongoose from 'mongoose'
 import getParkings from './logic/getParkings.js'
 import deletePlace from './logic/deletePlace.js'
@@ -118,9 +118,6 @@ mongoose.connect(MONGO_URL)
 
         api.post('/places', jsonBodyParser, (req, res) => {
             try {
-
-                // TODO cambiar nombre de la logica a createPlace
-                // TODO transcripción createPost: usar token
                 const userId = verifyToken(req)
 
 
@@ -132,7 +129,7 @@ mongoose.connect(MONGO_URL)
                 const vehicleRegistration = req.body.vehicleRegistration
 
 
-                registerPlace(userId, parkingId, level, space, checkin, checkout, vehicleRegistration)
+                createPlace(userId, parkingId, level, space, checkin, checkout, vehicleRegistration)
                     .then(() => res.status(201).send())
                     .catch(error => handleError(res, error))
             } catch (error) {

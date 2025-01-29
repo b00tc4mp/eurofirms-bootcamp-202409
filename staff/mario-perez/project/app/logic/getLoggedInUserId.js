@@ -1,7 +1,6 @@
-import { validate, utils } from "../../com";
+import { utils } from "../../com";
 
 function getLoggedInUserId() {
-    //TODO validar token
 
     const { sub: userId } = utils.extractPayload(sessionStorage.userId)
 

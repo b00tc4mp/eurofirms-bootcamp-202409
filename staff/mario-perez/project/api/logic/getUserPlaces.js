@@ -1,4 +1,4 @@
-import { User, Parking, Place } from '../data/models.js'
+import { User, Place } from '../data/models.js'
 import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
@@ -15,8 +15,6 @@ function getUserPlaces(userId) {
             const [user, places] = userAndPlaces
 
             if (!user) throw new NotFoundError('No existe el usuario')
-
-            // TODO sanar plazas antes de devolverlas
 
             places.forEach((place) => {
                 place.id = place._id.toString()

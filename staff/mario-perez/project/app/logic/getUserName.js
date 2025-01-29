@@ -1,5 +1,4 @@
-import { errors, utils } from '../../com'
-import getLoggedInUserId from "./getLoggedInUserId"
+import { errors } from '../../com'
 
 const { SystemError } = errors
 

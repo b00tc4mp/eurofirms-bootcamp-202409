@@ -2,18 +2,20 @@ import { errors } from 'com'
 import { useState, useEffect } from 'react'
 import getParkings from "../logic/getParkings.js"
 import editPlace from '../logic/editPlace.js'
-import getOnePlace from '../logic/getOnePlace.js'
 
-const { DuplicityError, NotFoundError, SystemError, ValidationError } = errors
+const { DuplicityError, SystemError, ValidationError } = errors
 
 function EditPlace(props) {
     console.log('EditPlace -> render')
 
     const place = props.place
+    let checkinDate = new Date(place.checkin)
+    checkinDate.setHours(checkinDate.getHours() + 1)
+    let checkoutDate = new Date(place.checkout)
+    checkoutDate.setHours(checkoutDate.getHours() + 1)
+
     const [parkings, setParkings] = useState([])
     const [levels, setLevels] = useState([])
-    const [date, setDate] = useState([])
-    const [status, setStatus] = useState('edit')
     const [selectedParkingId, setSelectedParkingId] = useState(place?.parking.id)
 
     useEffect(() => {
@@ -64,11 +66,6 @@ function EditPlace(props) {
         }
     }
 
-
-    const handleSetTime = event => {
-        setDate(event.target.value)
-    }
-
     const handleBackHomeClick = () => {
         props.backToView()
     }
@@ -82,8 +79,8 @@ function EditPlace(props) {
         const parking = form.parking.value
         const level = Number(form.level.value)
         const space = form.space.value
-        const checkin = form.checkin.value
-        const checkout = form.checkout.value
+        let checkin = form.checkin.value
+        let checkout = form.checkout.value
         const vehicleRegistration = form.vehicleRegistration.value
 
         try {
@@ -110,7 +107,7 @@ function EditPlace(props) {
     //   const parkingsMap = parkings.map( (parking, index) => parking[index].name)
 
     return <article>
-        <form className="flex flex-col gap-2" onSubmit={handleEditPlaceSubmit}>
+        <form className="flex flex-col gap-2 p-8" onSubmit={handleEditPlaceSubmit}>
             <select id="parkings" name="parking" value={selectedParkingId} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleParkingChange}>
                 {/* <option defaultValue={place.parking.id}>Elige un parking</option> */}
                 {parkings?.map(parking => (
@@ -129,10 +126,10 @@ function EditPlace(props) {
             <input defaultValue={place?.space} type="text" id="space" />
 
             <label htmlFor="checkin">Hora de entrada</label>
-            <input type="datetime-local" id="checkin" defaultValue={place?.checkin.slice(0, 16)} onChange={handleSetTime} />
+            <input type="datetime-local" id="checkin" defaultValue={checkinDate?.toISOString().slice(0, 16)} />
 
             <label htmlFor="checkout">Hora de salida</label>
-            <input type="datetime-local" id="checkout" defaultValue={place?.checkout.slice(0, 16)} onChange={handleSetTime} />
+            <input type="datetime-local" id="checkout" defaultValue={checkoutDate?.toISOString().slice(0, 16)} />
 
             <label htmlFor="vehicleRegistration">Matrícula</label>
             <input defaultValue={place?.vehicleRegistration} type="text" id="vehicleRegistration" />

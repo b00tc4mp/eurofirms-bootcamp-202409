@@ -8,15 +8,9 @@ import logoutUser from '../logic/logoutUser.js'
 import getUserName from '../logic/getUserName.js'
 import getUserPlaces from '../logic/getUserPlaces.js'
 import Place from './Place.jsx'
-//import registerPlace from '../../api/logic/registerPlace.js'
-import registerPlace from '../logic/registerPlace.js'
 
 function Home(props) {
     console.log('HomeView -> render')
-
-    /*
-    props -> { onLogout }
-    */
 
     const [name, setName] = useState(null)
     const [places, setPlaces] = useState([])
@@ -72,9 +66,9 @@ function Home(props) {
         }
     }
 
-    const handleRegisterPlaceClick = () => {
+    const handleCreatePlaceClick = () => {
         try {
-            props.onRegisterPlaceClick()
+            props.onCreatePlaceClick()
         } catch (error) {
             alert(error.message)
 
@@ -135,13 +129,17 @@ function Home(props) {
 
 
 
-    return <main className='p-10'>
-        <h2>Bienvenido, {name}</h2>
-        {places.map(place => <Place key={place.id} place={place} onPlaceDeleted={handlePlaceDeleted} onPlaceEdited={handlePlaceEdited}
-        />)}
-        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleRegisterPlaceClick}>Nueva plaza</button>
-        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleLogoutClick}>Cerrar sesión</button>
-    </main>
+    return <>
+        <main className='p-10 mb-10'>
+            <h2>Bienvenido, {name}</h2>
+            {places.map(place => <Place key={place.id} place={place} onPlaceDeleted={handlePlaceDeleted} onPlaceEdited={handlePlaceEdited}
+            />)}
+        </main>
+        <footer className="fixed bottom-0 bg-white w-full text-center shadow-2xl shadow-stone-700">
+            <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleCreatePlaceClick}>Nueva plaza</button>
+            <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded m-5" onClick={handleLogoutClick}>Cerrar sesión</button>
+        </footer>
+    </>
 }
 
 export default Home

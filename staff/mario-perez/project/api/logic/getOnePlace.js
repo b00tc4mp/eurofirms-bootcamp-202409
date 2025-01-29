@@ -26,22 +26,6 @@ function getOnePlace(userId, placeId) {
             place.parking = place.parking.toString()
             place.user = place.user.toString()
 
-            /* const placeOne = {}
-            place.forEach(data => {
-                placeOne.data = place.data
-            });
-
-            if (placeOne.parking._id) {
-                placeOne.parking.id = placeOne.parking._id.toString()
-                delete placeOne.parking._id
-            }
-
-            delete placeOne.parking.capacity
-            delete placeOne.parking.price
-            delete placeOne.parking.levels
-            delete placeOne.parking.city
-            delete placeOne.parking.adress */
-
             return place
         })
 }

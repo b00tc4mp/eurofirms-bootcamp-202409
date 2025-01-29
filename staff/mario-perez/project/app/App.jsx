@@ -4,67 +4,54 @@ import Welcome from "./view/Welcome"
 import Login from "./view/Login"
 import Register from "./view/Register"
 import Home from "./view/Home"
-import RegisterPlace from "./view/RegisterPlace"
+import CreatePlace from "./view/CreatePlace.jsx"
 import EditPlace from "./view/EditPlace"
-// import Place from "./view/Place"
 import isUserLoggedIn from "./logic/isUserLoggedIn.js"
-
-import getUserPlaces from "./logic/getUserPlaces.js"
 
 function App() {
     console.log('App -> render')
 
     const [view, setView] = useState(isUserLoggedIn() ? 'home' : 'welcome')
-    //const [place, setPlace] = useState({})
 
     console.log('App -> state: view = ' + view)
-    //TODO mejorar métodos de navegacion
-    const handleRegisterClick = () => setView('register')
-    const handleLoginClick = () => setView('login')
-    const handleRegisterSuccess = () => setView('login')
-    const handleLoginSuccess = () => setView('home')
-    const handleLogout = () => setView('login')
-    const handleRegisterPlaceClick = () => setView('registerPlace')
-    const handleCreatePlaceSuccess = () => setView('home')
-    const handleBackHomeClick = () => setView('home')
+
+    const handleGoToLogin = () => setView('login')
+    const handleGoToHome = () => setView('home')
     const handleEditPlaceClick = () => setView('editPlace')
-    const onGetPlace = () => {
-        // coger id de place
-    }
+    const handleCreatePlaceClick = () => setView('createPlace')
+    const handleRegisterClick = () => setView('register')
 
     return <>
         <h1 className="text-2xl">ParkSpot</h1>
 
         {view === 'welcome' && <Welcome
             onRegisterClick={handleRegisterClick}
-            onLoginClick={handleLoginClick}
+            onLoginClick={handleGoToLogin}
         />}
 
         {view === 'register' && <Register
-            onLoginClick={handleLoginClick}
-            onRegisterSuccess={handleRegisterSuccess}
+            onLoginClick={handleGoToLogin}
+            onRegisterSuccess={handleGoToLogin}
         />}
 
         {view === 'login' && <Login
             onRegisterClick={handleRegisterClick}
-            onLoginSuccess={handleLoginSuccess}
+            onLoginSuccess={handleGoToHome}
         />}
 
         {view === 'home' && <Home
-            onLogout={handleLogout}
-            onRegisterPlaceClick={handleRegisterPlaceClick}
+            onLogout={handleGoToLogin}
+            onCreatePlaceClick={handleCreatePlaceClick}
             onEditPlaceClick={handleEditPlaceClick}
         />}
 
-        {view === 'registerPlace' && <RegisterPlace
-            onRegisterPlaceSuccess={handleCreatePlaceSuccess}
-            onBackHomeClick={handleBackHomeClick}
+        {view === 'createPlace' && <CreatePlace
+            onCreatePlaceSuccess={handleGoToHome}
+            onBackHomeClick={handleGoToHome}
         />}
 
         {view === 'editPlace' && <EditPlace
-            //onEditPlaceSuccess={handleEditPlaceSuccess}
-            onBackHomeClick={handleBackHomeClick}
-            onGetPlace={onGetPlace}
+            onBackHomeClick={handleGoToHome}
         />}
     </>
 }

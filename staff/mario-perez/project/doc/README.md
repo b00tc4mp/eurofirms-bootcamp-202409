@@ -17,6 +17,8 @@ It allows users to register the location of their car in a parking lot, includin
 
 ### Use cases
 
+#### Actual use cases
+
 User
 <!-- 
 - Registrar la ubicación de la plaza de aparcamiento
@@ -31,6 +33,9 @@ User
 - Add parking place
 - Edit parking place ( details such as registration car, spot number and level)
 - Remove place
+
+#### Future use cases
+
 <!-- - View a map of the parking location -->
 - Receive reminders of the car's location and duration with a count (v 0.1)
 - Share the location with other users (sending email or qr) (v 0.1)
@@ -116,3 +121,4 @@ Native language: Spanish (Errors)
 - Add parking place
 - Edit parking place ( details such as registration car, spot number and level)
 - Remove place
+

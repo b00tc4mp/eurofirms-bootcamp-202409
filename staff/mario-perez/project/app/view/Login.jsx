@@ -47,7 +47,7 @@ function Login(props) {
     return <main>
         <h2 className=" text-xl text-center text-red-500">Iniciar sesión</h2>
 
-        <form className="flex flex-col gap-2" onSubmit={handleLoginSubmit}>
+        <form className="flex flex-col gap-2 px-4" onSubmit={handleLoginSubmit}>
 
             <label htmlFor="username">Usuario</label>
             <input placeholder="Escribe tu usuario" type="text" id="username" />

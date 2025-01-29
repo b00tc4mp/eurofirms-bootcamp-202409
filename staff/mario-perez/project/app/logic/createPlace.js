@@ -2,7 +2,7 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-function registerPlace(parkingId, level, space, checkin, checkout, vehicleRegistration) {
+function createPlace(parkingId, level, space, checkin, checkout, vehicleRegistration) {
     validate.level(level)
     validate.space(space)
     validate.checkinAndCheckout(checkin, checkout)
@@ -35,4 +35,4 @@ function registerPlace(parkingId, level, space, checkin, checkout, vehicleRegist
         })
 }
 
-export default registerPlace
+export default createPlace

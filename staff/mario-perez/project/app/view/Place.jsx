@@ -1,13 +1,9 @@
-import { errors, utils } from 'com'
-
-const { ValidationError, SystemError, NotFoundError, OwnershipError } = errors
+import { utils } from 'com'
 
 import deletePlace from '../logic/deletePlace.js'
-// import formatDate from '../../com/utils.js'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import EditPlace from './EditPlace.jsx'
-import getUserPlaces from '../logic/getUserPlaces.js'
 
 function Place(props) {
     console.log('Place -> render')
@@ -25,8 +21,6 @@ function Place(props) {
         try {
             deletePlace(place.id)
                 .then(() => props.onPlaceDeleted())
-
-            // props.updatePlace()
         } catch (error) {
             alert(error.message)
 

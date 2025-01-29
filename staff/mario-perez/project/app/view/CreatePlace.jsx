@@ -1,24 +1,28 @@
 import { errors } from "com"
-import registerPlace from "../logic/registerPlace.js"
+import createPlace from "../logic/createPlace.js"
 import getParkings from "../logic/getParkings.js"
 
 import { useState, useEffect } from 'react'
 
 const { ValidationError, SystemError, NotFoundError, OwnerShipError, DuplicityError } = errors
 
-function RegisterPlace(props) {
-    console.log('RegisterPlace -> render')
+function CreatePlace(props) {
+    console.log('CreatePlace -> render')
+    const date = new Date()
+    date.setHours(date.getHours() + 1)
+    let dateNow = date.toISOString().slice(0, 16)
 
     const place = props.place
     const [parkings, setParkings] = useState([])
     const [levels, setLevels] = useState([])
-    const [date, setDate] = useState("2025-01-07T19:27")
+    const [dateCheckIn, setDateCheckIn] = useState(dateNow)
+    const [dateCheckOut, setDateCheckOut] = useState(dateNow)
 
     useEffect(() => {
         handleGetParking()
     }, [])
 
-    const handleRegisterPlaceSubmit = event => {
+    const handleCreatePlaceSubmit = event => {
         event.preventDefault()
 
         const form = event.target
@@ -31,8 +35,8 @@ function RegisterPlace(props) {
         const vehicleRegistration = form.vehicleRegistration.value
 
         try {
-            registerPlace(parking, level, space, checkin, checkout, vehicleRegistration)
-                .then(() => props.onRegisterPlaceSuccess())
+            createPlace(parking, level, space, checkin, checkout, vehicleRegistration)
+                .then(() => props.onCreatePlaceSuccess())
                 .catch(error => {
                     if (error instanceof DuplicityError)
                         alert(error.message)
@@ -87,20 +91,36 @@ function RegisterPlace(props) {
 
     }
 
-    const handleSetTime = event => {
-        setDate(event.target.value)
+    const handleSetTimeCheckIn = event => {
+        const value = event.target.value
+
+        if (value.length > 16) {
+            setDateCheckIn(value.slice(0, value.length - 3))
+        } else {
+            setDateCheckIn(event.target.value)
+        }
+    }
+
+    const handleSetTimeCheckOut = event => {
+        const value = event.target.value
+
+        if (value.length > 16) {
+            setDateCheckOut(value.slice(0, value.length - 3))
+        } else {
+            setDateCheckOut(event.target.value)
+        }
     }
 
     const handleBackHomeClick = event => {
         props.onBackHomeClick()
     }
 
-    return <article>
+    return <article className="p-10">
         <div>
             <h2 className='text-xl text-center text-red-500'>Aparcar en una plaza</h2>
         </div>
 
-        <form className="flex flex-col gap-2" onSubmit={handleRegisterPlaceSubmit}>
+        <form className="flex flex-col gap-2 mt-10" onSubmit={handleCreatePlaceSubmit}>
             <select id="parkings" name="parking" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleParkingChange}>
                 <option value="">Elige un parking</option>
                 {parkings.map(parking => (
@@ -119,10 +139,10 @@ function RegisterPlace(props) {
             <input placeholder="Escribe la plaza donde has aparcado" type="text" id="space" />
 
             <label htmlFor="checkin">Hora de entrada</label>
-            <input placeholder="Escribe cuándo entras" type="datetime-local" id="checkin" value={date} onChange={handleSetTime} step="60" />
+            <input placeholder="Escribe cuándo entras" type="datetime-local" id="checkin" value={dateCheckIn} onChange={handleSetTimeCheckIn} step="60" />
 
             <label htmlFor="checkout">Hora de salida</label>
-            <input placeholder="Escribe cuándo sales " type="datetime-local" id="checkout" value={date} onChange={handleSetTime} step="60" />
+            <input placeholder="Escribe cuándo sales " type="datetime-local" id="checkout" value={dateCheckOut} onChange={handleSetTimeCheckOut} step="60" />
 
             <label htmlFor="vehicleRegistration">Matrícula</label>
             <input placeholder="Escribe la matrícula de tu automóvil" type="text" id="vehicleRegistration" />
@@ -135,4 +155,4 @@ function RegisterPlace(props) {
     </article>
 }
 
-export default RegisterPlace
+export default CreatePlace

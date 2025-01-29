@@ -1,9 +1,9 @@
-import { User, Place, Parking } from '../data/models.js'
+import { Place } from '../data/models.js'
 import { validate, errors } from 'com'
 
 const { SystemError, DuplicityError, TimeError } = errors
 
-function registerPlace(userId, parkingId, level, space, checkin, checkout, vehicleRegistration) {
+function createPlace(userId, parkingId, level, space, checkin, checkout, vehicleRegistration) {
     validate.userId(userId)
     validate.space(space)
     validate.level(level)
@@ -17,8 +17,6 @@ function registerPlace(userId, parkingId, level, space, checkin, checkout, vehic
             const checkoutObjMils = new Date(checkout).getTime()
 
             places.forEach(place => {
-
-                // Comprobamos que el checkin de la nueva plaza no está entre el checkin y el checkout de las anteriores
                 if (place.checkin.getTime() <= checkinObjMils && place.checkout.getTime() >= checkinObjMils)
                     throw new TimeError('El checkin se está intentando realizar en un tramo de tiempo ocupado')
                 else if (place.checkin.getTime() <= checkoutObjMils && place.checkout.getTime() >= checkoutObjMils)
@@ -38,4 +36,4 @@ function registerPlace(userId, parkingId, level, space, checkin, checkout, vehic
 
 }
 
-export default registerPlace
+export default createPlace

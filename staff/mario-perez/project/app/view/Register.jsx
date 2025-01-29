@@ -49,7 +49,7 @@ function Register(props) {
             <h2 className='text-xl text-center text-red-500'>Registro</h2>
         </div>
 
-        <form className="flex flex-col gap-2" onSubmit={handleRegisterSubmit}>
+        <form className="flex flex-col gap-2 px-4" onSubmit={handleRegisterSubmit}>
             <label htmlFor="name">Nombre</label>
             <input placeholder="Escribe tu nombre" type="text" id="name" />
 
