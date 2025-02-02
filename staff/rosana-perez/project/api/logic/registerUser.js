@@ -11,12 +11,12 @@ function registerUser(name, location, email, username, password) {
     validate.password(password)
 
     return User.create({ name, location, email, username, password })
+        .then(() => { })
         .catch(error => {
             if (error.code === 11000) throw new DuplicityError('user already exists')
 
             throw new SystemError(error.message)
         })
-        .then(() => { })
 }
 
 export default registerUser

@@ -5,6 +5,7 @@ const { SystemError } = errors
 import { Button } from '../components/button'
 
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 
@@ -13,15 +14,21 @@ import Item from '../components/Item'
 import logic from '../logic/index.js'
 
 
-function ItemsAsGuest(props) {
+function ItemsAsGuest() {
 
     console.log('ItemList rendering')
 
     const [items, setItems] = useState(null)
 
+    const navigate = useNavigate()
+
     const handleError = error => {
-        if (error instanceof SystemError)
+        if (error instanceof SystemError) {
             alert('Sorry, there was a problem. Try again later.')
+        }
+        else {
+            alert('Sorry, there was a problem. Try again later.')
+        }
 
         console.error(error)
     }
@@ -32,15 +39,15 @@ function ItemsAsGuest(props) {
             .catch(error => handleError(error))
     }, [])
 
+    const handleOnExit = () => navigate("/welcome")
 
-    const handleUserNoLogged = () => {
+    const handleOnItemClick = () => {
         alert('Please, login or register. You will be redirected. Thanks.')
-        props.onLoginClick()
-    } // to App.jsx, view of login if user no logged needs to click
-
-    const handleOnCancelClick = () => props.onCancelClick()
+        navigate("/login")
+    }
 
     return (
+
         <main>
             <header className="w-full flex justify-between items-center px-4 h-24 bg-white shadow-md z-10">
                 <div className="flex lg:flex-1">
@@ -54,8 +61,12 @@ function ItemsAsGuest(props) {
                         <p className="ml-3 text-emerald-700 font-semibold text-lg">Dona2</p>
                     </a>
                 </div>
-                <Button plain onClick={handleOnCancelClick} className="flex items-center justify-center p-2">
-                    <ArrowUturnLeftIcon className="h-6 w-6 text-gray-700" />
+                <Button
+                    plain
+                    onClick={handleOnExit}
+                    className="flex items-center justify-center p-2">
+                    <ArrowUturnLeftIcon
+                        className="h-6 w-6 text-gray-700" />
                 </Button>
             </header>
 
@@ -68,7 +79,9 @@ function ItemsAsGuest(props) {
                     {items?.map(item => {
                         return (
                             !item.sold && (  //item.sold[false] 
-                                <article key={item.id} onClick={handleUserNoLogged}>
+                                <article
+                                    key={item.id}
+                                    onClick={handleOnItemClick}>
                                     <Item
                                         item={item}
                                         className="p-4 bg-white shadow-lg rounded-lg hover:shadow-xl transition duration-200"

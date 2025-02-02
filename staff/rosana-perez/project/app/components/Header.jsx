@@ -3,6 +3,7 @@ import { errors } from 'com'
 const { NotFoundError, SystemError, ValidationError, OwnershipError } = errors
 
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../components/button'
 import { Text } from '../components/text'
@@ -14,28 +15,38 @@ import getLoggedInUserId from '../logic/getLogggedInUserId'
 import getUserName from '../logic/getUserName'
 import logoutUser from '../logic/logoutUser'
 
-function Header(props) {
+function Header() {
 
-    const [userId, setUserId] = useState(null)
+    const [loggedUserId, setLoggedUserId] = useState(null)
     const [userName, setUserName] = useState(null)
 
+    const navigate = useNavigate()
+
     const handleError = error => {
-        if (error instanceof NotFoundError)
+        if (error instanceof NotFoundError) {
             alert(error.message)
-        else if (error instanceof ValidationError)
+        }
+        else if (error instanceof ValidationError) {
             alert(error.message)
-        else if (error instanceof OwnershipError)
+        }
+        else if (error instanceof OwnershipError) {
             alert(error.message)
-        else if (error instanceof SystemError)
+        }
+        else if (error instanceof SystemError) {
             alert('Sorry, there was a problem. Try again later.')
+        }
+        else {
+            alert('Sorry, there was a problem. Try again later.')
+        }
 
         console.error(error)
     }
 
+
     useEffect(() => {
         const loggedUserId = getLoggedInUserId()
         if (loggedUserId) {
-            setUserId(loggedUserId)
+            setLoggedUserId(loggedUserId)
         }
         getUserName()
             .then(userName => setUserName(userName))
@@ -45,16 +56,18 @@ function Header(props) {
     const handleLogoutClick = () => {
         try {
             logoutUser()
-            props.onLogout()
+                .then(() => navigate("/welcome"))
+                .catch(error => handleError(error))
+
         } catch (error) { handleError(error) }
     }
 
-    const handleOnHomeClick = () => props.onSetHome()
-    const handleOnCreateClick = () => props.onCreateItem()
-    const handleOnChatsClick = () => props.onChats()
-    const handleOnProfileClick = () => props.onUserProfile()
-    const handleOnFavItemsClick = () => props.onFavItems()
-    const handleOnItemsOwn = () => props.onMyItems()
+    const handleOnItemsList = () => navigate("/")
+    const handleOnCreateItem = () => navigate("/create")
+    const handleOnChatList = () => navigate("/chatList")
+    const handleOnUserProfile = () => navigate("/userProfile")
+    const handleOnFavItems = () => navigate("/favItems")
+    const handleOnMyItems = () => navigate("/myItems")
 
     return (
         <header className="pt-0 w-full flex justify-between items-center px-2 h-24 z-10">
@@ -70,14 +83,14 @@ function Header(props) {
                 </a>
             </div>
             <section className="flex justify-start">
-                {userName && <Text className="gap-4 mr-3 text-sm">Welcome, {userName}</Text>}
+                {loggedUserId && <Text className="gap-4 mr-3 text-sm">Welcome, {userName}</Text>}
             </section>
 
             <nav className="flex justify-end gap-0.5">
                 <Button
                     plain
                     type="button"
-                    onClick={handleOnHomeClick}
+                    onClick={handleOnItemsList}
                     className="inline-flex items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group ">
                     <HomeIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
                     <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
@@ -86,7 +99,7 @@ function Header(props) {
                 <Button
                     plain
                     type="button"
-                    onClick={handleOnProfileClick}
+                    onClick={handleOnUserProfile}
                     className="inline-flex items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group ">
                     <UserCircleIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
                     <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
@@ -95,7 +108,7 @@ function Header(props) {
                 <Button
                     plain
                     type="button"
-                    onClick={handleOnItemsOwn}
+                    onClick={handleOnMyItems}
                     className="inline-flex items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group ">
                     <GiftIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
                     <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
@@ -106,7 +119,7 @@ function Header(props) {
                     plain
                     data-tooltip-target="tooltip-new"
                     type="button"
-                    onClick={handleOnCreateClick}
+                    onClick={handleOnCreateItem}
                     className="inline-flex items-center justify-center font-medium hover:bg-gray-50  dark:hover:bg-gray-800 group focus:ring-4">
                     <PlusIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
                     <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
@@ -115,7 +128,7 @@ function Header(props) {
 
                 <Button
                     plain
-                    type="button" onClick={handleOnFavItemsClick}
+                    type="button" onClick={handleOnFavItems}
                     className="inline-flex items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <HeartIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
                     <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
@@ -124,7 +137,7 @@ function Header(props) {
 
                 <Button
                     plain
-                    type="button" onClick={handleOnChatsClick}
+                    type="button" onClick={handleOnChatList}
                     className="inline-flex items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <EnvelopeIcon className="size-6 w-5 h-5 mb-1 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-600" />
                     <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 

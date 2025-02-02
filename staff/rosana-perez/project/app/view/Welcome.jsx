@@ -2,25 +2,13 @@ import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
+import { Link } from 'react-router-dom'
 
-const navigation = [] // empty navigation for now
 
-function Welcome(props) {
+const navigation = []
+
+function Welcome() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
-    const handleOnRegisterClick = event => {
-        event.preventDefault()
-
-        props.onRegisterClick()
-    }
-
-    const handleOnLoginClick = event => {
-        event.preventDefault()
-
-        props.onLoginClick()
-    }
-
-    const handleBrowseItems = () => props.onBrowseItems()
 
     return (
         <div className="bg-white">
@@ -55,14 +43,14 @@ function Welcome(props) {
                         ))}
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                        <a onClick={handleOnLoginClick} href="#" className="text-sm/6 font-semibold text-gray-900">
+                        <Link to="/login" href="#" className="text-sm/6 font-semibold text-gray-900">
                             Sign in <span aria-hidden="true">&rarr;</span>
-                        </a>
+                        </Link>
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                        <a onClick={handleOnRegisterClick} href="#" className="text-sm/6 font-semibold text-gray-900">
+                        <Link to="/register" href="#" className="text-sm/6 font-semibold text-gray-900">
                             Register <span aria-hidden="true">&rarr;</span>
-                        </a>
+                        </Link>
                     </div>
                 </nav>
                 <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -100,20 +88,17 @@ function Welcome(props) {
                                     ))}
                                 </div>
                                 <div className="py-6">
-                                    <a
-                                        onClick={handleOnLoginClick}
+
+                                    <Link to="/login"
                                         href="#"
                                         className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                                    >
-                                        Sign in
-                                    </a>
-                                    <a
-                                        onClick={handleOnRegisterClick}
+                                    >Sign in</Link>
+
+                                    <Link to="/register"
                                         href="#"
                                         className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                                    >
-                                        Register
-                                    </a>
+                                    >Register</Link>
+
                                 </div>
                             </div>
                         </div>
@@ -145,13 +130,11 @@ function Welcome(props) {
                             Give the environment a hand and save yourself some money.
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6">
-                            <a
+                            <Link to="/itemsAsGuest"
                                 href="#"
                                 className="rounded-md bg-emerald-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
-                                onClick={handleBrowseItems}
-                            >
-                                Browse items
-                            </a>
+                            >Browse items
+                            </Link>
                             <a href="#" className="text-sm/6 font-semibold text-gray-900">
                                 Learn more <span aria-hidden="true">→</span>
                             </a>

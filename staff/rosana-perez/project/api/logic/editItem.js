@@ -13,7 +13,6 @@ function editItem(userId, itemId, title) {
         User.findById(userId).lean(),
         Item.findById(itemId).lean()
     ])
-        .catch(error => { throw new SystemError(error.message) })
         .then(([user, item]) => {
 
             if (!user) throw new NotFoundError('user not found')
@@ -22,8 +21,9 @@ function editItem(userId, itemId, title) {
             if (item.author.toString() !== userId) throw new OwnershipError('user is not author of item')
 
             return Item.updateOne({ _id: item._id }, { 'title': title })
-                .catch(error => { throw new SystemError(error.message) })
+
         })
+        .catch(error => { throw new SystemError(error.message) })
         .then(updatedItem => { })
 }
 

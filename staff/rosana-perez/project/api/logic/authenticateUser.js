@@ -8,12 +8,12 @@ function authenticateUser(username, password) {
     validate.password(password)
 
     return User.findOne({ username, password })
-        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new CredentialsError('wrong credentials')
 
             return user._id.toString()
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default authenticateUser

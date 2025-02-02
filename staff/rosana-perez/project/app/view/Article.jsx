@@ -6,15 +6,19 @@ import Item from '../components/Item.jsx'
 import OwnItem from '../components/OwnItem.jsx'
 
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 const { ValidationError, SystemError, NotFoundError } = errors
 
 import logic from '../logic/index.js'
 
-function Article({ itemId }) {
+function Article() {
     console.log('Article rendering')
 
     const [itemViewed, setItemViewed] = useState([])
+
+    const location = useLocation()
+    const itemId = location?.state.itemData // location.state gets the itemId value from /* useNavigate: state */ in Home view
 
     const handleError = (error) => {
         if (error instanceof NotFoundError) {
@@ -22,6 +26,8 @@ function Article({ itemId }) {
         } else if (error instanceof ValidationError) {
             alert(error.message)
         } else if (error instanceof SystemError) {
+            alert('Sorry, there was a problem. Try again later.')
+        } else {
             alert('Sorry, there was a problem. Try again later.')
         }
         console.error(error)

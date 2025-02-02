@@ -12,18 +12,25 @@ import toggleFavItem from '../logic/toggleFavItem.js'
 import isUserLoggedIn from '../logic/isUserLoggedIn.js'
 
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Item(props) {
     console.log('Item rendering')
 
     const [message, setMessage] = useState(false)
 
-    const handleError = (error) => {
+    const navigate = useNavigate()
+
+    const { chatId } = props
+
+    const handleError = error => {
         if (error instanceof NotFoundError) {
             alert(error.message)
         } else if (error instanceof ValidationError) {
             alert(error.message)
         } else if (error instanceof SystemError) {
+            alert('Sorry, there was a problem. Try again later.')
+        } else {
             alert('Sorry, there was a problem. Try again later.')
         }
         console.error(error)
@@ -46,8 +53,6 @@ function Item(props) {
         const contentText = form.text
         const content = contentText.value
 
-        const { chatId } = props
-
         if (content) {
             try {
                 sendMessage(content, chatId, itemId)
@@ -55,7 +60,7 @@ function Item(props) {
                         toggleMessage(false)
                         props.onMessageSent()
                     })
-                    .catch(error => { handleError(error) })
+                    .catch(error => handleError(error))
 
             } catch (error) { handleError(error) }
         }
@@ -76,20 +81,21 @@ function Item(props) {
         } catch (error) { handleError(error) }
     }
 
-    const handleItemDownload = (itemId) => {
+    const handleItemDownload = () => {
 
-        props.onItemDownload(itemId)
+        navigate("/article", { state: { itemData: itemId } })
     }
 
     return (
         !sold ? (
             props.item && ( //item.sold[false]
                 <article className="bg-white container-fluid w-100 h-100 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
-                    <a key={itemId} href="#" className="group block">
+                    <a key={itemId} className="group block">
                         <img
+                            href="#"
                             alt="Product image"
                             src={image}
-                            onClick={() => handleItemDownload(itemId)}
+                            onClick={handleItemDownload}
                             className="object-cover w-full h-40 object-center rounded-lg group-hover:opacity-75"
                         />
                         <section>

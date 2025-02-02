@@ -9,24 +9,34 @@ import ChatItemSold from '../components/ChatItemSold'
 
 import logic from '../logic/index.js'
 
+import { useNavigate } from 'react-router-dom'
 
-function ChatList(props) {
+
+function ChatList() {
     console.log('ChatList rendering')
 
     const [userId, setUserId] = useState(null)
     const [chats, setChats] = useState([])
     const [isChatBlocked, setIsChatBlocked] = useState(false)
 
-    const handleError = error => {
-        if (error instanceof NotFoundError)
-            alert(error.message)
-        else if (error instanceof ValidationError)
-            alert(error.message)
-        else if (error instanceof OwnershipError)
-            alert(error.message)
-        else if (error instanceof SystemError)
-            alert('Sorry, there was a problem. Try again later.')
+    const navigate = useNavigate()
 
+    const handleError = error => {
+        if (error instanceof NotFoundError) {
+            alert(error.message)
+        }
+        else if (error instanceof ValidationError) {
+            alert(error.message)
+        }
+        else if (error instanceof OwnershipError) {
+            alert(error.message)
+        }
+        else if (error instanceof SystemError) {
+            alert('Sorry, there was a problem. Try again later.')
+        }
+        else {
+            alert('Sorry, there was a problem. Try again later.')
+        }
         console.error(error)
     }
     useEffect(() => {
@@ -39,15 +49,15 @@ function ChatList(props) {
     useEffect(() => {
         if (userId) {
             logic.getChats() // returns lastMessage
-                .then(chats => { setChats(chats) })
+                .then(chats => setChats(chats))
                 .catch(error => handleError(error))
         }
     }, [userId])
 
+
     const handleOnChatClick = (chatId) => {
         if (!isChatBlocked) {
-
-            props.onChatMessages(chatId)
+            navigate("/chatMessages", { state: { chatData: chatId } })
         }
     }
 
@@ -58,7 +68,6 @@ function ChatList(props) {
     const lastChatMessage = chats?.map(chat => chat.lastMessage)
     const lastMessageDate = util.formatIsoDate(lastChatMessage?.updatedAt)
 
-    const handleOnItemDownloaded = (itemId) => props.onItemDownloaded(itemId)
 
     return (
         <>
@@ -83,7 +92,6 @@ function ChatList(props) {
                                                     user={receiverUser.username}
                                                     message={lastChatMessage}
                                                     date={lastMessageDate}
-                                                    onItemDownload={handleOnItemDownloaded}
                                                 />
                                             </div>
                                         ) : ( //item.sold[true]

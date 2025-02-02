@@ -7,22 +7,31 @@ import { Input } from '../components/input'
 import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
 
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import logic from '../logic/index.js'
 
 
-function UserProfile(props) {
+function UserProfile() {
     console.log('UserProfile rendering')
 
     const [user, setUser] = useState(null)
 
+    const navigate = useNavigate()
+
     const handleError = error => {
-        if (error instanceof NotFoundError)
+        if (error instanceof NotFoundError) {
             alert(error.message)
-        if (error instanceof ValidationError)
+        }
+        if (error instanceof ValidationError) {
             alert(error.message)
-        else if (error instanceof SystemError)
+        }
+        else if (error instanceof SystemError) {
             alert('Sorry, there was a problem. Try again later.')
+        }
+        else {
+            alert('Sorry, there was a problem. Try again later.')
+        }
 
         console.error(error)
 
@@ -34,9 +43,6 @@ function UserProfile(props) {
             .catch(error => handleError(error))
     }, [])
 
-    const userName = user?.name
-
-    console.log('User Profile -> state: user = ' + userName)
 
     const handleOnEditUserData = event => {
         event.preventDefault()
@@ -49,11 +55,13 @@ function UserProfile(props) {
         const username = form.username.value
         const password = form.password.value
 
+        const userDataOnEdit = { name, location, email, username, password }
+
         if (confirm('Edit Personal Data?')) {
             try {
                 logic.editUserData(name, location, email, username, password)
                     .then(() => {
-                        props.onEditUserData()
+                        navigate("/", { state: userDataOnEdit })
                     })
                     .catch(error => handleError(error))
             } catch (error) { handleError(error) }
@@ -72,7 +80,7 @@ function UserProfile(props) {
                                 <FieldGroup>
                                     <Field>
                                         <Label htmlFor="name" name="name">Name</Label>
-                                        <Input type="text" id="name" name="name" defaultValue={name} />
+                                        <Input type="text" id="name" name="name" defaultValue={user.name} />
                                     </Field>
                                     <Field>
                                         <Label htmlFor="location" name="location">Location</Label>

@@ -11,7 +11,6 @@ function sendMessage(content, chatId, itemId) {
         if (status === 201) return
 
         return response.json()
-            .catch(error => { throw new SystemError(error.message) })
             .then(bodyError => {
 
                 const { error, message } = bodyError
@@ -19,6 +18,7 @@ function sendMessage(content, chatId, itemId) {
 
                 throw new constructor(message)
             })
+            .catch(error => { throw new SystemError(error.message) })
     }
 
     const body = { content }
@@ -42,9 +42,8 @@ function sendMessage(content, chatId, itemId) {
         },
         body: JSON.stringify(body)
     })
-        .catch(error => { throw new SystemError(error.message) })
         .then(response => { handleResponse(response) })
-
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default sendMessage

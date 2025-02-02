@@ -13,11 +13,14 @@ import toggleSoldItem from '../logic/toggleSoldItem.js'
 import editItem from '../logic/editItem.js'
 
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function OwnItem(props) {
     console.log('OwnItems rendering')
 
     const [edit, setEdit] = useState(false)
+
+    const navigate = useNavigate()
 
     const handleError = (error) => {
         if (error instanceof NotFoundError) {
@@ -26,13 +29,15 @@ function OwnItem(props) {
             alert(error.message)
         } else if (error instanceof SystemError) {
             alert('Sorry, there was a problem. Try again later.')
+        } else {
+            alert('Sorry, there was a problem. Try again later.')
         }
         console.error(error)
     }
 
     const [isOpen, setIsOpen] = useState(false)
 
-    const { id: itemId, location, image, title, sold, updatedAt } = props.item
+    const { id: itemId, location, image, title, sold, updatedAt } = props.item || {}
     const itemDate = util.formatIsoDate(updatedAt)
 
     const handleOnEditItemSubmit = event => {
@@ -48,7 +53,7 @@ function OwnItem(props) {
                     setIsOpen(false)
                     props.onEditItem()
                 })
-                .catch(error => { handleError(error) })
+                .catch(error => handleError(error))
 
         } catch (error) { handleError(error) }
     }
@@ -80,20 +85,21 @@ function OwnItem(props) {
         } catch (error) { handleError(error) }
     }
 
-    const handleItemDownload = (itemId) => {
+    const handleItemDownload = () => {
 
-        props.onItemDownload(itemId)
+        navigate("/article", { state: { itemData: itemId } })
     }
 
 
     return (
 
         <article className="bg-white container-fluid w-100 h-100 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
-            <a key={itemId} href="#" className="group block">
+            <a key={itemId} className="group block">
                 <img
+                    href="#"
                     alt="Product image"
                     src={image}
-                    onClick={() => handleItemDownload(itemId)}
+                    onClick={handleItemDownload}
                     className="object-cover w-full h-40 object-center rounded-lg group-hover:opacity-75"
                 />
                 <section>
@@ -142,7 +148,7 @@ function OwnItem(props) {
                                     <DialogBody>
                                         <Field>
                                             <Label>New title</Label>
-                                            <Input type="text" id="title" name="title" placeholder={title} />
+                                            <Input type="text" id="title" name="title" defaultValue={title} />
                                         </Field>
                                     </DialogBody>
                                     <DialogActions>

@@ -23,6 +23,8 @@ function ChatItemSold({ chatId }) {
             alert(error.message)
         } else if (error instanceof SystemError) {
             alert('Sorry, there was a probnlem. Try again later.')
+        } else {
+            alert('Sorry, there was a probnlem. Try again later.')
         }
         console.error(error)
     }
@@ -43,6 +45,7 @@ function ChatItemSold({ chatId }) {
 
     const lastMessage = chat?.messages[chat.messages.length - 1]
     const messageDate = util.formatIsoDate(lastMessage?.updatedAt)
+
 
     return (
         <article>

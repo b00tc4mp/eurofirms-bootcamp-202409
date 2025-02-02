@@ -1,88 +1,56 @@
-import { errors } from 'com'
-
-const { NotFoundError, SystemError, ValidationError } = errors
-
 import { useState, useEffect } from 'react'
 
+import { Routes, Route } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
+import ItemsList from '../components/ItemsList'
+import Header from '../components/Header'
+import Chat from '../components/Chat'
+import ChatItemSold from '../components/ChatItemSold'
 import Item from '../components/Item'
+import Message from '../components/Message'
 import OwnItem from '../components/OwnItem'
+import LocationListBox from '../components/LocationListBox'
+import { Button } from '../components/button.jsx'
 
-import logic from '../logic/index.js'
+import CreateItem from './CreateItem'
+import FavItems from './FavItems'
+import ChatList from './ChatList'
+import ChatMessages from './ChatMessages'
+import UserProfile from './UserProfile'
+import MyItems from './MyItems'
+import Article from './Article'
 
-
-function Home(props) {
+function Home() {
     console.log('Home rendering')
 
-    const [items, setItems] = useState([])
-
-    const handleError = error => {
-        if (error instanceof NotFoundError)
-            alert(error.message)
-        else if (error instanceof ValidationError)
-            alert(error.message)
-        else if (error instanceof SystemError)
-            alert('Sorry, there was a problem. Try again later.')
-
-        console.error(error)
-    }
-
-    useEffect(() => {
-        try {
-            logic.getItems()
-                .then(items => setItems(items))
-                .catch(error => handleError(error))
-        } catch (error) { handleError(error) }
-    }, [])
-
-
-    const updateItems = () => {
-        logic.getItems()
-            .then(items => setItems(items))
-            .catch(error => handleError(error))
-    }
-
-    const handleOnDeleted = () => updateItems()
-    const handleOnFavClick = () => updateItems()
-    const handleOnItemSold = () => updateItems()
-    const handleOnItemEdited = () => updateItems()
-    const handleOnMessageSent = () => updateItems()
-
-    const handleOnItemDownloaded = (itemId) => props.onItemDownloaded(itemId)
-
-
     return (
-        <main>
-            <div className="container w-full pt-4 pb-4 my-4 ">
-                <section className="mx-auto px-4 sm:px-3 sm:py-0 lg:px-4">
-                    <h2 className="text-2xl font-bold tracking-tight">New items</h2>
-                </section>
-                <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4">
-                    {items?.map(item => {
-                        return (
-                            <article key={item.id} >
-                                {!item.own ? (
-                                    <Item
-                                        item={item}
-                                        onToggleFavClick={handleOnFavClick}
-                                        onMessageSent={handleOnMessageSent}
-                                        onItemDownload={handleOnItemDownloaded}
-                                    />
-                                ) : (
-                                    <OwnItem
-                                        item={item}
-                                        onDeleted={handleOnDeleted}
-                                        onToggleSold={handleOnItemSold}
-                                        onEditItem={handleOnItemEdited}
-                                        onItemDownload={handleOnItemDownloaded}
-                                    />
-                                )}
-                            </article>)
-                    }
-                    )}
-                </section>
-            </div>
-        </main >
+        <>
+            <header>
+                <Header />
+            </header>
+            <main>
+                <Routes>
+                    <Route path="/" element={<ItemsList />} />
+                    <Route path="/create" element={<CreateItem />} />
+                    <Route path="/favItems" element={<FavItems />} />
+                    <Route path="/chatList" element={<ChatList />} />
+                    <Route path="/myItems" element={<MyItems />} />
+                    <Route path="/userProfile" element={<UserProfile />} />
+                    <Route path="/chatMessages" element={<ChatMessages />} />
+                    <Route path="/article" element={<Article />} />
+
+                    <Route path="/chat" element={<Chat />} />
+                    <Route path="/chatItemSold" element={<ChatItemSold />} />
+                    <Route path="/ownItem" element={<OwnItem />} />
+                    <Route path="/item" element={<Item />} />
+                    <Route path="/locationListBox" element={<LocationListBox />} />
+                    <Route path="/message" element={<Message />} />
+                </Routes>
+            </main >
+        </>
     )
 }
+
 
 export default Home

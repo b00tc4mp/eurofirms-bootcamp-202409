@@ -14,14 +14,13 @@ function editItem(itemId, title) {
         },
         body: JSON.stringify({ 'title': title })
     })
-        .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
             if (status === 204) return
 
             return response.json()
-                .catch(error => { throw new SystemError(error.message) })
+
                 .then(body => {
                     const error = body.error
                     const message = body.message
@@ -30,7 +29,9 @@ function editItem(itemId, title) {
 
                     throw new constructor(message)
                 })
+                .catch(error => { throw new SystemError(error.message) })
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default editItem

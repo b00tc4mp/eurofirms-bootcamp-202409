@@ -6,13 +6,37 @@ import { Text, TextLink } from '../components/text'
 import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
 
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
+import { useNavigate } from 'react-router-dom'
 
 const { DuplicityError, SystemError, ValidationError } = errors
 
 import logic from '../logic/index.js'
 
-function Register(props) {
+function Register() {
     console.log('Register rendering')
+
+    const navigate = useNavigate()
+
+    const handleError = error => {
+        if (error instanceof DuplicityError) {
+            alert(error.message)
+        }
+        else if (error instanceof ValidationError) {
+            alert(error.message)
+        }
+        else if (error instanceof SystemError) {
+            alert('Sorry, there was a problem. Try again later.')
+        }
+        else {
+            alert('Sorry, there was a problem. Try again later.')
+        }
+
+        console.error(error)
+    }
+
+    const handleOnExit = () => navigate("/")
+
+    const handleOnLogin = () => navigate("/login")
 
     const handleOnRegisterSubmit = event => {
         event.preventDefault()
@@ -25,34 +49,15 @@ function Register(props) {
         const username = form.username.value
         const password = form.password.value
 
+        const registerData = { name, location, email, username, password }
+
         try {
             logic.registerUser(name, location, email, username, password)
-                .then(() => props.onRegisterSuccess())
-                .catch(error => {
-                    if (error instanceof DuplicityError)
-                        alert(error.message)
-                    else if (error instanceof SystemError)
-                        alert('Sorry, there was a problem. Try again later.')
+                .then(() => navigate("/", { state: registerData }))
+                .catch(error => handleError(error))
 
-                    console.error(error)
-                })
-        } catch (error) {
-            if (error instanceof ValidationError)
-                alert(error.message)
-            else
-                alert('Sorry, there was a problem. Try again later.')
-
-            console.error(error)
-        }
+        } catch (error) { handleError(error) }
     }
-
-    const handleOnLoginClick = event => {
-        event.preventDefault()
-
-        props.onLoginClick()
-    }
-
-    const handleOnCancelClick = () => props.onCancelClick()
 
 
     return <main className="text-center h-full w-full justify-items-center p-6 py-8">
@@ -69,7 +74,7 @@ function Register(props) {
                 </a>
             </div>
 
-            <Button plain onClick={handleOnCancelClick} className="justify-items-end">
+            <Button plain onClick={handleOnExit} className="justify-items-end">
                 <ArrowUturnLeftIcon />
             </Button>
         </header>
@@ -104,7 +109,7 @@ function Register(props) {
 
             <Button className="my-6 text-xs" color="emerald" type="submit">Register</Button>
 
-            <Text className="my-6 text-xs" >Do you already have an account? <TextLink href="#" onClick={handleOnLoginClick}>Login now</TextLink></Text>
+            <Text className="my-6 text-xs" >Do you already have an account? <TextLink href="#" onClick={handleOnLogin}>Login now</TextLink></Text>
 
         </form>
     </main>

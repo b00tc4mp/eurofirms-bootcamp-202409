@@ -6,13 +6,37 @@ import { Text, TextLink } from '../components/text'
 import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
 
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
+import { useNavigate } from 'react-router-dom'
 
 const { CredentialsError, SystemError, ValidationError } = errors
 
 import logic from '../logic/index.js'
 
-function Login(props) {
+function Login({ onLoggedIn }) {
     console.log('Login rendering')
+
+    const navigate = useNavigate()
+
+    const handleError = error => {
+        if (error instanceof CredentialsError) {
+            alert(error.message)
+        }
+        else if (error instanceof ValidationError) {
+            alert(error.message)
+        }
+        else if (error instanceof SystemError) {
+            alert('Sorry, there was a problem. Try again later.')
+        }
+        else {
+            alert('Sorry, there was a problem. Try again later.')
+        }
+
+        console.error(error)
+    }
+
+    const handleOnExit = () => navigate("/")
+
+    const handleOnRegister = () => navigate("/register")
 
     const handleOnLoginSubmit = event => {
         event.preventDefault()
@@ -24,33 +48,10 @@ function Login(props) {
 
         try {
             logic.loginUser(username, password)
-                .then(() => props.onLoginSuccess())
-                .catch(error => {
-                    if (error instanceof CredentialsError)
-                        alert(error.message)
-                    else if (error instanceof SystemError)
-                        alert('Sorry, there was a problem. Try again later.')
-
-                    console.error(error)
-                })
-        } catch (error) {
-            if (error instanceof ValidationError) {
-                alert(error.message)
-            } else {
-                alert('Sorry, there was a problem. Try again later.')
-            }
-
-            console.error(error)
-        }
+                .then(() => onLoggedIn())
+                .catch(error => handleError(error))
+        } catch (error) { handleError(error) }
     }
-
-    const handleOnRegisterClick = event => {
-        event.preventDefault()
-
-        props.onRegisterClick()
-    }
-
-    const handleOnCancelClick = () => props.onCancelClick()
 
 
     return <main className="text-center h-full w-full justify-items-center p-6 py-8">
@@ -67,7 +68,7 @@ function Login(props) {
                 </a>
             </div>
 
-            <Button plain onClick={handleOnCancelClick} className="justify-items-end">
+            <Button plain onClick={handleOnExit} className="justify-items-end">
                 <ArrowUturnLeftIcon />
             </Button>
         </header>
@@ -93,10 +94,9 @@ function Login(props) {
 
             <Button className="my-6 text-xs" color="emerald" type="submit">Login</Button>
 
-            <Text className="my-6 text-xs" >Don't have an account? <TextLink href="#" onClick={handleOnRegisterClick}>Register now</TextLink></Text>
+            <Text className="my-6 text-xs" >Don't have an account? <TextLink href="#" onClick={handleOnRegister}>Register now</TextLink></Text>
 
         </form>
-
         <p></p>
     </main >
 }

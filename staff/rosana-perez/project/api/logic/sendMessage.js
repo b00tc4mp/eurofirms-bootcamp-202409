@@ -25,7 +25,6 @@ function sendMessage(userId, content, chatId, itemId) {
                     select: 'username'
                 })
         ])
-            .catch(error => { throw new SystemError(error.message) })
             .then(([user, chat]) => {
 
                 if (!user) throw new NotFoundError('user not found')
@@ -45,6 +44,7 @@ function sendMessage(userId, content, chatId, itemId) {
 
                 return chat.save()
             })
+            .catch(error => { throw new SystemError(error.message) })
     }
     if (!chatId && itemId) {
         validate.itemId(itemId)
@@ -60,7 +60,6 @@ function sendMessage(userId, content, chatId, itemId) {
                     select: 'username'
                 })
         ])
-            .catch(error => { throw new SystemError(error.message) })
             .then(([user, item]) => {
                 if (!user) throw new NotFoundError('user not found')
 
@@ -70,6 +69,7 @@ function sendMessage(userId, content, chatId, itemId) {
                 })
                 return Chat.create({ users: [user._id, item?.author._id], item: item._id, messages: [message] })
             })
+            .catch(error => { throw new SystemError(error.message) })
             .then(() => { })
     }
 

@@ -10,14 +10,13 @@ function getChat(chatId) {
             Authorization: `Bearer ${sessionStorage.token}`
         }
     })
-        .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
             if (status === 200)
                 return response.json()
-                    .catch(error => { throw new SystemError(error.message) })
                     .then(messages => messages)
+                    .catch(error => { throw new SystemError(error.message) })
 
             return response.json()
                 .catch(error => { throw new SystemError(error.message) })
@@ -30,6 +29,7 @@ function getChat(chatId) {
                     throw new constructor(message)
                 })
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default getChat

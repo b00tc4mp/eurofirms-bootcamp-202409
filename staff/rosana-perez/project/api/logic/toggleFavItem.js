@@ -12,7 +12,6 @@ function toggleFavItem(userId, itemId) {
         Item.findById(itemId).lean()
 
     ])
-        .catch(error => { throw new SystemError(error.message) })
         .then(([user, item]) => {
 
             if (!user) throw new NotFoundError('user not found')
@@ -39,6 +38,7 @@ function toggleFavItem(userId, itemId) {
                     .catch(error => { throw new SystemError(error.message) })
             }
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default toggleFavItem

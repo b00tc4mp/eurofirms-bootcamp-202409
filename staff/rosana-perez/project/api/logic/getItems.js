@@ -10,7 +10,6 @@ function getItems(userId) {
         User.findById(userId).lean(),
         Item.find({}, '-__v').populate('author', 'username _id').populate('sold').sort({ date: -1 }).lean()
     ])
-        .catch(error => { throw new SystemError(error.message) })
         .then(userAndItems => {
             const [user, items] = userAndItems
 
@@ -34,8 +33,10 @@ function getItems(userId) {
                 })
             })
 
+
             return items
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default getItems

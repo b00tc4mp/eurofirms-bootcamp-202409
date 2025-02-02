@@ -8,6 +8,7 @@ import { Field, Label } from '../components/fieldset.jsx'
 import { Input } from '../components/input'
 
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
 
@@ -15,26 +16,33 @@ import Message from '../components/Message'
 
 import logic from '../logic/index.js'
 
-function ChatMessages(props) {
+function ChatMessages() {
     console.log('ChatMessages rendering')
 
     const [chat, setChat] = useState([])
 
     const [timestamp, setTimeStamp] = useState(Date.now())
 
-    const chatId = props.chatId
-    const itemId = props.itemId
+    const location = useLocation()
+    const chatId = location?.state.chatData
+    const itemId = location?.state.itemData
 
     const handleError = error => {
-        if (error instanceof NotFoundError)
+        if (error instanceof NotFoundError) {
             alert(error.message)
-        else if (error instanceof ValidationError)
+        }
+        else if (error instanceof ValidationError) {
             alert(error.message)
-        else if (error instanceof OwnershipError)
+        }
+        else if (error instanceof OwnershipError) {
             alert(error.message)
-        else if (error instanceof SystemError)
+        }
+        else if (error instanceof SystemError) {
             alert('Sorry, there was a problem. Try again later.')
-
+        }
+        else {
+            alert('Sorry, there was a problem. Try again later.')
+        }
         console.error(error)
     }
 
@@ -66,7 +74,7 @@ function ChatMessages(props) {
                     setTimeStamp(Date.now())
                     form.reset()
                 })
-                .catch(error => { console.error(error) })
+                .catch(error => handleError(error))
         }
     }
 

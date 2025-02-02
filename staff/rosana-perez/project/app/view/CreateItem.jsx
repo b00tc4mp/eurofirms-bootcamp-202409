@@ -9,19 +9,28 @@ import logic from '../logic/index.js'
 
 import LocationListBox from '../components/LocationListBox.jsx'
 
+import { useNavigate } from 'react-router-dom'
+
 const { ValidationError, SystemError, NotFoundError } = errors
 
-function CreateItem(props) {
+function CreateItem() {
     console.log('CreateItem rendering')
 
-    const handleError = error => {
-        if (error instanceof NotFoundError)
-            alert(error.message)
-        else if (error instanceof ValidationError)
-            alert(error.message)
-        else if (error instanceof SystemError)
-            alert('Sorry, there was a problem. Try again later.')
+    const navigate = useNavigate()
 
+    const handleError = error => {
+        if (error instanceof NotFoundError) {
+            alert(error.message)
+        }
+        else if (error instanceof ValidationError) {
+            alert(error.message)
+        }
+        else if (error instanceof SystemError) {
+            alert('Sorry, there was a problem. Try again later.')
+        }
+        else {
+            alert('Sorry, there was a problem. Try again later.')
+        }
         console.error(error)
     }
 
@@ -37,9 +46,11 @@ function CreateItem(props) {
         const description = form.description.value
         const sold = false
 
+        const newItemData = { location, image, title, description, sold }
+
         try {
             logic.createItem(location, image, title, description, sold)
-                .then(() => props.onCreated())
+                .then(() => navigate("/", { state: { newItemData } }))
                 .catch(error => handleError(error))
         } catch (error) { handleError(error) }
     }

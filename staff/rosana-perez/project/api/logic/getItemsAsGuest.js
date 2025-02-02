@@ -10,7 +10,6 @@ function getItemsAsGuest() {
         .populate('sold')
         .sort({ date: -1 })
         .lean()
-
         .then(items => {
             items.forEach(item => {
                 item.id = item._id.toString()

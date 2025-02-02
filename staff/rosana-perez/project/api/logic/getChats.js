@@ -21,7 +21,6 @@ function getChats(userId) {
             })
             .lean()
     ])
-        .catch(error => { throw new SystemError(error.message) })
         .then(userAndChats => {
 
             const [user, chats] = userAndChats
@@ -62,6 +61,7 @@ function getChats(userId) {
             })
             return chats
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default getChats

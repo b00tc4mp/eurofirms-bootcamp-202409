@@ -15,9 +15,6 @@ function getFavItems(userId) {
                 select: 'username -_id'  // selecciona username y elimina id (-)
             }
         }).lean()
-        .catch(error => {
-            throw new SystemError(error.message)
-        })
         .then(user => {
             if (!user) throw new NotFoundError('User not found')
 
@@ -29,7 +26,7 @@ function getFavItems(userId) {
             })
             return user.favs
         })
-
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default getFavItems

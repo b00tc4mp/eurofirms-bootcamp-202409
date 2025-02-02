@@ -8,17 +8,26 @@ import Item from '../components/Item'
 
 import logic from '../logic/index.js'
 
+import { useNavigate } from 'react-router-dom'
 
-function FavItems(props) {
+
+function FavItems() {
     console.log('Fav Items rendering')
 
     const [favItems, setFavItems] = useState([])
 
+    const navigate = useNavigate()
+
     const handleError = error => {
-        if (error instanceof NotFoundError)
+        if (error instanceof NotFoundError) {
             alert(error.message)
-        else if (error instanceof SystemError)
+        }
+        else if (error instanceof SystemError) {
             alert('Sorry, there was a problem. Try again later.')
+        }
+        else {
+            alert('Sorry, there was a problem. Try again later.')
+        }
 
         console.error(error)
     }
@@ -42,7 +51,11 @@ function FavItems(props) {
             .catch(error => handleError(error))
     }
 
-    const handleOnItemDownloaded = (itemId) => props.onItemDownloaded(itemId)
+    const handleOnItemDownloaded = (itemId) => {
+
+        navigate("/favItems", { state: { itemData: itemId } })
+    }
+
 
     return (
         <>

@@ -8,13 +8,16 @@ import getChat from '../logic/getChat.js'
 import getLoggedInUserId from '../logic/getLogggedInUserId.js'
 
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function Chat({ chatId }) { //recibe chatId = props
+function Chat({ chatId }) {
     console.log('Chat rendering')
 
     const [chat, setChat] = useState(null)
     const [timestamp, setTimeStamp] = useState(Date.now())
     const userId = getLoggedInUserId()
+
+    const navigate = useNavigate()
 
     const handleError = (error) => {
         if (error instanceof NotFoundError) {
@@ -23,10 +26,11 @@ function Chat({ chatId }) { //recibe chatId = props
             alert(error.message)
         } else if (error instanceof SystemError) {
             alert('Sorry, there was a problem. Try again later.')
+        } else {
+            alert('Sorry, there was a problem. Try again later.')
         }
         console.error(error)
     }
-
 
     useEffect(() => {
         getChat(chatId)
@@ -50,9 +54,9 @@ function Chat({ chatId }) { //recibe chatId = props
     const lastMessage = chat?.messages[chat.messages.length - 1]
     const messageDate = util.formatIsoDate(lastMessage?.updatedAt)
 
-    const handleItemDownload = (itemId) => {
+    const handleItemDownload = () => {
 
-        props.onItemDownload(itemId)
+        navigate("/article", { state: { itemData: itemId } })
     }
 
     return (
@@ -64,7 +68,7 @@ function Chat({ chatId }) { //recibe chatId = props
                             <img
                                 alt="chat item"
                                 src={itemImage}
-                                onClick={() => handleItemDownload(itemId)}
+                                onClick={handleItemDownload}
                                 className="absolute h-12 w-12 flex-none object-cover" />
                         </div>
                         <div className="flex shrink-0 grow basis-0 flex-col items-start">

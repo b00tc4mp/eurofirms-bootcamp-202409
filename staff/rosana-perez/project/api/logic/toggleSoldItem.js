@@ -11,7 +11,6 @@ function toggleSoldItem(userId, itemId) {
         User.findById(userId).lean(),
         Item.findById(itemId).lean()
     ])
-        .catch(error => { throw new SystemError(error.message) })
         .then(userAndItem => {
             const [user, item] = userAndItem
 
@@ -21,11 +20,11 @@ function toggleSoldItem(userId, itemId) {
             if (item.author.toString() !== userId) throw new OwnershipError('sale not available, user is not author of item')
 
             return Item.updateOne({ _id: item._id }, { sold: !item.sold })
-                .catch(error => { throw new SystemError(error.message) })
                 .then(() => { })
-
+                .catch(error => { throw new SystemError(error.message) })
 
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default toggleSoldItem

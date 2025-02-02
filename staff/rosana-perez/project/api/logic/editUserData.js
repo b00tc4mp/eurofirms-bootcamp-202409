@@ -12,7 +12,7 @@ function editUserData(userId, name, location, email, username, password) {
     validate.password(password)
 
     return User.findById(userId).lean()
-        .catch(error => { throw new SystemError(error.message) })
+
         .then(user => {
 
             if (!user) throw new NotFoundError('user not found')
@@ -23,9 +23,8 @@ function editUserData(userId, name, location, email, username, password) {
                     $set: { name, location, email, username, password }
                 }
             )
-
-                .catch(error => { throw new SystemError(error.message) })
         })
+        .catch(error => { throw new SystemError(error.message) })
         .then(updatedUser => { })
 
 }

@@ -17,7 +17,6 @@ function createItem(location, image, title, description, sold) {
         },
         body: JSON.stringify({ location, image, title, description, sold })
     })
-        .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
@@ -33,6 +32,7 @@ function createItem(location, image, title, description, sold) {
 
                     throw new constructor(message)
                 })
+                .catch(error => { throw new SystemError(error.message) })
         })
 }
 

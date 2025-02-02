@@ -11,7 +11,6 @@ function getUserName(userId, targetUserId) {
         User.findById(userId),
         User.findById(targetUserId).select('-__v -_id').lean()
     ])
-        .catch(error => { throw new SystemError(error.message) })
         .then(users => {
             const [user, targetUser] = users
 
@@ -20,5 +19,6 @@ function getUserName(userId, targetUserId) {
 
             return targetUser.name
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 export default getUserName

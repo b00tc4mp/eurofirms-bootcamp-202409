@@ -10,7 +10,6 @@ function getItemsFromUser(userId) {
         User.findById(userId).lean(),
         Item.find({ author: userId }).select('-__v -author').sort({ date: -1 }).lean()
     ])
-        .catch(error => { throw new SystemError(error.message) })
         .then(userAndItems => {
             const [user, items] = userAndItems
 
@@ -24,6 +23,7 @@ function getItemsFromUser(userId) {
             })
             return items
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default getItemsFromUser

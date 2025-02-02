@@ -7,7 +7,6 @@ function getUser(userId) {
     validate.userId(userId)
 
     return User.findById(userId).select('-__v -password -favs').lean()
-        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
@@ -16,5 +15,6 @@ function getUser(userId) {
 
             return user
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 export default getUser

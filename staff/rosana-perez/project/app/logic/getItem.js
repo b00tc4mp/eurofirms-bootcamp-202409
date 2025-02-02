@@ -15,17 +15,17 @@ function getItem(itemId) {
         method: 'GET',
         headers: headers || undefined
     })
-        .catch(error => handleError(error))
+
         .then(response => {
             const status = response.status
 
             if (status === 200)
                 return response.json()
-                    .catch(error => handleError(error))
                     .then(item => item)
+                    .catch(error => handleError(error))
 
             return response.json()
-                .catch(error => handleError(error))
+
                 .then(body => {
                     const error = body.error
                     const message = body.message
@@ -34,7 +34,9 @@ function getItem(itemId) {
 
                     throw new constructor(message)
                 })
+                .catch(error => handleError(error))
         })
+        .catch(error => handleError(error))
 }
 
 export default getItem

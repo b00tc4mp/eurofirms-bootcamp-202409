@@ -11,7 +11,6 @@ function deleteItem(userId, itemId) {
         User.findById(userId).lean(),
         Item.findById(itemId).lean()
     ])
-        .catch(error => { throw new SystemError(error.message) })
         .then(userAndItem => {
             const [user, item] = userAndItem
 
@@ -23,6 +22,7 @@ function deleteItem(userId, itemId) {
             return Item.deleteOne({ _id: item._id })
                 .catch(error => { throw new SystemError(error.message) })
         })
+        .catch(error => { throw new SystemError(error.message) })
         .then(deletedItem => { })
 }
 

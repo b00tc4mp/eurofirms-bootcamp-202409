@@ -3,22 +3,34 @@ import { errors } from 'com'
 const { SystemError, NotFoundError } = errors
 
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import OwnItem from '../components/OwnItem'
 
 import logic from '../logic/index.js'
 
 
-function MyItems() {
+function MyItems({ itemId }) {
     console.log('My Items rendering')
 
     const [items, setItems] = useState([])
 
+    const navigate = useNavigate()
+
+    const handleOnItemClick = () => {
+        navigate("/article", { state: itemId })
+    }
+
     const handleError = error => {
-        if (error instanceof NotFoundError)
+        if (error instanceof NotFoundError) {
             alert(error.message)
-        else if (error instanceof SystemError)
+        }
+        else if (error instanceof SystemError) {
             alert('Sorry, there was a problem. Try again later.')
+        }
+        else {
+            alert('Sorry,there was a problem. Try again later.')
+        }
 
         console.error(error)
     }
@@ -31,10 +43,18 @@ function MyItems() {
     }, [])// se ejecuta nuevamente si cambia el user
 
 
-    const handleOnToggleSoldItem = () => {
+    const updateItems = () => {
         logic.getItemsFromUser()
             .then(items => setItems(items))
             .catch(error => handleError(error))
+    }
+    const handleOnDeleted = () => updateItems()
+    const handleOnItemSold = () => updateItems()
+    const handleOnItemEdited = () => updateItems()
+
+    const handleOnItemDownloaded = (itemId) => {
+
+        navigate("/article", { state: { itemData: itemId } })
     }
 
     return (
@@ -49,8 +69,10 @@ function MyItems() {
                                     <OwnItem
                                         key={item.id}
                                         item={item}
-                                        onToggleSold={handleOnToggleSoldItem}
-
+                                        onDeleted={handleOnDeleted}
+                                        onToggleSold={handleOnItemSold}
+                                        onEditItem={handleOnItemEdited}
+                                        onItemDownload={handleOnItemDownloaded}
                                     />
                                 )
                             })

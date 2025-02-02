@@ -10,17 +10,15 @@ function getItemsFromUser() {
             Authorization: `Bearer ${sessionStorage.token}`
         }
     })
-        .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const status = response.status
 
             if (status === 200)
                 return response.json()
-                    .catch(error => { throw new SystemError(error.message) })
                     .then(items => items)
+                    .catch(error => { throw new SystemError(error.message) })
 
             return response.json()
-                .catch(error => { throw new SystemError(error.message) })
                 .then(body => {
                     const error = body.error
                     const message = body.message
@@ -29,7 +27,9 @@ function getItemsFromUser() {
 
                     throw new constructor(message)
                 })
+                .catch(error => { throw new SystemError(error.message) })
         })
+        .catch(error => { throw new SystemError(error.message) })
 }
 
 export default getItemsFromUser
