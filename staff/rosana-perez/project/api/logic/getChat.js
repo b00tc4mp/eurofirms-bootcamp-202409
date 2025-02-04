@@ -15,7 +15,7 @@ function getChat(userId, chatId) {
                 path: 'users',
                 select: 'username _id'
             })
-            .populate('item', 'image title sold')
+            .populate('item', 'image title type sold')
             .populate({
                 path: 'messages.user',
                 select: 'username _id'

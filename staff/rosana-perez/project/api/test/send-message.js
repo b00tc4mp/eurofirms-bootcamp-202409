@@ -1,11 +1,11 @@
 fetch('http://localhost:8081/chats', {
     method: 'POST',
     headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzZkODhjMzI5ODVlYjE1MWZkZjc1ZmEiLCJpYXQiOjE3MzY1MDg4NDJ9.uVJD35XPz08qdnRYO6FIury6zNFFQId8L4UlU3Geq-E',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2N2EyNmQxOTc5MTg3NDVlMWZjYTFkYTkiLCJpYXQiOjE3Mzg2OTk4NjB9.LQyxZv3RBx_TB4VzvHZoQE2ZI9YGitPxXco3_F3YeBE',
 
         'Content-Type': 'application/json'
     },
-    body: '{ "content": "message after new sendMessage logic", "chatId": "", "itemId": "6765beeed639a9034f2f0d24" }'
+    body: '{ "content": "message after new sendMessage logic", "chatId": "", "itemId": "67a27666a1049eab93b9720f" }'
 
 })
     .then(response => {

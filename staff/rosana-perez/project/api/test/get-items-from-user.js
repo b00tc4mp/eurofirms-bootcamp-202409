@@ -1,7 +1,7 @@
 fetch('http://localhost:8081/items/owner', {
     method: 'GET',
     headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzhiOTU0ZGUyMjczODY0M2Y1NmU0YTkiLCJpYXQiOjE3MzcyMDkyMjZ9.GK_Sa_57dWH1e17eg7-2EgHa6fJ8ZinIHFL7liT_eIc'
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2N2EyNmQxOTc5MTg3NDVlMWZjYTFkYTkiLCJpYXQiOjE3Mzg2OTk4NjB9.LQyxZv3RBx_TB4VzvHZoQE2ZI9YGitPxXco3_F3YeBE'
     }
 })
     .then(response => {

@@ -102,6 +102,7 @@ function Item(props) {
                             <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
                                 <h3>{author?.username}</h3>
                                 <p>{location}</p>
+                                <p>Type: {type}</p>
                             </div>
 
                             <p className="mt-1 flex items-start text-lg font-medium text-gray-900">{title}</p>

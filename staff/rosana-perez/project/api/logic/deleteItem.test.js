@@ -4,7 +4,7 @@ import deleteItem from './deleteItem.js'
 mongoose.connect('mongodb://127.0.0.1:27017/dona2-test')
     .then(() => {
         try {
-            return deleteItem('6754379a0832b016ede53079', '6756c914161fe9b6c4d5257c')
+            return deleteItem('67a26d197918745e1fca1da8', '67a26e2f2717aa845b2cac57')
                 .then(() => console.log('item deleted'))
                 .catch(error => console.error(error))
         } catch (error) {

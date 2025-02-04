@@ -1,10 +1,10 @@
 fetch('http://localhost:8081/items', {
     method: 'POST',
     headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzZkODhjMzI5ODVlYjE1MWZkZjc1ZmEiLCJpYXQiOjE3MzY5Njg0MjN9.Hd39mP5GTQx-lenPVcK5ysqibzPoATqFDI4RFS5ln-g',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2N2EyNmQxOTc5MTg3NDVlMWZjYTFkYTkiLCJpYXQiOjE3Mzg2OTk4NjB9.LQyxZv3RBx_TB4VzvHZoQE2ZI9YGitPxXco3_F3YeBE',
         'Content-Type': 'application/json'
     },
-    body: '{"location": "Santiago", "image": "https://www.shutterstock.com/image-photo/world-environment-day-2024-concept-260nw-2457466457.jpg", "title":"green world now", "description": "description text", "sold": true}'
+    body: '{"location": "Santiago", "image": "https://www.shutterstock.com/image-photo/world-environment-day-2024-concept-260nw-2457466457.jpg", "title":"green world now", "description": "description text", "type": "art", "sold": true}'
 })
     .then(response => {
         console.log(response.status)

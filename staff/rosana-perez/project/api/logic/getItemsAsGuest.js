@@ -7,7 +7,7 @@ function getItemsAsGuest() {
 
     return Item.find({}, '-__v')
         .populate('author', 'username _id')
-        .populate('sold')
+        .populate('type sold')
         .sort({ date: -1 })
         .lean()
         .then(items => {

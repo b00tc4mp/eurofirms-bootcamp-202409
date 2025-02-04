@@ -7,25 +7,7 @@ import { errors } from 'com'
 
 const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFoundError, OwnershipError } = errors
 
-import registerUser from './logic/registerUser.js'
-import authenticateUser from './logic/authenticateUser.js'
-import getUserName from './logic/getUserName.js'
-import getUser from './logic/getUser.js'
-import editUserData from './logic/editUserData.js'
-import createItem from './logic/createItem.js'
-import getItems from './logic/getItems.js'
-import getItemsAsGuest from './logic/getItemsAsGuest.js'
-import getItem from './logic/getItem.js'
-import getItemsFromUser from './logic/getItemsFromUser.js'
-import getFavItems from './logic/getFavItems.js'
-import deleteItem from './logic/deleteItem.js'
-import toggleSoldItem from './logic/toggleSoldItem.js'
-import editItem from './logic/editItem.js'
-import toggleFavItem from './logic/toggleFavItem.js'
-import sendMessage from './logic/sendMessage.js'
-import getChats from './logic/getChats.js'
-import getChat from './logic/getChat.js'
-
+import logic from './logic/index.js'
 
 const { MONGO_URL, JWT_SECRET, PORT } = process.env
 
@@ -66,8 +48,7 @@ mongoose.connect(MONGO_URL)
 
             return userId
         }
-
-
+        //register user
         api.post('/users', jsonBodyParser, (req, res) => {
             try {
                 const name = req.body.name
@@ -76,20 +57,20 @@ mongoose.connect(MONGO_URL)
                 const username = req.body.username
                 const password = req.body.password
 
-                registerUser(name, location, email, username, password)
+                logic.registerUser(name, location, email, username, password)
                     .then(() => res.status(201).send())
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //login
         api.post('/users/auth', jsonBodyParser, (req, res) => {
             try {
                 const username = req.body.username
                 const password = req.body.password
 
-                authenticateUser(username, password)
+                logic.authenticateUser(username, password)
                     .then(userId => jwt.sign({ sub: userId }, JWT_SECRET))
                     .then(token => res.json(token))
                     .catch(error => handleError(res, error))
@@ -97,32 +78,32 @@ mongoose.connect(MONGO_URL)
                 handleError(res, error)
             }
         })
-
+        //get user name
         api.get('/users/:targetUserId/name', (req, res) => {
             try {
                 const userId = verifyToken(req)
                 const targetUserId = req.params.targetUserId
 
-                getUserName(userId, targetUserId)
+                logic.getUserName(userId, targetUserId)
                     .then(userName => res.json(userName))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //get user
         api.get('/users/:userId', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
-                getUser(userId)
+                logic.getUser(userId)
                     .then(user => res.json(user))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //edit user data
         api.patch('/users/:userId', jsonBodyParser, (req, res) => {
             try {
                 const userId = verifyToken(req)
@@ -133,41 +114,40 @@ mongoose.connect(MONGO_URL)
                 const username = req.body.username
                 const password = req.body.password
 
-                editUserData(userId, name, location, email, username, password)
+                logic.editUserData(userId, name, location, email, username, password)
                     .then(() => res.status(204).send())
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //get user favs
         api.get('/users/:userId/favs', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
-                getFavItems(userId)
+                logic.getFavItems(userId)
                     .then(favItems => res.json(favItems))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //toggle an item of user favs registration
         api.post('/users/favs/:itemId/', (req, res) => {
 
             const userId = verifyToken(req)
 
             const itemId = req.params.itemId
 
-            toggleFavItem(userId, itemId)
+            logic.toggleFavItem(userId, itemId)
                 .then(() => {
                     return res.status(200).send()
                 })
                 .catch(error => handleError(res, error))
 
         })
-
-
+        //create item
         api.post('/items', jsonBodyParser, (req, res) => {
             try {
                 const userId = verifyToken(req)
@@ -176,56 +156,57 @@ mongoose.connect(MONGO_URL)
                 const image = req.body.image
                 const title = req.body.title
                 const description = req.body.description
+                const type = req.body.type
                 const sold = req.body.sold
 
-                createItem(userId, location, image, title, description, sold)
+                logic.createItem(userId, location, image, title, description, type, sold)
                     .then(() => res.status(201).send())
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //get items
         api.get('/items', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
-                getItems(userId)
+                logic.getItems(userId)
                     .then(items => res.json(items))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //get items as guest user
         api.get('/items/guest', (req, res) => {
             try {
-                getItemsAsGuest()
+                logic.getItemsAsGuest()
                     .then(items => res.json(items))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //get items created by user logged in
         api.get('/items/owner', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
-                getItemsFromUser(userId)
+                logic.getItemsFromUser(userId)
                     .then(items => res.json(items))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //get item by itemId
         api.get('/items/:itemId', (req, res) => {
             try {
                 const userId = req.headers.authorization && verifyToken(req)
                 const itemId = req.params.itemId
 
-                getItem(userId, itemId)
+                logic.getItem(userId, itemId)
                     .then(item => {
                         if (userId) {
                             item.userId = userId
@@ -237,7 +218,7 @@ mongoose.connect(MONGO_URL)
                 handleError(res, error)
             }
         })
-
+        //edit an item title
         api.patch('/items/:itemId', jsonBodyParser, (req, res) => {
             try {
                 const userId = verifyToken(req)
@@ -246,42 +227,42 @@ mongoose.connect(MONGO_URL)
 
                 const title = req.body.title
 
-                editItem(userId, itemId, title)
+                logic.editItem(userId, itemId, title)
                     .then(() => res.status(204).send())
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //delete an item
         api.delete('/items/:itemId', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
                 const itemId = req.params.itemId
 
-                deleteItem(userId, itemId)
+                logic.deleteItem(userId, itemId)
                     .then(() => res.status(204).send())
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //toggle an item as sold[false/true]
         api.patch('/sold/:itemId', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
                 const itemId = req.params.itemId
 
-                toggleSoldItem(userId, itemId)
+                logic.toggleSoldItem(userId, itemId)
                     .then(() => res.status(204).send())
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //send a message into a user chat to author of item
         api.post('/chats', jsonBodyParser, (req, res) => {
 
             const userId = verifyToken(req)
@@ -290,38 +271,37 @@ mongoose.connect(MONGO_URL)
             const chatId = req.body.chatId
             const itemId = req.body.itemId
 
-            sendMessage(userId, content, chatId, itemId)
+            logic.sendMessage(userId, content, chatId, itemId)
                 .then(() => {
                     return res.status(201).send()
                 })
                 .catch(error => handleError(res, error))
         })
-
+        //get chats at user logged in
         api.get('/chats', (req, res) => {
             try {
                 const userId = verifyToken(req)
 
-                getChats(userId)
+                logic.getChats(userId)
                     .then(chats => res.json(chats))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
+        //get a chat by chatId
         api.get('/chats/:chatId', (req, res) => {
             try {
                 const userId = verifyToken(req)
                 const chatId = req.params.chatId
 
-                getChat(userId, chatId)
+                logic.getChat(userId, chatId)
                     .then(chat => res.json(chat))
                     .catch(error => handleError(res, error))
             } catch (error) {
                 handleError(res, error)
             }
         })
-
 
         api.listen(PORT, () => console.log(`API is up on ${PORT}`))
     })

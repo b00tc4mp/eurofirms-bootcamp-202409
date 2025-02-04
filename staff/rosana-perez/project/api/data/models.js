@@ -65,6 +65,11 @@ const item = new Schema({
         required: true,
         minLength: 3
     },
+    type: {
+        type: String,
+        required: true,
+        minLength: 3
+    },
     sold: {
         type: Boolean,
         required: true

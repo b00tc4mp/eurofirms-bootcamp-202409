@@ -66,6 +66,10 @@ const validate = {
         if (typeof description !== 'string') throw new ValidationError('invalid description')
     },
 
+    type(type) {
+        if (typeof type !== 'string') throw new ValidationError('invalid type')
+    },
+
     chatId(chatId) {
         if (typeof chatId !== 'string') throw new ValidationError('invalid chatId')
 
