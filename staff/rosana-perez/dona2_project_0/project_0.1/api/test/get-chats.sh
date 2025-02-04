@@ -1,1 +1,0 @@
-curl -X 'GET' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzZkODhjMzI5ODVlYjE1MWZkZjc1ZmEiLCJpYXQiOjE3MzY1MDg4NDJ9.uVJD35XPz08qdnRYO6FIury6zNFFQId8L4UlU3Geq-E' http://localhost:8081/chats -v
