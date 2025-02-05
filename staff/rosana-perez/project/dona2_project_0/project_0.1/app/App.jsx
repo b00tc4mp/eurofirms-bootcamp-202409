@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 
-import Welcome from './view/Welcome'
-import Login from './view/Login'
-import Register from './view/Register'
-import Home from './view/Home'
-import ItemsAsGuest from './view/ItemsAsGuest'
+import Welcome from './view/Welcome.js'
+import Login from './view/Login.js'
+import Register from './view/Register.js'
+import Home from './view/Home.js'
+import ItemsAsGuest from './view/ItemsAsGuest.js'
 
 import logic from './logic/index.js'
 

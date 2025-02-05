@@ -8,6 +8,7 @@ import { Field, FieldGroup, Fieldset, Label } from '../components/fieldset'
 import logic from '../logic/index.js'
 
 import LocationListBox from '../components/LocationListBox.jsx'
+import ItemTypesListBox from '../components/ItemTypesListBox.jsx'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -44,12 +45,13 @@ function CreateItem() {
         const image = form.image.value
         const title = form.title.value
         const description = form.description.value
+        const type = form.type.value
         const sold = false
 
-        const newItemData = { location, image, title, description, sold }
+        const newItemData = { location, image, title, description, type, sold }
 
         try {
-            logic.createItem(location, image, title, description, sold)
+            logic.createItem(location, image, title, description, type, sold)
                 .then(() => navigate("/", { state: { newItemData } }))
                 .catch(error => handleError(error))
         } catch (error) { handleError(error) }
@@ -70,7 +72,15 @@ function CreateItem() {
                                             <Label htmlFor="location" name="location">Location</Label>
                                             <LocationListBox />
                                         </Field>
+                                    </div>
+                                </Field>
 
+                                <Field>
+                                    <div className="input-with-select w-full">
+                                        <Field>
+                                            <Label htmlFor="type" name="type">Type</Label>
+                                            <ItemTypesListBox />
+                                        </Field>
                                     </div>
                                 </Field>
 

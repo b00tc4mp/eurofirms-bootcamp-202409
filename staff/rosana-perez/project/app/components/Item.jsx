@@ -42,7 +42,7 @@ function Item(props) {
 
     const userLoggedIn = isUserLoggedIn()
 
-    const { id: itemId, author, location, image, title, sold, own, fav, updatedAt } = props.item || {}
+    const { id: itemId, author, location, image, title, type, sold, own, fav, updatedAt } = props.item || {}
     const itemDate = util.formatIsoDate(updatedAt)
 
     const handleOnMessage = event => {
@@ -102,13 +102,11 @@ function Item(props) {
                             <div className="flex justify-between items-start m-1 text-xs text-[#4B5563]">
                                 <h3>{author?.username}</h3>
                                 <p>{location}</p>
-                                <p>Type: {type}</p>
                             </div>
 
                             <p className="mt-1 flex items-start text-lg font-medium text-gray-900">{title}</p>
-                            {/* <Text className="mt-1 flex items-start text-sm font-medium">{description}</Text> */}
-
                         </section>
+
                         {userLoggedIn && (
                             <div className="mt-4 flex flex-wrap justify-between gap-2">
                                 {!own && (
