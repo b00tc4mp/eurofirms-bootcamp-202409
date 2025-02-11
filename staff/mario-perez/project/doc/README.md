@@ -33,6 +33,7 @@ User
 - Add parking place
 - Edit parking place ( details such as registration car, spot number and level)
 - Remove place
+- View parkings places
 
 #### Future use cases
 

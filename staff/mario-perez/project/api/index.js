@@ -4,7 +4,7 @@ import cors from 'cors'
 import jwt from 'jsonwebtoken'
 import { errors } from 'com'
 
-const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFoundError, OwnerShipError } = errors
+const { ValidationError, DuplicityError, SystemError, CredentialsError, NotFoundError, OwnerShipError, TimeError } = errors
 
 
 import registerUser from './logic/registerUser.js'
