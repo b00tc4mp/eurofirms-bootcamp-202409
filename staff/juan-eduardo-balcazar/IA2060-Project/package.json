@@ -1,27 +1,43 @@
 {
-  "name": "ia2060-project",
-  "version": "1.0.0",
+  "name": "name",
   "type": "module",
-  "description": "Proyecto para eurofirms bootcamp",
-  "main": "./api/server.js",
-  "proxy": "http://localhost:5000",
+  "description": "description",
+  "main": "server.js",
   "scripts": {
-    "start": "node ./api/server.js",
-    "dev": "nodemon ./api/server.js",
+    "build:css": "npx tailwindcss -i ./src/css/styles.css -o ./public/css/styles.css --watch",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.0"
+  },
+  "version": "1.0.0",
+  "private": true,
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.9.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "mongoose": "^8.10.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^5.0.1"
   },
-  "devDependencies": {
-    "@babel/core": "^7.x",
-    "@babel/node": "^7.x",
-    "@babel/preset-env": "^7.x",
-    "@babel/preset-react": "^7.x"
+  "proxy": "http://localhost:8000",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

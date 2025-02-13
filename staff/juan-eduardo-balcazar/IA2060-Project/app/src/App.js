@@ -1,16 +1,13 @@
 import React from 'react';
+import RoleSelector from './components/RoleSelector.js';
 
 function App() {
     return (
         <div>
-            <header>
-                <h1>¡Bienvenido a mi aplicación!</h1>
-            </header>
-            <main>
-                <p>Esta es una aplicación React básica.</p>
-            </main>
+            <RoleSelector />
         </div>
     );
 }
 
 export default App;
+

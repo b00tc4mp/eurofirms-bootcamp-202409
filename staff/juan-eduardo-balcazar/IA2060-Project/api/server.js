@@ -7,7 +7,7 @@ import userRoutes from './routes/userRoutes.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 const DB_URL = process.env.DB_URL;
 
 // Middleware para parsear JSON
@@ -58,4 +58,19 @@ app.use(cors({
     origin: 'http://localhost:4000',
     credentials: true
 }));
+app.get('/favicon.ico', (req, res) => res.status(204));  // Evita que se intente buscar un favicon
 
+
+
+
+const express = require('express');
+// const app = express();
+
+app.get('/', (req, res) => {
+    res.send('API funcionando');
+});
+
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Servidor en http://localhost:${port}`);
+});
